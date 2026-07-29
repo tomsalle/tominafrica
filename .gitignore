@@ -1,0 +1,21 @@
+node_modules/
+.next/
+out/
+build/
+dist/
+
+.env
+.env.local
+.env*.local
+
+.DS_Store
+*.pem
+npm-debug.log*
+yarn-error.log*
+
+.vercel
+next-env.d.ts
+tsconfig.tsbuildinfo
+
+# Dossier local des photos sources (jamais versionné : fichiers lourds)
+photos-source/

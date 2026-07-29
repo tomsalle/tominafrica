@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 2400 1600" width="2400" height="1600" role="img" aria-label="Visuel provisoire">
+<defs>
+<linearGradient id="sky" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#7a3a2a"/><stop offset="100%" stop-color="#e89a5c"/></linearGradient>
+<linearGradient id="ground" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#5c7f96"/><stop offset="100%" stop-color="#2f4557"/></linearGradient>
+<radialGradient id="glow" cx="55%" cy="60%" r="60%"><stop offset="0%" stop-color="#ffd3a0" stop-opacity="0.55"/><stop offset="100%" stop-color="#ffd3a0" stop-opacity="0"/></radialGradient>
+<linearGradient id="vig" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#000" stop-opacity="0.34"/><stop offset="45%" stop-color="#000" stop-opacity="0"/><stop offset="100%" stop-color="#000" stop-opacity="0.42"/></linearGradient>
+<filter id="grain"><feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="3"/><feColorMatrix type="saturate" values="0"/></filter>
+</defs>
+<rect width="2400" height="1600" fill="url(#sky)"/>
+<rect y="960" width="2400" height="640" fill="url(#ground)"/>
+<rect width="2400" height="1600" fill="url(#glow)"/>
+<path d="M760 1210 l520 0 l-70 76 l-380 0 z" fill="rgba(12,10,9,0.82)"/><path d="M1010 1206 L1010 770 L1290 1206 Z" fill="rgba(240,232,216,0.88)"/><path d="M1010 1206 L1010 900 L830 1206 Z" fill="rgba(240,232,216,0.6)"/><ellipse cx="1120" cy="660" rx="130" ry="130" fill="#ffd3a0" opacity="0.85"/>
+<rect width="2400" height="1600" fill="url(#vig)"/>
+<rect width="2400" height="1600" filter="url(#grain)" opacity="0.07"/>
+</svg>

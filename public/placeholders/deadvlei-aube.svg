@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 2400 1600" width="2400" height="1600" role="img" aria-label="Visuel provisoire">
+<defs>
+<linearGradient id="sky" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#1c2a4a"/><stop offset="100%" stop-color="#3f5f8f"/></linearGradient>
+<linearGradient id="ground" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#e8a45c"/><stop offset="100%" stop-color="#c9762f"/></linearGradient>
+<radialGradient id="glow" cx="55%" cy="62%" r="60%"><stop offset="0%" stop-color="#f2ddb8" stop-opacity="0.55"/><stop offset="100%" stop-color="#f2ddb8" stop-opacity="0"/></radialGradient>
+<linearGradient id="vig" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#000" stop-opacity="0.34"/><stop offset="45%" stop-color="#000" stop-opacity="0"/><stop offset="100%" stop-color="#000" stop-opacity="0.42"/></linearGradient>
+<filter id="grain"><feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="3"/><feColorMatrix type="saturate" values="0"/></filter>
+</defs>
+<rect width="2400" height="1600" fill="url(#sky)"/>
+<rect y="992" width="2400" height="608" fill="url(#ground)"/>
+<rect width="2400" height="1600" fill="url(#glow)"/>
+<path d="M420 992 l-14 -300 l-46 -96 l52 72 l-8 -126 l44 90 l14 -102.00000000000001 l-4 156 l40 -60 l-46 108 l16 84.00000000000001 z" fill="rgba(12,10,9,0.82)"/><path d="M780 992 l-14 -390 l-46 -124.8 l52 93.6 l-8 -163.79999999999998 l44 117 l14 -132.60000000000002 l-4 202.8 l40 -78 l-46 140.4 l16 109.20000000000002 z" fill="rgba(12,10,9,0.82)"/><path d="M1150 992 l-14 -480 l-46 -153.6 l52 115.19999999999999 l-8 -201.6 l44 144 l14 -163.20000000000002 l-4 249.60000000000002 l40 -96 l-46 172.79999999999998 l16 134.4 z" fill="rgba(12,10,9,0.82)"/><path d="M1560 992 l-14 -300 l-46 -96 l52 72 l-8 -126 l44 90 l14 -102.00000000000001 l-4 156 l40 -60 l-46 108 l16 84.00000000000001 z" fill="rgba(12,10,9,0.82)"/><path d="M1980 992 l-14 -390 l-46 -124.8 l52 93.6 l-8 -163.79999999999998 l44 117 l14 -132.60000000000002 l-4 202.8 l40 -78 l-46 140.4 l16 109.20000000000002 z" fill="rgba(12,10,9,0.82)"/>
+<rect width="2400" height="1600" fill="url(#vig)"/>
+<rect width="2400" height="1600" filter="url(#grain)" opacity="0.07"/>
+</svg>

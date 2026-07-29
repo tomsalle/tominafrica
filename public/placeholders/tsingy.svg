@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 2400 1600" width="2400" height="1600" role="img" aria-label="Visuel provisoire">
+<defs>
+<linearGradient id="sky" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#2f4a5c"/><stop offset="100%" stop-color="#7fa3b8"/></linearGradient>
+<linearGradient id="ground" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#8f887c"/><stop offset="100%" stop-color="#57534a"/></linearGradient>
+<radialGradient id="glow" cx="55%" cy="45%" r="60%"><stop offset="0%" stop-color="#c9c2b4" stop-opacity="0.55"/><stop offset="100%" stop-color="#c9c2b4" stop-opacity="0"/></radialGradient>
+<linearGradient id="vig" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#000" stop-opacity="0.34"/><stop offset="45%" stop-color="#000" stop-opacity="0"/><stop offset="100%" stop-color="#000" stop-opacity="0.42"/></linearGradient>
+<filter id="grain"><feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="3"/><feColorMatrix type="saturate" values="0"/></filter>
+</defs>
+<rect width="2400" height="1600" fill="url(#sky)"/>
+<rect y="720" width="2400" height="880" fill="url(#ground)"/>
+<rect width="2400" height="1600" fill="url(#glow)"/>
+<path d="M0 1600 L30 540 L62 1600 Z" fill="rgba(38,36,32,0.72)"/><path d="M114 1600 L144 410 L176 1600 Z" fill="rgba(38,36,32,0.72)"/><path d="M228 1600 L258 280 L290 1600 Z" fill="rgba(38,36,32,0.72)"/><path d="M288 1600 L318 150 L350 1600 Z" fill="rgba(38,36,32,0.72)"/><path d="M402 1600 L432 20 L464 1600 Z" fill="rgba(38,36,32,0.72)"/><path d="M516 1600 L546 -110 L578 1600 Z" fill="rgba(38,36,32,0.72)"/><path d="M576 1600 L606 540 L638 1600 Z" fill="rgba(38,36,32,0.72)"/><path d="M690 1600 L720 410 L752 1600 Z" fill="rgba(38,36,32,0.72)"/><path d="M804 1600 L834 280 L866 1600 Z" fill="rgba(38,36,32,0.72)"/><path d="M864 1600 L894 150 L926 1600 Z" fill="rgba(38,36,32,0.72)"/><path d="M978 1600 L1008 20 L1040 1600 Z" fill="rgba(38,36,32,0.72)"/><path d="M1092 1600 L1122 -110 L1154 1600 Z" fill="rgba(38,36,32,0.72)"/><path d="M1152 1600 L1182 540 L1214 1600 Z" fill="rgba(38,36,32,0.72)"/><path d="M1266 1600 L1296 410 L1328 1600 Z" fill="rgba(38,36,32,0.72)"/><path d="M1380 1600 L1410 280 L1442 1600 Z" fill="rgba(38,36,32,0.72)"/><path d="M1440 1600 L1470 150 L1502 1600 Z" fill="rgba(38,36,32,0.72)"/><path d="M1554 1600 L1584 20 L1616 1600 Z" fill="rgba(38,36,32,0.72)"/><path d="M1668 1600 L1698 -110 L1730 1600 Z" fill="rgba(38,36,32,0.72)"/><path d="M1728 1600 L1758 540 L1790 1600 Z" fill="rgba(38,36,32,0.72)"/><path d="M1842 1600 L1872 410 L1904 1600 Z" fill="rgba(38,36,32,0.72)"/><path d="M1956 1600 L1986 280 L2018 1600 Z" fill="rgba(38,36,32,0.72)"/><path d="M2016 1600 L2046 150 L2078 1600 Z" fill="rgba(38,36,32,0.72)"/><path d="M2130 1600 L2160 20 L2192 1600 Z" fill="rgba(38,36,32,0.72)"/><path d="M2244 1600 L2274 -110 L2306 1600 Z" fill="rgba(38,36,32,0.72)"/><path d="M2304 1600 L2334 540 L2366 1600 Z" fill="rgba(38,36,32,0.72)"/><path d="M2418 1600 L2448 410 L2480 1600 Z" fill="rgba(38,36,32,0.72)"/>
+<rect width="2400" height="1600" fill="url(#vig)"/>
+<rect width="2400" height="1600" filter="url(#grain)" opacity="0.07"/>
+</svg>

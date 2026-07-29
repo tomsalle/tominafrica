@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 2400 1600" width="2400" height="1600" role="img" aria-label="Visuel provisoire">
+<defs>
+<linearGradient id="sky" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#8a3d1c"/><stop offset="100%" stop-color="#e0783a"/></linearGradient>
+<linearGradient id="ground" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#96502a"/><stop offset="100%" stop-color="#5c2b16"/></linearGradient>
+<radialGradient id="glow" cx="55%" cy="72%" r="60%"><stop offset="0%" stop-color="#ffc27a" stop-opacity="0.55"/><stop offset="100%" stop-color="#ffc27a" stop-opacity="0"/></radialGradient>
+<linearGradient id="vig" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#000" stop-opacity="0.34"/><stop offset="45%" stop-color="#000" stop-opacity="0"/><stop offset="100%" stop-color="#000" stop-opacity="0.42"/></linearGradient>
+<filter id="grain"><feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="3"/><feColorMatrix type="saturate" values="0"/></filter>
+</defs>
+<rect width="2400" height="1600" fill="url(#sky)"/>
+<rect y="1152" width="2400" height="448" fill="url(#ground)"/>
+<rect width="2400" height="1600" fill="url(#glow)"/>
+<path d="M288 1152 L311.4 772 L368.6 772 L392 1152 Z" fill="rgba(12,10,9,0.82)"/><g stroke="rgba(12,10,9,0.82)" stroke-width="14" fill="none"><path d="M340 772 l-90 -70"/><path d="M340 772 l88 -60"/><path d="M340 772 l-20 -96"/><path d="M340 772 l46 -84"/></g><path d="M692 1152 L722.6 702 L797.4 702 L828 1152 Z" fill="rgba(12,10,9,0.82)"/><g stroke="rgba(12,10,9,0.82)" stroke-width="14" fill="none"><path d="M760 702 l-90 -70"/><path d="M760 702 l88 -60"/><path d="M760 702 l-20 -96"/><path d="M760 702 l46 -84"/></g><path d="M1128 1152 L1151.4 632 L1208.6 632 L1232 1152 Z" fill="rgba(12,10,9,0.82)"/><g stroke="rgba(12,10,9,0.82)" stroke-width="14" fill="none"><path d="M1180 632 l-90 -70"/><path d="M1180 632 l88 -60"/><path d="M1180 632 l-20 -96"/><path d="M1180 632 l46 -84"/></g><path d="M1572 1152 L1602.6 772 L1677.4 772 L1708 1152 Z" fill="rgba(12,10,9,0.82)"/><g stroke="rgba(12,10,9,0.82)" stroke-width="14" fill="none"><path d="M1640 772 l-90 -70"/><path d="M1640 772 l88 -60"/><path d="M1640 772 l-20 -96"/><path d="M1640 772 l46 -84"/></g><path d="M2028 1152 L2051.4 702 L2108.6 702 L2132 1152 Z" fill="rgba(12,10,9,0.82)"/><g stroke="rgba(12,10,9,0.82)" stroke-width="14" fill="none"><path d="M2080 702 l-90 -70"/><path d="M2080 702 l88 -60"/><path d="M2080 702 l-20 -96"/><path d="M2080 702 l46 -84"/></g>
+<rect width="2400" height="1600" fill="url(#vig)"/>
+<rect width="2400" height="1600" filter="url(#grain)" opacity="0.07"/>
+</svg>
