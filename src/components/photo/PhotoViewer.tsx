@@ -91,14 +91,18 @@ export function PhotoViewer({ photo }: { photo: PhotoRow }) {
             photo prévisualise ce qui est effectivement facturé. Par défaut,
             la photo seule ; en mode encadré, un cadre noir directement
             contre l'image — pas de passe-partout — sur un fond plus clair
-            que la page pour que le cadre noir s'y détache. */}
+            que la page pour que le cadre noir s'y détache.
+
+            Hauteur plafonnée (max-height) plutôt que largeur pleine colonne
+            (width: 100%) : un portrait plein cadre dépasserait la hauteur de
+            l'écran et empêcherait de voir la photo entière sans défiler. */}
         {framed ? (
-          <div className="bg-[radial-gradient(ellipse_at_center,var(--color-paper-faint),var(--color-ink-line))] px-5 py-10 sm:px-10 sm:py-16">
+          <div className="flex justify-center bg-[radial-gradient(ellipse_at_center,var(--color-paper-faint),var(--color-ink-line))] px-5 py-10 sm:px-10 sm:py-16">
             <div className="bg-black p-3 shadow-2xl shadow-black/50 sm:p-4">
               <button
                 type="button"
                 onClick={openZoom}
-                className="group relative block w-full cursor-zoom-in overflow-hidden"
+                className="group relative block max-h-[45dvh] w-auto max-w-full cursor-zoom-in overflow-hidden"
                 style={{ aspectRatio: ratio }}
                 aria-label={`Agrandir « ${photo.title} »`}
               >
@@ -108,7 +112,7 @@ export function PhotoViewer({ photo }: { photo: PhotoRow }) {
                   fill
                   priority
                   sizes={SIZES.full}
-                  className={`object-cover transition-[filter] duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] ${
+                  className={`object-contain transition-[filter] duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] ${
                     blackAndWhite ? 'grayscale' : ''
                   }`}
                   {...(photo.blur_data_url
@@ -119,27 +123,29 @@ export function PhotoViewer({ photo }: { photo: PhotoRow }) {
             </div>
           </div>
         ) : (
-          <button
-            type="button"
-            onClick={openZoom}
-            className="group relative block w-full cursor-zoom-in overflow-hidden bg-ink-soft"
-            style={{ aspectRatio: ratio }}
-            aria-label={`Agrandir « ${photo.title} »`}
-          >
-            <Image
-              src={photoSrc(photo.image_path)}
-              alt={photo.title}
-              fill
-              priority
-              sizes={SIZES.full}
-              className={`object-cover transition-[filter] duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] ${
-                blackAndWhite ? 'grayscale' : ''
-              }`}
-              {...(photo.blur_data_url
-                ? { placeholder: 'blur' as const, blurDataURL: photo.blur_data_url }
-                : {})}
-            />
-          </button>
+          <div className="flex justify-center">
+            <button
+              type="button"
+              onClick={openZoom}
+              className="group relative block max-h-[65dvh] w-auto max-w-full cursor-zoom-in overflow-hidden bg-ink-soft"
+              style={{ aspectRatio: ratio }}
+              aria-label={`Agrandir « ${photo.title} »`}
+            >
+              <Image
+                src={photoSrc(photo.image_path)}
+                alt={photo.title}
+                fill
+                priority
+                sizes={SIZES.full}
+                className={`object-contain transition-[filter] duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] ${
+                  blackAndWhite ? 'grayscale' : ''
+                }`}
+                {...(photo.blur_data_url
+                  ? { placeholder: 'blur' as const, blurDataURL: photo.blur_data_url }
+                  : {})}
+              />
+            </button>
+          </div>
         )}
 
         <div className="mt-7 flex justify-center">
