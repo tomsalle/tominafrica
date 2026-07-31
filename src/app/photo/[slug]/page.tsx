@@ -85,14 +85,14 @@ export default async function PhotoPage({ params }: PageProps) {
                 <PhotoStory story={photo.story} title={photo.title} />
               </Reveal>
 
-              {photo.series?.country_code ? (
+              {photo.country_code ? (
                 <Reveal>
                   <section aria-labelledby="pays-titre">
                     <h2 id="pays-titre" className="eyebrow">
                       Le pays
                     </h2>
                     <div className="mt-7 max-w-xs">
-                      <AfricaMap countryCode={photo.series.country_code} />
+                      <AfricaMap countryCode={photo.country_code} />
                     </div>
                   </section>
                 </Reveal>

@@ -29,7 +29,6 @@ export type Database = {
           subtitle: string | null;
           description: string | null;
           location_label: string | null;
-          country_code: string | null;
           cover_photo_id: string | null;
           position: number;
           published: boolean;
@@ -43,7 +42,6 @@ export type Database = {
           subtitle?: string | null;
           description?: string | null;
           location_label?: string | null;
-          country_code?: string | null;
           cover_photo_id?: string | null;
           position?: number;
           published?: boolean;
@@ -63,6 +61,7 @@ export type Database = {
           caption: string | null;
           story: string | null;
           location_name: string | null;
+          country_code: string | null;
           latitude: number | null;
           longitude: number | null;
           map_zoom: number;
@@ -86,6 +85,7 @@ export type Database = {
           caption?: string | null;
           story?: string | null;
           location_name?: string | null;
+          country_code?: string | null;
           latitude?: number | null;
           longitude?: number | null;
           map_zoom?: number;
@@ -302,7 +302,7 @@ export type OrderItemInsert = PublicTables['order_items']['Insert'];
 
 /** Une photo accompagnée de ses options de tirage (page produit). */
 export type PhotoWithOptions = PhotoRow & {
-  series: Pick<SeriesRow, 'id' | 'slug' | 'title' | 'country_code'> | null;
+  series: Pick<SeriesRow, 'id' | 'slug' | 'title'> | null;
   print_options: PrintOptionRow[];
 };
 

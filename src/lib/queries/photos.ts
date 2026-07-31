@@ -3,7 +3,7 @@ import type { PhotoRow, PhotoWithOptions, PrintOptionRow } from '@/types/databas
 
 const PHOTO_WITH_OPTIONS = `
   *,
-  series:series!photos_series_id_fkey (id, slug, title, country_code),
+  series:series!photos_series_id_fkey (id, slug, title),
   print_options (*)
 `;
 
