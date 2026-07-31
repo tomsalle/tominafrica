@@ -95,6 +95,23 @@
     transform: scaleX(1);
     transform-origin: left;
   }
+
+  /* Page produit : titre, photo encadrée et contenu.
+     Mobile : empilés dans l'ordre de lecture (titre, photo, contenu).
+     Desktop : la photo occupe une colonne à part, qui reste visible
+     (position sticky posée sur l'élément) pendant que le contenu défile. */
+  .photo-layout {
+    display: grid;
+    grid-template-areas: 'title' 'photo' 'content';
+  }
+
+  @media (min-width: 64rem) {
+    .photo-layout {
+      grid-template-columns: minmax(0, 1.2fr) 28rem;
+      grid-template-areas: 'photo title' 'photo content';
+      align-items: start;
+    }
+  }
 }
 
 /* ---------------------------------------------------------------------------
@@ -158,5 +175,37 @@
   100% {
     transform: scale(1.5);
     opacity: 0;
+  }
+}
+
+/* ---------------------------------------------------------------------------
+   Zoom lent sur les images plein écran de l'accueil (effet « Ken Burns »),
+   et apparition douce de la photo sur la page produit.
+--------------------------------------------------------------------------- */
+.animate-hero-zoom {
+  animation: hero-zoom 20s var(--ease-out-soft) forwards;
+}
+
+@keyframes hero-zoom {
+  from {
+    transform: scale(1);
+  }
+  to {
+    transform: scale(1.08);
+  }
+}
+
+.animate-photo-in {
+  animation: photo-in 900ms var(--ease-out-soft) both;
+}
+
+@keyframes photo-in {
+  from {
+    opacity: 0;
+    transform: scale(0.97);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
   }
 }

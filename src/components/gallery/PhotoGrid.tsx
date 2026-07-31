@@ -1,5 +1,11 @@
 import { PhotoCard } from '@/components/gallery/PhotoCard';
+import { Reveal } from '@/components/ui/Reveal';
 import type { PhotoRow } from '@/types/database';
+
+// Cycle sur 3 colonnes (desktop) : au-delà, les décalages se répètent au lieu
+// de s'allonger indéfiniment ligne après ligne.
+const STAGGER_STEP_MS = 90;
+const STAGGER_COLUMNS = 3;
 
 export function PhotoGrid({ photos }: { photos: PhotoRow[] }) {
   if (photos.length === 0) {
@@ -9,7 +15,9 @@ export function PhotoGrid({ photos }: { photos: PhotoRow[] }) {
   return (
     <div className="grid grid-cols-1 gap-x-8 gap-y-14 sm:grid-cols-2 lg:grid-cols-3">
       {photos.map((photo, index) => (
-        <PhotoCard key={photo.id} photo={photo} priority={index < 3} />
+        <Reveal key={photo.id} delay={(index % STAGGER_COLUMNS) * STAGGER_STEP_MS}>
+          <PhotoCard photo={photo} priority={index < 3} />
+        </Reveal>
       ))}
     </div>
   );

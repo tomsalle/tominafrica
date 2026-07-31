@@ -5,7 +5,10 @@ import type { PhotoRow } from '@/types/database';
 
 export function PhotoCard({ photo, priority = false }: { photo: PhotoRow; priority?: boolean }) {
   return (
-    <Link href={`/photo/${photo.slug}`} className="group block">
+    <Link
+      href={`/photo/${photo.slug}`}
+      className="group block transition-transform duration-200 ease-[cubic-bezier(0.22,1,0.36,1)] active:scale-[0.98]"
+    >
       <div className="relative aspect-4/3 overflow-hidden bg-ink-soft">
         <Image
           src={photoSrc(photo.image_path)}

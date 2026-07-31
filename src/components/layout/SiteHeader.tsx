@@ -21,12 +21,20 @@ export function SiteHeader() {
   const count = cartCount(items);
 
   // Le header est transparent sur les grandes images, puis se solidifie dès
-  // qu'on quitte le haut de page — sans quoi il devient illisible.
+  // qu'on quitte le haut de page — sans quoi il devient illisible. Observer
+  // la sentinelle plutôt qu'écouter le scroll évite de recalculer l'état à
+  // chaque frame.
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 24);
-    onScroll();
-    window.addEventListener('scroll', onScroll, { passive: true });
-    return () => window.removeEventListener('scroll', onScroll);
+    const sentinel = document.getElementById('scroll-sentinel');
+    if (!sentinel) return;
+
+    const observer = new IntersectionObserver(
+      (entries) => setScrolled(!entries[0]?.isIntersecting),
+      { rootMargin: '-24px 0px 0px 0px' },
+    );
+
+    observer.observe(sentinel);
+    return () => observer.disconnect();
   }, []);
 
   return (
@@ -73,22 +81,32 @@ export function SiteHeader() {
         </div>
       </div>
 
-      {menuOpen && (
-        <nav className="border-t border-ink-line px-5 pb-6 sm:hidden" aria-label="Navigation mobile">
-          {NAV.map((item) => (
-            <Link
-              key={item.href}
-              href={item.href}
-              // Fermeture au clic plutôt que par un effet sur le pathname : la
-              // navigation est l'événement, autant y réagir directement.
-              onClick={() => setMenuOpen(false)}
-              className="block py-4 font-display text-2xl font-light"
-            >
-              {item.label}
-            </Link>
-          ))}
-        </nav>
-      )}
+      {/* Toujours dans le DOM (plutôt qu'un rendu conditionnel) pour pouvoir
+          animer la fermeture, pas seulement l'ouverture. `inert` retire les
+          liens du parcours clavier/lecteur d'écran tant que le menu est
+          refermé, même si sa hauteur n'est pas encore tout à fait à zéro. */}
+      <nav
+        className={`overflow-hidden border-t px-5 transition-[max-height,opacity,border-color] duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] sm:hidden ${
+          menuOpen
+            ? 'max-h-96 border-ink-line pb-6 opacity-100'
+            : 'max-h-0 border-transparent pb-0 opacity-0'
+        }`}
+        aria-label="Navigation mobile"
+        inert={!menuOpen}
+      >
+        {NAV.map((item) => (
+          <Link
+            key={item.href}
+            href={item.href}
+            // Fermeture au clic plutôt que par un effet sur le pathname : la
+            // navigation est l'événement, autant y réagir directement.
+            onClick={() => setMenuOpen(false)}
+            className="block py-4 font-display text-2xl font-light"
+          >
+            {item.label}
+          </Link>
+        ))}
+      </nav>
     </header>
   );
 }
