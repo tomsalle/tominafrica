@@ -21,6 +21,7 @@ export function PhotoViewer({ photo }: { photo: PhotoRow }) {
   const [mounted, setMounted] = useState(false);
   const [visible, setVisible] = useState(false);
   const [blackAndWhite, setBlackAndWhite] = useState(false);
+  const [framed, setFramed] = useState(false);
   const closeButtonRef = useRef<HTMLButtonElement>(null);
   const dialogRef = useRef<HTMLDivElement>(null);
 
@@ -85,12 +86,12 @@ export function PhotoViewer({ photo }: { photo: PhotoRow }) {
   return (
     <>
       <figure className="animate-photo-in">
-        {/* Maquette encadrée : fond en dégradé (mur de galerie), cadre noir,
-            passe-partout clair. Le passe-partout épais est voulu : c'est ce
-            qui fait « tirage encadré » plutôt que « photo dans un cadre ». */}
-        <div className="bg-[radial-gradient(ellipse_at_center,var(--color-ink-soft),var(--color-ink))] px-5 py-10 sm:px-10 sm:py-16">
-          <div className="bg-black p-2 shadow-2xl shadow-black/50 sm:p-3">
-            <div className="bg-paper p-5 sm:p-8 lg:p-10">
+        {/* Par défaut, la photo seule. En mode « encadré », un cadre noir
+            directement contre l'image — pas de passe-partout : c'est un
+            aperçu du tirage encadré, pas une maquette de galerie. */}
+        {framed ? (
+          <div className="bg-[radial-gradient(ellipse_at_center,var(--color-ink-soft),var(--color-ink))] px-5 py-10 sm:px-10 sm:py-16">
+            <div className="bg-black p-3 shadow-2xl shadow-black/50 sm:p-4">
               <button
                 type="button"
                 onClick={openZoom}
@@ -114,9 +115,32 @@ export function PhotoViewer({ photo }: { photo: PhotoRow }) {
               </button>
             </div>
           </div>
-        </div>
+        ) : (
+          <button
+            type="button"
+            onClick={openZoom}
+            className="group relative block w-full cursor-zoom-in overflow-hidden bg-ink-soft"
+            style={{ aspectRatio: ratio }}
+            aria-label={`Agrandir « ${photo.title} »`}
+          >
+            <Image
+              src={photoSrc(photo.image_path)}
+              alt={photo.title}
+              fill
+              priority
+              sizes={SIZES.full}
+              className={`object-cover transition-[filter] duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] ${
+                blackAndWhite ? 'grayscale' : ''
+              }`}
+              {...(photo.blur_data_url
+                ? { placeholder: 'blur' as const, blurDataURL: photo.blur_data_url }
+                : {})}
+            />
+          </button>
+        )}
 
-        <div className="mt-7 flex justify-center">
+        <div className="mt-7 flex flex-wrap items-center justify-center gap-3">
+          <FrameToggle framed={framed} onChange={setFramed} />
           <ColorModeToggle blackAndWhite={blackAndWhite} onChange={setBlackAndWhite} />
         </div>
 
@@ -180,6 +204,44 @@ export function PhotoViewer({ photo }: { photo: PhotoRow }) {
         </div>
       )}
     </>
+  );
+}
+
+/** Bascule Sans cadre / Encadré au-dessus de la photo. */
+function FrameToggle({
+  framed,
+  onChange,
+}: {
+  framed: boolean;
+  onChange: (value: boolean) => void;
+}) {
+  return (
+    <div
+      role="group"
+      aria-label="Aperçu encadré"
+      className="inline-flex rounded-full border border-ink-line p-1"
+    >
+      <button
+        type="button"
+        onClick={() => onChange(false)}
+        aria-pressed={!framed}
+        className={`rounded-full px-4 py-1.5 text-[0.6875rem] font-medium tracking-[0.18em] uppercase transition-colors duration-300 ${
+          !framed ? 'bg-paper text-ink' : 'text-paper-dim hover:text-paper'
+        }`}
+      >
+        Sans cadre
+      </button>
+      <button
+        type="button"
+        onClick={() => onChange(true)}
+        aria-pressed={framed}
+        className={`rounded-full px-4 py-1.5 text-[0.6875rem] font-medium tracking-[0.18em] uppercase transition-colors duration-300 ${
+          framed ? 'bg-paper text-ink' : 'text-paper-dim hover:text-paper'
+        }`}
+      >
+        Encadré
+      </button>
+    </div>
   );
 }
 
