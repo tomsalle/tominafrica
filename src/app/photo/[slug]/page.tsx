@@ -10,6 +10,7 @@ import { PurchasePanel } from '@/components/photo/PurchasePanel';
 import { Container } from '@/components/ui/Container';
 import { Reveal } from '@/components/ui/Reveal';
 import { formatMonthYear } from '@/lib/format';
+import { FramePreferenceProvider } from '@/lib/frame-preference';
 import { photoAbsoluteSrc } from '@/lib/images';
 import { getAllPhotoSlugs, getPhotoBySlug, getRelatedPhotos } from '@/lib/queries/photos';
 
@@ -58,65 +59,67 @@ export default async function PhotoPage({ params }: PageProps) {
         {/* Titre, photo encadrée et contenu : voir `.photo-layout` (globals.css).
             Sur desktop, la photo reste visible dans son cadre pendant que le
             récit, la carte et l'achat défilent à côté. */}
-        <div className="photo-layout gap-x-16 gap-y-14 sm:gap-y-16">
-          <div style={{ gridArea: 'title' }}>
-            <div className="flex flex-wrap items-baseline gap-x-4 gap-y-2">
-              {photo.series ? (
-                <Link href={`/series/${photo.series.slug}`} className="eyebrow link-underline">
-                  {photo.series.title}
-                </Link>
-              ) : null}
-              {takenAt ? <span className="eyebrow text-paper-faint">{takenAt}</span> : null}
+        <FramePreferenceProvider>
+          <div className="photo-layout gap-x-16 gap-y-14 sm:gap-y-16">
+            <div style={{ gridArea: 'title' }}>
+              <div className="flex flex-wrap items-baseline gap-x-4 gap-y-2">
+                {photo.series ? (
+                  <Link href={`/series/${photo.series.slug}`} className="eyebrow link-underline">
+                    {photo.series.title}
+                  </Link>
+                ) : null}
+                {takenAt ? <span className="eyebrow text-paper-faint">{takenAt}</span> : null}
+              </div>
+
+              <h1 className="mt-5 font-display text-5xl leading-[0.95] font-light sm:text-7xl lg:text-6xl">
+                {photo.title}
+              </h1>
             </div>
 
-            <h1 className="mt-5 font-display text-5xl leading-[0.95] font-light sm:text-7xl lg:text-6xl">
-              {photo.title}
-            </h1>
-          </div>
+            <div style={{ gridArea: 'photo' }} className="lg:sticky lg:top-28 lg:self-start">
+              <PhotoViewer photo={photo} />
+            </div>
 
-          <div style={{ gridArea: 'photo' }} className="lg:sticky lg:top-28 lg:self-start">
-            <PhotoViewer photo={photo} />
-          </div>
-
-          <div style={{ gridArea: 'content' }} className="space-y-16">
-            <Reveal>
-              <PhotoStory story={photo.story} title={photo.title} />
-            </Reveal>
-
-            {photo.series?.country_code ? (
+            <div style={{ gridArea: 'content' }} className="space-y-16">
               <Reveal>
-                <section aria-labelledby="pays-titre">
-                  <h2 id="pays-titre" className="eyebrow">
-                    Le pays
-                  </h2>
-                  <div className="mt-7 max-w-xs">
-                    <AfricaMap countryCode={photo.series.country_code} />
-                  </div>
-                </section>
+                <PhotoStory story={photo.story} title={photo.title} />
               </Reveal>
-            ) : null}
 
-            {photo.latitude !== null && photo.longitude !== null ? (
-              <Reveal>
-                <section aria-labelledby="lieu-titre">
-                  <h2 id="lieu-titre" className="eyebrow">
-                    Le lieu
-                  </h2>
-                  <div className="mt-7">
-                    <PhotoMap
-                      latitude={photo.latitude}
-                      longitude={photo.longitude}
-                      zoom={photo.map_zoom}
-                      locationName={photo.location_name}
-                    />
-                  </div>
-                </section>
-              </Reveal>
-            ) : null}
+              {photo.series?.country_code ? (
+                <Reveal>
+                  <section aria-labelledby="pays-titre">
+                    <h2 id="pays-titre" className="eyebrow">
+                      Le pays
+                    </h2>
+                    <div className="mt-7 max-w-xs">
+                      <AfricaMap countryCode={photo.series.country_code} />
+                    </div>
+                  </section>
+                </Reveal>
+              ) : null}
 
-            <PurchasePanel photo={photo} />
+              {photo.latitude !== null && photo.longitude !== null ? (
+                <Reveal>
+                  <section aria-labelledby="lieu-titre">
+                    <h2 id="lieu-titre" className="eyebrow">
+                      Le lieu
+                    </h2>
+                    <div className="mt-7">
+                      <PhotoMap
+                        latitude={photo.latitude}
+                        longitude={photo.longitude}
+                        zoom={photo.map_zoom}
+                        locationName={photo.location_name}
+                      />
+                    </div>
+                  </section>
+                </Reveal>
+              ) : null}
+
+              <PurchasePanel photo={photo} />
+            </div>
           </div>
-        </div>
+        </FramePreferenceProvider>
       </Container>
 
       {/* ---- À voir aussi --------------------------------------------------- */}

@@ -3,20 +3,27 @@
 import { useState } from 'react';
 import { addItem } from '@/lib/cart/store';
 import { Button } from '@/components/ui/Button';
+import { useFramePreference } from '@/lib/frame-preference';
 import { formatAvailability, formatPrice } from '@/lib/format';
 import type { PhotoWithOptions, PrintOptionRow } from '@/types/database';
 
 /**
  * Bloc achat de la page produit : choix du format, disponibilité, ajout au panier.
+ *
+ * Le choix encadré / sans cadre vit ici (pas dans PhotoViewer) : c'est lui qui
+ * détermine le prix facturé, la photo se contente de le prévisualiser.
  */
 export function PurchasePanel({ photo }: { photo: PhotoWithOptions }) {
   const options = photo.print_options;
+  const { framed, setFramed } = useFramePreference();
+  const visibleOptions = options.filter((o) => o.framed === framed);
+  const hasFramedOption = options.some((o) => o.framed);
 
   // Premier format disponible sélectionné par défaut, sinon le premier tout court.
   const [selectedId, setSelectedId] = useState<string | undefined>(
     () =>
-      options.find((o) => !formatAvailability(o.edition_size, o.editions_sold).soldOut)?.id ??
-      options[0]?.id,
+      visibleOptions.find((o) => !formatAvailability(o.edition_size, o.editions_sold).soldOut)
+        ?.id ?? visibleOptions[0]?.id,
   );
   const [justAdded, setJustAdded] = useState(false);
 
@@ -33,10 +40,23 @@ export function PurchasePanel({ photo }: { photo: PhotoWithOptions }) {
     );
   }
 
-  const selected = options.find((o) => o.id === selectedId);
+  const selected = visibleOptions.find((o) => o.id === selectedId);
   const availability = selected
     ? formatAvailability(selected.edition_size, selected.editions_sold)
     : null;
+
+  // En changeant d'encadrement, on retrouve le même format plutôt que de
+  // revenir au premier de la liste — l'utilisateur ne perd pas son choix.
+  function handleFrameChange(nextFramed: boolean) {
+    const current = options.find((o) => o.id === selectedId);
+    const nextGroup = options.filter((o) => o.framed === nextFramed);
+    const sameSize = current
+      ? nextGroup.find((o) => o.width_cm === current.width_cm && o.height_cm === current.height_cm)
+      : undefined;
+
+    setSelectedId((sameSize ?? nextGroup[0])?.id);
+    setFramed(nextFramed);
+  }
 
   function handleAdd() {
     if (!selected || availability?.soldOut) return;
@@ -57,15 +77,19 @@ export function PurchasePanel({ photo }: { photo: PhotoWithOptions }) {
 
   return (
     <section aria-labelledby="achat-titre">
-      <h2 id="achat-titre" className="eyebrow">
-        Tirages
-      </h2>
+      <div className="flex items-center justify-between">
+        <h2 id="achat-titre" className="eyebrow">
+          Tirages
+        </h2>
+
+        {hasFramedOption ? <FrameToggle framed={framed} onChange={handleFrameChange} /> : null}
+      </div>
 
       <fieldset className="mt-7">
         <legend className="sr-only">Choisir un format</legend>
 
         <div className="divide-y divide-ink-line border-y border-ink-line">
-          {options.map((option) => (
+          {visibleOptions.map((option) => (
             <OptionRow
               key={option.id}
               option={option}
@@ -110,6 +134,44 @@ export function PurchasePanel({ photo }: { photo: PhotoWithOptions }) {
   );
 }
 
+/** Bascule Sans cadre / Encadré, à la hauteur du titre « Tirages ». */
+function FrameToggle({
+  framed,
+  onChange,
+}: {
+  framed: boolean;
+  onChange: (value: boolean) => void;
+}) {
+  return (
+    <div
+      role="group"
+      aria-label="Encadrement du tirage"
+      className="inline-flex rounded-full border border-ink-line p-1"
+    >
+      <button
+        type="button"
+        onClick={() => onChange(false)}
+        aria-pressed={!framed}
+        className={`rounded-full px-3 py-1 text-[0.625rem] font-medium tracking-[0.16em] uppercase transition-colors duration-300 ${
+          !framed ? 'bg-paper text-ink' : 'text-paper-dim hover:text-paper'
+        }`}
+      >
+        Sans cadre
+      </button>
+      <button
+        type="button"
+        onClick={() => onChange(true)}
+        aria-pressed={framed}
+        className={`rounded-full px-3 py-1 text-[0.625rem] font-medium tracking-[0.16em] uppercase transition-colors duration-300 ${
+          framed ? 'bg-paper text-ink' : 'text-paper-dim hover:text-paper'
+        }`}
+      >
+        Encadré
+      </button>
+    </div>
+  );
+}
+
 function OptionRow({
   option,
   checked,
@@ -150,7 +212,12 @@ function OptionRow({
         </span>
 
         <span>
-          <span className="block text-sm text-paper">{option.label}</span>
+          {/* Taille reconstruite depuis les colonnes plutôt que `option.label` :
+              le libellé en base porte encore le suffixe « encadré », devenu
+              redondant maintenant que la bascule s'en charge séparément. */}
+          <span className="block text-sm text-paper">
+            {option.width_cm} × {option.height_cm} cm
+          </span>
           <span
             className={`mt-0.5 block text-xs ${
               availability.soldOut

@@ -2,6 +2,7 @@
 
 import Image from 'next/image';
 import { useEffect, useRef, useState } from 'react';
+import { useFramePreference } from '@/lib/frame-preference';
 import { photoSrc, SIZES } from '@/lib/images';
 import type { PhotoRow } from '@/types/database';
 
@@ -21,7 +22,7 @@ export function PhotoViewer({ photo }: { photo: PhotoRow }) {
   const [mounted, setMounted] = useState(false);
   const [visible, setVisible] = useState(false);
   const [blackAndWhite, setBlackAndWhite] = useState(false);
-  const [framed, setFramed] = useState(false);
+  const { framed } = useFramePreference();
   const closeButtonRef = useRef<HTMLButtonElement>(null);
   const dialogRef = useRef<HTMLDivElement>(null);
 
@@ -86,11 +87,13 @@ export function PhotoViewer({ photo }: { photo: PhotoRow }) {
   return (
     <>
       <figure className="animate-photo-in">
-        {/* Par défaut, la photo seule. En mode « encadré », un cadre noir
-            directement contre l'image — pas de passe-partout : c'est un
-            aperçu du tirage encadré, pas une maquette de galerie. */}
+        {/* `framed` vient du panneau d'achat (FramePreferenceProvider) : la
+            photo prévisualise ce qui est effectivement facturé. Par défaut,
+            la photo seule ; en mode encadré, un cadre noir directement
+            contre l'image — pas de passe-partout — sur un fond plus clair
+            que la page pour que le cadre noir s'y détache. */}
         {framed ? (
-          <div className="bg-[radial-gradient(ellipse_at_center,var(--color-ink-soft),var(--color-ink))] px-5 py-10 sm:px-10 sm:py-16">
+          <div className="bg-[radial-gradient(ellipse_at_center,var(--color-paper-faint),var(--color-ink-line))] px-5 py-10 sm:px-10 sm:py-16">
             <div className="bg-black p-3 shadow-2xl shadow-black/50 sm:p-4">
               <button
                 type="button"
@@ -139,8 +142,7 @@ export function PhotoViewer({ photo }: { photo: PhotoRow }) {
           </button>
         )}
 
-        <div className="mt-7 flex flex-wrap items-center justify-center gap-3">
-          <FrameToggle framed={framed} onChange={setFramed} />
+        <div className="mt-7 flex justify-center">
           <ColorModeToggle blackAndWhite={blackAndWhite} onChange={setBlackAndWhite} />
         </div>
 
@@ -207,45 +209,7 @@ export function PhotoViewer({ photo }: { photo: PhotoRow }) {
   );
 }
 
-/** Bascule Sans cadre / Encadré au-dessus de la photo. */
-function FrameToggle({
-  framed,
-  onChange,
-}: {
-  framed: boolean;
-  onChange: (value: boolean) => void;
-}) {
-  return (
-    <div
-      role="group"
-      aria-label="Aperçu encadré"
-      className="inline-flex rounded-full border border-ink-line p-1"
-    >
-      <button
-        type="button"
-        onClick={() => onChange(false)}
-        aria-pressed={!framed}
-        className={`rounded-full px-4 py-1.5 text-[0.6875rem] font-medium tracking-[0.18em] uppercase transition-colors duration-300 ${
-          !framed ? 'bg-paper text-ink' : 'text-paper-dim hover:text-paper'
-        }`}
-      >
-        Sans cadre
-      </button>
-      <button
-        type="button"
-        onClick={() => onChange(true)}
-        aria-pressed={framed}
-        className={`rounded-full px-4 py-1.5 text-[0.6875rem] font-medium tracking-[0.18em] uppercase transition-colors duration-300 ${
-          framed ? 'bg-paper text-ink' : 'text-paper-dim hover:text-paper'
-        }`}
-      >
-        Encadré
-      </button>
-    </div>
-  );
-}
-
-/** Bascule N&B / Couleur sous la maquette encadrée. */
+/** Bascule N&B / Couleur sous la photo. */
 function ColorModeToggle({
   blackAndWhite,
   onChange,
