@@ -8,6 +8,8 @@ import { cartCount } from '@/lib/cart/types';
 
 const NAV = [
   { href: '/', label: 'Séries' },
+  { href: '/notre-aventure', label: 'Notre aventure' },
+  { href: '/videos', label: 'Vidéos' },
   { href: '/a-propos', label: 'À propos' },
 ];
 
@@ -53,7 +55,9 @@ export function SiteHeader() {
           Tom in Africa
         </Link>
 
-        <nav className="hidden items-center gap-10 sm:flex" aria-label="Navigation principale">
+        {/* Bascule à lg plutôt que sm : à quatre liens, « Notre aventure »
+            rendrait la barre trop juste entre 640 et 1024px. */}
+        <nav className="hidden items-center gap-8 lg:flex" aria-label="Navigation principale">
           {NAV.map((item) => (
             <Link
               key={item.href}
@@ -68,7 +72,7 @@ export function SiteHeader() {
           <CartButton count={count} hydrated={hydrated} onClick={openCart} />
         </nav>
 
-        <div className="flex items-center gap-5 sm:hidden">
+        <div className="flex items-center gap-5 lg:hidden">
           <CartButton count={count} hydrated={hydrated} onClick={openCart} />
           <button
             type="button"
@@ -86,7 +90,7 @@ export function SiteHeader() {
           liens du parcours clavier/lecteur d'écran tant que le menu est
           refermé, même si sa hauteur n'est pas encore tout à fait à zéro. */}
       <nav
-        className={`overflow-hidden border-t px-5 transition-[max-height,opacity,border-color] duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] sm:hidden ${
+        className={`overflow-hidden border-t px-5 transition-[max-height,opacity,border-color] duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] lg:hidden ${
           menuOpen
             ? 'max-h-96 border-ink-line pb-6 opacity-100'
             : 'max-h-0 border-transparent pb-0 opacity-0'
