@@ -55,72 +55,69 @@ export default async function PhotoPage({ params }: PageProps) {
 
   return (
     <article className="pt-24 pb-28 sm:pt-28">
-      <Container width="wide">
-        {/* Titre, photo encadrée et contenu : voir `.photo-layout` (globals.css).
-            Sur desktop, la photo reste visible dans son cadre pendant que le
-            récit, la carte et l'achat défilent à côté. */}
-        <FramePreferenceProvider>
-          <div className="photo-layout gap-x-16 gap-y-14 sm:gap-y-16">
-            <div style={{ gridArea: 'title' }}>
-              <div className="flex flex-wrap items-baseline gap-x-4 gap-y-2">
-                {photo.series ? (
-                  <Link href={`/series/${photo.series.slug}`} className="eyebrow link-underline">
-                    {photo.series.title}
-                  </Link>
-                ) : null}
-                {takenAt ? <span className="eyebrow text-paper-faint">{takenAt}</span> : null}
-              </div>
+      {/* La photo domine en haut de page, en grand ; titre, récit, carte et
+          achat défilent en dessous, dans une colonne de lecture unique. Un
+          aperçu « sur un mur » (voir PhotoViewer) donne l'échelle du format
+          choisi avant l'achat, sans avoir à l'imaginer. */}
+      <FramePreferenceProvider>
+        <Container width="wide">
+          <PhotoViewer photo={photo} />
+        </Container>
 
-              <h1 className="mt-5 font-display text-5xl leading-[0.95] font-light sm:text-7xl lg:text-6xl">
-                {photo.title}
-              </h1>
-            </div>
-
-            <div style={{ gridArea: 'photo' }} className="lg:sticky lg:top-28 lg:self-start">
-              <PhotoViewer photo={photo} />
-            </div>
-
-            <div style={{ gridArea: 'content' }} className="space-y-16">
-              <Reveal>
-                <PhotoStory story={photo.story} title={photo.title} />
-              </Reveal>
-
-              {photo.country_code ? (
-                <Reveal>
-                  <section aria-labelledby="pays-titre">
-                    <h2 id="pays-titre" className="eyebrow">
-                      Le pays
-                    </h2>
-                    <div className="mt-7 max-w-xs">
-                      <AfricaMap countryCode={photo.country_code} />
-                    </div>
-                  </section>
-                </Reveal>
-              ) : null}
-
-              {photo.latitude !== null && photo.longitude !== null ? (
-                <Reveal>
-                  <section aria-labelledby="lieu-titre">
-                    <h2 id="lieu-titre" className="eyebrow">
-                      Le lieu
-                    </h2>
-                    <div className="mt-7">
-                      <PhotoMap
-                        latitude={photo.latitude}
-                        longitude={photo.longitude}
-                        zoom={photo.map_zoom}
-                        locationName={photo.location_name}
-                      />
-                    </div>
-                  </section>
-                </Reveal>
-              ) : null}
-
-              <PurchasePanel photo={photo} />
-            </div>
+        <Container width="prose" className="mt-14 sm:mt-16">
+          <div className="flex flex-wrap items-baseline gap-x-4 gap-y-2">
+            {photo.series ? (
+              <Link href={`/series/${photo.series.slug}`} className="eyebrow link-underline">
+                {photo.series.title}
+              </Link>
+            ) : null}
+            {takenAt ? <span className="eyebrow text-paper-faint">{takenAt}</span> : null}
           </div>
-        </FramePreferenceProvider>
-      </Container>
+
+          <h1 className="mt-5 font-display text-5xl leading-[0.95] font-light sm:text-6xl">
+            {photo.title}
+          </h1>
+
+          <div className="mt-16 space-y-16">
+            <Reveal>
+              <PhotoStory story={photo.story} title={photo.title} />
+            </Reveal>
+
+            {photo.country_code ? (
+              <Reveal>
+                <section aria-labelledby="pays-titre">
+                  <h2 id="pays-titre" className="eyebrow">
+                    Le pays
+                  </h2>
+                  <div className="mt-7 max-w-xs">
+                    <AfricaMap countryCode={photo.country_code} />
+                  </div>
+                </section>
+              </Reveal>
+            ) : null}
+
+            {photo.latitude !== null && photo.longitude !== null ? (
+              <Reveal>
+                <section aria-labelledby="lieu-titre">
+                  <h2 id="lieu-titre" className="eyebrow">
+                    Le lieu
+                  </h2>
+                  <div className="mt-7">
+                    <PhotoMap
+                      latitude={photo.latitude}
+                      longitude={photo.longitude}
+                      zoom={photo.map_zoom}
+                      locationName={photo.location_name}
+                    />
+                  </div>
+                </section>
+              </Reveal>
+            ) : null}
+
+            <PurchasePanel photo={photo} />
+          </div>
+        </Container>
+      </FramePreferenceProvider>
 
       {/* ---- À voir aussi --------------------------------------------------- */}
       {related.length > 0 && photo.series ? (

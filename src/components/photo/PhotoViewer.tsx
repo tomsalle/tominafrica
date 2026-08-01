@@ -1,13 +1,19 @@
 'use client';
 
 import Image from 'next/image';
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState, type TouchEvent } from 'react';
 import { useFramePreference } from '@/lib/frame-preference';
 import { photoSrc, SIZES } from '@/lib/images';
 import type { PhotoRow } from '@/types/database';
 
+/** Hauteur de mur représentée par la maquette « Sur un mur », en cm — sert
+ *  à situer un tirage 18×24 ou 50×70 à sa vraie échelle relative. */
+const WALL_HEIGHT_CM = 260;
+
 /**
- * Bloc image de la page produit, avec agrandissement plein écran.
+ * Bloc image de la page produit : la photo (ou son rendu encadré au format
+ * choisi), une maquette « sur un mur » pour juger de l'échelle, et
+ * l'agrandissement plein écran.
  *
  * On ne sert jamais le fichier master : le dérivé 2400 px suffit largement à
  * l'écran et reste inexploitable pour un tirage grand format. C'est une
@@ -22,12 +28,18 @@ export function PhotoViewer({ photo }: { photo: PhotoRow }) {
   const [mounted, setMounted] = useState(false);
   const [visible, setVisible] = useState(false);
   const [blackAndWhite, setBlackAndWhite] = useState(false);
-  const { framed } = useFramePreference();
+  const [slide, setSlide] = useState<0 | 1>(0);
+  const { framed, format } = useFramePreference();
   const closeButtonRef = useRef<HTMLButtonElement>(null);
   const dialogRef = useRef<HTMLDivElement>(null);
+  const touchStartX = useRef<number | null>(null);
+  const touchDeltaX = useRef(0);
 
-  const ratio =
+  const naturalRatio =
     photo.image_width && photo.image_height ? photo.image_width / photo.image_height : 3 / 2;
+  // Encadré : la photo se recadre au ratio du format réellement commandé
+  // (18×24, 30×40…), pas à celui du fichier — c'est ce que le client reçoit.
+  const ratio = framed && format ? format.widthCm / format.heightCm : naturalRatio;
 
   function openZoom() {
     setMounted(true);
@@ -35,6 +47,23 @@ export function PhotoViewer({ photo }: { photo: PhotoRow }) {
 
   function closeZoom() {
     setVisible(false);
+  }
+
+  function onTouchStart(event: TouchEvent<HTMLDivElement>) {
+    touchStartX.current = event.touches[0]?.clientX ?? null;
+    touchDeltaX.current = 0;
+  }
+
+  function onTouchMove(event: TouchEvent<HTMLDivElement>) {
+    if (touchStartX.current === null) return;
+    touchDeltaX.current = (event.touches[0]?.clientX ?? touchStartX.current) - touchStartX.current;
+  }
+
+  function onTouchEnd() {
+    if (touchDeltaX.current < -40) setSlide(1);
+    else if (touchDeltaX.current > 40) setSlide(0);
+    touchStartX.current = null;
+    touchDeltaX.current = 0;
   }
 
   useEffect(() => {
@@ -86,67 +115,80 @@ export function PhotoViewer({ photo }: { photo: PhotoRow }) {
 
   return (
     <>
-      <figure className="animate-photo-in">
-        {/* `framed` vient du panneau d'achat (FramePreferenceProvider) : la
-            photo prévisualise ce qui est effectivement facturé. Par défaut,
-            la photo seule ; en mode encadré, un cadre noir directement
-            contre l'image — pas de passe-partout — sur un fond plus clair
-            que la page pour que le cadre noir s'y détache.
+      <figure id="photo-viewer" className="animate-photo-in scroll-mt-24 sm:scroll-mt-28">
+        <div
+          className="relative h-[55dvh] w-full overflow-hidden sm:h-[65dvh]"
+          onTouchStart={onTouchStart}
+          onTouchMove={onTouchMove}
+          onTouchEnd={onTouchEnd}
+        >
+          <div
+            className="flex h-full transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)]"
+            style={{ transform: `translateX(-${slide * 100}%)` }}
+          >
+            {/* Slide 1 : la photo, ou son rendu encadré au format choisi. */}
+            <div className="flex h-full w-full shrink-0 items-center justify-center">
+              {framed ? (
+                <div
+                  className="h-full max-w-full bg-black p-2 shadow-2xl shadow-black/50 sm:p-3"
+                  style={{ aspectRatio: ratio }}
+                >
+                  <button
+                    type="button"
+                    onClick={openZoom}
+                    className="relative block h-full w-full cursor-zoom-in overflow-hidden"
+                    aria-label={`Agrandir « ${photo.title} »`}
+                  >
+                    <Image
+                      src={photoSrc(photo.image_path, photo.image_width)}
+                      alt={photo.title}
+                      fill
+                      priority
+                      sizes={SIZES.full}
+                      className={`object-cover transition-[filter] duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] ${
+                        blackAndWhite ? 'grayscale' : ''
+                      }`}
+                      {...(photo.blur_data_url
+                        ? { placeholder: 'blur' as const, blurDataURL: photo.blur_data_url }
+                        : {})}
+                    />
+                  </button>
+                </div>
+              ) : (
+                <button
+                  type="button"
+                  onClick={openZoom}
+                  className="relative block h-full max-w-full cursor-zoom-in overflow-hidden bg-ink-soft"
+                  style={{ aspectRatio: ratio }}
+                  aria-label={`Agrandir « ${photo.title} »`}
+                >
+                  <Image
+                    src={photoSrc(photo.image_path, photo.image_width)}
+                    alt={photo.title}
+                    fill
+                    priority
+                    sizes={SIZES.full}
+                    className={`object-contain transition-[filter] duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] ${
+                      blackAndWhite ? 'grayscale' : ''
+                    }`}
+                    {...(photo.blur_data_url
+                      ? { placeholder: 'blur' as const, blurDataURL: photo.blur_data_url }
+                      : {})}
+                  />
+                </button>
+              )}
+            </div>
 
-            Hauteur plafonnée (max-height) plutôt que largeur pleine colonne
-            (width: 100%) : un portrait plein cadre dépasserait la hauteur de
-            l'écran et empêcherait de voir la photo entière sans défiler. */}
-        {framed ? (
-          <div className="bg-[radial-gradient(ellipse_at_center,var(--color-paper-faint),var(--color-ink-line))] px-5 py-10 sm:px-10 sm:py-16">
-            <div className="bg-black p-3 shadow-2xl shadow-black/50 sm:p-4">
-              <button
-                type="button"
-                onClick={openZoom}
-                className="group relative block max-h-[45dvh] w-full cursor-zoom-in overflow-hidden"
-                style={{ aspectRatio: ratio }}
-                aria-label={`Agrandir « ${photo.title} »`}
-              >
-                <Image
-                  src={photoSrc(photo.image_path, photo.image_width)}
-                  alt={photo.title}
-                  fill
-                  priority
-                  sizes={SIZES.full}
-                  className={`object-contain transition-[filter] duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] ${
-                    blackAndWhite ? 'grayscale' : ''
-                  }`}
-                  {...(photo.blur_data_url
-                    ? { placeholder: 'blur' as const, blurDataURL: photo.blur_data_url }
-                    : {})}
-                />
-              </button>
+            {/* Slide 2 : la même image sur un mur, à l'échelle du format
+                choisi — pour juger de la taille avant d'acheter. */}
+            <div className="h-full w-full shrink-0">
+              <WallMockup photo={photo} framed={framed} ratio={ratio} format={format} blackAndWhite={blackAndWhite} />
             </div>
           </div>
-        ) : (
-          <button
-            type="button"
-            onClick={openZoom}
-            className="group relative block max-h-[65dvh] w-full cursor-zoom-in overflow-hidden bg-ink-soft"
-            style={{ aspectRatio: ratio }}
-            aria-label={`Agrandir « ${photo.title} »`}
-          >
-            <Image
-              src={photoSrc(photo.image_path, photo.image_width)}
-              alt={photo.title}
-              fill
-              priority
-              sizes={SIZES.full}
-              className={`object-contain transition-[filter] duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] ${
-                blackAndWhite ? 'grayscale' : ''
-              }`}
-              {...(photo.blur_data_url
-                ? { placeholder: 'blur' as const, blurDataURL: photo.blur_data_url }
-                : {})}
-            />
-          </button>
-        )}
+        </div>
 
-        <div className="mt-7 flex justify-center">
+        <div className="mt-7 flex flex-wrap items-center justify-center gap-3">
+          <SlideToggle slide={slide} onChange={setSlide} />
           <ColorModeToggle blackAndWhite={blackAndWhite} onChange={setBlackAndWhite} />
         </div>
 
@@ -213,7 +255,96 @@ export function PhotoViewer({ photo }: { photo: PhotoRow }) {
   );
 }
 
-/** Bascule N&B / Couleur sous la photo. */
+/**
+ * Maquette murale : mur et sol simulés (seul endroit du site à s'éloigner du
+ * fond noir — on représente une vraie pièce, pas l'interface), avec le
+ * tirage positionné à l'échelle réelle du format choisi.
+ */
+function WallMockup({
+  photo,
+  framed,
+  ratio,
+  format,
+  blackAndWhite,
+}: {
+  photo: PhotoRow;
+  framed: boolean;
+  ratio: number;
+  format: { widthCm: number; heightCm: number } | null;
+  blackAndWhite: boolean;
+}) {
+  const heightCm = format?.heightCm ?? 40;
+  const heightPercent = Math.min(70, (heightCm / WALL_HEIGHT_CM) * 100);
+
+  return (
+    <div className="relative h-full w-full overflow-hidden">
+      <div
+        className="absolute inset-0"
+        style={{
+          background:
+            'linear-gradient(180deg, #eeebe3 0%, #e7e2d6 72%, #ddd5c2 72%, #cac1a7 100%)',
+        }}
+      />
+
+      <div
+        className="absolute left-1/2 top-[42%] max-w-[85%] -translate-x-1/2 -translate-y-1/2"
+        style={{ height: `${heightPercent}%`, aspectRatio: ratio }}
+      >
+        <div
+          className={`h-full w-full shadow-[0_25px_45px_rgba(0,0,0,0.35)] ${
+            framed ? 'bg-black p-[3%]' : ''
+          }`}
+        >
+          <div className="relative h-full w-full overflow-hidden">
+            <Image
+              src={photoSrc(photo.image_path, photo.image_width)}
+              alt=""
+              fill
+              sizes="480px"
+              className={`object-cover ${blackAndWhite ? 'grayscale' : ''}`}
+            />
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+/** Bascule Photo / Sur un mur, au-dessus de l'aperçu couleur. */
+function SlideToggle({
+  slide,
+  onChange,
+}: {
+  slide: 0 | 1;
+  onChange: (value: 0 | 1) => void;
+}) {
+  return (
+    <div role="group" aria-label="Aperçu" className="inline-flex rounded-full border border-ink-line p-1">
+      <button
+        type="button"
+        onClick={() => onChange(0)}
+        aria-pressed={slide === 0}
+        className={`rounded-full px-4 py-1.5 text-[0.6875rem] font-medium tracking-[0.18em] uppercase transition-colors duration-300 ${
+          slide === 0 ? 'bg-paper text-ink' : 'text-paper-dim hover:text-paper'
+        }`}
+      >
+        Photo
+      </button>
+      <button
+        type="button"
+        onClick={() => onChange(1)}
+        aria-pressed={slide === 1}
+        className={`rounded-full px-4 py-1.5 text-[0.6875rem] font-medium tracking-[0.18em] uppercase transition-colors duration-300 ${
+          slide === 1 ? 'bg-paper text-ink' : 'text-paper-dim hover:text-paper'
+        }`}
+      >
+        Sur un mur
+      </button>
+    </div>
+  );
+}
+
+/** Bascule N&B / Couleur, à côté du choix d'aperçu. */
 function ColorModeToggle({
   blackAndWhite,
   onChange,

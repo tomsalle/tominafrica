@@ -2,25 +2,32 @@
 
 import { createContext, useContext, useState, type ReactNode } from 'react';
 
+export type PrintFormat = { widthCm: number; heightCm: number };
+
 type FramePreferenceContextValue = {
   framed: boolean;
   setFramed: (value: boolean) => void;
+  /** Dimensions réelles du format sélectionné dans le panneau d'achat — la
+   *  photo s'en sert pour prévisualiser le tirage à son vrai ratio, pas à
+   *  celui du fichier source. */
+  format: PrintFormat | null;
+  setFormat: (format: PrintFormat | null) => void;
 };
 
 const FramePreferenceContext = createContext<FramePreferenceContextValue | null>(null);
 
 /**
- * Partage le choix « encadré / sans cadre » entre la photo (colonne collante)
- * et le panneau d'achat, sur la page produit. Les deux vivent dans des zones
- * de grille séparées mais doivent rester synchrones : la photo prévisualise
- * ce que le panneau d'achat facture. Un contexte scoped à la page suffit —
- * pas besoin d'un magasin global comme le panier, cet état n'a pas vocation
- * à survivre à la navigation vers une autre photo.
+ * Partage le format et le choix « encadré / sans cadre » entre la photo (en
+ * haut de la page produit) et le panneau d'achat plus bas. Un contexte
+ * scoped à la page suffit — pas besoin d'un magasin global comme le panier,
+ * cet état n'a pas vocation à survivre à la navigation vers une autre photo.
  */
 export function FramePreferenceProvider({ children }: { children: ReactNode }) {
   const [framed, setFramed] = useState(false);
+  const [format, setFormat] = useState<PrintFormat | null>(null);
+
   return (
-    <FramePreferenceContext.Provider value={{ framed, setFramed }}>
+    <FramePreferenceContext.Provider value={{ framed, setFramed, format, setFormat }}>
       {children}
     </FramePreferenceContext.Provider>
   );

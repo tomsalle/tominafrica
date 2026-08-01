@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { addItem } from '@/lib/cart/store';
 import { Button } from '@/components/ui/Button';
 import { useFramePreference } from '@/lib/frame-preference';
@@ -15,7 +15,7 @@ import type { PhotoWithOptions, PrintOptionRow } from '@/types/database';
  */
 export function PurchasePanel({ photo }: { photo: PhotoWithOptions }) {
   const options = photo.print_options;
-  const { framed, setFramed } = useFramePreference();
+  const { framed, setFramed, setFormat } = useFramePreference();
   const visibleOptions = options.filter((o) => o.framed === framed);
   const hasFramedOption = options.some((o) => o.framed);
 
@@ -26,6 +26,14 @@ export function PurchasePanel({ photo }: { photo: PhotoWithOptions }) {
         ?.id ?? visibleOptions[0]?.id,
   );
   const [justAdded, setJustAdded] = useState(false);
+
+  // La photo en haut de page prévisualise le format sélectionné ici : elle a
+  // besoin de connaître ses dimensions réelles, pas seulement son ratio.
+  const selectedForEffect = options.find((o) => o.id === selectedId);
+  useEffect(() => {
+    if (!selectedForEffect) return;
+    setFormat({ widthCm: selectedForEffect.width_cm, heightCm: selectedForEffect.height_cm });
+  }, [selectedForEffect, setFormat]);
 
   if (options.length === 0) {
     return (
@@ -56,6 +64,10 @@ export function PurchasePanel({ photo }: { photo: PhotoWithOptions }) {
 
     setSelectedId((sameSize ?? nextGroup[0])?.id);
     setFramed(nextFramed);
+
+    // La photo est en haut de page, le panneau d'achat plus bas : sans ça,
+    // on ne verrait pas le changement qu'on vient de déclencher.
+    document.getElementById('photo-viewer')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
   }
 
   function handleAdd() {
