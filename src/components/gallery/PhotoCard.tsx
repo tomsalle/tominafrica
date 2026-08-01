@@ -11,7 +11,7 @@ export function PhotoCard({ photo, priority = false }: { photo: PhotoRow; priori
     >
       <div className="relative aspect-4/3 overflow-hidden bg-ink-soft">
         <Image
-          src={photoSrc(photo.image_path)}
+          src={photoSrc(photo.image_path, photo.image_width)}
           alt={photo.title}
           fill
           priority={priority}

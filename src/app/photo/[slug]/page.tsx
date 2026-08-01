@@ -39,7 +39,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
       type: 'article',
       title: photo.title,
       description,
-      images: [{ url: photoAbsoluteSrc(photo.image_path), alt: photo.title }],
+      images: [{ url: photoAbsoluteSrc(photo.image_path, photo.image_width), alt: photo.title }],
     },
   };
 }

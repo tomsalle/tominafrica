@@ -23,20 +23,33 @@ export function isPlaceholder(imagePath: string): boolean {
 }
 
 /**
- * URL à passer à `<Image src>`. Le loader (src/lib/image-loader.ts) substitue
- * ensuite la largeur adaptée à chaque entrée du srcset.
+ * Le plus grand dérivé réellement généré à l'import (scripts/import-photos.ts
+ * n'agrandit jamais une image : une photo source de 1600 px n'a pas de
+ * dérivé 2400). `photos.image_width` porte cette largeur ; sans elle, on
+ * suppose que tout existe (comportement historique).
  */
-export function photoSrc(imagePath: string): string {
+function largestAvailableWidth(sourceWidth?: number | null): number {
+  if (!sourceWidth) return LARGEST;
+  return [...DERIVATIVE_WIDTHS].reverse().find((w) => w <= sourceWidth) ?? DERIVATIVE_WIDTHS[0];
+}
+
+/**
+ * URL à passer à `<Image src>`. Le loader (src/lib/image-loader.ts) substitue
+ * ensuite la largeur adaptée à chaque entrée du srcset, sans jamais dépasser
+ * celle embarquée ici.
+ */
+export function photoSrc(imagePath: string, sourceWidth?: number | null): string {
   if (isPlaceholder(imagePath)) {
     return `/placeholders/${imagePath.slice(PLACEHOLDER_PREFIX.length)}.svg`;
   }
 
-  return `${publicEnv.NEXT_PUBLIC_SUPABASE_URL}/storage/v1/object/public/photos/${imagePath}/${LARGEST}.avif`;
+  const largest = largestAvailableWidth(sourceWidth);
+  return `${publicEnv.NEXT_PUBLIC_SUPABASE_URL}/storage/v1/object/public/photos/${imagePath}/${largest}.avif`;
 }
 
 /** URL absolue, pour les métadonnées Open Graph. */
-export function photoAbsoluteSrc(imagePath: string): string {
-  const src = photoSrc(imagePath);
+export function photoAbsoluteSrc(imagePath: string, sourceWidth?: number | null): string {
+  const src = photoSrc(imagePath, sourceWidth);
   return src.startsWith('http') ? src : `${publicEnv.NEXT_PUBLIC_SITE_URL}${src}`;
 }
 

@@ -40,7 +40,7 @@ export function HeroCoverImage({ cover, priority = false }: HeroCoverImageProps)
   return (
     <div ref={ref} className="absolute inset-0">
       <Image
-        src={photoSrc(cover.image_path)}
+        src={photoSrc(cover.image_path, cover.image_width)}
         alt=""
         fill
         priority={priority}

@@ -15,12 +15,19 @@ export const DERIVATIVE_WIDTHS = [480, 960, 1600, 2400] as const;
 const DERIVATIVE_PATTERN = /\/(\d+)\.(avif|webp|jpe?g|png)$/;
 
 export default function photoLoader({ src, width }: { src: string; width: number }): string {
+  const match = src.match(DERIVATIVE_PATTERN);
+
   // Images locales (placeholders SVG, visuels statiques) : servies telles quelles.
-  if (!DERIVATIVE_PATTERN.test(src)) {
-    return src;
-  }
+  if (!match) return src;
 
-  const target = DERIVATIVE_WIDTHS.find((w) => w >= width) ?? DERIVATIVE_WIDTHS.at(-1)!;
+  // Le nombre déjà présent dans `src` est le plus grand dérivé réellement
+  // généré pour cette photo (voir photoSrc, src/lib/images.ts) — une source
+  // plus petite que 2400 px n'a pas de dérivé 2400. On ne le dépasse jamais,
+  // même si Next demande une largeur plus grande pour un écran haute densité :
+  // sans ce plafond, l'URL pointe vers un fichier qui n'a jamais été généré.
+  const [, embeddedWidth, extension] = match;
+  const maxAvailable = Number(embeddedWidth);
+  const target = DERIVATIVE_WIDTHS.find((w) => w >= width && w <= maxAvailable) ?? maxAvailable;
 
-  return src.replace(DERIVATIVE_PATTERN, (_match, _oldWidth, extension) => `/${target}.${extension}`);
+  return src.replace(DERIVATIVE_PATTERN, `/${target}.${extension}`);
 }

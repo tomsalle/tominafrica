@@ -86,10 +86,12 @@ export async function getAllPhotoSlugs(): Promise<string[]> {
  */
 export async function getPrintOptionsByIds(
   ids: string[],
-): Promise<Map<string, PrintOptionRow & { photo: Pick<PhotoRow, 'id' | 'slug' | 'title' | 'image_path'> }>> {
+): Promise<
+  Map<string, PrintOptionRow & { photo: Pick<PhotoRow, 'id' | 'slug' | 'title' | 'image_path' | 'image_width'> }>
+> {
   const result = new Map<
     string,
-    PrintOptionRow & { photo: Pick<PhotoRow, 'id' | 'slug' | 'title' | 'image_path'> }
+    PrintOptionRow & { photo: Pick<PhotoRow, 'id' | 'slug' | 'title' | 'image_path' | 'image_width'> }
   >();
 
   if (ids.length === 0) return result;
@@ -98,14 +100,14 @@ export async function getPrintOptionsByIds(
 
   const { data, error } = await supabase
     .from('print_options')
-    .select('*, photo:photos!print_options_photo_id_fkey (id, slug, title, image_path)')
+    .select('*, photo:photos!print_options_photo_id_fkey (id, slug, title, image_path, image_width)')
     .in('id', ids);
 
   if (error) throw new Error(`Lecture des options de tirage impossible : ${error.message}`);
 
   for (const row of data ?? []) {
     const option = row as unknown as PrintOptionRow & {
-      photo: Pick<PhotoRow, 'id' | 'slug' | 'title' | 'image_path'> | null;
+      photo: Pick<PhotoRow, 'id' | 'slug' | 'title' | 'image_path' | 'image_width'> | null;
     };
     // Une option dont la photo a été dépubliée n'est plus visible via la RLS,
     // mais on se protège aussi du cas où la jointure ne remonte rien.

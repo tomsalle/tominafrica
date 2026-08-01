@@ -84,7 +84,7 @@ export async function POST(request: Request) {
         product_data: {
           name: `${option.photo.title} — ${option.label}`,
           description: option.paper ? `Tirage sur ${option.paper}` : undefined,
-          images: [photoAbsoluteSrc(option.photo.image_path)],
+          images: [photoAbsoluteSrc(option.photo.image_path, option.photo.image_width)],
           metadata: { sku: option.sku, photo_slug: option.photo.slug },
         },
       },

@@ -107,7 +107,7 @@ export function PhotoViewer({ photo }: { photo: PhotoRow }) {
                 aria-label={`Agrandir « ${photo.title} »`}
               >
                 <Image
-                  src={photoSrc(photo.image_path)}
+                  src={photoSrc(photo.image_path, photo.image_width)}
                   alt={photo.title}
                   fill
                   priority
@@ -132,7 +132,7 @@ export function PhotoViewer({ photo }: { photo: PhotoRow }) {
               aria-label={`Agrandir « ${photo.title} »`}
             >
               <Image
-                src={photoSrc(photo.image_path)}
+                src={photoSrc(photo.image_path, photo.image_width)}
                 alt={photo.title}
                 fill
                 priority
@@ -180,7 +180,7 @@ export function PhotoViewer({ photo }: { photo: PhotoRow }) {
             }`}
           >
             <Image
-              src={photoSrc(photo.image_path)}
+              src={photoSrc(photo.image_path, photo.image_width)}
               alt={photo.title}
               fill
               sizes="100vw"
