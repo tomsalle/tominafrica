@@ -284,38 +284,44 @@ function WallMockup({
   const heightPercent = heightCm * MOCKUP_SCALE_PERCENT_PER_CM;
 
   return (
-    <div className="relative h-full w-full overflow-hidden">
-      <Image
-        src="/mockups/living-room.jpg"
-        alt=""
-        fill
-        sizes="100vw"
-        className="object-cover"
-      />
+    <div className="flex h-full w-full items-center justify-center overflow-hidden">
+      {/* Le mockup reste carré (ratio de living-room.jpg) : sans ça,
+          object-cover recadrerait la photo de salon différemment selon la
+          forme de la diapositive, et l'incrustation ne tomberait plus sur le
+          cadre réellement présent dans l'image. */}
+      <div className="relative aspect-square h-full max-w-full">
+        <Image
+          src="/mockups/living-room.jpg"
+          alt=""
+          fill
+          sizes="(min-width: 640px) 65vh, 55vh"
+          className="object-cover"
+        />
 
-      <div
-        className="absolute"
-        style={{
-          left: `${MOCKUP_CENTER_X_PERCENT}%`,
-          top: `${MOCKUP_CENTER_Y_PERCENT}%`,
-          width: `${widthPercent}%`,
-          height: `${heightPercent}%`,
-          transform: 'translate(-50%, -50%)',
-        }}
-      >
         <div
-          className={`h-full w-full shadow-[0_18px_35px_rgba(0,0,0,0.4)] ${
-            framed ? 'bg-black p-[3%]' : ''
-          }`}
+          className="absolute"
+          style={{
+            left: `${MOCKUP_CENTER_X_PERCENT}%`,
+            top: `${MOCKUP_CENTER_Y_PERCENT}%`,
+            width: `${widthPercent}%`,
+            height: `${heightPercent}%`,
+            transform: 'translate(-50%, -50%)',
+          }}
         >
-          <div className="relative h-full w-full overflow-hidden">
-            <Image
-              src={photoSrc(photo.image_path, photo.image_width)}
-              alt=""
-              fill
-              sizes="480px"
-              className={`object-cover ${blackAndWhite ? 'grayscale' : ''}`}
-            />
+          <div
+            className={`h-full w-full shadow-[0_18px_35px_rgba(0,0,0,0.4)] ${
+              framed ? 'bg-black p-[3%]' : ''
+            }`}
+          >
+            <div className="relative h-full w-full overflow-hidden">
+              <Image
+                src={photoSrc(photo.image_path, photo.image_width)}
+                alt=""
+                fill
+                sizes="480px"
+                className={`object-cover ${blackAndWhite ? 'grayscale' : ''}`}
+              />
+            </div>
           </div>
         </div>
       </div>
