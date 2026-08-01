@@ -30,9 +30,8 @@ export function getResend(): Resend {
 /**
  * Adresse d'envoi.
  *
- * `onboarding@resend.dev` fonctionne sans configuration DNS : suffisant pour
- * un formulaire de contact à faible volume. Le jour où la délivrabilité pose
- * problème, vérifier un sous-domaine de tominafrica.com dans Resend et
- * remplacer cette constante — aucun autre changement nécessaire.
+ * tominafrica.com est vérifié sur Resend (DKIM/SPF via les enregistrements
+ * DNS Vercel) : l'envoi n'est plus limité à un seul destinataire de test,
+ * contrairement à onboarding@resend.dev utilisé au départ.
  */
-export const CONTACT_FROM_ADDRESS = 'Tom in Africa <onboarding@resend.dev>';
+export const CONTACT_FROM_ADDRESS = 'Tom in Africa <contact@tominafrica.com>';
