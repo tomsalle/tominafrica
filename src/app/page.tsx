@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import { ContactForm } from '@/components/home/ContactForm';
 import { SeriesHero } from '@/components/home/SeriesHero';
 import { Container } from '@/components/ui/Container';
 import { Reveal } from '@/components/ui/Reveal';
@@ -51,6 +52,42 @@ export default async function HomePage() {
             <Link href="/notre-aventure" className="eyebrow link-underline mt-9 inline-block text-paper">
               Notre aventure
             </Link>
+          </Reveal>
+        </Container>
+
+        <Container width="default" className="mt-16 sm:mt-20">
+          <Reveal>
+            <div className="relative aspect-video w-full overflow-hidden bg-ink-soft">
+              <video
+                className="absolute inset-0 h-full w-full object-cover"
+                autoPlay
+                muted
+                loop
+                playsInline
+                aria-hidden="true"
+                poster="/videos/namibie-hero-poster.jpg"
+              >
+                <source src="/videos/namibie-hero.mp4" type="video/mp4" />
+              </video>
+            </div>
+            <Link href="/videos" className="eyebrow link-underline mt-6 inline-block text-paper">
+              Voir toutes les vidéos
+            </Link>
+          </Reveal>
+        </Container>
+
+        <Container width="prose" className="mt-24 sm:mt-32">
+          <Reveal>
+            <p className="eyebrow">Contact</p>
+            <h2 className="mt-5 font-display text-3xl leading-tight font-light sm:text-4xl">
+              Une question, une commande sur mesure ?
+            </h2>
+            <p className="mt-4 text-sm leading-relaxed text-paper-dim">
+              Écrivez-nous, nous répondons directement à l’adresse indiquée.
+            </p>
+            <div className="mt-10">
+              <ContactForm />
+            </div>
           </Reveal>
         </Container>
       </div>

@@ -51,6 +51,8 @@ const serverSchema = z.object({
   SUPABASE_SERVICE_ROLE_KEY: z.string().min(1).optional(),
   STRIPE_SECRET_KEY: z.string().min(1).optional(),
   STRIPE_WEBHOOK_SECRET: z.string().min(1).optional(),
+  RESEND_API_KEY: z.string().min(1).optional(),
+  CONTACT_EMAIL: z.email().default('tomsallepro@gmail.com'),
 });
 
 export type ServerEnv = z.infer<typeof serverSchema>;
@@ -64,6 +66,8 @@ export function serverEnv(): ServerEnv {
     SUPABASE_SERVICE_ROLE_KEY: process.env.SUPABASE_SERVICE_ROLE_KEY || undefined,
     STRIPE_SECRET_KEY: process.env.STRIPE_SECRET_KEY || undefined,
     STRIPE_WEBHOOK_SECRET: process.env.STRIPE_WEBHOOK_SECRET || undefined,
+    RESEND_API_KEY: process.env.RESEND_API_KEY || undefined,
+    CONTACT_EMAIL: process.env.CONTACT_EMAIL || undefined,
   });
 }
 
@@ -76,4 +80,14 @@ export function serverEnv(): ServerEnv {
  */
 export function isCheckoutEnabled(): boolean {
   return Boolean(process.env.STRIPE_SECRET_KEY);
+}
+
+/**
+ * Le formulaire de contact envoie-t-il vraiment un e-mail ?
+ *
+ * Comme pour Stripe : le site doit rester utilisable sans RESEND_API_KEY, le
+ * formulaire répond juste que l'envoi est momentanément indisponible.
+ */
+export function isContactFormEnabled(): boolean {
+  return Boolean(process.env.RESEND_API_KEY);
 }
