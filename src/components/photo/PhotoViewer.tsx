@@ -6,9 +6,16 @@ import { useFramePreference } from '@/lib/frame-preference';
 import { photoSrc, SIZES } from '@/lib/images';
 import type { PhotoRow } from '@/types/database';
 
-/** Hauteur de mur représentée par la maquette « Sur un mur », en cm — sert
- *  à situer un tirage 18×24 ou 50×70 à sa vraie échelle relative. */
-const WALL_HEIGHT_CM = 260;
+/**
+ * Calibration de la maquette murale (public/mockups/living-room.jpg, 650×650) :
+ * le cadre visible sur la photo occupe 32,6 % de la largeur et 45,4 % de la
+ * hauteur, centré à 50 % / 33 %. Ces proportions correspondent à un tirage de
+ * 50×70 cm — d'où l'échelle de 0,65 % par cm, utilisée pour dimensionner
+ * n'importe quel autre format sur la même photo.
+ */
+const MOCKUP_SCALE_PERCENT_PER_CM = 0.65;
+const MOCKUP_CENTER_X_PERCENT = 50;
+const MOCKUP_CENTER_Y_PERCENT = 33;
 
 /**
  * Bloc image de la page produit : la photo (ou son rendu encadré au format
@@ -182,7 +189,7 @@ export function PhotoViewer({ photo }: { photo: PhotoRow }) {
             {/* Slide 2 : la même image sur un mur, à l'échelle du format
                 choisi — pour juger de la taille avant d'acheter. */}
             <div className="h-full w-full shrink-0">
-              <WallMockup photo={photo} framed={framed} ratio={ratio} format={format} blackAndWhite={blackAndWhite} />
+              <WallMockup photo={photo} framed={framed} format={format} blackAndWhite={blackAndWhite} />
             </div>
           </div>
         </div>
@@ -256,42 +263,48 @@ export function PhotoViewer({ photo }: { photo: PhotoRow }) {
 }
 
 /**
- * Maquette murale : mur et sol simulés (seul endroit du site à s'éloigner du
- * fond noir — on représente une vraie pièce, pas l'interface), avec le
- * tirage positionné à l'échelle réelle du format choisi.
+ * Maquette murale : la vraie photo de salon du client (living-room.jpg),
+ * avec le tirage incrusté à l'emplacement du cadre déjà présent sur ce mur,
+ * redimensionné selon le format choisi pour donner une échelle fidèle.
  */
 function WallMockup({
   photo,
   framed,
-  ratio,
   format,
   blackAndWhite,
 }: {
   photo: PhotoRow;
   framed: boolean;
-  ratio: number;
   format: { widthCm: number; heightCm: number } | null;
   blackAndWhite: boolean;
 }) {
+  const widthCm = format?.widthCm ?? 30;
   const heightCm = format?.heightCm ?? 40;
-  const heightPercent = Math.min(70, (heightCm / WALL_HEIGHT_CM) * 100);
+  const widthPercent = widthCm * MOCKUP_SCALE_PERCENT_PER_CM;
+  const heightPercent = heightCm * MOCKUP_SCALE_PERCENT_PER_CM;
 
   return (
     <div className="relative h-full w-full overflow-hidden">
-      <div
-        className="absolute inset-0"
-        style={{
-          background:
-            'linear-gradient(180deg, #eeebe3 0%, #e7e2d6 72%, #ddd5c2 72%, #cac1a7 100%)',
-        }}
+      <Image
+        src="/mockups/living-room.jpg"
+        alt=""
+        fill
+        sizes="100vw"
+        className="object-cover"
       />
 
       <div
-        className="absolute left-1/2 top-[42%] max-w-[85%] -translate-x-1/2 -translate-y-1/2"
-        style={{ height: `${heightPercent}%`, aspectRatio: ratio }}
+        className="absolute"
+        style={{
+          left: `${MOCKUP_CENTER_X_PERCENT}%`,
+          top: `${MOCKUP_CENTER_Y_PERCENT}%`,
+          width: `${widthPercent}%`,
+          height: `${heightPercent}%`,
+          transform: 'translate(-50%, -50%)',
+        }}
       >
         <div
-          className={`h-full w-full shadow-[0_25px_45px_rgba(0,0,0,0.35)] ${
+          className={`h-full w-full shadow-[0_18px_35px_rgba(0,0,0,0.4)] ${
             framed ? 'bg-black p-[3%]' : ''
           }`}
         >
