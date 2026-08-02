@@ -7,15 +7,27 @@ import { photoSrc, SIZES } from '@/lib/images';
 import type { PhotoRow } from '@/types/database';
 
 /**
- * Calibration de la maquette murale (public/mockups/living-room.jpg, 650×650) :
- * le cadre visible sur la photo occupe 32,6 % de la largeur et 45,4 % de la
- * hauteur, centré à 50 % / 33 %. Ces proportions correspondent à un tirage de
- * 50×70 cm — d'où l'échelle de 0,65 % par cm, utilisée pour dimensionner
- * n'importe quel autre format sur la même photo.
+ * Calibration de la maquette murale (public/mockups/living-room.jpg,
+ * 1536×1024, mur nu au-dessus du canapé) : mesurée sur l'image, la zone de
+ * mur libre va de x=150 à x=1248 (donc centrée à 45,5 % de la largeur) et le
+ * haut du dossier du canapé se trouve vers y=600 (58,6 % de la hauteur). Le
+ * cadre est ancré par son bord bas, à 20 cm au-dessus du canapé — l'écart
+ * usuel pour accrocher un tableau au-dessus d'un canapé. L'échelle
+ * (px réels par cm) est déduite de la largeur du mur libre, en supposant
+ * ~280 cm de mur entre le rideau et le panneau bois, cohérente avec la
+ * hauteur sous plafond visible sur l'image (~270 cm sur 1024 px).
  */
-const MOCKUP_SCALE_PERCENT_PER_CM = 0.65;
-const MOCKUP_CENTER_X_PERCENT = 50;
-const MOCKUP_CENTER_Y_PERCENT = 33;
+const MOCKUP_IMAGE_WIDTH = 1536;
+const MOCKUP_IMAGE_HEIGHT = 1024;
+const MOCKUP_ASPECT_RATIO = MOCKUP_IMAGE_WIDTH / MOCKUP_IMAGE_HEIGHT;
+const MOCKUP_PX_PER_CM = 3.85;
+const MOCKUP_CENTER_X_PERCENT = 45.5;
+const MOCKUP_SOFA_TOP_Y = 600;
+const MOCKUP_GAP_ABOVE_SOFA_CM = 20;
+const MOCKUP_BOTTOM_PERCENT =
+  ((MOCKUP_IMAGE_HEIGHT - (MOCKUP_SOFA_TOP_Y - MOCKUP_GAP_ABOVE_SOFA_CM * MOCKUP_PX_PER_CM)) /
+    MOCKUP_IMAGE_HEIGHT) *
+  100;
 
 /**
  * Bloc image de la page produit : la photo (ou son rendu encadré au format
@@ -187,9 +199,11 @@ export function PhotoViewer({ photo }: { photo: PhotoRow }) {
             </div>
 
             {/* Slide 2 : la même image sur un mur, à l'échelle du format
-                choisi — pour juger de la taille avant d'acheter. */}
+                choisi — pour juger de la taille avant d'acheter. Toujours
+                encadrée : sur un mur, une photo se présente encadrée, quel
+                que soit le choix fait pour l'achat. */}
             <div className="h-full w-full shrink-0">
-              <WallMockup photo={photo} framed={framed} format={format} blackAndWhite={blackAndWhite} />
+              <WallMockup photo={photo} format={format} blackAndWhite={blackAndWhite} />
             </div>
           </div>
         </div>
@@ -263,33 +277,34 @@ export function PhotoViewer({ photo }: { photo: PhotoRow }) {
 }
 
 /**
- * Maquette murale : la vraie photo de salon du client (living-room.jpg),
- * avec le tirage incrusté à l'emplacement du cadre déjà présent sur ce mur,
- * redimensionné selon le format choisi pour donner une échelle fidèle.
+ * Maquette murale : le mur nu du salon du client (living-room.jpg), avec le
+ * tirage encadré incrusté au-dessus du canapé, centré sur le pan de mur
+ * libre et redimensionné selon le format choisi pour donner une échelle
+ * fidèle aux meubles visibles.
  */
 function WallMockup({
   photo,
-  framed,
   format,
   blackAndWhite,
 }: {
   photo: PhotoRow;
-  framed: boolean;
   format: { widthCm: number; heightCm: number } | null;
   blackAndWhite: boolean;
 }) {
   const widthCm = format?.widthCm ?? 30;
   const heightCm = format?.heightCm ?? 40;
-  const widthPercent = widthCm * MOCKUP_SCALE_PERCENT_PER_CM;
-  const heightPercent = heightCm * MOCKUP_SCALE_PERCENT_PER_CM;
+  const widthPercent = ((widthCm * MOCKUP_PX_PER_CM) / MOCKUP_IMAGE_WIDTH) * 100;
+  const heightPercent = ((heightCm * MOCKUP_PX_PER_CM) / MOCKUP_IMAGE_HEIGHT) * 100;
 
   return (
     <div className="flex h-full w-full items-center justify-center overflow-hidden">
-      {/* Le mockup reste carré (ratio de living-room.jpg) : sans ça,
-          object-cover recadrerait la photo de salon différemment selon la
-          forme de la diapositive, et l'incrustation ne tomberait plus sur le
-          cadre réellement présent dans l'image. */}
-      <div className="relative aspect-square h-full max-w-full">
+      {/* Le mockup garde le ratio de living-room.jpg : sans ça, object-cover
+          recadrerait le mur différemment selon la forme de la diapositive, et
+          l'incrustation ne tomberait plus au bon endroit au-dessus du canapé. */}
+      <div
+        className="relative h-full max-w-full"
+        style={{ aspectRatio: MOCKUP_ASPECT_RATIO }}
+      >
         <Image
           src="/mockups/living-room.jpg"
           alt=""
@@ -302,17 +317,13 @@ function WallMockup({
           className="absolute"
           style={{
             left: `${MOCKUP_CENTER_X_PERCENT}%`,
-            top: `${MOCKUP_CENTER_Y_PERCENT}%`,
+            bottom: `${MOCKUP_BOTTOM_PERCENT}%`,
             width: `${widthPercent}%`,
             height: `${heightPercent}%`,
-            transform: 'translate(-50%, -50%)',
+            transform: 'translateX(-50%)',
           }}
         >
-          <div
-            className={`h-full w-full shadow-[0_18px_35px_rgba(0,0,0,0.4)] ${
-              framed ? 'bg-black p-[3%]' : ''
-            }`}
-          >
+          <div className="h-full w-full bg-black p-[3%] shadow-[0_18px_35px_rgba(0,0,0,0.4)]">
             <div className="relative h-full w-full overflow-hidden">
               <Image
                 src={photoSrc(photo.image_path, photo.image_width)}
