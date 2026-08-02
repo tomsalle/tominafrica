@@ -7,29 +7,6 @@ import { photoSrc, SIZES } from '@/lib/images';
 import type { PhotoRow } from '@/types/database';
 
 /**
- * Calibration de la maquette murale (public/mockups/living-room.jpg,
- * 1536×1024, mur nu au-dessus du canapé) : mesurée sur l'image, la zone de
- * mur libre va de x=150 à x=1248 (donc centrée à 45,5 % de la largeur) et le
- * haut du dossier du canapé se trouve vers y=600 (58,6 % de la hauteur). Le
- * cadre est ancré par son bord bas, à 20 cm au-dessus du canapé — l'écart
- * usuel pour accrocher un tableau au-dessus d'un canapé. L'échelle
- * (px réels par cm) est déduite de la largeur du mur libre, en supposant
- * ~280 cm de mur entre le rideau et le panneau bois, cohérente avec la
- * hauteur sous plafond visible sur l'image (~270 cm sur 1024 px).
- */
-const MOCKUP_IMAGE_WIDTH = 1536;
-const MOCKUP_IMAGE_HEIGHT = 1024;
-const MOCKUP_ASPECT_RATIO = MOCKUP_IMAGE_WIDTH / MOCKUP_IMAGE_HEIGHT;
-const MOCKUP_PX_PER_CM = 3.85;
-const MOCKUP_CENTER_X_PERCENT = 45.5;
-const MOCKUP_SOFA_TOP_Y = 600;
-const MOCKUP_GAP_ABOVE_SOFA_CM = 20;
-const MOCKUP_BOTTOM_PERCENT =
-  ((MOCKUP_IMAGE_HEIGHT - (MOCKUP_SOFA_TOP_Y - MOCKUP_GAP_ABOVE_SOFA_CM * MOCKUP_PX_PER_CM)) /
-    MOCKUP_IMAGE_HEIGHT) *
-  100;
-
-/**
  * Bloc image de la page produit : la photo (ou son rendu encadré au format
  * choisi), une maquette « sur un mur » pour juger de l'échelle, et
  * l'agrandissement plein écran.
@@ -198,12 +175,10 @@ export function PhotoViewer({ photo }: { photo: PhotoRow }) {
               )}
             </div>
 
-            {/* Slide 2 : la même image sur un mur, à l'échelle du format
-                choisi — pour juger de la taille avant d'acheter. Toujours
-                encadrée : sur un mur, une photo se présente encadrée, quel
-                que soit le choix fait pour l'achat. */}
+            {/* Slide 2 : le même tirage encadré, présenté sur fond neutre à
+                son propre ratio — pas celui du format d'achat sélectionné. */}
             <div className="h-full w-full shrink-0">
-              <WallMockup photo={photo} format={format} blackAndWhite={blackAndWhite} />
+              <FramedPreview photo={photo} ratio={naturalRatio} blackAndWhite={blackAndWhite} />
             </div>
           </div>
         </div>
@@ -277,63 +252,33 @@ export function PhotoViewer({ photo }: { photo: PhotoRow }) {
 }
 
 /**
- * Maquette murale : le mur nu du salon du client (living-room.jpg), avec le
- * tirage encadré incrusté au-dessus du canapé, centré sur le pan de mur
- * libre et redimensionné selon le format choisi pour donner une échelle
- * fidèle aux meubles visibles.
+ * Aperçu encadré sur fond neutre : une présentation fixe, à la forme et aux
+ * proportions réelles de la photo (pas du format d'achat sélectionné), sans
+ * décor ni mise à l'échelle — juste le tableau, lisible.
  */
-function WallMockup({
+function FramedPreview({
   photo,
-  format,
+  ratio,
   blackAndWhite,
 }: {
   photo: PhotoRow;
-  format: { widthCm: number; heightCm: number } | null;
+  ratio: number;
   blackAndWhite: boolean;
 }) {
-  const widthCm = format?.widthCm ?? 30;
-  const heightCm = format?.heightCm ?? 40;
-  const widthPercent = ((widthCm * MOCKUP_PX_PER_CM) / MOCKUP_IMAGE_WIDTH) * 100;
-  const heightPercent = ((heightCm * MOCKUP_PX_PER_CM) / MOCKUP_IMAGE_HEIGHT) * 100;
-
   return (
-    <div className="flex h-full w-full items-center justify-center overflow-hidden">
-      {/* Le mockup garde le ratio de living-room.jpg : sans ça, object-cover
-          recadrerait le mur différemment selon la forme de la diapositive, et
-          l'incrustation ne tomberait plus au bon endroit au-dessus du canapé. */}
+    <div className="flex h-full w-full items-center justify-center bg-[#d9d7d2]">
       <div
-        className="relative h-full max-w-full"
-        style={{ aspectRatio: MOCKUP_ASPECT_RATIO }}
+        className="h-[80%] max-w-[85%] bg-black p-2 shadow-2xl shadow-black/40 sm:p-3"
+        style={{ aspectRatio: ratio }}
       >
-        <Image
-          src="/mockups/living-room.jpg"
-          alt=""
-          fill
-          sizes="(min-width: 640px) 65vh, 55vh"
-          className="object-cover"
-        />
-
-        <div
-          className="absolute"
-          style={{
-            left: `${MOCKUP_CENTER_X_PERCENT}%`,
-            bottom: `${MOCKUP_BOTTOM_PERCENT}%`,
-            width: `${widthPercent}%`,
-            height: `${heightPercent}%`,
-            transform: 'translateX(-50%)',
-          }}
-        >
-          <div className="h-full w-full bg-black p-[3%] shadow-[0_18px_35px_rgba(0,0,0,0.4)]">
-            <div className="relative h-full w-full overflow-hidden">
-              <Image
-                src={photoSrc(photo.image_path, photo.image_width)}
-                alt=""
-                fill
-                sizes="480px"
-                className={`object-cover ${blackAndWhite ? 'grayscale' : ''}`}
-              />
-            </div>
-          </div>
+        <div className="relative h-full w-full overflow-hidden">
+          <Image
+            src={photoSrc(photo.image_path, photo.image_width)}
+            alt=""
+            fill
+            sizes="480px"
+            className={`object-cover ${blackAndWhite ? 'grayscale' : ''}`}
+          />
         </div>
       </div>
     </div>
