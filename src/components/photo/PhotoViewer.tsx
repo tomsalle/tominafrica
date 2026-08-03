@@ -185,7 +185,11 @@ export function PhotoViewer({ photo }: { photo: PhotoRow }) {
 
         <div className="mt-7 flex flex-wrap items-center justify-center gap-3">
           <SlideToggle slide={slide} onChange={setSlide} />
-          <ColorModeToggle blackAndWhite={blackAndWhite} onChange={setBlackAndWhite} />
+          {/* Une photo nativement en noir et blanc n'a pas de version couleur
+              à proposer : la bascule n'aurait aucun effet. */}
+          {!photo.is_black_and_white ? (
+            <ColorModeToggle blackAndWhite={blackAndWhite} onChange={setBlackAndWhite} />
+          ) : null}
         </div>
 
         {photo.caption ? (
@@ -226,13 +230,15 @@ export function PhotoViewer({ photo }: { photo: PhotoRow }) {
             />
           </div>
 
-          <div onClick={(event) => event.stopPropagation()}>
-            <BlackAndWhiteToggle
-              active={blackAndWhite}
-              onToggle={() => setBlackAndWhite((v) => !v)}
-              className="absolute bottom-5 right-5"
-            />
-          </div>
+          {!photo.is_black_and_white ? (
+            <div onClick={(event) => event.stopPropagation()}>
+              <BlackAndWhiteToggle
+                active={blackAndWhite}
+                onToggle={() => setBlackAndWhite((v) => !v)}
+                className="absolute bottom-5 right-5"
+              />
+            </div>
+          ) : null}
 
           <button
             ref={closeButtonRef}
