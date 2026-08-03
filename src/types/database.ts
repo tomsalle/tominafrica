@@ -263,6 +263,29 @@ export type Database = {
         Update: Partial<Database['public']['Tables']['order_items']['Insert']>;
         Relationships: [];
       };
+
+      exhibition_registrations: {
+        Row: {
+          id: string;
+          first_name: string;
+          last_name: string;
+          email: string;
+          phone: string;
+          message: string | null;
+          created_at: string;
+        };
+        Insert: {
+          id?: string;
+          first_name: string;
+          last_name: string;
+          email: string;
+          phone: string;
+          message?: string | null;
+          created_at?: string;
+        };
+        Update: Partial<Database['public']['Tables']['exhibition_registrations']['Insert']>;
+        Relationships: [];
+      };
     };
 
     Views: Record<never, never>;
@@ -297,10 +320,12 @@ export type PrintOptionRow = PublicTables['print_options']['Row'];
 export type CustomerRow = PublicTables['customers']['Row'];
 export type OrderRow = PublicTables['orders']['Row'];
 export type OrderItemRow = PublicTables['order_items']['Row'];
+export type ExhibitionRegistrationRow = PublicTables['exhibition_registrations']['Row'];
 
 export type PhotoInsert = PublicTables['photos']['Insert'];
 export type OrderInsert = PublicTables['orders']['Insert'];
 export type OrderItemInsert = PublicTables['order_items']['Insert'];
+export type ExhibitionRegistrationInsert = PublicTables['exhibition_registrations']['Insert'];
 
 /** Une photo accompagnée de ses options de tirage (page produit). */
 export type PhotoWithOptions = PhotoRow & {
