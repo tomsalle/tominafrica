@@ -4,6 +4,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { useState } from 'react';
 import { useCart } from '@/lib/cart/store';
+import { CartWallPreview } from '@/components/cart/CartWallPreview';
 import { Button, ButtonLink } from '@/components/ui/Button';
 import { formatPrice } from '@/lib/format';
 import { photoSrc, SIZES } from '@/lib/images';
@@ -12,6 +13,7 @@ export function CartView({ checkoutEnabled }: { checkoutEnabled: boolean }) {
   const { items, subtotalCents, setQuantity, removeItem, hydrated } = useCart();
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [showWall, setShowWall] = useState(false);
 
   async function handleCheckout() {
     setSubmitting(true);
@@ -61,117 +63,139 @@ export function CartView({ checkoutEnabled }: { checkoutEnabled: boolean }) {
   }
 
   return (
-    <div className="grid grid-cols-1 gap-x-20 gap-y-14 lg:grid-cols-[minmax(0,1fr)_22rem]">
-      <ul className="divide-y divide-ink-line border-y border-ink-line">
-        {items.map((item) => (
-          <li key={item.optionId} className="flex gap-6 py-7">
-            <Link
-              href={`/photo/${item.photoSlug}`}
-              className="relative h-32 w-24 shrink-0 overflow-hidden bg-ink-soft sm:h-40 sm:w-32"
-            >
-              <Image
-                src={photoSrc(item.imagePath)}
-                alt={item.photoTitle}
-                fill
-                sizes={SIZES.thumbnail}
-                className="object-cover"
-              />
-            </Link>
+    <div>
+      {items.length > 1 ? (
+        <div className="mb-14">
+          <button
+            type="button"
+            onClick={() => setShowWall((v) => !v)}
+            className="eyebrow border border-ink-line px-5 py-3 hover:text-paper"
+          >
+            {showWall ? 'Masquer l’aperçu mural' : 'Voir ensemble sur un mur'}
+          </button>
 
-            <div className="flex min-w-0 flex-1 flex-col">
+          {showWall ? (
+            <div className="mt-6">
+              <CartWallPreview items={items} />
+            </div>
+          ) : null}
+        </div>
+      ) : null}
+
+      <div className="grid grid-cols-1 gap-x-20 gap-y-14 lg:grid-cols-[minmax(0,1fr)_22rem]">
+        <ul className="divide-y divide-ink-line border-y border-ink-line">
+          {items.map((item) => (
+            <li key={item.optionId} className="flex gap-6 py-7">
               <Link
                 href={`/photo/${item.photoSlug}`}
-                className="font-display text-2xl leading-tight font-light"
+                className="relative h-32 w-24 shrink-0 overflow-hidden bg-ink-soft sm:h-40 sm:w-32"
               >
-                {item.photoTitle}
+                <Image
+                  src={photoSrc(item.imagePath, item.imageWidth)}
+                  alt={item.photoTitle}
+                  fill
+                  sizes={SIZES.thumbnail}
+                  className="object-cover"
+                />
               </Link>
-              <p className="mt-1.5 text-sm text-paper-dim">{item.optionLabel}</p>
-              <p className="mt-1 text-xs text-paper-faint">
-                {formatPrice(item.unitPriceCents)} l’unité
-              </p>
 
-              <div className="mt-auto flex flex-wrap items-center justify-between gap-4 pt-5">
-                <div className="flex items-center gap-4 border border-ink-line px-3 py-1.5">
-                  <button
-                    type="button"
-                    onClick={() => setQuantity(item.optionId, item.quantity - 1)}
-                    className="text-paper-dim hover:text-paper"
-                    aria-label="Diminuer la quantité"
-                  >
-                    −
-                  </button>
-                  <span className="min-w-4 text-center text-sm tabular-nums">{item.quantity}</span>
-                  <button
-                    type="button"
-                    onClick={() => setQuantity(item.optionId, item.quantity + 1)}
-                    className="text-paper-dim hover:text-paper"
-                    aria-label="Augmenter la quantité"
-                  >
-                    +
-                  </button>
+              <div className="flex min-w-0 flex-1 flex-col">
+                <Link
+                  href={`/photo/${item.photoSlug}`}
+                  className="font-display text-2xl leading-tight font-light"
+                >
+                  {item.photoTitle}
+                </Link>
+                <p className="mt-1.5 text-sm text-paper-dim">{item.optionLabel}</p>
+                <p className="mt-1 text-xs text-paper-faint">
+                  {formatPrice(item.unitPriceCents)} l’unité
+                </p>
+
+                <div className="mt-auto flex flex-wrap items-center justify-between gap-4 pt-5">
+                  <div className="flex items-center gap-4 border border-ink-line px-3 py-1.5">
+                    <button
+                      type="button"
+                      onClick={() => setQuantity(item.optionId, item.quantity - 1)}
+                      className="text-paper-dim hover:text-paper"
+                      aria-label="Diminuer la quantité"
+                    >
+                      −
+                    </button>
+                    <span className="min-w-4 text-center text-sm tabular-nums">
+                      {item.quantity}
+                    </span>
+                    <button
+                      type="button"
+                      onClick={() => setQuantity(item.optionId, item.quantity + 1)}
+                      className="text-paper-dim hover:text-paper"
+                      aria-label="Augmenter la quantité"
+                    >
+                      +
+                    </button>
+                  </div>
+
+                  <span className="font-display text-xl tabular-nums">
+                    {formatPrice(item.unitPriceCents * item.quantity)}
+                  </span>
                 </div>
 
-                <span className="font-display text-xl tabular-nums">
-                  {formatPrice(item.unitPriceCents * item.quantity)}
-                </span>
+                <button
+                  type="button"
+                  onClick={() => removeItem(item.optionId)}
+                  className="mt-3 self-start text-xs text-paper-faint underline-offset-4 hover:text-paper hover:underline"
+                >
+                  Retirer
+                </button>
               </div>
+            </li>
+          ))}
+        </ul>
 
-              <button
-                type="button"
-                onClick={() => removeItem(item.optionId)}
-                className="mt-3 self-start text-xs text-paper-faint underline-offset-4 hover:text-paper hover:underline"
-              >
-                Retirer
-              </button>
+        <aside className="lg:sticky lg:top-28 lg:self-start">
+          <h2 className="eyebrow">Récapitulatif</h2>
+
+          <dl className="mt-7 space-y-3 border-b border-ink-line pb-6 text-sm">
+            <div className="flex justify-between">
+              <dt className="text-paper-dim">Sous-total</dt>
+              <dd className="tabular-nums">{formatPrice(subtotalCents)}</dd>
             </div>
-          </li>
-        ))}
-      </ul>
+            <div className="flex justify-between">
+              <dt className="text-paper-dim">Livraison</dt>
+              <dd className="text-paper-faint">Calculée au paiement</dd>
+            </div>
+          </dl>
 
-      <aside className="lg:sticky lg:top-28 lg:self-start">
-        <h2 className="eyebrow">Récapitulatif</h2>
-
-        <dl className="mt-7 space-y-3 border-b border-ink-line pb-6 text-sm">
-          <div className="flex justify-between">
-            <dt className="text-paper-dim">Sous-total</dt>
-            <dd className="tabular-nums">{formatPrice(subtotalCents)}</dd>
+          <div className="mt-6 flex items-baseline justify-between">
+            <span className="eyebrow">Total</span>
+            <span className="font-display text-3xl font-light tabular-nums">
+              {formatPrice(subtotalCents)}
+            </span>
           </div>
-          <div className="flex justify-between">
-            <dt className="text-paper-dim">Livraison</dt>
-            <dd className="text-paper-faint">Calculée au paiement</dd>
-          </div>
-        </dl>
 
-        <div className="mt-6 flex items-baseline justify-between">
-          <span className="eyebrow">Total</span>
-          <span className="font-display text-3xl font-light tabular-nums">
-            {formatPrice(subtotalCents)}
-          </span>
-        </div>
-
-        {error ? (
-          <p role="alert" className="mt-5 border border-accent/40 px-4 py-3 text-xs text-accent">
-            {error}
-          </p>
-        ) : null}
-
-        {checkoutEnabled ? (
-          <Button className="mt-7 w-full" onClick={handleCheckout} disabled={submitting}>
-            {submitting ? 'Redirection…' : 'Passer au paiement'}
-          </Button>
-        ) : (
-          <div className="mt-7 border border-ink-line px-5 py-5">
-            <p className="text-xs leading-relaxed text-paper-dim">
-              Le paiement en ligne n’est pas encore activé. Vous pouvez composer votre sélection ;
-              elle sera conservée dans ce navigateur.
+          {error ? (
+            <p role="alert" className="mt-5 border border-accent/40 px-4 py-3 text-xs text-accent">
+              {error}
             </p>
-          </div>
-        )}
+          ) : null}
 
-        <p className="mt-5 text-xs leading-relaxed text-paper-faint">
-          Paiement sécurisé par Stripe. Aucune donnée bancaire ne transite par ce site.
-        </p>
-      </aside>
+          {checkoutEnabled ? (
+            <Button className="mt-7 w-full" onClick={handleCheckout} disabled={submitting}>
+              {submitting ? 'Redirection…' : 'Passer au paiement'}
+            </Button>
+          ) : (
+            <div className="mt-7 border border-ink-line px-5 py-5">
+              <p className="text-xs leading-relaxed text-paper-dim">
+                Le paiement en ligne n’est pas encore activé. Vous pouvez composer votre
+                sélection ; elle sera conservée dans ce navigateur.
+              </p>
+            </div>
+          )}
+
+          <p className="mt-5 text-xs leading-relaxed text-paper-faint">
+            Paiement sécurisé par Stripe. Aucune donnée bancaire ne transite par ce site.
+          </p>
+        </aside>
+      </div>
     </div>
   );
 }

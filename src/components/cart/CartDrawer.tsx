@@ -65,7 +65,7 @@ export function CartDrawer() {
                 <li key={item.optionId} className="flex gap-4 py-5">
                   <div className="relative h-24 w-20 shrink-0 overflow-hidden bg-ink-soft">
                     <Image
-                      src={photoSrc(item.imagePath)}
+                      src={photoSrc(item.imagePath, item.imageWidth)}
                       alt={item.photoTitle}
                       fill
                       sizes={SIZES.thumbnail}

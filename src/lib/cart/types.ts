@@ -23,8 +23,16 @@ export const cartItemSchema = z.object({
   photoSlug: z.string(),
   photoTitle: z.string(),
   imagePath: z.string(),
+  imageWidth: z.number().int().positive().nullable(),
   optionLabel: z.string(),
   unitPriceCents: z.number().int().positive(),
+
+  // Dimensions et encadrement du tirage choisi — utilisés par l'aperçu
+  // « Voir ensemble sur un mur » pour respecter l'échelle relative réelle
+  // entre les articles du panier.
+  widthCm: z.number().positive(),
+  heightCm: z.number().positive(),
+  framed: z.boolean(),
 });
 
 export type CartItem = z.infer<typeof cartItemSchema>;

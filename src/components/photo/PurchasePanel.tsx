@@ -79,8 +79,12 @@ export function PurchasePanel({ photo }: { photo: PhotoWithOptions }) {
       photoSlug: photo.slug,
       photoTitle: photo.title,
       imagePath: photo.image_path,
+      imageWidth: photo.image_width,
       optionLabel: selected.label,
       unitPriceCents: selected.price_cents,
+      widthCm: selected.width_cm,
+      heightCm: selected.height_cm,
+      framed: selected.framed,
     });
 
     setJustAdded(true);
