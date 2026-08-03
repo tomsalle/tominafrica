@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from 'next';
 import { Cormorant_Garamond, Inter } from 'next/font/google';
 import { CartDrawer } from '@/components/cart/CartDrawer';
+import { ExpositionPopIn } from '@/components/layout/ExpositionPopIn';
 import { SiteFooter } from '@/components/layout/SiteFooter';
 import { SiteHeader } from '@/components/layout/SiteHeader';
 import { publicEnv } from '@/lib/env';
@@ -61,6 +62,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         </main>
         <SiteFooter />
         <CartDrawer />
+        <ExpositionPopIn />
       </body>
     </html>
   );
