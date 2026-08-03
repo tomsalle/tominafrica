@@ -53,6 +53,7 @@ const serverSchema = z.object({
   STRIPE_WEBHOOK_SECRET: z.string().min(1).optional(),
   RESEND_API_KEY: z.string().min(1).optional(),
   CONTACT_EMAIL: z.email().default('tomsallepro@gmail.com'),
+  BOOK_PREORDER_URL: z.url().optional(),
 });
 
 export type ServerEnv = z.infer<typeof serverSchema>;
@@ -68,7 +69,17 @@ export function serverEnv(): ServerEnv {
     STRIPE_WEBHOOK_SECRET: process.env.STRIPE_WEBHOOK_SECRET || undefined,
     RESEND_API_KEY: process.env.RESEND_API_KEY || undefined,
     CONTACT_EMAIL: process.env.CONTACT_EMAIL || undefined,
+    BOOK_PREORDER_URL: process.env.BOOK_PREORDER_URL || undefined,
   });
+}
+
+/**
+ * Lien de précommande du livre (campagne Ullule ou autre), configuré une
+ * fois la page de précommande prête. Tant qu'il ne l'est pas, le bouton
+ * l'indique plutôt que de pointer vers une page qui n'existe pas encore.
+ */
+export function bookPreorderUrl(): string | null {
+  return process.env.BOOK_PREORDER_URL || null;
 }
 
 /**
