@@ -34,7 +34,7 @@ export function PhotoViewer({ photo }: { photo: PhotoRow }) {
   const naturalRatio =
     photo.image_width && photo.image_height ? photo.image_width / photo.image_height : 3 / 2;
   // Encadré : la photo se recadre au ratio du format réellement commandé
-  // (18×24, 30×40…), pas à celui du fichier — c'est ce que le client reçoit.
+  // (S, M, L…), pas à celui du fichier — c'est ce que le client reçoit.
   const ratio = framed && format ? format.widthCm / format.heightCm : naturalRatio;
 
   function openZoom() {
