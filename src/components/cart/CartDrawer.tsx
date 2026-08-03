@@ -2,17 +2,15 @@
 
 import Image from 'next/image';
 import Link from 'next/link';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { useCart, useCartOpen } from '@/lib/cart/store';
-import { CartWallPreview } from '@/components/cart/CartWallPreview';
-import { Button } from '@/components/ui/Button';
+import { ButtonLink } from '@/components/ui/Button';
 import { formatPrice } from '@/lib/format';
 import { photoSrc, SIZES } from '@/lib/images';
 
 export function CartDrawer() {
   const { items, closeCart, subtotalCents, setQuantity, removeItem } = useCart();
   const isOpen = useCartOpen();
-  const [showWall, setShowWall] = useState(false);
 
   // Échap ferme le tiroir, et on bloque le défilement de la page derrière.
   useEffect(() => {
@@ -129,15 +127,9 @@ export function CartDrawer() {
 
               {items.length > 1 ? (
                 <div className="py-6">
-                  <Button variant="primary" onClick={() => setShowWall((v) => !v)}>
-                    {showWall ? 'Masquer l’aperçu mural' : 'Voir ensemble sur un mur'}
-                  </Button>
-
-                  {showWall ? (
-                    <div className="mt-6">
-                      <CartWallPreview items={items} />
-                    </div>
-                  ) : null}
+                  <ButtonLink variant="primary" href="/panier?mur=1" onClick={closeCart}>
+                    Voir ensemble sur un mur
+                  </ButtonLink>
                 </div>
               ) : null}
             </div>

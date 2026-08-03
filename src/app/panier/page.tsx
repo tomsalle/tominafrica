@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import { Suspense } from 'react';
 import { CartView } from '@/components/cart/CartView';
 import { Container } from '@/components/ui/Container';
 import { isCheckoutEnabled } from '@/lib/env';
@@ -18,7 +19,9 @@ export default function CartPage() {
         <h1 className="font-display text-5xl leading-none font-light sm:text-6xl">Panier</h1>
 
         <div className="mt-16">
-          <CartView checkoutEnabled={checkoutEnabled} />
+          <Suspense fallback={<div className="h-64 animate-pulse bg-ink-soft" aria-hidden />}>
+            <CartView checkoutEnabled={checkoutEnabled} />
+          </Suspense>
         </div>
       </Container>
     </div>

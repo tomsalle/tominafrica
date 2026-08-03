@@ -2,6 +2,7 @@
 
 import Image from 'next/image';
 import Link from 'next/link';
+import { useSearchParams } from 'next/navigation';
 import { useState } from 'react';
 import { useCart } from '@/lib/cart/store';
 import { CartWallPreview } from '@/components/cart/CartWallPreview';
@@ -13,7 +14,10 @@ export function CartView({ checkoutEnabled }: { checkoutEnabled: boolean }) {
   const { items, subtotalCents, setQuantity, removeItem, hydrated } = useCart();
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState<string | null>(null);
-  const [showWall, setShowWall] = useState(false);
+  // Le tiroir panier renvoie ici avec ?mur=1 plutôt que d'afficher l'aperçu
+  // sur place : il n'a pas la place pour un aperçu mural correct.
+  const searchParams = useSearchParams();
+  const [showWall, setShowWall] = useState(() => searchParams.get('mur') === '1');
 
   async function handleCheckout() {
     setSubmitting(true);
