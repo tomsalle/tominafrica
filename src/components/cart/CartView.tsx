@@ -66,13 +66,9 @@ export function CartView({ checkoutEnabled }: { checkoutEnabled: boolean }) {
     <div>
       {items.length > 1 ? (
         <div className="mb-14">
-          <button
-            type="button"
-            onClick={() => setShowWall((v) => !v)}
-            className="eyebrow border border-ink-line px-5 py-3 hover:text-paper"
-          >
+          <Button variant="primary" onClick={() => setShowWall((v) => !v)}>
             {showWall ? 'Masquer l’aperçu mural' : 'Voir ensemble sur un mur'}
-          </button>
+          </Button>
 
           {showWall ? (
             <div className="mt-6">
