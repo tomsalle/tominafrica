@@ -7,7 +7,7 @@ import { openCart, useCartHydrated, useCartItems } from '@/lib/cart/store';
 import { cartCount } from '@/lib/cart/types';
 
 const NAV = [
-  { href: '/', label: 'Séries' },
+  { href: '/series/1-mere-1-fils-1-reve', label: 'La Galerie' },
   { href: '/notre-aventure', label: 'Notre aventure' },
   { href: '/videos', label: 'Vidéos' },
   { href: '/a-propos', label: 'À propos' },
