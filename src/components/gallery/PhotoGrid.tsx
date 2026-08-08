@@ -1,3 +1,4 @@
+import { useTranslations } from 'next-intl';
 import { PhotoCard } from '@/components/gallery/PhotoCard';
 import { Reveal } from '@/components/ui/Reveal';
 import type { PhotoRow } from '@/types/database';
@@ -8,8 +9,10 @@ const STAGGER_STEP_MS = 90;
 const STAGGER_COLUMNS = 3;
 
 export function PhotoGrid({ photos }: { photos: PhotoRow[] }) {
+  const t = useTranslations('series');
+
   if (photos.length === 0) {
-    return <p className="text-sm text-paper-dim">Aucune photo publiée dans cette série.</p>;
+    return <p className="text-sm text-paper-dim">{t('emptySeries')}</p>;
   }
 
   return (

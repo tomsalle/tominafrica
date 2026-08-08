@@ -1,14 +1,16 @@
 'use client';
 
 import Image from 'next/image';
-import Link from 'next/link';
+import { useTranslations } from 'next-intl';
 import { useEffect } from 'react';
+import { Link } from '@/i18n/navigation';
 import { useCart, useCartOpen } from '@/lib/cart/store';
 import { ButtonLink } from '@/components/ui/Button';
 import { formatPrice } from '@/lib/format';
 import { photoSrc, SIZES } from '@/lib/images';
 
 export function CartDrawer() {
+  const t = useTranslations('cartDrawer');
   const { items, closeCart, subtotalCents, setQuantity, removeItem } = useCart();
   const isOpen = useCartOpen();
 
@@ -43,21 +45,21 @@ export function CartDrawer() {
       <aside
         role="dialog"
         aria-modal="true"
-        aria-label="Panier"
+        aria-label={t('title')}
         className={`fixed inset-y-0 right-0 z-70 flex w-full max-w-md flex-col border-l border-ink-line bg-ink transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] ${
           isOpen ? 'translate-x-0' : 'translate-x-full'
         }`}
       >
         <div className="flex items-center justify-between border-b border-ink-line px-6 py-5">
-          <h2 className="eyebrow text-paper">Panier</h2>
+          <h2 className="eyebrow text-paper">{t('title')}</h2>
           <button type="button" onClick={closeCart} className="eyebrow hover:text-paper">
-            Fermer
+            {t('close')}
           </button>
         </div>
 
         {items.length === 0 ? (
           <div className="flex flex-1 items-center justify-center px-6">
-            <p className="text-sm text-paper-dim">Votre panier est vide.</p>
+            <p className="text-sm text-paper-dim">{t('empty')}</p>
           </div>
         ) : (
           <>
@@ -91,7 +93,7 @@ export function CartDrawer() {
                             type="button"
                             onClick={() => setQuantity(item.optionId, item.quantity - 1)}
                             className="px-1 text-paper-dim hover:text-paper"
-                            aria-label="Diminuer la quantité"
+                            aria-label={t('decreaseQuantity')}
                           >
                             −
                           </button>
@@ -102,7 +104,7 @@ export function CartDrawer() {
                             type="button"
                             onClick={() => setQuantity(item.optionId, item.quantity + 1)}
                             className="px-1 text-paper-dim hover:text-paper"
-                            aria-label="Augmenter la quantité"
+                            aria-label={t('increaseQuantity')}
                           >
                             +
                           </button>
@@ -118,7 +120,7 @@ export function CartDrawer() {
                         onClick={() => removeItem(item.optionId)}
                         className="mt-2 self-start text-xs text-paper-faint underline-offset-4 hover:text-paper hover:underline"
                       >
-                        Retirer
+                        {t('remove')}
                       </button>
                     </div>
                   </li>
@@ -128,7 +130,7 @@ export function CartDrawer() {
               {items.length > 1 ? (
                 <div className="py-6">
                   <ButtonLink variant="primary" href="/panier?mur=1" onClick={closeCart}>
-                    Voir ensemble sur un mur
+                    {t('viewOnWall')}
                   </ButtonLink>
                 </div>
               ) : null}
@@ -136,21 +138,19 @@ export function CartDrawer() {
 
             <div className="border-t border-ink-line px-6 py-6">
               <div className="flex items-baseline justify-between">
-                <span className="eyebrow">Sous-total</span>
+                <span className="eyebrow">{t('subtotal')}</span>
                 <span className="font-display text-2xl tabular-nums">
                   {formatPrice(subtotalCents)}
                 </span>
               </div>
-              <p className="mt-2 text-xs text-paper-faint">
-                Frais de port calculés à l’étape suivante.
-              </p>
+              <p className="mt-2 text-xs text-paper-faint">{t('shippingNote')}</p>
 
               <Link
                 href="/panier"
                 onClick={closeCart}
                 className="mt-5 flex w-full items-center justify-center bg-paper px-6 py-3.5 text-[0.6875rem] font-medium tracking-[0.24em] text-ink uppercase transition-colors hover:bg-white"
               >
-                Voir le panier
+                {t('viewCart')}
               </Link>
             </div>
           </>

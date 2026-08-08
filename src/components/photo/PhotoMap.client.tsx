@@ -1,6 +1,7 @@
 'use client';
 
 import L from 'leaflet';
+import { useLocale, useTranslations } from 'next-intl';
 import { useState } from 'react';
 import { MapContainer, Marker, TileLayer, useMap } from 'react-leaflet';
 import { formatCoordinate } from '@/lib/format';
@@ -68,6 +69,8 @@ export default function PhotoMapClient({
   zoom,
   locationName,
 }: PhotoMapProps) {
+  const locale = useLocale();
+  const t = useTranslations('photoMap');
   const [interactive, setInteractive] = useState(false);
 
   return (
@@ -99,7 +102,7 @@ export default function PhotoMapClient({
             className="absolute inset-0 z-500 flex items-end justify-center bg-transparent pb-8 transition-colors hover:bg-black/10"
           >
             <span className="eyebrow bg-ink/85 px-4 py-2 text-paper backdrop-blur-sm">
-              Cliquer pour explorer
+              {t('clickToExplore')}
             </span>
           </button>
         )}
@@ -108,7 +111,7 @@ export default function PhotoMapClient({
       <figcaption className="mt-4 flex flex-wrap items-baseline justify-between gap-x-6 gap-y-1">
         {locationName ? <span className="text-sm text-paper-dim">{locationName}</span> : <span />}
         <span className="font-mono text-xs text-paper-faint tabular-nums">
-          {formatCoordinate(latitude, 'lat')} · {formatCoordinate(longitude, 'lng')}
+          {formatCoordinate(latitude, 'lat', locale)} · {formatCoordinate(longitude, 'lng', locale)}
         </span>
       </figcaption>
     </figure>

@@ -1,5 +1,5 @@
-import Link from 'next/link';
 import type { ComponentProps, ReactNode } from 'react';
+import { Link } from '@/i18n/navigation';
 
 type Variant = 'primary' | 'outline' | 'ghost';
 

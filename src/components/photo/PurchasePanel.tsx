@@ -1,5 +1,6 @@
 'use client';
 
+import { useLocale, useTranslations } from 'next-intl';
 import { useEffect, useState } from 'react';
 import { addItem } from '@/lib/cart/store';
 import { Button } from '@/components/ui/Button';
@@ -14,6 +15,8 @@ import type { PhotoWithOptions, PrintOptionRow } from '@/types/database';
  * détermine le prix facturé, la photo se contente de le prévisualiser.
  */
 export function PurchasePanel({ photo }: { photo: PhotoWithOptions }) {
+  const t = useTranslations('purchasePanel');
+  const locale = useLocale();
   const options = photo.print_options;
   const { framed, setFramed, setFormat } = useFramePreference();
   const visibleOptions = options.filter((o) => o.framed === framed);
@@ -22,8 +25,9 @@ export function PurchasePanel({ photo }: { photo: PhotoWithOptions }) {
   // Premier format disponible sélectionné par défaut, sinon le premier tout court.
   const [selectedId, setSelectedId] = useState<string | undefined>(
     () =>
-      visibleOptions.find((o) => !formatAvailability(o.edition_size, o.editions_sold).soldOut)
-        ?.id ?? visibleOptions[0]?.id,
+      visibleOptions.find(
+        (o) => !formatAvailability(o.edition_size, o.editions_sold, locale).soldOut,
+      )?.id ?? visibleOptions[0]?.id,
   );
   const [justAdded, setJustAdded] = useState(false);
 
@@ -39,18 +43,16 @@ export function PurchasePanel({ photo }: { photo: PhotoWithOptions }) {
     return (
       <section aria-labelledby="achat-titre">
         <h2 id="achat-titre" className="eyebrow">
-          Tirages
+          {t('title')}
         </h2>
-        <p className="mt-6 text-sm text-paper-dim">
-          Aucun tirage n’est proposé pour cette photographie.
-        </p>
+        <p className="mt-6 text-sm text-paper-dim">{t('noOptions')}</p>
       </section>
     );
   }
 
   const selected = visibleOptions.find((o) => o.id === selectedId);
   const availability = selected
-    ? formatAvailability(selected.edition_size, selected.editions_sold)
+    ? formatAvailability(selected.edition_size, selected.editions_sold, locale)
     : null;
 
   // En changeant d'encadrement, on retrouve le même format plutôt que de
@@ -95,14 +97,22 @@ export function PurchasePanel({ photo }: { photo: PhotoWithOptions }) {
     <section aria-labelledby="achat-titre">
       <div className="flex items-center justify-between">
         <h2 id="achat-titre" className="eyebrow">
-          Tirages
+          {t('title')}
         </h2>
 
-        {hasFramedOption ? <FrameToggle framed={framed} onChange={handleFrameChange} /> : null}
+        {hasFramedOption ? (
+          <FrameToggle
+            framed={framed}
+            onChange={handleFrameChange}
+            label={t('frameToggleLabel')}
+            unframedLabel={t('unframed')}
+            framedLabel={t('framed')}
+          />
+        ) : null}
       </div>
 
       <fieldset className="mt-7">
-        <legend className="sr-only">Choisir un format</legend>
+        <legend className="sr-only">{t('chooseFormat')}</legend>
 
         <div className="divide-y divide-ink-line border-y border-ink-line">
           {visibleOptions.map((option) => (
@@ -111,6 +121,7 @@ export function PurchasePanel({ photo }: { photo: PhotoWithOptions }) {
               option={option}
               checked={option.id === selectedId}
               onSelect={() => setSelectedId(option.id)}
+              locale={locale}
             />
           ))}
         </div>
@@ -119,14 +130,14 @@ export function PurchasePanel({ photo }: { photo: PhotoWithOptions }) {
       {selected ? (
         <div className="mt-8">
           <div className="flex items-baseline justify-between">
-            <span className="eyebrow">Prix</span>
+            <span className="eyebrow">{t('price')}</span>
             <span className="font-display text-4xl leading-none font-light tabular-nums">
               {formatPrice(selected.price_cents)}
             </span>
           </div>
 
           {selected.paper ? (
-            <p className="mt-4 text-xs text-paper-faint">Papier {selected.paper}</p>
+            <p className="mt-4 text-xs text-paper-faint">{t('paper', { paper: selected.paper })}</p>
           ) : null}
 
           <Button
@@ -135,16 +146,16 @@ export function PurchasePanel({ photo }: { photo: PhotoWithOptions }) {
             disabled={availability?.soldOut}
             aria-live="polite"
           >
-            {availability?.soldOut ? 'Épuisé' : justAdded ? 'Ajouté au panier ✓' : 'Ajouter au panier'}
+            {availability?.soldOut ? t('soldOut') : justAdded ? t('added') : t('add')}
           </Button>
         </div>
       ) : null}
 
       <dl className="mt-10 space-y-3 border-t border-ink-line pt-7 text-xs text-paper-faint">
-        <Detail term="Tirage" detail="Réalisé à la commande, sous 5 à 10 jours ouvrés." />
-        <Detail term="Signature" detail="Signé au dos, avec certificat d’authenticité." />
-        <Detail term="Expédition" detail="Sous tube rigide, suivie et assurée." />
-        <Detail term="Rétractation" detail="14 jours après réception (voir CGV)." />
+        <Detail term={t('detailPrintTerm')} detail={t('detailPrintValue')} />
+        <Detail term={t('detailSignatureTerm')} detail={t('detailSignatureValue')} />
+        <Detail term={t('detailShippingTerm')} detail={t('detailShippingValue')} />
+        <Detail term={t('detailWithdrawalTerm')} detail={t('detailWithdrawalValue')} />
       </dl>
     </section>
   );
@@ -154,14 +165,20 @@ export function PurchasePanel({ photo }: { photo: PhotoWithOptions }) {
 function FrameToggle({
   framed,
   onChange,
+  label,
+  unframedLabel,
+  framedLabel,
 }: {
   framed: boolean;
   onChange: (value: boolean) => void;
+  label: string;
+  unframedLabel: string;
+  framedLabel: string;
 }) {
   return (
     <div
       role="group"
-      aria-label="Encadrement du tirage"
+      aria-label={label}
       className="inline-flex rounded-full border border-ink-line p-1"
     >
       <button
@@ -172,7 +189,7 @@ function FrameToggle({
           !framed ? 'bg-paper text-ink' : 'text-paper-dim hover:text-paper'
         }`}
       >
-        Sans cadre
+        {unframedLabel}
       </button>
       <button
         type="button"
@@ -182,7 +199,7 @@ function FrameToggle({
           framed ? 'bg-paper text-ink' : 'text-paper-dim hover:text-paper'
         }`}
       >
-        Encadré
+        {framedLabel}
       </button>
     </div>
   );
@@ -192,12 +209,14 @@ function OptionRow({
   option,
   checked,
   onSelect,
+  locale,
 }: {
   option: PrintOptionRow;
   checked: boolean;
   onSelect: () => void;
+  locale: string;
 }) {
-  const availability = formatAvailability(option.edition_size, option.editions_sold);
+  const availability = formatAvailability(option.edition_size, option.editions_sold, locale);
 
   return (
     <label

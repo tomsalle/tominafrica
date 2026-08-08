@@ -1,12 +1,15 @@
-import Link from 'next/link';
-
-const LEGAL = [
-  { href: '/mentions-legales', label: 'Mentions légales' },
-  { href: '/cgv', label: 'CGV' },
-  { href: '/confidentialite', label: 'Confidentialité' },
-];
+import { useTranslations } from 'next-intl';
+import { Link } from '@/i18n/navigation';
 
 export function SiteFooter() {
+  const t = useTranslations('footer');
+
+  const LEGAL = [
+    { href: '/mentions-legales', label: t('mentionsLegales') },
+    { href: '/cgv', label: t('cgv') },
+    { href: '/confidentialite', label: t('confidentialite') },
+  ];
+
   return (
     <footer className="border-t border-ink-line">
       <div className="mx-auto w-full max-w-[110rem] px-5 py-14 sm:px-8">
@@ -15,12 +18,10 @@ export function SiteFooter() {
             <p className="font-display text-xl font-light tracking-[0.16em] uppercase">
               Tom in Africa
             </p>
-            <p className="mt-4 text-sm leading-relaxed text-paper-dim">
-              Tirages d’art réalisés sur papier fine art, signés et expédiés depuis la France.
-            </p>
+            <p className="mt-4 text-sm leading-relaxed text-paper-dim">{t('tagline')}</p>
           </div>
 
-          <nav className="flex flex-col gap-3" aria-label="Informations légales">
+          <nav className="flex flex-col gap-3" aria-label={t('legalNav')}>
             {LEGAL.map((item) => (
               <Link key={item.href} href={item.href} className="eyebrow link-underline self-start">
                 {item.label}
@@ -30,8 +31,7 @@ export function SiteFooter() {
         </div>
 
         <p className="mt-14 text-xs text-paper-faint">
-          © {new Date().getFullYear()} Tom in Africa. Toutes les photographies sont protégées par le
-          droit d’auteur et ne peuvent être reproduites sans autorisation écrite.
+          {t('copyright', { year: new Date().getFullYear() })}
         </p>
       </div>
     </footer>

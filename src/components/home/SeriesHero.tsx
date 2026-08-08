@@ -1,6 +1,7 @@
-import Link from 'next/link';
+import { useTranslations } from 'next-intl';
 import { HeroCoverImage } from '@/components/home/HeroCoverImage';
 import { Reveal } from '@/components/ui/Reveal';
+import { Link } from '@/i18n/navigation';
 import type { SeriesWithCover } from '@/types/database';
 
 type SeriesHeroProps = {
@@ -11,6 +12,7 @@ type SeriesHeroProps = {
 };
 
 export function SeriesHero({ series, priority = false, index }: SeriesHeroProps) {
+  const t = useTranslations('home');
   const cover = series.cover_photo;
 
   return (
@@ -48,7 +50,7 @@ export function SeriesHero({ series, priority = false, index }: SeriesHeroProps)
               href={`/series/${series.slug}`}
               className="eyebrow link-underline mt-9 inline-block text-paper"
             >
-              Voir la série
+              {t('viewSeries')}
             </Link>
           </Reveal>
         </div>

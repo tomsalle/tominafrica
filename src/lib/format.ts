@@ -9,7 +9,9 @@ const priceFormatter = new Intl.NumberFormat('fr-FR', {
   maximumFractionDigits: 2,
 });
 
-/** 25000 → « 250 € » ; 25050 → « 250,50 € » */
+/** 25000 → « 250 € » ; 25050 → « 250,50 € ». Toujours en euros, quelle que
+ * soit la langue de l'interface — c'est le prix facturé, pas un texte à
+ * traduire. */
 export function formatPrice(cents: number): string {
   return priceFormatter.format(cents / 100);
 }
@@ -20,22 +22,24 @@ export function formatDimensions(widthCm: number, heightCm: number): string {
   return `${trim(widthCm)} × ${trim(heightCm)} cm`;
 }
 
-/** '2024-06-14' → « juin 2024 » */
-export function formatMonthYear(isoDate: string | null): string | null {
+/** '2024-06-14' → « juin 2024 » (fr) ou « June 2024 » (en) */
+export function formatMonthYear(isoDate: string | null, locale: string = 'fr'): string | null {
   if (!isoDate) return null;
   const date = new Date(`${isoDate}T00:00:00Z`);
   if (Number.isNaN(date.getTime())) return null;
-  return new Intl.DateTimeFormat('fr-FR', {
+  return new Intl.DateTimeFormat(locale === 'en' ? 'en-US' : 'fr-FR', {
     month: 'long',
     year: 'numeric',
     timeZone: 'UTC',
   }).format(date);
 }
 
-/** 48.8566 → « 48,857° N » */
-export function formatCoordinate(value: number, axis: 'lat' | 'lng'): string {
-  const hemisphere = axis === 'lat' ? (value >= 0 ? 'N' : 'S') : value >= 0 ? 'E' : 'O';
-  return `${Math.abs(value).toFixed(3).replace('.', ',')}° ${hemisphere}`;
+/** 48.8566 → « 48,857° N » (fr) ou « 48.857° N » (en) */
+export function formatCoordinate(value: number, axis: 'lat' | 'lng', locale: string = 'fr'): string {
+  const hemisphere =
+    axis === 'lat' ? (value >= 0 ? 'N' : 'S') : value >= 0 ? 'E' : locale === 'en' ? 'W' : 'O';
+  const abs = Math.abs(value).toFixed(3);
+  return `${locale === 'en' ? abs : abs.replace('.', ',')}° ${hemisphere}`;
 }
 
 /**
@@ -45,19 +49,28 @@ export function formatCoordinate(value: number, axis: 'lat' | 'lng'): string {
 export function formatAvailability(
   editionSize: number | null,
   editionsSold: number,
+  locale: string = 'fr',
 ): { label: string; remaining: number | null; soldOut: boolean } {
+  const en = locale === 'en';
+
   if (editionSize === null) {
-    return { label: 'Tirage non limité', remaining: null, soldOut: false };
+    return { label: en ? 'Open edition' : 'Tirage non limité', remaining: null, soldOut: false };
   }
 
   const remaining = Math.max(0, editionSize - editionsSold);
 
   if (remaining === 0) {
-    return { label: `Édition de ${editionSize} — épuisée`, remaining: 0, soldOut: true };
+    return {
+      label: en ? `Edition of ${editionSize} — sold out` : `Édition de ${editionSize} — épuisée`,
+      remaining: 0,
+      soldOut: true,
+    };
   }
 
   return {
-    label: `Édition de ${editionSize} — ${remaining} restant${remaining > 1 ? 's' : ''}`,
+    label: en
+      ? `Edition of ${editionSize} — ${remaining} left`
+      : `Édition de ${editionSize} — ${remaining} restant${remaining > 1 ? 's' : ''}`,
     remaining,
     soldOut: false,
   };

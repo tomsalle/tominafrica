@@ -1,6 +1,7 @@
 'use client';
 
 import Image from 'next/image';
+import { useTranslations } from 'next-intl';
 import { useEffect, useRef, useState, type TouchEvent } from 'react';
 import { useFramePreference } from '@/lib/frame-preference';
 import { photoSrc, SIZES } from '@/lib/images';
@@ -17,6 +18,7 @@ import type { PhotoRow } from '@/types/database';
  * personne et gêne les visiteurs légitimes.
  */
 export function PhotoViewer({ photo }: { photo: PhotoRow }) {
+  const t = useTranslations('photoViewer');
   // `mounted` garde le dialogue dans le DOM le temps de l'animation de
   // sortie ; `visible` pilote la transition. Sans cette distinction, la
   // fermeture est instantanée (le composant se démonte avant d'avoir pu
@@ -133,7 +135,7 @@ export function PhotoViewer({ photo }: { photo: PhotoRow }) {
                     type="button"
                     onClick={openZoom}
                     className="relative block h-full w-full cursor-zoom-in overflow-hidden"
-                    aria-label={`Agrandir « ${photo.title} »`}
+                    aria-label={t('zoomLabel', { title: photo.title })}
                   >
                     <Image
                       src={photoSrc(photo.image_path, photo.image_width)}
@@ -156,7 +158,7 @@ export function PhotoViewer({ photo }: { photo: PhotoRow }) {
                   onClick={openZoom}
                   className="relative block h-full max-w-full cursor-zoom-in overflow-hidden bg-ink-soft"
                   style={{ aspectRatio: ratio }}
-                  aria-label={`Agrandir « ${photo.title} »`}
+                  aria-label={t('zoomLabel', { title: photo.title })}
                 >
                   <Image
                     src={photoSrc(photo.image_path, photo.image_width)}
@@ -184,11 +186,23 @@ export function PhotoViewer({ photo }: { photo: PhotoRow }) {
         </div>
 
         <div className="mt-7 flex flex-wrap items-center justify-center gap-3">
-          <SlideToggle slide={slide} onChange={setSlide} />
+          <SlideToggle
+            slide={slide}
+            onChange={setSlide}
+            groupLabel={t('previewGroupLabel')}
+            photoLabel={t('photo')}
+            onWallLabel={t('onWall')}
+          />
           {/* Une photo nativement en noir et blanc n'a pas de version couleur
               à proposer : la bascule n'aurait aucun effet. */}
           {!photo.is_black_and_white ? (
-            <ColorModeToggle blackAndWhite={blackAndWhite} onChange={setBlackAndWhite} />
+            <ColorModeToggle
+              blackAndWhite={blackAndWhite}
+              onChange={setBlackAndWhite}
+              groupLabel={t('colorModeLabel')}
+              bwLabel={t('bw')}
+              colorLabel={t('color')}
+            />
           ) : null}
         </div>
 
@@ -236,6 +250,8 @@ export function PhotoViewer({ photo }: { photo: PhotoRow }) {
                 active={blackAndWhite}
                 onToggle={() => setBlackAndWhite((v) => !v)}
                 className="absolute bottom-5 right-5"
+                activeLabel={t('color')}
+                inactiveLabel={t('bw')}
               />
             </div>
           ) : null}
@@ -249,7 +265,7 @@ export function PhotoViewer({ photo }: { photo: PhotoRow }) {
             }}
             className="eyebrow absolute top-5 right-5 text-paper hover:text-white"
           >
-            Fermer
+            {t('close')}
           </button>
         </div>
       )}
@@ -295,12 +311,22 @@ function FramedPreview({
 function SlideToggle({
   slide,
   onChange,
+  groupLabel,
+  photoLabel,
+  onWallLabel,
 }: {
   slide: 0 | 1;
   onChange: (value: 0 | 1) => void;
+  groupLabel: string;
+  photoLabel: string;
+  onWallLabel: string;
 }) {
   return (
-    <div role="group" aria-label="Aperçu" className="inline-flex rounded-full border border-ink-line p-1">
+    <div
+      role="group"
+      aria-label={groupLabel}
+      className="inline-flex rounded-full border border-ink-line p-1"
+    >
       <button
         type="button"
         onClick={() => onChange(0)}
@@ -309,7 +335,7 @@ function SlideToggle({
           slide === 0 ? 'bg-paper text-ink' : 'text-paper-dim hover:text-paper'
         }`}
       >
-        Photo
+        {photoLabel}
       </button>
       <button
         type="button"
@@ -319,7 +345,7 @@ function SlideToggle({
           slide === 1 ? 'bg-paper text-ink' : 'text-paper-dim hover:text-paper'
         }`}
       >
-        Sur un mur
+        {onWallLabel}
       </button>
     </div>
   );
@@ -329,16 +355,18 @@ function SlideToggle({
 function ColorModeToggle({
   blackAndWhite,
   onChange,
+  groupLabel,
+  bwLabel,
+  colorLabel,
 }: {
   blackAndWhite: boolean;
   onChange: (value: boolean) => void;
+  groupLabel: string;
+  bwLabel: string;
+  colorLabel: string;
 }) {
   return (
-    <div
-      role="group"
-      aria-label="Mode couleur du tirage"
-      className="inline-flex rounded-full border border-ink-line p-1"
-    >
+    <div role="group" aria-label={groupLabel} className="inline-flex rounded-full border border-ink-line p-1">
       <button
         type="button"
         onClick={() => onChange(true)}
@@ -347,7 +375,7 @@ function ColorModeToggle({
           blackAndWhite ? 'bg-paper text-ink' : 'text-paper-dim hover:text-paper'
         }`}
       >
-        N&B
+        {bwLabel}
       </button>
       <button
         type="button"
@@ -357,7 +385,7 @@ function ColorModeToggle({
           !blackAndWhite ? 'bg-paper text-ink' : 'text-paper-dim hover:text-paper'
         }`}
       >
-        Couleur
+        {colorLabel}
       </button>
     </div>
   );
@@ -367,10 +395,14 @@ function BlackAndWhiteToggle({
   active,
   onToggle,
   className = '',
+  activeLabel,
+  inactiveLabel,
 }: {
   active: boolean;
   onToggle: () => void;
   className?: string;
+  activeLabel: string;
+  inactiveLabel: string;
 }) {
   return (
     <button
@@ -382,7 +414,7 @@ function BlackAndWhiteToggle({
       className={`eyebrow absolute right-4 bottom-4 rounded-full bg-ink/70 px-4 py-2 text-paper backdrop-blur-md transition-colors duration-300 hover:bg-ink/90 ${className}`}
       aria-pressed={active}
     >
-      {active ? 'Couleur' : 'N&B'}
+      {active ? activeLabel : inactiveLabel}
     </button>
   );
 }

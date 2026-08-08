@@ -1,3 +1,4 @@
+import { getTranslations } from 'next-intl/server';
 import { NextResponse } from 'next/server';
 import type Stripe from 'stripe';
 import { checkoutRequestSchema } from '@/lib/cart/types';
@@ -18,26 +19,30 @@ export const runtime = 'nodejs';
  * montant réellement facturé.
  */
 export async function POST(request: Request) {
-  if (!isCheckoutEnabled()) {
-    return NextResponse.json(
-      { error: "Le paiement en ligne n'est pas encore activé sur ce site." },
-      { status: 503 },
-    );
-  }
-
   let payload: unknown;
   try {
     payload = await request.json();
   } catch {
-    return NextResponse.json({ error: 'Requête invalide.' }, { status: 400 });
+    const t = await getTranslations({ locale: 'fr', namespace: 'checkout' });
+    return NextResponse.json({ error: t('invalidRequest') }, { status: 400 });
+  }
+
+  const locale =
+    typeof payload === 'object' && payload !== null && 'locale' in payload
+      ? String((payload as { locale?: unknown }).locale) === 'en'
+        ? 'en'
+        : 'fr'
+      : 'fr';
+  const t = await getTranslations({ locale, namespace: 'checkout' });
+
+  if (!isCheckoutEnabled()) {
+    return NextResponse.json({ error: t('serviceDisabled') }, { status: 503 });
   }
 
   const parsed = checkoutRequestSchema.safeParse(payload);
   if (!parsed.success) {
-    return NextResponse.json(
-      { error: parsed.error.issues[0]?.message ?? 'Panier invalide.' },
-      { status: 400 },
-    );
+    console.error('[checkout] validation échouée', parsed.error.issues[0]?.message);
+    return NextResponse.json({ error: t('invalidCart') }, { status: 400 });
   }
 
   const { items } = parsed.data;
@@ -52,26 +57,19 @@ export async function POST(request: Request) {
     const option = options.get(item.optionId);
 
     if (!option || !option.available) {
-      return NextResponse.json(
-        { error: 'Un des tirages de votre panier n’est plus disponible.' },
-        { status: 409 },
-      );
+      return NextResponse.json({ error: t('itemUnavailable') }, { status: 409 });
     }
 
-    const availability = formatAvailability(option.edition_size, option.editions_sold);
+    const availability = formatAvailability(option.edition_size, option.editions_sold, locale);
+    const itemLabel = `${option.photo.title} — ${option.label}`;
 
     if (availability.soldOut) {
-      return NextResponse.json(
-        { error: `« ${option.photo.title} — ${option.label} » est épuisé.` },
-        { status: 409 },
-      );
+      return NextResponse.json({ error: t('itemSoldOut', { item: itemLabel }) }, { status: 409 });
     }
 
     if (availability.remaining !== null && item.quantity > availability.remaining) {
       return NextResponse.json(
-        {
-          error: `Il ne reste que ${availability.remaining} exemplaire(s) de « ${option.photo.title} — ${option.label} ».`,
-        },
+        { error: t('itemLowStock', { remaining: availability.remaining, item: itemLabel }) },
         { status: 409 },
       );
     }
@@ -97,17 +95,18 @@ export async function POST(request: Request) {
   try {
     const stripe = getStripe();
     const siteUrl = publicEnv.NEXT_PUBLIC_SITE_URL;
+    const localePath = locale === 'en' ? '/en' : '';
 
     const session = await stripe.checkout.sessions.create({
       mode: 'payment',
       line_items: lineItems,
-      locale: 'fr',
+      locale: locale === 'en' ? 'en' : 'fr',
       billing_address_collection: 'required',
       shipping_address_collection: { allowed_countries: SHIPPING_COUNTRIES },
       shipping_options: SHIPPING_OPTIONS,
       phone_number_collection: { enabled: true },
-      success_url: `${siteUrl}/commande/succes?session_id={CHECKOUT_SESSION_ID}`,
-      cancel_url: `${siteUrl}/panier`,
+      success_url: `${siteUrl}${localePath}/commande/succes?session_id={CHECKOUT_SESSION_ID}`,
+      cancel_url: `${siteUrl}${localePath}/panier`,
       // Le webhook reconstitue la commande à partir de ces métadonnées.
       // (Limite Stripe : 500 caractères par valeur — d'où le format compact.)
       metadata: {
@@ -122,9 +121,6 @@ export async function POST(request: Request) {
     return NextResponse.json({ url: session.url });
   } catch (error) {
     console.error('[checkout] création de session impossible', error);
-    return NextResponse.json(
-      { error: 'Le paiement est momentanément indisponible. Réessayez dans un instant.' },
-      { status: 502 },
-    );
+    return NextResponse.json({ error: t('stripeUnavailable') }, { status: 502 });
   }
 }

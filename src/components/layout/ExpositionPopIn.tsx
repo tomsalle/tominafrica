@@ -1,8 +1,9 @@
 'use client';
 
 import Image from 'next/image';
-import Link from 'next/link';
+import { useTranslations } from 'next-intl';
 import { useEffect, useRef, useState } from 'react';
+import { Link } from '@/i18n/navigation';
 import { photoSrc } from '@/lib/images';
 
 const STORAGE_KEY = 'tominafrica.exposition-popin.v1';
@@ -18,6 +19,7 @@ const PHOTO = { imagePath: 'turban', imageWidth: 2400, title: 'Turban' };
  * promotion ponctuelle, pas un élément de navigation.
  */
 export function ExpositionPopIn() {
+  const t = useTranslations('expositionPopIn');
   const [mounted, setMounted] = useState(false);
   const [visible, setVisible] = useState(false);
   const closeButtonRef = useRef<HTMLButtonElement>(null);
@@ -78,7 +80,7 @@ export function ExpositionPopIn() {
         ref={dialogRef}
         role="dialog"
         aria-modal="true"
-        aria-label="Exposition à Paris"
+        aria-label={t('dialogLabel')}
         onClick={(event) => event.stopPropagation()}
         onTransitionEnd={(event) => {
           if (event.target !== event.currentTarget || visible) return;
@@ -101,7 +103,7 @@ export function ExpositionPopIn() {
             ref={closeButtonRef}
             type="button"
             onClick={dismiss}
-            aria-label="Fermer"
+            aria-label={t('close')}
             className="eyebrow absolute top-3 right-3 flex h-8 w-8 items-center justify-center rounded-full bg-ink/70 text-paper backdrop-blur-md transition-colors duration-300 hover:bg-ink/90"
           >
             ✕
@@ -109,21 +111,16 @@ export function ExpositionPopIn() {
         </div>
 
         <div className="p-7">
-          <p className="eyebrow text-accent">Exposition</p>
-          <h2 className="mt-3 font-display text-3xl leading-[0.95] font-light">
-            Notre exposition arrive à Paris
-          </h2>
-          <p className="mt-4 text-sm leading-relaxed text-paper-dim">
-            Vernissage le 24 novembre à 19h — venez découvrir les photographies de notre
-            traversée de l’Afrique.
-          </p>
+          <p className="eyebrow text-accent">{t('eyebrow')}</p>
+          <h2 className="mt-3 font-display text-3xl leading-[0.95] font-light">{t('title')}</h2>
+          <p className="mt-4 text-sm leading-relaxed text-paper-dim">{t('body')}</p>
 
           <Link
             href="/notre-aventure/exposition"
             onClick={dismiss}
             className="mt-6 flex w-full items-center justify-center bg-paper px-6 py-3.5 text-[0.6875rem] font-medium tracking-[0.24em] text-ink uppercase transition-colors hover:bg-white"
           >
-            S’inscrire au vernissage
+            {t('cta')}
           </Link>
 
           <button
@@ -131,7 +128,7 @@ export function ExpositionPopIn() {
             onClick={dismiss}
             className="mt-4 w-full text-center text-xs text-paper-faint underline-offset-4 hover:text-paper hover:underline"
           >
-            Plus tard
+            {t('later')}
           </button>
         </div>
       </div>

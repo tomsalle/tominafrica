@@ -1,3 +1,4 @@
+import { getTranslations } from 'next-intl/server';
 import { NextResponse } from 'next/server';
 import { exhibitionRegistrationRequestSchema } from '@/lib/exhibition/types';
 import { isContactFormEnabled, serverEnv } from '@/lib/env';
@@ -11,15 +12,25 @@ export async function POST(request: Request) {
   try {
     payload = await request.json();
   } catch {
-    return NextResponse.json({ error: 'Requête invalide.' }, { status: 400 });
+    const t = await getTranslations({ locale: 'fr', namespace: 'expositionForm' });
+    return NextResponse.json({ error: t('invalidRequest') }, { status: 400 });
   }
+
+  const locale =
+    typeof payload === 'object' && payload !== null && 'locale' in payload
+      ? String((payload as { locale?: unknown }).locale) === 'en'
+        ? 'en'
+        : 'fr'
+      : 'fr';
+  const t = await getTranslations({ locale, namespace: 'expositionForm' });
 
   const parsed = exhibitionRegistrationRequestSchema.safeParse(payload);
   if (!parsed.success) {
-    return NextResponse.json(
-      { error: parsed.error.issues[0]?.message ?? 'Formulaire invalide.' },
-      { status: 400 },
-    );
+    // Message générique et traduit côté client : les messages Zod, en
+    // français, ne servent qu'au diagnostic serveur (la validation native du
+    // navigateur bloque déjà la plupart des soumissions invalides).
+    console.error('[exposition] validation échouée', parsed.error.issues[0]?.message);
+    return NextResponse.json({ error: t('invalidForm') }, { status: 400 });
   }
 
   const { firstName, lastName, email, phone, message, honeypot } = parsed.data;
@@ -40,10 +51,7 @@ export async function POST(request: Request) {
 
   if (error) {
     console.error('[exposition] inscription impossible', error);
-    return NextResponse.json(
-      { error: "L'inscription a échoué. Réessayez dans un instant." },
-      { status: 502 },
-    );
+    return NextResponse.json({ error: t('registrationFailed') }, { status: 502 });
   }
 
   // Notification par e-mail — sur la meilleure base : l'inscription est déjà

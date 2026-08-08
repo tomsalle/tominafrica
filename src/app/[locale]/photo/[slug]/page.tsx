@@ -1,5 +1,5 @@
 import type { Metadata } from 'next';
-import Link from 'next/link';
+import { getTranslations } from 'next-intl/server';
 import { notFound } from 'next/navigation';
 import { AfricaMap } from '@/components/photo/AfricaMap';
 import { PhotoCard } from '@/components/gallery/PhotoCard';
@@ -9,6 +9,7 @@ import { PhotoViewer } from '@/components/photo/PhotoViewer';
 import { PurchasePanel } from '@/components/photo/PurchasePanel';
 import { Container } from '@/components/ui/Container';
 import { Reveal } from '@/components/ui/Reveal';
+import { Link } from '@/i18n/navigation';
 import { formatMonthYear } from '@/lib/format';
 import { FramePreferenceProvider } from '@/lib/frame-preference';
 import { photoAbsoluteSrc } from '@/lib/images';
@@ -16,7 +17,7 @@ import { getAllPhotoSlugs, getPhotoBySlug, getRelatedPhotos } from '@/lib/querie
 
 export const revalidate = 3600;
 
-type PageProps = { params: Promise<{ slug: string }> };
+type PageProps = { params: Promise<{ slug: string; locale: string }> };
 
 export async function generateStaticParams() {
   const slugs = await getAllPhotoSlugs();
@@ -24,10 +25,13 @@ export async function generateStaticParams() {
 }
 
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
-  const { slug } = await params;
+  const { slug, locale } = await params;
   const photo = await getPhotoBySlug(slug);
 
-  if (!photo) return { title: 'Photographie introuvable' };
+  if (!photo) {
+    const t = await getTranslations({ locale, namespace: 'photo' });
+    return { title: t('notFoundTitle') };
+  }
 
   const description =
     photo.caption ?? photo.story?.split(/\n\s*\n/)[0]?.slice(0, 200) ?? undefined;
@@ -45,13 +49,14 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 }
 
 export default async function PhotoPage({ params }: PageProps) {
-  const { slug } = await params;
+  const { slug, locale } = await params;
+  const t = await getTranslations('photo');
   const photo = await getPhotoBySlug(slug);
 
   if (!photo) notFound();
 
   const related = await getRelatedPhotos(photo.series_id, photo.id, 3);
-  const takenAt = formatMonthYear(photo.taken_at);
+  const takenAt = formatMonthYear(photo.taken_at, locale);
 
   return (
     <article className="pt-24 pb-28 sm:pt-28">
@@ -87,7 +92,7 @@ export default async function PhotoPage({ params }: PageProps) {
               <Reveal>
                 <section aria-labelledby="pays-titre">
                   <h2 id="pays-titre" className="eyebrow">
-                    Le pays
+                    {t('countryHeading')}
                   </h2>
                   <div className="mt-7 max-w-xs">
                     <AfricaMap countryCode={photo.country_code} />
@@ -100,7 +105,7 @@ export default async function PhotoPage({ params }: PageProps) {
               <Reveal>
                 <section aria-labelledby="lieu-titre">
                   <h2 id="lieu-titre" className="eyebrow">
-                    Le lieu
+                    {t('placeHeading')}
                   </h2>
                   <div className="mt-7">
                     <PhotoMap
@@ -124,7 +129,7 @@ export default async function PhotoPage({ params }: PageProps) {
         <div className="mt-32 border-t border-ink-line pt-16">
           <Container width="wide">
             <Reveal>
-              <h2 className="eyebrow">Dans la même série</h2>
+              <h2 className="eyebrow">{t('sameSeries')}</h2>
             </Reveal>
             <div className="mt-10 grid grid-cols-1 gap-x-8 gap-y-12 sm:grid-cols-2 lg:grid-cols-3">
               {related.map((item, index) => (

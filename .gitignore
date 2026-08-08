@@ -8,6 +8,9 @@ dist/
 .env.local
 .env*.local
 
+# Contient une clé API en clair (voir .env.local)
+.mcp.json
+
 .DS_Store
 *.pem
 npm-debug.log*

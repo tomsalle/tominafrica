@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import { getTranslations } from 'next-intl/server';
 import { notFound } from 'next/navigation';
 import { PhotoGrid } from '@/components/gallery/PhotoGrid';
 import { Container } from '@/components/ui/Container';
@@ -7,7 +8,7 @@ import { getAllSeriesSlugs, getSeriesBySlug } from '@/lib/queries/series';
 
 export const revalidate = 3600;
 
-type PageProps = { params: Promise<{ slug: string }> };
+type PageProps = { params: Promise<{ slug: string; locale: string }> };
 
 export async function generateStaticParams() {
   const slugs = await getAllSeriesSlugs();
@@ -15,10 +16,13 @@ export async function generateStaticParams() {
 }
 
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
-  const { slug } = await params;
+  const { slug, locale } = await params;
   const result = await getSeriesBySlug(slug);
 
-  if (!result) return { title: 'Série introuvable' };
+  if (!result) {
+    const t = await getTranslations({ locale, namespace: 'series' });
+    return { title: t('notFoundTitle') };
+  }
 
   const { series, photos } = result;
   const cover = photos[0];
@@ -36,6 +40,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 
 export default async function SeriesPage({ params }: PageProps) {
   const { slug } = await params;
+  const t = await getTranslations('series');
   const result = await getSeriesBySlug(slug);
 
   if (!result) notFound();
@@ -59,7 +64,7 @@ export default async function SeriesPage({ params }: PageProps) {
           ) : null}
 
           <p className="mt-8 text-xs tracking-wide text-paper-faint">
-            {photos.length} photographie{photos.length > 1 ? 's' : ''}
+            {t('photoCount', { count: photos.length })}
           </p>
         </header>
 

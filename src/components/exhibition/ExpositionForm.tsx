@@ -1,5 +1,6 @@
 'use client';
 
+import { useLocale, useTranslations } from 'next-intl';
 import { useState, type FormEvent } from 'react';
 import { Button } from '@/components/ui/Button';
 
@@ -9,6 +10,8 @@ const FIELD_CLASS =
   'mt-2 w-full border-b border-ink-line bg-transparent py-2.5 text-sm text-paper placeholder:text-paper-faint transition-colors duration-300 focus:border-paper focus:outline-none';
 
 export function ExpositionForm() {
+  const t = useTranslations('expositionForm');
+  const locale = useLocale();
   const [status, setStatus] = useState<Status>('idle');
   const [error, setError] = useState<string | null>(null);
 
@@ -31,6 +34,7 @@ export function ExpositionForm() {
           phone: data.get('phone'),
           message: data.get('message'),
           honeypot: data.get('entreprise'),
+          locale,
         }),
       });
 
@@ -38,7 +42,7 @@ export function ExpositionForm() {
 
       if (!response.ok) {
         setStatus('error');
-        setError(result?.error ?? 'Une erreur est survenue. Réessayez dans un instant.');
+        setError(result?.error ?? t('genericError'));
         return;
       }
 
@@ -46,17 +50,15 @@ export function ExpositionForm() {
       form.reset();
     } catch {
       setStatus('error');
-      setError('Une erreur est survenue. Réessayez dans un instant.');
+      setError(t('genericError'));
     }
   }
 
   if (status === 'success') {
     return (
       <div className="border border-ink-line px-7 py-10 text-center">
-        <p className="font-display text-2xl font-light">Inscription confirmée.</p>
-        <p className="mt-3 text-sm text-paper-dim">
-          Merci — vous recevrez les détails pratiques de l’exposition par e-mail.
-        </p>
+        <p className="font-display text-2xl font-light">{t('successTitle')}</p>
+        <p className="mt-3 text-sm text-paper-dim">{t('successBody')}</p>
       </div>
     );
   }
@@ -66,14 +68,14 @@ export function ExpositionForm() {
       {/* Piège à robots : invisible et inutile pour un visiteur, donc jamais
           rempli — un champ non vide ici trahit un envoi automatisé. */}
       <div className="sr-only" aria-hidden="true">
-        <label htmlFor="entreprise">Ne pas remplir</label>
+        <label htmlFor="entreprise">{t('honeypotLabel')}</label>
         <input id="entreprise" name="entreprise" type="text" tabIndex={-1} autoComplete="off" />
       </div>
 
       <div className="grid grid-cols-1 gap-x-8 gap-y-7 sm:grid-cols-2">
         <div>
           <label htmlFor="firstName" className="eyebrow">
-            Prénom
+            {t('firstName')}
           </label>
           <input
             id="firstName"
@@ -81,14 +83,14 @@ export function ExpositionForm() {
             type="text"
             required
             autoComplete="given-name"
-            placeholder="Votre prénom"
+            placeholder={t('firstNamePlaceholder')}
             className={FIELD_CLASS}
           />
         </div>
 
         <div>
           <label htmlFor="lastName" className="eyebrow">
-            Nom
+            {t('lastName')}
           </label>
           <input
             id="lastName"
@@ -96,14 +98,14 @@ export function ExpositionForm() {
             type="text"
             required
             autoComplete="family-name"
-            placeholder="Votre nom"
+            placeholder={t('lastNamePlaceholder')}
             className={FIELD_CLASS}
           />
         </div>
 
         <div>
           <label htmlFor="email" className="eyebrow">
-            E-mail
+            {t('email')}
           </label>
           <input
             id="email"
@@ -111,14 +113,14 @@ export function ExpositionForm() {
             type="email"
             required
             autoComplete="email"
-            placeholder="vous@exemple.com"
+            placeholder={t('emailPlaceholder')}
             className={FIELD_CLASS}
           />
         </div>
 
         <div>
           <label htmlFor="phone" className="eyebrow">
-            Téléphone
+            {t('phone')}
           </label>
           <input
             id="phone"
@@ -126,20 +128,20 @@ export function ExpositionForm() {
             type="tel"
             required
             autoComplete="tel"
-            placeholder="06 12 34 56 78"
+            placeholder={t('phonePlaceholder')}
             className={FIELD_CLASS}
           />
         </div>
 
         <div className="sm:col-span-2">
           <label htmlFor="message" className="eyebrow">
-            Message <span className="normal-case text-paper-faint">(facultatif)</span>
+            {t('message')} <span className="normal-case text-paper-faint">{t('messageOptional')}</span>
           </label>
           <textarea
             id="message"
             name="message"
             rows={4}
-            placeholder="Une question, le nombre de personnes qui vous accompagnent…"
+            placeholder={t('messagePlaceholder')}
             className={`${FIELD_CLASS} resize-none`}
           />
         </div>
@@ -148,7 +150,7 @@ export function ExpositionForm() {
       {error ? <p className="mt-4 text-sm text-accent">{error}</p> : null}
 
       <Button type="submit" className="mt-8" disabled={status === 'submitting'}>
-        {status === 'submitting' ? 'Envoi…' : 'S’inscrire'}
+        {status === 'submitting' ? t('submitting') : t('submit')}
       </Button>
     </form>
   );

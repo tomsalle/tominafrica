@@ -1,16 +1,19 @@
 'use client';
 
 import Image from 'next/image';
-import Link from 'next/link';
+import { useLocale, useTranslations } from 'next-intl';
 import { useSearchParams } from 'next/navigation';
 import { useState } from 'react';
 import { useCart } from '@/lib/cart/store';
 import { CartWallPreview } from '@/components/cart/CartWallPreview';
 import { Button, ButtonLink } from '@/components/ui/Button';
+import { Link } from '@/i18n/navigation';
 import { formatPrice } from '@/lib/format';
 import { photoSrc, SIZES } from '@/lib/images';
 
 export function CartView({ checkoutEnabled }: { checkoutEnabled: boolean }) {
+  const t = useTranslations('cartView');
+  const locale = useLocale();
   const { items, subtotalCents, setQuantity, removeItem, hydrated } = useCart();
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -31,19 +34,20 @@ export function CartView({ checkoutEnabled }: { checkoutEnabled: boolean }) {
         // prix en base.
         body: JSON.stringify({
           items: items.map((item) => ({ optionId: item.optionId, quantity: item.quantity })),
+          locale,
         }),
       });
 
       const data: { url?: string; error?: string } = await response.json();
 
       if (!response.ok || !data.url) {
-        setError(data.error ?? 'Le paiement n’a pas pu démarrer.');
+        setError(data.error ?? t('checkoutStartError'));
         return;
       }
 
       window.location.href = data.url;
     } catch {
-      setError('Connexion impossible. Vérifiez votre réseau et réessayez.');
+      setError(t('networkError'));
     } finally {
       setSubmitting(false);
     }
@@ -58,9 +62,9 @@ export function CartView({ checkoutEnabled }: { checkoutEnabled: boolean }) {
   if (items.length === 0) {
     return (
       <div className="py-20 text-center">
-        <p className="font-display text-3xl font-light">Votre panier est vide.</p>
+        <p className="font-display text-3xl font-light">{t('emptyTitle')}</p>
         <ButtonLink href="/" variant="outline" className="mt-10">
-          Découvrir les séries
+          {t('discoverSeries')}
         </ButtonLink>
       </div>
     );
@@ -71,7 +75,7 @@ export function CartView({ checkoutEnabled }: { checkoutEnabled: boolean }) {
       {items.length > 1 ? (
         <div className="mb-14">
           <Button variant="primary" onClick={() => setShowWall((v) => !v)}>
-            {showWall ? 'Masquer l’aperçu mural' : 'Voir ensemble sur un mur'}
+            {showWall ? t('hideWallPreview') : t('viewOnWall')}
           </Button>
 
           {showWall ? (
@@ -108,7 +112,7 @@ export function CartView({ checkoutEnabled }: { checkoutEnabled: boolean }) {
                 </Link>
                 <p className="mt-1.5 text-sm text-paper-dim">{item.optionLabel}</p>
                 <p className="mt-1 text-xs text-paper-faint">
-                  {formatPrice(item.unitPriceCents)} l’unité
+                  {formatPrice(item.unitPriceCents)} {t('perUnit')}
                 </p>
 
                 <div className="mt-auto flex flex-wrap items-center justify-between gap-4 pt-5">
@@ -117,7 +121,7 @@ export function CartView({ checkoutEnabled }: { checkoutEnabled: boolean }) {
                       type="button"
                       onClick={() => setQuantity(item.optionId, item.quantity - 1)}
                       className="text-paper-dim hover:text-paper"
-                      aria-label="Diminuer la quantité"
+                      aria-label={t('decreaseQuantity')}
                     >
                       −
                     </button>
@@ -128,7 +132,7 @@ export function CartView({ checkoutEnabled }: { checkoutEnabled: boolean }) {
                       type="button"
                       onClick={() => setQuantity(item.optionId, item.quantity + 1)}
                       className="text-paper-dim hover:text-paper"
-                      aria-label="Augmenter la quantité"
+                      aria-label={t('increaseQuantity')}
                     >
                       +
                     </button>
@@ -144,7 +148,7 @@ export function CartView({ checkoutEnabled }: { checkoutEnabled: boolean }) {
                   onClick={() => removeItem(item.optionId)}
                   className="mt-3 self-start text-xs text-paper-faint underline-offset-4 hover:text-paper hover:underline"
                 >
-                  Retirer
+                  {t('remove')}
                 </button>
               </div>
             </li>
@@ -152,21 +156,21 @@ export function CartView({ checkoutEnabled }: { checkoutEnabled: boolean }) {
         </ul>
 
         <aside className="lg:sticky lg:top-28 lg:self-start">
-          <h2 className="eyebrow">Récapitulatif</h2>
+          <h2 className="eyebrow">{t('summary')}</h2>
 
           <dl className="mt-7 space-y-3 border-b border-ink-line pb-6 text-sm">
             <div className="flex justify-between">
-              <dt className="text-paper-dim">Sous-total</dt>
+              <dt className="text-paper-dim">{t('subtotal')}</dt>
               <dd className="tabular-nums">{formatPrice(subtotalCents)}</dd>
             </div>
             <div className="flex justify-between">
-              <dt className="text-paper-dim">Livraison</dt>
-              <dd className="text-paper-faint">Calculée au paiement</dd>
+              <dt className="text-paper-dim">{t('shipping')}</dt>
+              <dd className="text-paper-faint">{t('shippingCalculated')}</dd>
             </div>
           </dl>
 
           <div className="mt-6 flex items-baseline justify-between">
-            <span className="eyebrow">Total</span>
+            <span className="eyebrow">{t('total')}</span>
             <span className="font-display text-3xl font-light tabular-nums">
               {formatPrice(subtotalCents)}
             </span>
@@ -180,20 +184,15 @@ export function CartView({ checkoutEnabled }: { checkoutEnabled: boolean }) {
 
           {checkoutEnabled ? (
             <Button className="mt-7 w-full" onClick={handleCheckout} disabled={submitting}>
-              {submitting ? 'Redirection…' : 'Passer au paiement'}
+              {submitting ? t('redirecting') : t('checkout')}
             </Button>
           ) : (
             <div className="mt-7 border border-ink-line px-5 py-5">
-              <p className="text-xs leading-relaxed text-paper-dim">
-                Le paiement en ligne n’est pas encore activé. Vous pouvez composer votre
-                sélection ; elle sera conservée dans ce navigateur.
-              </p>
+              <p className="text-xs leading-relaxed text-paper-dim">{t('checkoutDisabled')}</p>
             </div>
           )}
 
-          <p className="mt-5 text-xs leading-relaxed text-paper-faint">
-            Paiement sécurisé par Stripe. Aucune donnée bancaire ne transite par ce site.
-          </p>
+          <p className="mt-5 text-xs leading-relaxed text-paper-faint">{t('stripeNote')}</p>
         </aside>
       </div>
     </div>

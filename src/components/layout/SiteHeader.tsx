@@ -1,26 +1,29 @@
 'use client';
 
-import Link from 'next/link';
-import { usePathname } from 'next/navigation';
+import { useLocale, useTranslations } from 'next-intl';
 import { useEffect, useState } from 'react';
+import { Link, usePathname } from '@/i18n/navigation';
+import { routing } from '@/i18n/routing';
 import { openCart, useCartHydrated, useCartItems } from '@/lib/cart/store';
 import { cartCount } from '@/lib/cart/types';
 
-const NAV = [
-  { href: '/series/1-mere-1-fils-1-reve', label: 'La Galerie' },
-  { href: '/notre-aventure', label: 'Notre aventure' },
-  { href: '/videos', label: 'Vidéos' },
-  { href: '/a-propos', label: 'À propos' },
-];
-
 export function SiteHeader() {
+  const t = useTranslations('nav');
   const pathname = usePathname();
+  const locale = useLocale();
   const items = useCartItems();
   const hydrated = useCartHydrated();
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
 
   const count = cartCount(items);
+
+  const NAV = [
+    { href: '/series/1-mere-1-fils-1-reve', label: t('gallery') },
+    { href: '/notre-aventure', label: t('adventure') },
+    { href: '/videos', label: t('videos') },
+    { href: '/a-propos', label: t('about') },
+  ];
 
   // Le header est transparent sur les grandes images, puis se solidifie dès
   // qu'on quitte le haut de page — sans quoi il devient illisible. Observer
@@ -57,7 +60,7 @@ export function SiteHeader() {
 
         {/* Bascule à lg plutôt que sm : à quatre liens, « Notre aventure »
             rendrait la barre trop juste entre 640 et 1024px. */}
-        <nav className="hidden items-center gap-8 lg:flex" aria-label="Navigation principale">
+        <nav className="hidden items-center gap-8 lg:flex" aria-label={t('navPrimary')}>
           {NAV.map((item) => (
             <Link
               key={item.href}
@@ -69,18 +72,32 @@ export function SiteHeader() {
               {item.label}
             </Link>
           ))}
-          <CartButton count={count} hydrated={hydrated} onClick={openCart} />
+          <LanguageSwitcher pathname={pathname} locale={locale} label={t('languageLabel')} />
+          <CartButton
+            count={count}
+            hydrated={hydrated}
+            onClick={openCart}
+            label={t('cart')}
+            ariaLabel={t('cartAria', { count })}
+          />
         </nav>
 
         <div className="flex items-center gap-5 lg:hidden">
-          <CartButton count={count} hydrated={hydrated} onClick={openCart} />
+          <LanguageSwitcher pathname={pathname} locale={locale} label={t('languageLabel')} />
+          <CartButton
+            count={count}
+            hydrated={hydrated}
+            onClick={openCart}
+            label={t('cart')}
+            ariaLabel={t('cartAria', { count })}
+          />
           <button
             type="button"
             className="eyebrow text-paper"
             aria-expanded={menuOpen}
             onClick={() => setMenuOpen((v) => !v)}
           >
-            {menuOpen ? 'Fermer' : 'Menu'}
+            {menuOpen ? t('close') : t('menu')}
           </button>
         </div>
       </div>
@@ -95,7 +112,7 @@ export function SiteHeader() {
             ? 'max-h-96 border-ink-line pb-6 opacity-100'
             : 'max-h-0 border-transparent pb-0 opacity-0'
         }`}
-        aria-label="Navigation mobile"
+        aria-label={t('navMobile')}
         inert={!menuOpen}
       >
         {NAV.map((item) => (
@@ -119,22 +136,51 @@ function CartButton({
   count,
   hydrated,
   onClick,
+  label,
+  ariaLabel,
 }: {
   count: number;
   hydrated: boolean;
   onClick: () => void;
+  label: string;
+  ariaLabel: string;
 }) {
   return (
-    <button
-      type="button"
-      onClick={onClick}
-      className="eyebrow hover:text-paper"
-      aria-label={`Panier — ${count} article${count > 1 ? 's' : ''}`}
-    >
+    <button type="button" onClick={onClick} className="eyebrow hover:text-paper" aria-label={ariaLabel}>
       {/* Tant que le localStorage n'est pas lu, on n'affiche pas de compteur :
           le serveur ne peut pas le connaître, l'afficher créerait un écart
           d'hydratation. */}
-      Panier{hydrated && count > 0 ? ` (${count})` : ''}
+      {label}
+      {hydrated && count > 0 ? ` (${count})` : ''}
     </button>
+  );
+}
+
+/** Bascule FR/EN, reste sur la page courante en changeant de langue. */
+function LanguageSwitcher({
+  pathname,
+  locale,
+  label,
+}: {
+  pathname: string;
+  locale: string;
+  label: string;
+}) {
+  return (
+    <div className="eyebrow flex items-center gap-2" aria-label={label}>
+      {routing.locales.map((l, index) => (
+        <span key={l} className="flex items-center gap-2">
+          {index > 0 ? <span className="text-paper-faint">/</span> : null}
+          <Link
+            href={pathname}
+            locale={l}
+            className={l === locale ? 'text-paper' : 'text-paper-dim hover:text-paper'}
+            aria-current={l === locale ? 'true' : undefined}
+          >
+            {l.toUpperCase()}
+          </Link>
+        </span>
+      ))}
+    </div>
   );
 }

@@ -1,3 +1,4 @@
+import { useTranslations } from 'next-intl';
 import { AFRICA_VIEW_BOX } from '@/lib/africa-countries';
 import { AFRICA_COUNTRY_PATHS } from '@/lib/africa-map-data';
 
@@ -8,10 +9,11 @@ import { AFRICA_COUNTRY_PATHS } from '@/lib/africa-map-data';
  * licence. Recadrée sur l'Afrique plutôt que d'afficher le monde entier.
  */
 export function AfricaMap({ countryCode }: { countryCode: string }) {
+  const t = useTranslations('africaMap');
   const target = countryCode.toLowerCase();
 
   return (
-    <svg viewBox={AFRICA_VIEW_BOX} className="w-full" role="img" aria-label="Carte de l'Afrique">
+    <svg viewBox={AFRICA_VIEW_BOX} className="w-full" role="img" aria-label={t('ariaLabel')}>
       {AFRICA_COUNTRY_PATHS.map((country) => (
         <path
           key={country.id}
