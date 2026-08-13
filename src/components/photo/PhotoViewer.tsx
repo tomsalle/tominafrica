@@ -33,6 +33,14 @@ export function PhotoViewer({ photo }: { photo: PhotoRow }) {
   const touchStartX = useRef<number | null>(null);
   const touchDeltaX = useRef(0);
 
+  // La bascule N&B ne sert jamais un filtre : elle n'existe que si un vrai
+  // fichier noir et blanc retouché a été fourni pour cette photo.
+  const hasBwVariant = Boolean(photo.bw_image_path);
+  const activeSrc =
+    blackAndWhite && hasBwVariant && photo.bw_image_path
+      ? photoSrc(photo.bw_image_path, photo.bw_image_width)
+      : photoSrc(photo.image_path, photo.image_width);
+
   const naturalRatio =
     photo.image_width && photo.image_height ? photo.image_width / photo.image_height : 3 / 2;
   // Encadré : la photo se recadre au ratio du format réellement commandé
@@ -138,14 +146,12 @@ export function PhotoViewer({ photo }: { photo: PhotoRow }) {
                     aria-label={t('zoomLabel', { title: photo.title })}
                   >
                     <Image
-                      src={photoSrc(photo.image_path, photo.image_width)}
+                      src={activeSrc}
                       alt={photo.title}
                       fill
                       priority
                       sizes={SIZES.full}
-                      className={`object-cover transition-[filter] duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] ${
-                        blackAndWhite ? 'grayscale' : ''
-                      }`}
+                      className="object-cover"
                       {...(photo.blur_data_url
                         ? { placeholder: 'blur' as const, blurDataURL: photo.blur_data_url }
                         : {})}
@@ -161,14 +167,12 @@ export function PhotoViewer({ photo }: { photo: PhotoRow }) {
                   aria-label={t('zoomLabel', { title: photo.title })}
                 >
                   <Image
-                    src={photoSrc(photo.image_path, photo.image_width)}
+                    src={activeSrc}
                     alt={photo.title}
                     fill
                     priority
                     sizes={SIZES.full}
-                    className={`object-contain transition-[filter] duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] ${
-                      blackAndWhite ? 'grayscale' : ''
-                    }`}
+                    className="object-contain"
                     {...(photo.blur_data_url
                       ? { placeholder: 'blur' as const, blurDataURL: photo.blur_data_url }
                       : {})}
@@ -180,7 +184,7 @@ export function PhotoViewer({ photo }: { photo: PhotoRow }) {
             {/* Slide 2 : le même tirage encadré, présenté sur fond neutre à
                 son propre ratio — pas celui du format d'achat sélectionné. */}
             <div className="h-full w-full shrink-0">
-              <FramedPreview photo={photo} ratio={naturalRatio} blackAndWhite={blackAndWhite} />
+              <FramedPreview src={activeSrc} ratio={naturalRatio} />
             </div>
           </div>
         </div>
@@ -193,9 +197,9 @@ export function PhotoViewer({ photo }: { photo: PhotoRow }) {
             photoLabel={t('photo')}
             onWallLabel={t('onWall')}
           />
-          {/* Une photo nativement en noir et blanc n'a pas de version couleur
-              à proposer : la bascule n'aurait aucun effet. */}
-          {!photo.is_black_and_white ? (
+          {/* La bascule n'existe que si un vrai fichier N&B a été fourni pour
+              cette photo — sinon une seule version s'affiche, sans bouton. */}
+          {hasBwVariant ? (
             <ColorModeToggle
               blackAndWhite={blackAndWhite}
               onChange={setBlackAndWhite}
@@ -233,18 +237,10 @@ export function PhotoViewer({ photo }: { photo: PhotoRow }) {
               visible ? 'scale-100 opacity-100' : 'scale-[0.96] opacity-0'
             }`}
           >
-            <Image
-              src={photoSrc(photo.image_path, photo.image_width)}
-              alt={photo.title}
-              fill
-              sizes="100vw"
-              className={`object-contain transition-[filter] duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] ${
-                blackAndWhite ? 'grayscale' : ''
-              }`}
-            />
+            <Image src={activeSrc} alt={photo.title} fill sizes="100vw" className="object-contain" />
           </div>
 
-          {!photo.is_black_and_white ? (
+          {hasBwVariant ? (
             <div onClick={(event) => event.stopPropagation()}>
               <BlackAndWhiteToggle
                 active={blackAndWhite}
@@ -278,15 +274,7 @@ export function PhotoViewer({ photo }: { photo: PhotoRow }) {
  * proportions réelles de la photo (pas du format d'achat sélectionné), sans
  * décor ni mise à l'échelle — juste le tableau, lisible.
  */
-function FramedPreview({
-  photo,
-  ratio,
-  blackAndWhite,
-}: {
-  photo: PhotoRow;
-  ratio: number;
-  blackAndWhite: boolean;
-}) {
+function FramedPreview({ src, ratio }: { src: string; ratio: number }) {
   return (
     <div className="flex h-full w-full items-center justify-center bg-[#d9d7d2]">
       <div
@@ -294,13 +282,7 @@ function FramedPreview({
         style={{ aspectRatio: ratio }}
       >
         <div className="relative h-full w-full overflow-hidden">
-          <Image
-            src={photoSrc(photo.image_path, photo.image_width)}
-            alt=""
-            fill
-            sizes="480px"
-            className={`object-cover ${blackAndWhite ? 'grayscale' : ''}`}
-          />
+          <Image src={src} alt="" fill sizes="480px" className="object-cover" />
         </div>
       </div>
     </div>

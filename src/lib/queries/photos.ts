@@ -1,5 +1,5 @@
 import { createClient } from '@/lib/supabase/server';
-import type { PhotoRow, PhotoWithOptions, PrintOptionRow } from '@/types/database';
+import type { PhotoRow, PhotoWithMinPrice, PhotoWithOptions, PrintOptionRow } from '@/types/database';
 
 const PHOTO_WITH_OPTIONS = `
   *,
@@ -35,14 +35,14 @@ export async function getRelatedPhotos(
   seriesId: string | null,
   excludePhotoId: string,
   limit = 3,
-): Promise<PhotoRow[]> {
+): Promise<PhotoWithMinPrice[]> {
   if (!seriesId) return [];
 
   const supabase = await createClient();
 
   const { data, error } = await supabase
     .from('photos')
-    .select('*')
+    .select('*, print_options (*)')
     .eq('series_id', seriesId)
     .neq('id', excludePhotoId)
     .order('position', { ascending: true })
@@ -50,7 +50,13 @@ export async function getRelatedPhotos(
 
   if (error) throw new Error(`Lecture des photos liées impossible : ${error.message}`);
 
-  return data ?? [];
+  return (data ?? []).map((row) => {
+    const { print_options, ...photo } = row as unknown as PhotoRow & {
+      print_options: { price_cents: number; available: boolean }[];
+    };
+    const availablePrices = print_options.filter((o) => o.available).map((o) => o.price_cents);
+    return { ...photo, minPriceCents: availablePrices.length > 0 ? Math.min(...availablePrices) : null };
+  });
 }
 
 /**

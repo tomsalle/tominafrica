@@ -69,6 +69,9 @@ export type Database = {
           image_path: string;
           image_width: number | null;
           image_height: number | null;
+          bw_image_path: string | null;
+          bw_image_width: number | null;
+          bw_image_height: number | null;
           blur_data_url: string | null;
           master_filename: string | null;
           is_black_and_white: boolean;
@@ -94,6 +97,9 @@ export type Database = {
           image_path: string;
           image_width?: number | null;
           image_height?: number | null;
+          bw_image_path?: string | null;
+          bw_image_width?: number | null;
+          bw_image_height?: number | null;
           blur_data_url?: string | null;
           master_filename?: string | null;
           is_black_and_white?: boolean;
@@ -336,4 +342,9 @@ export type PhotoWithOptions = PhotoRow & {
 /** Une série accompagnée de sa photo de couverture (accueil). */
 export type SeriesWithCover = SeriesRow & {
   cover_photo: PhotoRow | null;
+};
+
+/** Une photo de grille, avec son prix d'appel (le moins cher de ses tirages disponibles). */
+export type PhotoWithMinPrice = PhotoRow & {
+  minPriceCents: number | null;
 };

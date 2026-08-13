@@ -83,7 +83,6 @@ export function SiteHeader() {
         </nav>
 
         <div className="flex items-center gap-5 lg:hidden">
-          <LanguageSwitcher pathname={pathname} locale={locale} label={t('languageLabel')} />
           <CartButton
             count={count}
             hydrated={hydrated}
@@ -127,6 +126,9 @@ export function SiteHeader() {
             {item.label}
           </Link>
         ))}
+        <div className="border-t border-ink-line py-4">
+          <LanguageSwitcher pathname={pathname} locale={locale} label={t('languageLabel')} />
+        </div>
       </nav>
     </header>
   );

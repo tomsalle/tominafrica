@@ -1,5 +1,5 @@
 import { createClient } from '@/lib/supabase/server';
-import type { PhotoRow, SeriesRow, SeriesWithCover } from '@/types/database';
+import type { PhotoWithMinPrice, SeriesRow, SeriesWithCover } from '@/types/database';
 
 /**
  * Lectures du catalogue.
@@ -32,7 +32,7 @@ export async function getSeriesList(): Promise<SeriesWithCover[]> {
 /** Une série et ses photos. `null` si le slug n'existe pas ou n'est pas publié. */
 export async function getSeriesBySlug(
   slug: string,
-): Promise<{ series: SeriesRow; photos: PhotoRow[] } | null> {
+): Promise<{ series: SeriesRow; photos: PhotoWithMinPrice[] } | null> {
   const supabase = await createClient();
 
   const { data: series, error } = await supabase
@@ -44,15 +44,27 @@ export async function getSeriesBySlug(
   if (error) throw new Error(`Lecture de la série impossible : ${error.message}`);
   if (!series) return null;
 
+  // `price_cents` des tirages disponibles est chargé ici pour afficher un prix
+  // d'appel sur chaque vignette de la grille, sans requête supplémentaire par
+  // photo. On ne relit jamais ce prix pour facturer : le paiement reprend
+  // toujours les montants en base au moment du checkout.
   const { data: photos, error: photosError } = await supabase
     .from('photos')
-    .select('*')
+    .select('*, print_options (*)')
     .eq('series_id', series.id)
     .order('position', { ascending: true });
 
   if (photosError) throw new Error(`Lecture des photos impossible : ${photosError.message}`);
 
-  return { series, photos: photos ?? [] };
+  const photosWithMinPrice: PhotoWithMinPrice[] = (photos ?? []).map((row) => {
+    const { print_options, ...photo } = row as typeof row & {
+      print_options: { price_cents: number; available: boolean }[];
+    };
+    const availablePrices = print_options.filter((o) => o.available).map((o) => o.price_cents);
+    return { ...photo, minPriceCents: availablePrices.length > 0 ? Math.min(...availablePrices) : null };
+  });
+
+  return { series, photos: photosWithMinPrice };
 }
 
 /**
