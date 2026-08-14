@@ -4,16 +4,14 @@ import Image from 'next/image';
 import { useTranslations } from 'next-intl';
 import { useEffect, useRef, useState } from 'react';
 import { Link } from '@/i18n/navigation';
-import { photoSrc } from '@/lib/images';
 
 const STORAGE_KEY = 'tominafrica.exposition-popin.v1';
 const SHOW_DELAY_MS = 1500;
 
-// Photo montrée dans la pop-in — un des tirages de la série, celle qui sera
-// exposée, pas une photo de coulisses du voyage. Format réel (3:4, portrait)
-// plutôt qu'un recadrage large : c'est elle qui porte la promotion, autant
-// lui laisser toute la place.
-const PHOTO = { imagePath: 'les-jumelles', imageWidth: 2400, imageHeight: 3200 };
+// Affiche officielle de l'exposition (visuel fixe, pas une photo du
+// catalogue) : elle porte déjà titre, dates et lieu, donc pas de surimpression
+// à ajouter par-dessus.
+const POSTER = { src: '/expo/poster.avif', width: 846, height: 1200 };
 
 /**
  * Annonce l'exposition à venir, une fois par visiteur (localStorage). Montée
@@ -92,20 +90,19 @@ export function ExpositionPopIn() {
           visible ? 'scale-100 opacity-100' : 'scale-[0.96] opacity-0'
         }`}
       >
-        {/* Format réel de la photo (3:4) : elle domine la pop-in au lieu
-            d'être une simple vignette d'en-tête. */}
+        {/* Format réel de l'affiche : elle domine la pop-in au lieu d'être
+            une simple vignette d'en-tête. */}
         <div
           className="relative w-full shrink-0 overflow-hidden bg-ink-soft"
-          style={{ aspectRatio: PHOTO.imageWidth / PHOTO.imageHeight }}
+          style={{ aspectRatio: POSTER.width / POSTER.height }}
         >
           <Image
-            src={photoSrc(PHOTO.imagePath, PHOTO.imageWidth)}
+            src={POSTER.src}
             alt=""
             fill
             sizes="384px"
-            className="object-cover"
+            className="object-contain"
           />
-          <div className="absolute inset-0 bg-linear-to-t from-ink/80 via-transparent to-transparent" />
 
           <button
             ref={closeButtonRef}
@@ -116,10 +113,6 @@ export function ExpositionPopIn() {
           >
             ✕
           </button>
-
-          {/* Dates en surimpression, sur la photo : la première chose lue,
-              avant même le titre — c'est l'information qui décide d'un clic. */}
-          <p className="eyebrow absolute bottom-4 left-5 text-paper">{t('dates')}</p>
         </div>
 
         <div className="p-7">
