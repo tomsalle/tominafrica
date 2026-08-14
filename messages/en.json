@@ -31,9 +31,10 @@
   "expositionPopIn": {
     "dialogLabel": "Exhibition in Paris",
     "close": "Close",
+    "dates": "November 24 – 26, 2026 · Paris",
     "eyebrow": "Exhibition",
     "title": "Our exhibition is coming to Paris",
-    "body": "Opening night on November 24 at 7pm — come discover the photographs from our crossing of Africa.",
+    "body": "Opening night on Tuesday, November 24 at 7pm, avenue de l’Opéra in Paris. Open to the public November 24–26 — come discover the photographs from our crossing of Africa.",
     "cta": "Register for the opening",
     "later": "Later"
   },
@@ -160,7 +161,7 @@
     "preorderCta": "Pre-order the book",
     "preorderSoon": "Pre-orders coming soon",
     "exhibitionEyebrow": "The exhibition",
-    "exhibitionP1": "An exhibition will soon take place in Paris, built around the photographs from this crossing.",
+    "exhibitionP1": "November 24–26, 2026, avenue de l’Opéra in Paris, built around the photographs from this crossing. Opening night on Tuesday, November 24.",
     "exhibitionCta": "Register",
     "viewPhotosCta": "View the photographs",
     "viewVideosCta": "Watch the trip’s videos"
@@ -170,7 +171,7 @@
     "metaDescription": "Register to attend the “Our Journey” exhibition in Paris.",
     "backLink": "← Our Journey",
     "title": "The exhibition",
-    "body": "An exhibition will soon take place in Paris, built around the photographs from this crossing. Leave your details to be invited — practical information (venue, date, times) will be sent to you by e-mail."
+    "body": "November 24–26, 2026, avenue de l’Opéra in Paris — opening night on Tuesday, November 24 at 7pm. Leave your details to be invited, practical information will be confirmed by e-mail."
   },
   "aPropos": {
     "metaTitle": "About",

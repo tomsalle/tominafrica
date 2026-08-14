@@ -31,9 +31,10 @@
   "expositionPopIn": {
     "dialogLabel": "Exposition à Paris",
     "close": "Fermer",
+    "dates": "24 – 26 novembre 2026 · Paris",
     "eyebrow": "Exposition",
     "title": "Notre exposition arrive à Paris",
-    "body": "Vernissage le 24 novembre à 19h — venez découvrir les photographies de notre traversée de l’Afrique.",
+    "body": "Vernissage le mardi 24 novembre à 19h, avenue de l’Opéra à Paris. Exposition ouverte du 24 au 26 novembre — venez découvrir les photographies de notre traversée de l’Afrique.",
     "cta": "S’inscrire au vernissage",
     "later": "Plus tard"
   },
@@ -160,7 +161,7 @@
     "preorderCta": "Précommander le livre",
     "preorderSoon": "Précommande bientôt disponible",
     "exhibitionEyebrow": "L’exposition",
-    "exhibitionP1": "Une exposition aura bientôt lieu à Paris, autour des photographies de cette traversée.",
+    "exhibitionP1": "Du 24 au 26 novembre 2026, avenue de l’Opéra à Paris, autour des photographies de cette traversée. Vernissage le mardi 24 novembre.",
     "exhibitionCta": "S’inscrire",
     "viewPhotosCta": "Voir les photographies",
     "viewVideosCta": "Voir les vidéos du voyage"
@@ -170,7 +171,7 @@
     "metaDescription": "Inscrivez-vous pour participer à l’exposition « Notre aventure » à Paris.",
     "backLink": "← Notre aventure",
     "title": "L’exposition",
-    "body": "Une exposition aura bientôt lieu à Paris, autour des photographies de cette traversée. Laissez vos coordonnées pour être invité·e — les détails pratiques (lieu, date, horaires) vous seront envoyés par e-mail."
+    "body": "Du 24 au 26 novembre 2026, avenue de l’Opéra à Paris — vernissage le mardi 24 novembre à 19h. Laissez vos coordonnées pour être invité·e, les détails pratiques vous seront confirmés par e-mail."
   },
   "aPropos": {
     "metaTitle": "À propos",
