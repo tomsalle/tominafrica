@@ -1,9 +1,15 @@
 import type { Metadata } from 'next';
 import Image from 'next/image';
 import { getTranslations } from 'next-intl/server';
+import { notFound } from 'next/navigation';
 import { Container } from '@/components/ui/Container';
 import { Prose } from '@/components/ui/Prose';
 import { languageAlternates } from '@/i18n/alternates';
+
+// Page retirée temporairement (demande de Tom, 2026-08-15) : le contenu
+// reste en place, prêt à être remis en ligne en retirant ce garde-fou, le
+// lien dans SiteHeader.tsx et l'entrée dans sitemap.ts.
+const PAGE_DISABLED = true;
 
 export async function generateMetadata({
   params,
@@ -20,6 +26,8 @@ export async function generateMetadata({
 }
 
 export default async function AboutPage() {
+  if (PAGE_DISABLED) notFound();
+
   const t = await getTranslations('aPropos');
 
   return (

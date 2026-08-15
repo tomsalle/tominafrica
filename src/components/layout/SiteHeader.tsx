@@ -22,7 +22,6 @@ export function SiteHeader() {
     { href: '/series/1-mere-1-fils-1-reve', label: t('gallery') },
     { href: '/notre-aventure', label: t('adventure') },
     { href: '/videos', label: t('videos') },
-    { href: '/a-propos', label: t('about') },
   ];
 
   // Le header est transparent sur les grandes images, puis se solidifie dès
