@@ -227,7 +227,8 @@
     "notFoundTitle": "Série introuvable",
     "photoCount": "{count, plural, one {# photographie} other {# photographies}}",
     "emptySeries": "Aucune photo publiée dans cette série.",
-    "priceFrom": "à partir de {price}"
+    "priceFrom": "à partir de {price}",
+    "comingSoon": "D'autres photographies arriveront bientôt."
   },
   "legal": {
     "frenchOnlyNotice": "Ce document n’est disponible qu’en français.",

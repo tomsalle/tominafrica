@@ -66,6 +66,10 @@ export default async function SeriesPage({ params }: PageProps) {
           <p className="mt-8 text-xs tracking-wide text-paper-faint">
             {t('photoCount', { count: photos.length })}
           </p>
+
+          {/* Sélection réduite temporairement (demande de Tom, 2026-08-23) :
+              retirer cette bannière quand le catalogue complet revient. */}
+          <p className="mt-2 text-xs tracking-wide text-accent">{t('comingSoon')}</p>
         </header>
 
         <div className="mt-20">
