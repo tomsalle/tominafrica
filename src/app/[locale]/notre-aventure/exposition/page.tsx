@@ -1,9 +1,13 @@
 import type { Metadata } from 'next';
+import Image from 'next/image';
 import { getTranslations } from 'next-intl/server';
 import { ExpositionForm } from '@/components/exhibition/ExpositionForm';
 import { Container } from '@/components/ui/Container';
 import { languageAlternates } from '@/i18n/alternates';
 import { Link } from '@/i18n/navigation';
+
+// Même affiche que la pop-in d'annonce (public/expo/poster.avif).
+const POSTER = { src: '/expo/poster.avif', width: 846, height: 1200 };
 
 export async function generateMetadata({
   params,
@@ -26,7 +30,21 @@ export default async function ExpositionPage() {
   return (
     <div className="pt-32 pb-28 sm:pt-40">
       <Container width="prose">
-        <Link href="/notre-aventure" className="eyebrow link-underline">
+        <div
+          className="relative mx-auto w-full max-w-sm overflow-hidden bg-ink-soft"
+          style={{ aspectRatio: POSTER.width / POSTER.height }}
+        >
+          <Image
+            src={POSTER.src}
+            alt=""
+            fill
+            sizes="(max-width: 640px) 100vw, 24rem"
+            className="object-contain"
+            priority
+          />
+        </div>
+
+        <Link href="/notre-aventure" className="mt-10 eyebrow link-underline block">
           {t('backLink')}
         </Link>
 
