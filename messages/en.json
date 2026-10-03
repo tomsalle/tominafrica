@@ -85,7 +85,7 @@
     "phonePlaceholder": "+33 6 12 34 56 78",
     "message": "Message",
     "messageOptional": "(optional)",
-    "messagePlaceholder": "A question, how many people will be joining you…",
+    "messagePlaceholder": "A question, how many people will be joining you, or would you like to pre-order the book (limited edition)?",
     "submitting": "Sending…",
     "submit": "Register",
     "genericError": "Something went wrong. Please try again in a moment.",

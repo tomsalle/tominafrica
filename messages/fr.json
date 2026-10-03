@@ -85,7 +85,7 @@
     "phonePlaceholder": "06 12 34 56 78",
     "message": "Message",
     "messageOptional": "(facultatif)",
-    "messagePlaceholder": "Une question, le nombre de personnes qui vous accompagnent…",
+    "messagePlaceholder": "Une question, le nombre de personnes qui vous accompagnent, ou souhaitez-vous précommander le livre (édition limitée) ?",
     "submitting": "Envoi…",
     "submit": "S’inscrire",
     "genericError": "Une erreur est survenue. Réessayez dans un instant.",
