@@ -2,7 +2,6 @@ import type { Metadata } from 'next';
 import Image from 'next/image';
 import { getTranslations } from 'next-intl/server';
 import { notFound } from 'next/navigation';
-import { AuthorBio } from '@/components/book-preorder/AuthorBio';
 import { BudgetBreakdown } from '@/components/book-preorder/BudgetBreakdown';
 import { ContributionsList } from '@/components/book-preorder/ContributionsList';
 import { Faq } from '@/components/book-preorder/Faq';
@@ -165,8 +164,6 @@ export default async function BookPreorderPage() {
             <BudgetBreakdown />
 
             <PreorderSteps count={progress.bookUnitsTotal} stepState={stepState} />
-
-            <AuthorBio />
           </div>
 
           {/* Contreparties */}

@@ -346,12 +346,6 @@
         "otherFees": "Autres frais (ISBN, livres offerts)"
       }
     },
-    "author": {
-      "title": "Qui porte la collecte",
-      "name": "Tom Sallé",
-      "subtitle": "Première précommande lancée sur tominafrica.com",
-      "bio": "La présentation de Tom — qui il est, depuis quand il photographie, ce qui l’a amené à l’Afrique — viendra ici."
-    },
     "follow": {
       "title": "Suivre le projet",
       "placeholder": "Liens à venir : site, Instagram."
