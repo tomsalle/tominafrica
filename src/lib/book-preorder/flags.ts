@@ -1,7 +1,6 @@
-// Page de précommande du livre : construite mais pas encore publiée (demande
-// de Tom, le contenu du livre et les chiffres définitifs ne sont pas encore
-// prêts). Pour lancer :
-//   1. Passer cette constante à `false`.
-//   2. Publier les paliers : `update book_preorder_tiers set published = true`.
-//   3. Ajouter le lien dans SiteHeader.tsx et l'entrée dans sitemap.ts.
-export const BOOK_PREORDER_PAGE_DISABLED = true;
+// Page de précommande du livre : accessible par lien direct uniquement, le
+// temps que Tom la relise (2026-10-04) — toujours absente du menu et du
+// sitemap, non indexée (robots noindex dans la page elle-même). Repasser à
+// `true` pour la cacher de nouveau ; pour un vrai lancement public, ajouter
+// en plus le lien dans SiteHeader.tsx et l'entrée dans sitemap.ts.
+export const BOOK_PREORDER_PAGE_DISABLED = false;
