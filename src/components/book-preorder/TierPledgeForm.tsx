@@ -28,6 +28,10 @@ export function TierPledgeForm({ tier, checkoutEnabled, soldOut }: TierPledgeFor
   const [donationAmount, setDonationAmount] = useState(tier.price_cents / 100);
   const [status, setStatus] = useState<Status>('idle');
   const [error, setError] = useState<string | null>(null);
+  const [showMessage, setShowMessage] = useState(false);
+  const [publicName, setPublicName] = useState('');
+  const [publicMessage, setPublicMessage] = useState('');
+  const fieldId = `pledge-${tier.id}`;
 
   const maxQuantity =
     tier.stock_limit !== null ? Math.max(0, tier.stock_limit - tier.claimed_count) : 10;
@@ -45,6 +49,8 @@ export function TierPledgeForm({ tier, checkoutEnabled, soldOut }: TierPledgeFor
           quantity: tier.is_donation ? 1 : quantity,
           customAmountCents: tier.is_donation ? Math.round(donationAmount * 100) : undefined,
           locale,
+          publicName: publicName.trim() || undefined,
+          publicMessage: publicMessage.trim() || undefined,
         }),
       });
 
@@ -113,6 +119,51 @@ export function TierPledgeForm({ tier, checkoutEnabled, soldOut }: TierPledgeFor
             {formatPrice(tier.price_cents * quantity)}
           </span>
         </div>
+      )}
+
+      {showMessage ? (
+        <div className="mb-4 space-y-3">
+          <div>
+            <label htmlFor={`${fieldId}-name`} className="block text-xs text-paper-dim">
+              {t('publicNameLabel')}
+            </label>
+            <input
+              id={`${fieldId}-name`}
+              type="text"
+              autoComplete="nickname"
+              maxLength={60}
+              value={publicName}
+              onChange={(event) => setPublicName(event.target.value)}
+              placeholder={t('publicNamePlaceholder')}
+              className="mt-1.5 w-full border border-ink-line bg-transparent px-3 py-2.5 text-base text-paper placeholder:text-paper-faint focus:border-paper-dim focus:outline-none sm:text-sm"
+            />
+          </div>
+          <div>
+            <label htmlFor={`${fieldId}-message`} className="block text-xs text-paper-dim">
+              {t('publicMessageLabel')}
+            </label>
+            <textarea
+              id={`${fieldId}-message`}
+              rows={3}
+              maxLength={280}
+              value={publicMessage}
+              onChange={(event) => setPublicMessage(event.target.value)}
+              className="mt-1.5 w-full resize-none border border-ink-line bg-transparent px-3 py-2.5 text-base text-paper focus:border-paper-dim focus:outline-none sm:text-sm"
+            />
+            <p className="mt-1 flex justify-between gap-3 text-[0.6875rem] text-paper-faint">
+              <span>{t('publicMessageHelp')}</span>
+              <span className="tabular-nums">{publicMessage.length}/280</span>
+            </p>
+          </div>
+        </div>
+      ) : (
+        <button
+          type="button"
+          onClick={() => setShowMessage(true)}
+          className="mb-4 cursor-pointer text-xs text-paper-dim underline underline-offset-4 transition-colors duration-200 hover:text-paper"
+        >
+          {t('addMessage')}
+        </button>
       )}
 
       {error ? <p className="mb-3 text-xs text-brand-text">{error}</p> : null}

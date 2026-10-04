@@ -28,7 +28,7 @@ export function BudgetBreakdown() {
   const segments = BOOK_PREORDER_BUDGET_BREAKDOWN.map((item, index) => ({
     ...item,
     index,
-    percent: percents[index],
+    percent: percents[index] ?? 0,
     offset: percents.slice(0, index).reduce((sum, value) => sum + value, 0),
   }));
 

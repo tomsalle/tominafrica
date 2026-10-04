@@ -303,9 +303,7 @@
     "hero": {
       "eyebrow": "Précommande",
       "title": "1 Mère, 1 Fils, 1 Rêve",
-      "subtitle": "Le livre de l’aventure !",
-      "location": "Paris",
-      "category": "Livre photo"
+      "subtitle": "Le livre de l’aventure !"
     },
     "progress": {
       "count": "{count} préventes sur {goal}",
@@ -428,9 +426,21 @@
       "donationAmountLabel": "Montant du don",
       "submitting": "Envoi…",
       "preorder": "Précommander",
-      "donate": "Faire un don"
+      "donate": "Faire un don",
+      "addMessage": "+ Laisser un message sur la page (facultatif)",
+      "publicNameLabel": "Nom affiché",
+      "publicNamePlaceholder": "Anonyme si vide",
+      "publicMessageLabel": "Votre message",
+      "publicMessageHelp": "Visible par tous dans les contributions."
     },
-    "tiersTitle": "Contreparties"
+    "tiersTitle": "Contreparties",
+    "contributions": {
+      "title": "{count, plural, =0 {Contributions} one {# contribution} other {# contributions}}",
+      "anonymous": "Une personne anonyme",
+      "choseTier": "a choisi la contrepartie",
+      "donated": "a contribué par un don",
+      "empty": "Aucune contribution pour l’instant. Soyez la première personne à soutenir le livre."
+    }
   },
   "bookPreorderSucces": {
     "metaTitle": "Précommande confirmée",

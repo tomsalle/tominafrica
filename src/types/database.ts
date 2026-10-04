@@ -355,6 +355,8 @@ export type Database = {
           shipping_city: string | null;
           shipping_country: string | null;
           notes: string | null;
+          public_name: string | null;
+          public_message: string | null;
           created_at: string;
           updated_at: string;
           paid_at: string | null;
@@ -383,6 +385,8 @@ export type Database = {
           shipping_city?: string | null;
           shipping_country?: string | null;
           notes?: string | null;
+          public_name?: string | null;
+          public_message?: string | null;
           created_at?: string;
           updated_at?: string;
           paid_at?: string | null;
@@ -406,6 +410,16 @@ export type Database = {
       claim_book_preorder_stock: {
         Args: { p_tier_id: string; p_quantity: number };
         Returns: undefined;
+      };
+      get_book_preorder_contributions: {
+        Args: { p_limit?: number };
+        Returns: {
+          public_name: string | null;
+          public_message: string | null;
+          tier_slug: string;
+          is_donation: boolean;
+          created_at: string;
+        }[];
       };
       get_book_preorder_progress: {
         Args: Record<never, never>;

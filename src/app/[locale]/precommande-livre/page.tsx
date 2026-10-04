@@ -4,9 +4,9 @@ import { getTranslations } from 'next-intl/server';
 import { notFound } from 'next/navigation';
 import { AuthorBio } from '@/components/book-preorder/AuthorBio';
 import { BudgetBreakdown } from '@/components/book-preorder/BudgetBreakdown';
+import { ContributionsList } from '@/components/book-preorder/ContributionsList';
 import { Faq } from '@/components/book-preorder/Faq';
 import { HeroPanel } from '@/components/book-preorder/HeroPanel';
-import { PinIcon, TagIcon } from '@/components/book-preorder/icons';
 import { ShareButton } from '@/components/book-preorder/ShareButton';
 import { ShippingInfo } from '@/components/book-preorder/ShippingInfo';
 import { StickyTabNav } from '@/components/book-preorder/StickyTabNav';
@@ -16,7 +16,7 @@ import { Container } from '@/components/ui/Container';
 import { Prose } from '@/components/ui/Prose';
 import { BOOK_PREORDER_GOAL_COUNT } from '@/lib/book-preorder/config';
 import { BOOK_PREORDER_PAGE_DISABLED } from '@/lib/book-preorder/flags';
-import { getBookPreorderProgress, getPublishedTiers } from '@/lib/book-preorder/queries';
+import { getBookPreorderProgress, getPublicContributions, getPublishedTiers } from '@/lib/book-preorder/queries';
 import { isCheckoutEnabled } from '@/lib/env';
 import { languageAlternates } from '@/i18n/alternates';
 
@@ -50,7 +50,11 @@ export default async function BookPreorderPage() {
   const t = await getTranslations('bookPreorder');
   const photos = await getTranslations('notreAventure');
   const checkoutEnabled = isCheckoutEnabled();
-  const [tiers, progress] = await Promise.all([getPublishedTiers(), getBookPreorderProgress()]);
+  const [tiers, progress, contributions] = await Promise.all([
+    getPublishedTiers(),
+    getBookPreorderProgress(),
+    getPublicContributions(),
+  ]);
 
   const rewardTiers = tiers.filter((tier) => !tier.is_donation);
   const donationTier = tiers.find((tier) => tier.is_donation);
@@ -103,25 +107,7 @@ export default async function BookPreorderPage() {
               />
             </div>
 
-            <div className="mt-8 flex flex-wrap items-center justify-between gap-4">
-              <div className="flex items-center gap-3">
-                <div className="relative size-12 shrink-0 overflow-hidden rounded-full bg-ink">
-                  <Image src="/placeholders/dune-45.svg" alt="" fill sizes="48px" className="object-cover" />
-                </div>
-                <div>
-                  <p className="font-medium text-paper">{t('author.name')}</p>
-                  <p className="mt-0.5 flex items-center gap-4 text-xs text-paper-faint">
-                    <span className="flex items-center gap-1">
-                      <PinIcon className="size-3.5" />
-                      {t('hero.location')}
-                    </span>
-                    <span className="flex items-center gap-1">
-                      <TagIcon className="size-3.5" />
-                      {t('hero.category')}
-                    </span>
-                  </p>
-                </div>
-              </div>
+            <div className="mt-6 flex justify-end">
               <ShareButton />
             </div>
           </div>
@@ -208,6 +194,10 @@ export default async function BookPreorderPage() {
 
             <div className="mt-10">
               <ShippingInfo />
+            </div>
+
+            <div className="mt-10">
+              <ContributionsList contributions={contributions} total={progress.pledgesCount} />
             </div>
           </aside>
         </div>

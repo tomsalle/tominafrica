@@ -20,24 +20,6 @@ function Icon({ children, className = 'size-4', ...props }: IconProps) {
   );
 }
 
-export function PinIcon(props: IconProps) {
-  return (
-    <Icon {...props}>
-      <path d="M12 21s-6.5-5.6-6.5-11a6.5 6.5 0 0 1 13 0c0 5.4-6.5 11-6.5 11Z" />
-      <circle cx="12" cy="10" r="2.25" />
-    </Icon>
-  );
-}
-
-export function TagIcon(props: IconProps) {
-  return (
-    <Icon {...props}>
-      <path d="M3 12V4.5A1.5 1.5 0 0 1 4.5 3H12l9 9-9 9-9-9Z" />
-      <circle cx="7.5" cy="7.5" r="1.25" />
-    </Icon>
-  );
-}
-
 export function ShareIcon(props: IconProps) {
   return (
     <Icon {...props}>

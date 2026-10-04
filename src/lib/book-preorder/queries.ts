@@ -41,6 +41,38 @@ export async function getTierById(tierId: string): Promise<BookPreorderTierRow |
  * `security definer` — aucune ligne de `book_preorder_pledges` n'est jamais
  * lue directement ici.
  */
+export type PublicContribution = {
+  publicName: string | null;
+  publicMessage: string | null;
+  tierSlug: string;
+  isDonation: boolean;
+  createdAt: string;
+};
+
+/**
+ * Liste publique des contributions (nom affiché et message choisis par la
+ * personne). En cas d'échec, la page s'affiche sans la liste plutôt que de
+ * tomber : ce bloc est secondaire par rapport aux contreparties.
+ */
+export async function getPublicContributions(limit = 50): Promise<PublicContribution[]> {
+  const supabase = await createClient();
+
+  const { data, error } = await supabase.rpc('get_book_preorder_contributions', { p_limit: limit });
+
+  if (error) {
+    console.error('[book-preorder] lecture des contributions impossible', error.message);
+    return [];
+  }
+
+  return (data ?? []).map((row) => ({
+    publicName: row.public_name,
+    publicMessage: row.public_message,
+    tierSlug: row.tier_slug,
+    isDonation: row.is_donation,
+    createdAt: row.created_at,
+  }));
+}
+
 export async function getBookPreorderProgress(): Promise<{
   bookUnitsTotal: number;
   raisedCents: number;

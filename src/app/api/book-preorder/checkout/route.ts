@@ -42,7 +42,7 @@ export async function POST(request: Request) {
     return NextResponse.json({ error: t('invalidRequest') }, { status: 400 });
   }
 
-  const { tierId, quantity, customAmountCents } = parsed.data;
+  const { tierId, quantity, customAmountCents, publicName, publicMessage } = parsed.data;
 
   // --- Rechargement autoritatif depuis la base ------------------------------
   const tier = await getTierById(tierId);
@@ -116,6 +116,10 @@ export async function POST(request: Request) {
         tierSlug: tier.slug,
         quantity: String(effectiveQuantity),
         isDonation: String(tier.is_donation),
+        // Relus par le webhook, qui les enregistre sur la précommande payée.
+        // (Stripe limite chaque valeur à 500 caractères ; le schéma plafonne à 280.)
+        ...(publicName ? { publicName } : {}),
+        ...(publicMessage ? { publicMessage } : {}),
       },
     });
 

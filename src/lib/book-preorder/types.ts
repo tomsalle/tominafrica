@@ -14,6 +14,9 @@ export const bookPreorderCheckoutRequestSchema = z.object({
   quantity: z.number().int().min(1).max(10).default(1),
   customAmountCents: z.number().int().min(100).max(1_000_000).optional(),
   locale: z.enum(['fr', 'en']).optional(),
+  // Affichés publiquement dans la liste des contributions — facultatifs.
+  publicName: z.string().trim().max(60).optional(),
+  publicMessage: z.string().trim().max(280).optional(),
 });
 
 export type BookPreorderCheckoutRequest = z.infer<typeof bookPreorderCheckoutRequestSchema>;

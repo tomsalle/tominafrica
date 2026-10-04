@@ -303,9 +303,7 @@
     "hero": {
       "eyebrow": "Pre-order",
       "title": "1 Mother, 1 Son, 1 Dream",
-      "subtitle": "The book of the journey!",
-      "location": "Paris",
-      "category": "Photo book"
+      "subtitle": "The book of the journey!"
     },
     "progress": {
       "count": "{count} pre-orders out of {goal}",
@@ -428,9 +426,21 @@
       "donationAmountLabel": "Donation amount",
       "submitting": "Sending…",
       "preorder": "Pre-order",
-      "donate": "Donate"
+      "donate": "Donate",
+      "addMessage": "+ Leave a message on the page (optional)",
+      "publicNameLabel": "Display name",
+      "publicNamePlaceholder": "Anonymous if left blank",
+      "publicMessageLabel": "Your message",
+      "publicMessageHelp": "Visible to everyone in the contributions."
     },
-    "tiersTitle": "Rewards"
+    "tiersTitle": "Rewards",
+    "contributions": {
+      "title": "{count, plural, =0 {Contributions} one {# contribution} other {# contributions}}",
+      "anonymous": "Someone anonymous",
+      "choseTier": "chose the reward",
+      "donated": "made a donation",
+      "empty": "No contributions yet. Be the first to support the book."
+    }
   },
   "bookPreorderSucces": {
     "metaTitle": "Pre-order confirmed",
