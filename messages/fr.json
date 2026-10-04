@@ -354,7 +354,10 @@
       "soldOut": "Épuisé",
       "remaining": "{count, plural, one {# restant} other {# restants}}",
       "donationLabel": "Montant libre",
-      "choose": "Choisir"
+      "choose": "Choisir",
+      "featured": "Contrepartie à la une",
+      "priceFor": "Pour {price}",
+      "allTiers": "Toutes les contreparties"
     },
     "tiers": {
       "early-bird": {

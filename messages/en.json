@@ -354,7 +354,10 @@
       "soldOut": "Sold out",
       "remaining": "{count, plural, one {# left} other {# left}}",
       "donationLabel": "Any amount",
-      "choose": "Choose"
+      "choose": "Choose",
+      "featured": "Featured reward",
+      "priceFor": "For {price}",
+      "allTiers": "All rewards"
     },
     "tiers": {
       "early-bird": {

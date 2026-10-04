@@ -7,51 +7,59 @@ import type { BookPreorderTierRow } from '@/types/database';
 type TierCardProps = {
   tier: BookPreorderTierRow;
   checkoutEnabled: boolean;
+  featured?: boolean;
 };
 
 /**
- * Une ligne par palier — vignette + contenu côte à côte, sur le modèle des
- * contreparties Ulule (visuel, prix, description, puis le choix de la
- * quantité et l'appel à l'action).
+ * Carte de palier verticale, pour la colonne latérale — vignette avec prix
+ * en médaillon, prix, nom, formulaire, description. Sur le modèle des cartes
+ * de contrepartie Ulule, en version sombre/dorée.
  */
-export function TierCard({ tier, checkoutEnabled }: TierCardProps) {
+export function TierCard({ tier, checkoutEnabled, featured = false }: TierCardProps) {
   const t = useTranslations(`bookPreorder.tiers.${tier.slug}`);
   const common = useTranslations('bookPreorder.tierCommon');
   const remaining = tier.stock_limit !== null ? Math.max(0, tier.stock_limit - tier.claimed_count) : null;
   const soldOut = remaining === 0;
 
   return (
-    <div className="flex flex-col gap-6 border border-ink-line p-6 sm:flex-row sm:p-7">
-      <div className="relative aspect-3/4 w-full shrink-0 overflow-hidden bg-ink-soft sm:w-36">
-        <Image
-          src="/placeholders/dune-45.svg"
-          alt=""
-          fill
-          sizes="144px"
-          className="object-cover opacity-60"
-        />
-      </div>
-
-      <div className="flex flex-1 flex-col">
-        <div className="flex items-baseline justify-between gap-4">
-          <p className="eyebrow">{t('name')}</p>
-          {remaining !== null ? (
-            <p className="eyebrow text-accent">
-              {soldOut ? common('soldOut') : common('remaining', { count: remaining })}
-            </p>
-          ) : null}
-        </div>
-
-        <p className="mt-3 font-display text-3xl font-light text-paper">
-          {tier.is_donation ? common('donationLabel') : formatPrice(tier.price_cents)}
+    <div className={`bg-ink-soft p-5 ${featured ? 'border border-accent/40' : ''}`}>
+      {featured ? (
+        <p className="eyebrow mb-3 flex items-center gap-1.5 text-accent">
+          <span aria-hidden>★</span> {common('featured')}
         </p>
+      ) : null}
 
-        <p className="mt-3 text-sm leading-relaxed text-paper-dim">{t('description')}</p>
-
-        <div className="mt-6 sm:max-w-xs">
-          <TierPledgeForm tier={tier} checkoutEnabled={checkoutEnabled} soldOut={soldOut} />
+      <div className="relative">
+        <div className="relative aspect-4/5 w-full overflow-hidden bg-ink">
+          <Image
+            src="/precommande-livre/livre-ouvert.avif"
+            alt=""
+            fill
+            sizes="(max-width: 1024px) 50vw, 22rem"
+            className="object-cover opacity-90"
+          />
+        </div>
+        <div className="absolute top-2 right-2 flex h-14 w-14 items-center justify-center rounded-full bg-ink text-center text-[0.6875rem] leading-tight font-medium text-paper shadow-lg">
+          {tier.is_donation ? common('donationLabel') : formatPrice(tier.price_cents)}
         </div>
       </div>
+
+      <p className="mt-4 text-xs text-paper-faint uppercase tracking-wide">
+        {tier.is_donation ? common('donationLabel') : common('priceFor', { price: formatPrice(tier.price_cents) })}
+      </p>
+      <p className="mt-1 font-display text-xl font-light text-paper">{t('name')}</p>
+
+      {remaining !== null ? (
+        <p className="mt-2 text-xs text-accent">
+          {soldOut ? common('soldOut') : common('remaining', { count: remaining })}
+        </p>
+      ) : null}
+
+      <div className="mt-4">
+        <TierPledgeForm tier={tier} checkoutEnabled={checkoutEnabled} soldOut={soldOut} />
+      </div>
+
+      <p className="mt-4 text-xs leading-relaxed text-paper-dim">{t('description')}</p>
     </div>
   );
 }
