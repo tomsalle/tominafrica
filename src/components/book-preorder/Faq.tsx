@@ -1,0 +1,35 @@
+import { useTranslations } from 'next-intl';
+
+/** FAQ en accordéon natif (<details>/<summary>), sans JavaScript. */
+export function Faq() {
+  const t = useTranslations('bookPreorder.faq');
+
+  const items = [
+    { q: t('paymentQ'), a: t('paymentA'), placeholder: false },
+    { q: t('deliveryQ'), a: t('deliveryA'), placeholder: false },
+    { q: t('goalQ'), a: t('goalA'), placeholder: true },
+    { q: t('contactQ'), a: t('contactA'), placeholder: false },
+  ];
+
+  return (
+    <div>
+      <p className="eyebrow">{t('title')}</p>
+
+      <div className="mt-6 divide-y divide-ink-line border-y border-ink-line">
+        {items.map((item) => (
+          <details key={item.q} className="group py-5">
+            <summary className="flex cursor-pointer list-none items-center justify-between gap-4 text-sm text-paper">
+              {item.q}
+              <span className="shrink-0 text-paper-faint transition-transform duration-300 group-open:rotate-45">
+                +
+              </span>
+            </summary>
+            <p className="mt-3 text-sm leading-relaxed text-paper-dim">
+              {item.placeholder ? <mark className="bg-accent/15 px-1.5 py-0.5 text-accent">{item.a}</mark> : item.a}
+            </p>
+          </details>
+        ))}
+      </div>
+    </div>
+  );
+}

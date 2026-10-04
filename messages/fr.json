@@ -294,12 +294,40 @@
   "bookPreorder": {
     "metaTitle": "Précommander le livre",
     "metaDescription": "Précommandez le livre photographique de Tom in Africa — édition limitée, financement participatif.",
-    "eyebrow": "Précommande",
-    "title": "Le livre arrive",
-    "storyPlaceholder": "Présentation du livre à venir : couverture, extraits, nombre de pages, et le récit de ce qui a donné naissance à ce projet.",
+    "nav": {
+      "book": "Le livre",
+      "tiers": "Contreparties",
+      "faq": "FAQ"
+    },
+    "hero": {
+      "eyebrow": "Précommande",
+      "title": "Le livre arrive"
+    },
     "progress": {
-      "count": "{count} / {goal} exemplaires précommandés",
-      "pledgesCount": "{count, plural, one {# précommande} other {# précommandes}}"
+      "count": "{count} préventes sur {goal}",
+      "percent": "Financé à {percent} %",
+      "pledgesCount": "{count, plural, one {# contribution} other {# contributions}}",
+      "ctaFrom": "Contribuer — à partir de {price}",
+      "secureNote": "Paiement sécurisé par Stripe",
+      "share": "Partager"
+    },
+    "about": {
+      "title": "À propos de ce livre",
+      "p1": "Présentation du livre à venir : couverture, extraits, nombre de pages, et le récit de ce qui a donné naissance à ce projet."
+    },
+    "why": {
+      "title": "Pourquoi en faire un livre ?",
+      "p1": "Le texte expliquant pourquoi ce voyage devait exister en version imprimée, au-delà d’un écran, viendra ici."
+    },
+    "specs": {
+      "title": "Caractéristiques du livre",
+      "format": "Format : à préciser",
+      "pages": "Nombre de pages : à préciser",
+      "paper": "Papier intérieur : à préciser",
+      "binding": "Reliure : à préciser",
+      "cover": "Couverture : à préciser",
+      "printRun": "Tirage : 120 exemplaires",
+      "note": "Chaque exemplaire sera signé et numéroté."
     },
     "budget": {
       "title": "À quoi servira votre précommande",
@@ -309,10 +337,22 @@
         "otherFees": "Autres frais (ISBN, livres offerts)"
       }
     },
+    "author": {
+      "title": "Qui porte ce projet",
+      "name": "Tom Sallé",
+      "subtitle": "Première précommande lancée sur tominafrica.com",
+      "bio": "La présentation de Tom — qui il est, depuis quand il photographie, ce qui l’a amené à l’Afrique — viendra ici."
+    },
+    "follow": {
+      "title": "Suivre le projet",
+      "placeholder": "Liens à venir : site, Instagram."
+    },
+    "tiersIntro": "Soutenez le projet et choisissez votre contrepartie.",
     "tierCommon": {
       "soldOut": "Épuisé",
       "remaining": "{count, plural, one {# restant} other {# restants}}",
-      "donationLabel": "Montant libre"
+      "donationLabel": "Montant libre",
+      "choose": "Choisir"
     },
     "tiers": {
       "early-bird": {
@@ -339,6 +379,29 @@
         "name": "Don",
         "description": "Vous soutenez le projet, sans contrepartie fixe — merci."
       }
+    },
+    "shipping": {
+      "title": "Livraison",
+      "estimateLabel": "Date de livraison estimée",
+      "estimate": "À préciser",
+      "modesTitle": "Modes d’expédition",
+      "modesPlaceholder": "Détails à venir (envoi à domicile, point relais, ou remise en main propre)."
+    },
+    "faq": {
+      "title": "Questions fréquentes",
+      "paymentQ": "Le paiement est-il prélevé tout de suite ?",
+      "paymentA": "Oui, votre carte est débitée immédiatement à la précommande — il n’y a pas d’étape de validation différée.",
+      "deliveryQ": "Quand vais-je recevoir mon livre ?",
+      "deliveryA": "Dès que l’impression sera terminée. Vous serez informé·e par e-mail de la date d’expédition.",
+      "goalQ": "Que se passe-t-il si l’objectif n’est pas atteint ?",
+      "goalA": "À préciser avec Tom avant la mise en ligne définitive.",
+      "contactQ": "Une autre question ?",
+      "contactA": "Répondez simplement à l’e-mail de confirmation reçu après votre précommande."
+    },
+    "howItWorks": {
+      "title": "Comment ça marche",
+      "p1": "Vous précommandez un ou plusieurs exemplaires du livre, à un tarif fixé pour chaque contrepartie. Le paiement est sécurisé par Stripe — aucune donnée bancaire ne transite par ce site.",
+      "p2": "Plus il y a de précommandes, plus le projet est solide : chaque contribution aide directement à financer l’impression et la suite du travail."
     },
     "form": {
       "genericError": "Une erreur est survenue. Réessayez dans un instant.",

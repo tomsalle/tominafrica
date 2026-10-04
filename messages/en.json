@@ -294,12 +294,40 @@
   "bookPreorder": {
     "metaTitle": "Pre-order the book",
     "metaDescription": "Pre-order Tom in Africa’s photography book — limited edition, crowdfunded.",
-    "eyebrow": "Pre-order",
-    "title": "The book is coming",
-    "storyPlaceholder": "Book presentation coming soon: cover, excerpts, page count, and the story behind this project.",
+    "nav": {
+      "book": "The book",
+      "tiers": "Rewards",
+      "faq": "FAQ"
+    },
+    "hero": {
+      "eyebrow": "Pre-order",
+      "title": "The book is coming"
+    },
     "progress": {
-      "count": "{count} / {goal} copies pre-ordered",
-      "pledgesCount": "{count, plural, one {# pre-order} other {# pre-orders}}"
+      "count": "{count} pre-orders out of {goal}",
+      "percent": "{percent}% funded",
+      "pledgesCount": "{count, plural, one {# contribution} other {# contributions}}",
+      "ctaFrom": "Contribute — starting at {price}",
+      "secureNote": "Secure payment by Stripe",
+      "share": "Share"
+    },
+    "about": {
+      "title": "About this book",
+      "p1": "Book presentation coming soon: cover, excerpts, page count, and the story behind this project."
+    },
+    "why": {
+      "title": "Why make it a book?",
+      "p1": "The story of why this journey needed to exist in print, beyond a screen, will go here."
+    },
+    "specs": {
+      "title": "Book specifications",
+      "format": "Format: to be confirmed",
+      "pages": "Page count: to be confirmed",
+      "paper": "Interior paper: to be confirmed",
+      "binding": "Binding: to be confirmed",
+      "cover": "Cover: to be confirmed",
+      "printRun": "Print run: 120 copies",
+      "note": "Each copy will be signed and numbered."
     },
     "budget": {
       "title": "What your pre-order will fund",
@@ -309,10 +337,22 @@
         "otherFees": "Other costs (ISBN, gifted copies)"
       }
     },
+    "author": {
+      "title": "Who’s behind this project",
+      "name": "Tom Sallé",
+      "subtitle": "First pre-order campaign on tominafrica.com",
+      "bio": "Tom’s introduction — who he is, how long he’s been photographing, what brought him to Africa — will go here."
+    },
+    "follow": {
+      "title": "Follow the project",
+      "placeholder": "Links coming soon: website, Instagram."
+    },
+    "tiersIntro": "Support the project and choose your reward.",
     "tierCommon": {
       "soldOut": "Sold out",
       "remaining": "{count, plural, one {# left} other {# left}}",
-      "donationLabel": "Any amount"
+      "donationLabel": "Any amount",
+      "choose": "Choose"
     },
     "tiers": {
       "early-bird": {
@@ -339,6 +379,29 @@
         "name": "Donation",
         "description": "You support the project, with no fixed reward — thank you."
       }
+    },
+    "shipping": {
+      "title": "Shipping",
+      "estimateLabel": "Estimated delivery date",
+      "estimate": "To be confirmed",
+      "modesTitle": "Shipping methods",
+      "modesPlaceholder": "Details coming soon (home delivery, pickup point, or hand delivery)."
+    },
+    "faq": {
+      "title": "Frequently asked questions",
+      "paymentQ": "Is payment taken right away?",
+      "paymentA": "Yes, your card is charged immediately when you pre-order — there’s no deferred confirmation step.",
+      "deliveryQ": "When will I receive my book?",
+      "deliveryA": "As soon as printing is complete. You’ll be notified by e-mail of the shipping date.",
+      "goalQ": "What happens if the goal isn’t reached?",
+      "goalA": "To be confirmed with Tom before the final launch.",
+      "contactQ": "Another question?",
+      "contactA": "Just reply to the confirmation e-mail you received after pre-ordering."
+    },
+    "howItWorks": {
+      "title": "How it works",
+      "p1": "You pre-order one or more copies of the book, at a fixed price for each reward tier. Payment is secured by Stripe — no card details ever pass through this site.",
+      "p2": "The more pre-orders, the stronger the project: every contribution directly helps fund the printing and what comes next."
     },
     "form": {
       "genericError": "Something went wrong. Please try again in a moment.",

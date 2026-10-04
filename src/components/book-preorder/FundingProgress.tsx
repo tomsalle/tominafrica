@@ -75,7 +75,7 @@ export function FundingProgress({ count, goal, pledgesCount }: FundingProgressPr
         <p className="eyebrow">
           {t('count', { count: animatedCount, goal })}
         </p>
-        <p className="eyebrow text-accent">{percent}%</p>
+        <p className="eyebrow text-accent">{t('percent', { percent })}</p>
       </div>
 
       <p className="mt-2 text-xs text-paper-faint">{t('pledgesCount', { count: pledgesCount })}</p>
