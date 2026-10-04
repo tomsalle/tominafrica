@@ -37,8 +37,8 @@ export function BudgetBreakdown() {
     .join(', ');
 
   return (
-    <div>
-      <p className="eyebrow">{t('title')}</p>
+    <section>
+      <h2 className="font-display text-3xl font-light text-paper sm:text-4xl">{t('title')}</h2>
 
       <div className="mt-8 flex flex-col items-center gap-10 sm:flex-row sm:items-center sm:gap-12">
         <div className="relative size-52 shrink-0">
@@ -82,6 +82,6 @@ export function BudgetBreakdown() {
           ))}
         </ul>
       </div>
-    </div>
+    </section>
   );
 }

@@ -295,14 +295,17 @@
     "metaTitle": "Précommander le livre",
     "metaDescription": "Précommandez le livre photographique de Tom in Africa — édition limitée, financement participatif.",
     "nav": {
-      "book": "Le livre",
+      "book": "Collecte",
       "tiers": "Contreparties",
-      "faq": "FAQ"
+      "faq": "FAQ",
+      "contribute": "Contribuer"
     },
     "hero": {
       "eyebrow": "Précommande",
       "title": "1 Mère, 1 Fils, 1 Rêve",
-      "subtitle": "Le livre de l’aventure !"
+      "subtitle": "Le livre de l’aventure !",
+      "location": "Paris",
+      "category": "Livre photo"
     },
     "progress": {
       "count": "{count} préventes sur {goal}",
@@ -310,10 +313,14 @@
       "pledgesCount": "{count, plural, one {# contribution} other {# contributions}}",
       "ctaFrom": "Contribuer, à partir de {price}",
       "secureNote": "Paiement sécurisé par Stripe",
-      "share": "Partager"
+      "share": "Partager",
+      "countLabel": "préventes sur {goal}",
+      "contribute": "Contribuer",
+      "from": "À partir de {price}",
+      "deliveryShort": "Livraison nov. 2026"
     },
     "about": {
-      "title": "À propos de ce livre",
+      "title": "À propos de cette collecte",
       "lead": "De Paris à Cape Town, 25 000 km en 4x4 avec ma mère : le livre",
       "p1": "Il y a douze ans, ma mère, Charlotte, m’a emmené au Kenya, dans un vieux Land Cruiser. J’ai découvert l’Afrique, et depuis je n’ai eu qu’une idée en tête : y retourner. Douze ans plus tard, c’est moi qui l’ai appelée pour lui proposer de repartir, six mois, de Paris à Cape Town.",
       "p2": "Elle a cru à une de mes idées folles, et elle n’avait pas tout à fait tort. Nous n’avions jamais fait de camping, jamais conduit de 4x4, et nos connaissances en mécanique tenaient à quelques vidéos regardées sur Internet. J’ai quand même vidé mon compte en banque pour acheter mon premier véhicule : un Toyota Land Cruiser HDJ80 de 1993.",
@@ -332,7 +339,7 @@
       "delivery": "Livraison estimée : 27 novembre 2026, jour du vernissage de l’exposition à Paris"
     },
     "budget": {
-      "title": "À quoi servira votre précommande",
+      "title": "À quoi servira le financement",
       "goalLabel": "objectif de précommande",
       "items": {
         "printing": "Impression des livres à vendre (120)",
@@ -341,7 +348,7 @@
       }
     },
     "author": {
-      "title": "Qui porte ce projet",
+      "title": "Qui porte la collecte",
       "name": "Tom Sallé",
       "subtitle": "Première précommande lancée sur tominafrica.com",
       "bio": "La présentation de Tom — qui il est, depuis quand il photographie, ce qui l’a amené à l’Afrique — viendra ici."
@@ -350,7 +357,7 @@
       "title": "Suivre le projet",
       "placeholder": "Liens à venir : site, Instagram."
     },
-    "tiersIntro": "Soutenez le projet et choisissez votre contrepartie.",
+    "tiersIntro": "Soutenez la collecte et recevez des contreparties en échange.",
     "tierCommon": {
       "soldOut": "Épuisé",
       "remaining": "{count, plural, one {# restant} other {# restants}}",
@@ -358,7 +365,11 @@
       "choose": "Choisir",
       "featured": "Contrepartie à la une",
       "priceFor": "Pour {price}",
-      "allTiers": "Toutes les contreparties"
+      "allTiers": "Toutes les contreparties",
+      "available": "{count, plural, one {# disponible} other {# disponibles}}",
+      "reserved": "{count, plural, one {# réservé} other {# réservés}}",
+      "deliveryChip": "Novembre 2026",
+      "donationTitle": "Faire un don"
     },
     "tiers": {
       "early-bird": {
@@ -394,7 +405,7 @@
       "modesPlaceholder": "Détails à venir (envoi à domicile, point relais, ou remise en main propre)."
     },
     "faq": {
-      "title": "Questions fréquentes",
+      "title": "FAQ",
       "paymentQ": "Le paiement est-il prélevé tout de suite ?",
       "paymentA": "Oui, votre carte est débitée immédiatement à la précommande — il n’y a pas d’étape de validation différée.",
       "deliveryQ": "Quand vais-je recevoir mon livre ?",
@@ -418,7 +429,8 @@
       "submitting": "Envoi…",
       "preorder": "Précommander",
       "donate": "Faire un don"
-    }
+    },
+    "tiersTitle": "Contreparties"
   },
   "bookPreorderSucces": {
     "metaTitle": "Précommande confirmée",

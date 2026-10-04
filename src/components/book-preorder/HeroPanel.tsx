@@ -1,8 +1,6 @@
-'use client';
-
 import { useTranslations } from 'next-intl';
-import { useState } from 'react';
 import { FundingProgress } from '@/components/book-preorder/FundingProgress';
+import { CalendarIcon, UsersIcon } from '@/components/book-preorder/icons';
 import { formatPrice } from '@/lib/format';
 
 type HeroPanelProps = {
@@ -13,68 +11,36 @@ type HeroPanelProps = {
 };
 
 /**
- * Panneau collant du haut de page : jauge + appel à l'action + partage —
- * équivalent du bloc de droite d'une collecte Ulule (jauge, bouton
- * « Contribuer », partage).
+ * Colonne de droite du haut de page, calquée sur Ulule : compteur et jauge,
+ * contributions et livraison, gros bouton « Contribuer — à partir de… ».
  */
 export function HeroPanel({ count, goal, pledgesCount, minPriceCents }: HeroPanelProps) {
   const t = useTranslations('bookPreorder.progress');
-  const [shared, setShared] = useState(false);
-
-  async function handleShare() {
-    const url = window.location.href;
-
-    if (navigator.share) {
-      try {
-        await navigator.share({ url });
-      } catch {
-        // Partage annulé par la personne — rien à faire.
-      }
-      return;
-    }
-
-    try {
-      await navigator.clipboard.writeText(url);
-      setShared(true);
-      setTimeout(() => setShared(false), 2000);
-    } catch {
-      // Presse-papiers indisponible — rien à faire de plus sans API de partage.
-    }
-  }
 
   return (
-    <div className="border border-ink-line p-7">
-      <FundingProgress count={count} goal={goal} pledgesCount={pledgesCount} />
+    <div className="flex flex-col">
+      <FundingProgress count={count} goal={goal} />
+
+      <div className="mt-6 flex items-center justify-between gap-4 text-sm text-paper-dim">
+        <p className="flex items-center gap-2 whitespace-nowrap">
+          <UsersIcon className="size-5 text-paper-faint" />
+          {t('pledgesCount', { count: pledgesCount })}
+        </p>
+        <p className="flex items-center gap-2 whitespace-nowrap">
+          <CalendarIcon className="size-5 shrink-0 text-paper-faint" />
+          {t('deliveryShort')}
+        </p>
+      </div>
 
       <a
         href="#contreparties"
-        className="mt-7 flex w-full items-center justify-center gap-2 bg-brand px-6 py-3.5 text-[0.6875rem] font-medium tracking-[0.24em] text-paper uppercase transition-[background-color,transform] duration-300 hover:bg-brand-hover active:scale-[0.97]"
+        className="mt-8 flex flex-col items-center justify-center bg-brand px-6 py-4 text-paper transition-[background-color,transform] duration-200 hover:bg-brand-hover active:scale-[0.98]"
       >
-        {t('ctaFrom', { price: formatPrice(minPriceCents) })}
+        <span className="text-xs font-medium tracking-[0.24em] uppercase">{t('contribute')}</span>
+        <span className="mt-1 text-sm">{t('from', { price: formatPrice(minPriceCents) })}</span>
       </a>
 
-      <p className="mt-4 text-center text-xs text-paper-faint">{t('secureNote')}</p>
-
-      <button
-        type="button"
-        onClick={handleShare}
-        className="mt-5 w-full border border-ink-line py-2.5 text-xs tracking-wide text-paper-dim uppercase transition-[color,border-color,transform] duration-300 hover:border-paper hover:text-paper active:scale-[0.97]"
-      >
-        <span className="inline-grid">
-          <span
-            className={`col-start-1 row-start-1 transition-opacity duration-200 ${shared ? 'opacity-0' : 'opacity-100'}`}
-            aria-hidden={shared}
-          >
-            {t('share')}
-          </span>
-          <span
-            className={`col-start-1 row-start-1 transition-opacity duration-200 ${shared ? 'opacity-100' : 'opacity-0'}`}
-            aria-hidden={!shared}
-          >
-            ✓
-          </span>
-        </span>
-      </button>
+      <p className="mt-4 text-center text-xs text-paper-faint underline underline-offset-4">{t('secureNote')}</p>
     </div>
   );
 }

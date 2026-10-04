@@ -295,14 +295,17 @@
     "metaTitle": "Pre-order the book",
     "metaDescription": "Pre-order Tom in Africa’s photography book — limited edition, crowdfunded.",
     "nav": {
-      "book": "The book",
+      "book": "Campaign",
       "tiers": "Rewards",
-      "faq": "FAQ"
+      "faq": "FAQ",
+      "contribute": "Contribute"
     },
     "hero": {
       "eyebrow": "Pre-order",
       "title": "1 Mother, 1 Son, 1 Dream",
-      "subtitle": "The book of the journey!"
+      "subtitle": "The book of the journey!",
+      "location": "Paris",
+      "category": "Photo book"
     },
     "progress": {
       "count": "{count} pre-orders out of {goal}",
@@ -310,10 +313,14 @@
       "pledgesCount": "{count, plural, one {# contribution} other {# contributions}}",
       "ctaFrom": "Contribute, starting at {price}",
       "secureNote": "Secure payment by Stripe",
-      "share": "Share"
+      "share": "Share",
+      "countLabel": "pre-orders out of {goal}",
+      "contribute": "Contribute",
+      "from": "Starting at {price}",
+      "deliveryShort": "Delivery Nov. 2026"
     },
     "about": {
-      "title": "About this book",
+      "title": "About this campaign",
       "lead": "From Paris to Cape Town, 25,000 km by 4x4 with my mother: the book",
       "p1": "Twelve years ago, my mother, Charlotte, took me to Kenya in an old Land Cruiser. I discovered Africa, and I’ve had only one idea in mind ever since: going back. Twelve years later, it was my turn to call her and suggest we set off again, for six months, from Paris to Cape Town.",
       "p2": "She believed in one of my crazy ideas, and she wasn’t entirely wrong to. We’d never been camping, never driven a 4x4, and our mechanical knowledge came from a handful of videos watched online. I still emptied my bank account to buy my first vehicle: a 1993 Toyota Land Cruiser HDJ80.",
@@ -332,7 +339,7 @@
       "delivery": "Estimated delivery: November 27, 2026, the day of the exhibition’s opening night in Paris"
     },
     "budget": {
-      "title": "What your pre-order will fund",
+      "title": "What the funding is for",
       "goalLabel": "pre-order goal",
       "items": {
         "printing": "Printing the books to sell (120)",
@@ -341,7 +348,7 @@
       }
     },
     "author": {
-      "title": "Who’s behind this project",
+      "title": "Who’s behind the campaign",
       "name": "Tom Sallé",
       "subtitle": "First pre-order campaign on tominafrica.com",
       "bio": "Tom’s introduction — who he is, how long he’s been photographing, what brought him to Africa — will go here."
@@ -350,7 +357,7 @@
       "title": "Follow the project",
       "placeholder": "Links coming soon: website, Instagram."
     },
-    "tiersIntro": "Support the project and choose your reward.",
+    "tiersIntro": "Support the campaign and receive rewards in return.",
     "tierCommon": {
       "soldOut": "Sold out",
       "remaining": "{count, plural, one {# left} other {# left}}",
@@ -358,7 +365,11 @@
       "choose": "Choose",
       "featured": "Featured reward",
       "priceFor": "For {price}",
-      "allTiers": "All rewards"
+      "allTiers": "All rewards",
+      "available": "{count} available",
+      "reserved": "{count} reserved",
+      "deliveryChip": "November 2026",
+      "donationTitle": "Make a donation"
     },
     "tiers": {
       "early-bird": {
@@ -394,7 +405,7 @@
       "modesPlaceholder": "Details coming soon (home delivery, pickup point, or hand delivery)."
     },
     "faq": {
-      "title": "Frequently asked questions",
+      "title": "FAQ",
       "paymentQ": "Is payment taken right away?",
       "paymentA": "Yes, your card is charged immediately when you pre-order — there’s no deferred confirmation step.",
       "deliveryQ": "When will I receive my book?",
@@ -418,7 +429,8 @@
       "submitting": "Sending…",
       "preorder": "Pre-order",
       "donate": "Donate"
-    }
+    },
+    "tiersTitle": "Rewards"
   },
   "bookPreorderSucces": {
     "metaTitle": "Pre-order confirmed",

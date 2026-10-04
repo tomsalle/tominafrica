@@ -8,23 +8,20 @@ type FundingProgressProps = {
   count: number;
   /** Objectif, en nombre de livres. */
   goal: number;
-  /** Nombre de contributions payées (secondaire, affiché sous la barre). */
-  pledgesCount: number;
 };
 
 /**
- * Jauge de progression façon Ulule : remplissage + montée en douceur du
- * nombre, déclenchés une seule fois à l'entrée dans le viewport (même
- * principe d'observation que Reveal.tsx, mais ici pour piloter l'animation
- * interne plutôt qu'un simple fondu).
+ * Compteur façon Ulule : gros chiffre « N préventes sur 120 », pastille
+ * « Financé à X % », puis la barre. Le chiffre et la barre montent une seule
+ * fois, à l'entrée dans le viewport.
  */
-export function FundingProgress({ count, goal, pledgesCount }: FundingProgressProps) {
+export function FundingProgress({ count, goal }: FundingProgressProps) {
   const t = useTranslations('bookPreorder.progress');
   const ref = useRef<HTMLDivElement>(null);
   const [animatedCount, setAnimatedCount] = useState(0);
   const [started, setStarted] = useState(false);
 
-  const percent = goal > 0 ? Math.min(100, Math.round((count / goal) * 100)) : 0;
+  const percent = goal > 0 ? Math.round((count / goal) * 100) : 0;
 
   useEffect(() => {
     const node = ref.current;
@@ -52,7 +49,6 @@ export function FundingProgress({ count, goal, pledgesCount }: FundingProgressPr
     let frame: number;
     function tick(now: number) {
       const progress = Math.min(1, (now - start) / duration);
-      // Décélération douce — cohérente avec var(--ease-out-soft) ailleurs sur le site.
       const eased = 1 - (1 - progress) ** 3;
       setAnimatedCount(Math.round(eased * count));
       if (progress < 1) frame = requestAnimationFrame(tick);
@@ -64,21 +60,25 @@ export function FundingProgress({ count, goal, pledgesCount }: FundingProgressPr
 
   return (
     <div ref={ref}>
-      <div className="h-1.5 w-full overflow-hidden bg-ink-line">
+      <div className="flex items-center gap-4">
+        <p className="text-5xl leading-none font-light text-paper tabular-nums">{animatedCount}</p>
+        <div>
+          <p className="text-sm text-paper-dim">{t('countLabel', { goal })}</p>
+          <p className="mt-1.5 inline-block bg-brand/25 px-2 py-0.5 text-[0.6875rem] font-medium text-paper">
+            {t('percent', { percent })}
+          </p>
+        </div>
+      </div>
+
+      <div className="mt-6 h-1.5 w-full overflow-hidden rounded-full bg-ink-line">
         <div
-          className="h-full origin-left bg-brand transition-transform duration-[1200ms] ease-[cubic-bezier(0.22,1,0.36,1)]"
-          style={{ transform: `scaleX(${started ? percent / 100 : 0})` }}
+          className="h-full origin-left rounded-full bg-brand transition-transform duration-[1200ms] ease-[cubic-bezier(0.22,1,0.36,1)]"
+          style={{ transform: `scaleX(${started ? Math.min(100, percent) / 100 : 0})` }}
         />
       </div>
-
-      <div className="mt-4 flex items-baseline justify-between">
-        <p className="eyebrow">
-          {t('count', { count: animatedCount, goal })}
-        </p>
-        <p className="eyebrow text-brand-text">{t('percent', { percent })}</p>
-      </div>
-
-      <p className="mt-2 text-xs text-paper-faint">{t('pledgesCount', { count: pledgesCount })}</p>
+      <p className="mt-2 text-right text-xs text-paper-faint tabular-nums">
+        {count} / {goal}
+      </p>
     </div>
   );
 }

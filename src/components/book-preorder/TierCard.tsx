@@ -1,6 +1,7 @@
 import Image from 'next/image';
 import { useTranslations } from 'next-intl';
-import { TierPledgeForm } from '@/components/book-preorder/TierPledgeForm';
+import { CalendarIcon, HeartIcon, StarIcon } from '@/components/book-preorder/icons';
+import { TierChooser } from '@/components/book-preorder/TierChooser';
 import { formatPrice } from '@/lib/format';
 import type { BookPreorderTierRow } from '@/types/database';
 
@@ -11,9 +12,8 @@ type TierCardProps = {
 };
 
 /**
- * Carte de palier verticale, pour la colonne latérale — vignette avec prix
- * en médaillon, prix, nom, formulaire, description. Sur le modèle des cartes
- * de contrepartie Ulule, en version sombre/dorée.
+ * Carte de contrepartie reprise d'Ulule : visuel avec prix en médaillon,
+ * « Pour X € », nom, pastille « Choisir », puis détail, date et compteurs.
  */
 export function TierCard({ tier, checkoutEnabled, featured = false }: TierCardProps) {
   const t = useTranslations(`bookPreorder.tiers.${tier.slug}`);
@@ -22,44 +22,60 @@ export function TierCard({ tier, checkoutEnabled, featured = false }: TierCardPr
   const soldOut = remaining === 0;
 
   return (
-    <div className={`bg-ink-soft p-5 ${featured ? 'border border-brand' : ''}`}>
+    <article className={`border bg-ink-soft ${featured ? 'border-brand' : 'border-ink-line'}`}>
       {featured ? (
-        <p className="eyebrow mb-3 flex items-center gap-1.5 text-brand-text">
-          <span aria-hidden>★</span> {common('featured')}
+        <p className="flex items-center justify-center gap-1.5 pt-3 text-xs text-brand-text">
+          <StarIcon className="size-3.5" />
+          {common('featured')}
         </p>
       ) : null}
 
-      <div className="relative">
-        <div className="relative aspect-4/5 w-full overflow-hidden bg-ink">
-          <Image
-            src="/precommande-livre/livre-ouvert.avif"
-            alt=""
-            fill
-            sizes="(max-width: 1024px) 50vw, 22rem"
-            className="object-cover opacity-90"
-          />
-        </div>
-        <div className="absolute top-2 right-2 flex h-14 w-14 items-center justify-center rounded-full bg-brand text-center text-[0.6875rem] leading-tight font-medium text-paper shadow-lg">
-          {tier.is_donation ? common('donationLabel') : formatPrice(tier.price_cents)}
+      <div className="relative m-3 aspect-[4/3] overflow-hidden bg-ink">
+        <Image
+          src="/precommande-livre/livre-ouvert.avif"
+          alt=""
+          fill
+          sizes="(max-width: 1024px) 90vw, 22rem"
+          className={`object-cover object-[50%_60%] ${soldOut ? 'opacity-40 grayscale' : ''}`}
+        />
+        <span className="absolute top-2.5 right-2.5 flex size-12 items-center justify-center rounded-full bg-brand text-xs font-medium text-paper tabular-nums">
+          {formatPrice(tier.price_cents)}
+        </span>
+      </div>
+
+      <div className="px-5 pt-1 pb-5 text-center">
+        <p className="text-sm text-brand-text">{common('priceFor', { price: formatPrice(tier.price_cents) })}</p>
+        <h3 className="mt-1 font-display text-2xl font-light text-paper">{t('name')}</h3>
+        <div className="mt-4">
+          <TierChooser tier={tier} checkoutEnabled={checkoutEnabled} soldOut={soldOut} />
         </div>
       </div>
 
-      <p className="mt-4 text-xs text-paper-faint uppercase tracking-wide">
-        {tier.is_donation ? common('donationLabel') : common('priceFor', { price: formatPrice(tier.price_cents) })}
-      </p>
-      <p className="mt-1 font-display text-xl font-light text-paper">{t('name')}</p>
+      <div className="px-5 pb-5">
+        <ul className="list-disc space-y-1 pl-4 text-sm leading-relaxed text-paper-dim marker:text-paper-faint">
+          <li>{t('description')}</li>
+        </ul>
 
-      {remaining !== null ? (
-        <p className="mt-2 text-xs text-brand-text">
-          {soldOut ? common('soldOut') : common('remaining', { count: remaining })}
-        </p>
-      ) : null}
-
-      <div className="mt-4">
-        <TierPledgeForm tier={tier} checkoutEnabled={checkoutEnabled} soldOut={soldOut} />
+        <div className="mt-4 flex flex-wrap items-center justify-between gap-2">
+          <div className="flex flex-wrap gap-2">
+            <span className="inline-flex items-center gap-1.5 bg-ink px-2 py-1 text-xs text-paper-dim">
+              <CalendarIcon className="size-3.5" />
+              {common('deliveryChip')}
+            </span>
+            {tier.claimed_count > 0 ? (
+              <span className="inline-flex items-center gap-1.5 bg-ink px-2 py-1 text-xs text-paper-dim">
+                <HeartIcon className="size-3.5" />
+                {common('reserved', { count: tier.claimed_count })}
+              </span>
+            ) : null}
+          </div>
+          {remaining !== null ? (
+            <span className="text-[0.6875rem] tracking-[0.14em] text-paper-faint uppercase">
+              {soldOut ? common('soldOut') : common('available', { count: remaining })}
+            </span>
+          ) : null}
+        </div>
       </div>
-
-      <p className="mt-4 text-xs leading-relaxed text-paper-dim">{t('description')}</p>
-    </div>
+    </article>
   );
 }

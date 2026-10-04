@@ -2,21 +2,21 @@ import Image from 'next/image';
 import { useTranslations } from 'next-intl';
 import { Prose } from '@/components/ui/Prose';
 
-/** « Qui porte ce projet » — sur le modèle de la section auteur d'Ulule. */
+/** « Qui porte la collecte » — section auteur d'Ulule. */
 export function AuthorBio() {
   const t = useTranslations('bookPreorder.author');
 
   return (
-    <div>
-      <p className="eyebrow">{t('title')}</p>
+    <section>
+      <h2 className="font-display text-3xl font-light text-paper sm:text-4xl">{t('title')}</h2>
 
-      <div className="mt-5 flex items-center gap-4">
-        <div className="relative h-14 w-14 shrink-0 overflow-hidden rounded-full bg-ink-soft">
-          <Image src="/placeholders/dune-45.svg" alt="" fill sizes="56px" className="object-cover" />
+      <div className="mt-6 flex items-center gap-4">
+        <div className="relative size-16 shrink-0 overflow-hidden rounded-full bg-ink-soft">
+          <Image src="/placeholders/dune-45.svg" alt="" fill sizes="64px" className="object-cover" />
         </div>
         <div>
-          <p className="font-display text-lg font-light text-paper">{t('name')}</p>
-          <p className="text-xs text-paper-faint">{t('subtitle')}</p>
+          <p className="font-medium text-paper">{t('name')}</p>
+          <p className="text-sm text-paper-faint">{t('subtitle')}</p>
         </div>
       </div>
 
@@ -27,6 +27,6 @@ export function AuthorBio() {
           </p>
         </Prose>
       </div>
-    </div>
+    </section>
   );
 }

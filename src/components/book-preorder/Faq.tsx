@@ -13,14 +13,14 @@ export function Faq() {
 
   return (
     <div>
-      <p className="eyebrow">{t('title')}</p>
+      <h2 className="font-display text-3xl font-light text-paper sm:text-4xl">{t('title')}</h2>
 
-      <div className="mt-6 divide-y divide-ink-line border-y border-ink-line">
+      <div className="mt-8 divide-y divide-ink-line border-y border-ink-line">
         {items.map((item) => (
           <details key={item.q} className="group py-5">
-            <summary className="group/row flex cursor-pointer list-none items-center justify-between gap-4 text-sm text-paper">
+            <summary className="group/row flex cursor-pointer list-none items-center justify-between gap-4 text-base text-paper">
               {item.q}
-              <span className="shrink-0 text-paper-faint transition-[color,transform] duration-300 group-open:rotate-45 group-hover/row:text-accent">
+              <span className="shrink-0 text-paper-faint transition-[color,transform] duration-300 group-open:rotate-45 group-hover/row:text-brand-text">
                 +
               </span>
             </summary>
