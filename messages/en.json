@@ -333,6 +333,7 @@
     },
     "budget": {
       "title": "What your pre-order will fund",
+      "goalLabel": "pre-order goal",
       "items": {
         "printing": "Printing the books to sell (120)",
         "publisher": "Publisher support",

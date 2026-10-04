@@ -48,7 +48,7 @@ export function HeroPanel({ count, goal, pledgesCount, minPriceCents }: HeroPane
 
       <a
         href="#contreparties"
-        className="mt-7 flex w-full items-center justify-center gap-2 bg-paper px-6 py-3.5 text-[0.6875rem] font-medium tracking-[0.24em] text-ink uppercase transition-[background-color,transform] duration-300 hover:bg-white active:scale-[0.97]"
+        className="mt-7 flex w-full items-center justify-center gap-2 bg-brand px-6 py-3.5 text-[0.6875rem] font-medium tracking-[0.24em] text-paper uppercase transition-[background-color,transform] duration-300 hover:bg-brand-hover active:scale-[0.97]"
       >
         {t('ctaFrom', { price: formatPrice(minPriceCents) })}
       </a>

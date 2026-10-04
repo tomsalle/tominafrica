@@ -115,10 +115,11 @@ export function TierPledgeForm({ tier, checkoutEnabled, soldOut }: TierPledgeFor
         </div>
       )}
 
-      {error ? <p className="mb-3 text-xs text-accent">{error}</p> : null}
+      {error ? <p className="mb-3 text-xs text-brand-text">{error}</p> : null}
 
       <Button
         type="button"
+        variant="brand"
         onClick={handleSubmit}
         className="w-full"
         disabled={status === 'submitting'}

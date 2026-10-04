@@ -22,9 +22,9 @@ export function TierCard({ tier, checkoutEnabled, featured = false }: TierCardPr
   const soldOut = remaining === 0;
 
   return (
-    <div className={`bg-ink-soft p-5 ${featured ? 'border border-accent/40' : ''}`}>
+    <div className={`bg-ink-soft p-5 ${featured ? 'border border-brand' : ''}`}>
       {featured ? (
-        <p className="eyebrow mb-3 flex items-center gap-1.5 text-accent">
+        <p className="eyebrow mb-3 flex items-center gap-1.5 text-brand-text">
           <span aria-hidden>★</span> {common('featured')}
         </p>
       ) : null}
@@ -39,7 +39,7 @@ export function TierCard({ tier, checkoutEnabled, featured = false }: TierCardPr
             className="object-cover opacity-90"
           />
         </div>
-        <div className="absolute top-2 right-2 flex h-14 w-14 items-center justify-center rounded-full bg-ink text-center text-[0.6875rem] leading-tight font-medium text-paper shadow-lg">
+        <div className="absolute top-2 right-2 flex h-14 w-14 items-center justify-center rounded-full bg-brand text-center text-[0.6875rem] leading-tight font-medium text-paper shadow-lg">
           {tier.is_donation ? common('donationLabel') : formatPrice(tier.price_cents)}
         </div>
       </div>
@@ -50,7 +50,7 @@ export function TierCard({ tier, checkoutEnabled, featured = false }: TierCardPr
       <p className="mt-1 font-display text-xl font-light text-paper">{t('name')}</p>
 
       {remaining !== null ? (
-        <p className="mt-2 text-xs text-accent">
+        <p className="mt-2 text-xs text-brand-text">
           {soldOut ? common('soldOut') : common('remaining', { count: remaining })}
         </p>
       ) : null}

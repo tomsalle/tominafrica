@@ -66,7 +66,7 @@ export function FundingProgress({ count, goal, pledgesCount }: FundingProgressPr
     <div ref={ref}>
       <div className="h-1.5 w-full overflow-hidden bg-ink-line">
         <div
-          className="h-full origin-left bg-accent transition-transform duration-[1200ms] ease-[cubic-bezier(0.22,1,0.36,1)]"
+          className="h-full origin-left bg-brand transition-transform duration-[1200ms] ease-[cubic-bezier(0.22,1,0.36,1)]"
           style={{ transform: `scaleX(${started ? percent / 100 : 0})` }}
         />
       </div>
@@ -75,7 +75,7 @@ export function FundingProgress({ count, goal, pledgesCount }: FundingProgressPr
         <p className="eyebrow">
           {t('count', { count: animatedCount, goal })}
         </p>
-        <p className="eyebrow text-accent">{t('percent', { percent })}</p>
+        <p className="eyebrow text-brand-text">{t('percent', { percent })}</p>
       </div>
 
       <p className="mt-2 text-xs text-paper-faint">{t('pledgesCount', { count: pledgesCount })}</p>

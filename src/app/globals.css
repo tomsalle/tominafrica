@@ -16,6 +16,13 @@
   --color-paper-faint: #6b6863; /* mentions, métadonnées */
   --color-accent: #c9a227; /* rare : ruptures de stock, mises en avant */
 
+  /* Page de précommande du livre : rouge choisi par Tom pour les détails.
+     #810211 sur fond noir n'atteint que 1,8:1 — réservé aux aplats, filets et
+     boutons (texte clair dessus). Pour du texte sur fond noir : brand-text. */
+  --color-brand: #810211;
+  --color-brand-hover: #9a0316;
+  --color-brand-text: #d4505f;
+
   --font-display: var(--font-cormorant), ui-serif, Georgia, serif;
   --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
 

@@ -25,7 +25,7 @@ export function StickyTabNav() {
 
         <a
           href="#contreparties"
-          className="hidden shrink-0 items-center justify-center gap-2 bg-paper px-6 py-3 text-[0.6875rem] font-medium tracking-[0.24em] text-ink uppercase transition-[background-color,transform] duration-300 hover:bg-white active:scale-[0.97] sm:inline-flex"
+          className="hidden shrink-0 items-center justify-center gap-2 bg-brand px-6 py-3 text-[0.6875rem] font-medium tracking-[0.24em] text-paper uppercase transition-[background-color,transform] duration-300 hover:bg-brand-hover active:scale-[0.97] sm:inline-flex"
         >
           {t('tiers')}
         </a>

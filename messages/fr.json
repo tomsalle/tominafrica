@@ -333,6 +333,7 @@
     },
     "budget": {
       "title": "À quoi servira votre précommande",
+      "goalLabel": "objectif de précommande",
       "items": {
         "printing": "Impression des livres à vendre (120)",
         "publisher": "Accompagnement maison d’édition",
