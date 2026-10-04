@@ -67,14 +67,17 @@ export default async function BookPreorderPage() {
       {/* En-tête : bandeau de couverture + carte qui le chevauche */}
       <div className="relative pt-16 pb-10 sm:pt-20">
         <div className="absolute inset-x-0 top-16 h-72 overflow-hidden sm:top-20 sm:h-96">
-          <Image
-            src="/precommande-livre/bandeau-voyage.avif"
-            alt=""
-            fill
-            sizes="100vw"
-            priority
-            className="object-cover"
-          />
+          <video
+            className="absolute inset-0 h-full w-full object-cover"
+            autoPlay
+            muted
+            loop
+            playsInline
+            aria-hidden="true"
+            poster="/videos/namibie-hero-poster.jpg"
+          >
+            <source src="/videos/namibie-hero.mp4" type="video/mp4" />
+          </video>
           <div className="absolute inset-0 bg-linear-to-b from-ink/10 via-ink/30 to-ink" />
         </div>
 
