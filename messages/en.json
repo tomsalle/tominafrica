@@ -281,5 +281,82 @@
     "itemSoldOut": "“{item}” is sold out.",
     "itemLowStock": "Only {remaining} left of “{item}”.",
     "stripeUnavailable": "Payment is temporarily unavailable. Please try again in a moment."
+  },
+  "bookPreorderCheckout": {
+    "serviceDisabled": "Online payment isn’t enabled on this site yet.",
+    "invalidRequest": "Invalid request.",
+    "invalidDonationAmount": "The donation amount must be at least the stated minimum.",
+    "tierUnavailable": "This tier is no longer available.",
+    "tierSoldOut": "“{tier}” is sold out.",
+    "tierLowStock": "Only {remaining} left of “{tier}”.",
+    "stripeUnavailable": "Payment is temporarily unavailable. Please try again in a moment."
+  },
+  "bookPreorder": {
+    "metaTitle": "Pre-order the book",
+    "metaDescription": "Pre-order Tom in Africa’s photography book — limited edition, crowdfunded.",
+    "eyebrow": "Pre-order",
+    "title": "The book is coming",
+    "storyPlaceholder": "Book presentation coming soon: cover, excerpts, page count, and the story behind this project.",
+    "progress": {
+      "count": "{count} / {goal} copies pre-ordered",
+      "pledgesCount": "{count, plural, one {# pre-order} other {# pre-orders}}"
+    },
+    "budget": {
+      "title": "What your pre-order will fund",
+      "items": {
+        "printing": "Printing the books to sell (120)",
+        "publisher": "Publisher support",
+        "otherFees": "Other costs (ISBN, gifted copies)"
+      }
+    },
+    "tierCommon": {
+      "soldOut": "Sold out",
+      "remaining": "{count, plural, one {# left} other {# left}}",
+      "donationLabel": "Any amount"
+    },
+    "tiers": {
+      "early-bird": {
+        "name": "Early bird",
+        "description": "The book alone — limited to the first 15 backers."
+      },
+      "livre": {
+        "name": "The book",
+        "description": "The book alone."
+      },
+      "livre-cartes-postales": {
+        "name": "The book + 2 postcards",
+        "description": "The book and two postcards featuring photographs from the book."
+      },
+      "pack-duo": {
+        "name": "Duo pack",
+        "description": "Two copies of the book — one for you, one to give."
+      },
+      "pack-soutien": {
+        "name": "Supporter pack",
+        "description": "The book, two postcards featuring photographs from the book, and a 20 × 30 cm print."
+      },
+      "don": {
+        "name": "Donation",
+        "description": "You support the project, with no fixed reward — thank you."
+      }
+    },
+    "form": {
+      "genericError": "Something went wrong. Please try again in a moment.",
+      "checkoutDisabled": "Online payment isn’t enabled on this site yet.",
+      "decreaseQuantity": "Decrease quantity",
+      "increaseQuantity": "Increase quantity",
+      "donationAmountLabel": "Donation amount",
+      "submitting": "Sending…",
+      "preorder": "Pre-order",
+      "donate": "Donate"
+    }
+  },
+  "bookPreorderSucces": {
+    "metaTitle": "Pre-order confirmed",
+    "eyebrow": "Thank you",
+    "title": "Your pre-order is confirmed.",
+    "body": "A confirmation e-mail has just been sent to you. You’ll be kept posted on the project’s progress and the shipping date.",
+    "note": "A question about your pre-order? Just reply to the confirmation e-mail.",
+    "cta": "Back to the pre-order page"
   }
 }

@@ -281,5 +281,82 @@
     "itemSoldOut": "« {item} » est épuisé.",
     "itemLowStock": "Il ne reste que {remaining} exemplaire(s) de « {item} ».",
     "stripeUnavailable": "Le paiement est momentanément indisponible. Réessayez dans un instant."
+  },
+  "bookPreorderCheckout": {
+    "serviceDisabled": "Le paiement en ligne n’est pas encore activé sur ce site.",
+    "invalidRequest": "Requête invalide.",
+    "invalidDonationAmount": "Le montant du don doit être au moins égal au minimum indiqué.",
+    "tierUnavailable": "Ce palier n’est plus disponible.",
+    "tierSoldOut": "« {tier} » est épuisé.",
+    "tierLowStock": "Il ne reste que {remaining} exemplaire(s) de « {tier} ».",
+    "stripeUnavailable": "Le paiement est momentanément indisponible. Réessayez dans un instant."
+  },
+  "bookPreorder": {
+    "metaTitle": "Précommander le livre",
+    "metaDescription": "Précommandez le livre photographique de Tom in Africa — édition limitée, financement participatif.",
+    "eyebrow": "Précommande",
+    "title": "Le livre arrive",
+    "storyPlaceholder": "Présentation du livre à venir : couverture, extraits, nombre de pages, et le récit de ce qui a donné naissance à ce projet.",
+    "progress": {
+      "count": "{count} / {goal} exemplaires précommandés",
+      "pledgesCount": "{count, plural, one {# précommande} other {# précommandes}}"
+    },
+    "budget": {
+      "title": "À quoi servira votre précommande",
+      "items": {
+        "printing": "Impression des livres à vendre (120)",
+        "publisher": "Accompagnement maison d’édition",
+        "otherFees": "Autres frais (ISBN, livres offerts)"
+      }
+    },
+    "tierCommon": {
+      "soldOut": "Épuisé",
+      "remaining": "{count, plural, one {# restant} other {# restants}}",
+      "donationLabel": "Montant libre"
+    },
+    "tiers": {
+      "early-bird": {
+        "name": "Early bird",
+        "description": "Le livre seul — réservé aux 15 premiers soutiens."
+      },
+      "livre": {
+        "name": "Le livre",
+        "description": "Le livre seul."
+      },
+      "livre-cartes-postales": {
+        "name": "Le livre + 2 cartes postales",
+        "description": "Le livre et deux cartes postales tirées des photographies du livre."
+      },
+      "pack-duo": {
+        "name": "Pack Duo",
+        "description": "Deux exemplaires du livre — pour vous, et pour offrir."
+      },
+      "pack-soutien": {
+        "name": "Pack Soutien",
+        "description": "Le livre, deux cartes postales tirées des photographies du livre, et un tirage 20 × 30 cm."
+      },
+      "don": {
+        "name": "Don",
+        "description": "Vous soutenez le projet, sans contrepartie fixe — merci."
+      }
+    },
+    "form": {
+      "genericError": "Une erreur est survenue. Réessayez dans un instant.",
+      "checkoutDisabled": "Le paiement en ligne n’est pas encore activé sur ce site.",
+      "decreaseQuantity": "Diminuer la quantité",
+      "increaseQuantity": "Augmenter la quantité",
+      "donationAmountLabel": "Montant du don",
+      "submitting": "Envoi…",
+      "preorder": "Précommander",
+      "donate": "Faire un don"
+    }
+  },
+  "bookPreorderSucces": {
+    "metaTitle": "Précommande confirmée",
+    "eyebrow": "Merci",
+    "title": "Votre précommande est confirmée.",
+    "body": "Un e-mail de confirmation vient de vous être envoyé. Vous serez tenu·e informé·e de l’avancée du projet et de la date d’expédition.",
+    "note": "Une question sur votre précommande ? Répondez simplement à l’e-mail de confirmation.",
+    "cta": "Retour à la précommande"
   }
 }

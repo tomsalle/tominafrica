@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server';
 import type Stripe from 'stripe';
-import { serverEnv } from '@/lib/env';
+import { isContactFormEnabled, serverEnv } from '@/lib/env';
+import { CONTACT_FROM_ADDRESS, getResend } from '@/lib/resend/server';
 import { getStripe } from '@/lib/stripe/server';
 import { createAdminClient } from '@/lib/supabase/admin';
 
@@ -46,9 +47,15 @@ export async function POST(request: Request) {
 
   try {
     switch (event.type) {
-      case 'checkout.session.completed':
-        await handleCheckoutCompleted(event.data.object);
+      case 'checkout.session.completed': {
+        const session = event.data.object;
+        if (session.metadata?.type === 'book_preorder') {
+          await handleBookPreorderCompleted(session);
+        } else {
+          await handleCheckoutCompleted(session);
+        }
         break;
+      }
 
       case 'checkout.session.expired':
         await markSessionStatus(event.data.object.id, 'cancelled');
@@ -259,4 +266,144 @@ async function markPaymentIntentRefunded(paymentIntentId: string) {
     .from('orders')
     .update({ status: 'refunded' })
     .eq('stripe_payment_intent_id', paymentIntentId);
+  // Un remboursement doit aussi sortir la précommande de la jauge publique.
+  await supabase
+    .from('book_preorder_pledges')
+    .update({ status: 'refunded' })
+    .eq('stripe_payment_intent_id', paymentIntentId);
+}
+
+// ---------------------------------------------------------------------------
+// Précommande du livre — table dédiée, découplée du modèle tirage/photo
+// ci-dessus. Fonction séparée, jamais fusionnée dans handleCheckoutCompleted :
+// aucun risque sur le chemin existant des commandes de tirages.
+// ---------------------------------------------------------------------------
+
+async function handleBookPreorderCompleted(session: Stripe.Checkout.Session) {
+  const supabase = createAdminClient();
+
+  const { data: existing } = await supabase
+    .from('book_preorder_pledges')
+    .select('id')
+    .eq('stripe_checkout_session_id', session.id)
+    .maybeSingle();
+
+  if (existing) {
+    console.info(`[webhook] précommande ${session.id} déjà traitée, rejeu ignoré`);
+    return;
+  }
+
+  const tierId = session.metadata?.tierId;
+  if (!tierId) {
+    console.error(`[webhook] précommande ${session.id} sans tierId en métadonnées`);
+    return;
+  }
+
+  const { data: tier, error: tierError } = await supabase
+    .from('book_preorder_tiers')
+    .select('*')
+    .eq('id', tierId)
+    .single();
+
+  if (tierError || !tier) {
+    console.error(`[webhook] palier ${tierId} introuvable pour la précommande ${session.id}`);
+    return;
+  }
+
+  const email =
+    session.customer_details?.email ?? session.customer_email ?? 'inconnu@tominafrica.com';
+
+  const { data: customer, error: customerError } = await supabase
+    .from('customers')
+    .upsert(
+      {
+        email,
+        full_name: session.customer_details?.name ?? null,
+        phone: session.customer_details?.phone ?? null,
+        stripe_customer_id: typeof session.customer === 'string' ? session.customer : null,
+      },
+      { onConflict: 'email' },
+    )
+    .select('id')
+    .single();
+
+  if (customerError) throw new Error(`upsert client : ${customerError.message}`);
+
+  const shipping = session.collected_information?.shipping_details ?? null;
+  const address = shipping?.address ?? session.customer_details?.address ?? null;
+  const quantity = Number(session.metadata?.quantity ?? '1');
+
+  const { error: pledgeError } = await supabase.from('book_preorder_pledges').insert({
+    tier_id: tier.id,
+    customer_id: customer.id,
+    email,
+    full_name: session.customer_details?.name ?? null,
+    phone: session.customer_details?.phone ?? null,
+    status: 'paid',
+    stripe_checkout_session_id: session.id,
+    stripe_payment_intent_id:
+      typeof session.payment_intent === 'string' ? session.payment_intent : null,
+    quantity,
+    unit_price_cents: tier.price_cents,
+    amount_cents: session.amount_total ?? 0,
+    currency: (session.currency ?? 'eur').toUpperCase(),
+    tier_slug_snapshot: tier.slug,
+    tier_name_snapshot: tier.name,
+    is_donation: tier.is_donation,
+    shipping_name: shipping?.name ?? null,
+    shipping_line1: address?.line1 ?? null,
+    shipping_line2: address?.line2 ?? null,
+    shipping_postal_code: address?.postal_code ?? null,
+    shipping_city: address?.city ?? null,
+    shipping_country: address?.country ?? null,
+    paid_at: new Date().toISOString(),
+  });
+
+  if (pledgeError) {
+    // Violation d'unicité : deux livraisons du même webhook en parallèle.
+    if (pledgeError.code === '23505') {
+      console.info(`[webhook] précommande ${session.id} insérée en parallèle, rejeu ignoré`);
+      return;
+    }
+    throw new Error(`insertion précommande : ${pledgeError.message}`);
+  }
+
+  if (!tier.is_donation) {
+    const { error: stockError } = await supabase.rpc('claim_book_preorder_stock', {
+      p_tier_id: tier.id,
+      p_quantity: quantity,
+    });
+
+    if (stockError) {
+      // La précommande est payée : on ne la rejette pas pour autant. On
+      // journalise pour traitement manuel, comme assign_edition_numbers.
+      console.error(
+        `[webhook] réclamation de stock impossible pour le palier ${tier.slug} : ${stockError.message}`,
+      );
+    }
+  }
+
+  if (isContactFormEnabled()) {
+    try {
+      const resend = getResend();
+      const { CONTACT_EMAIL } = serverEnv();
+
+      await resend.emails.send({
+        from: CONTACT_FROM_ADDRESS,
+        to: CONTACT_EMAIL,
+        replyTo: email,
+        subject: `[Précommande livre] ${tier.name} — ${email}`,
+        text: [
+          tier.name,
+          `Quantité : ${quantity}`,
+          `Montant : ${(session.amount_total ?? 0) / 100} €`,
+          email,
+        ].join('\n'),
+      });
+    } catch (sendError) {
+      console.error('[webhook] notification précommande impossible', sendError);
+    }
+  }
+
+  console.info(`[webhook] précommande livre enregistrée (palier ${tier.slug}, ${email})`);
 }

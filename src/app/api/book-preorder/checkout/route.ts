@@ -1,0 +1,131 @@
+import { getTranslations } from 'next-intl/server';
+import { NextResponse } from 'next/server';
+import { bookPreorderCheckoutRequestSchema } from '@/lib/book-preorder/types';
+import { getTierById } from '@/lib/book-preorder/queries';
+import { isCheckoutEnabled, publicEnv } from '@/lib/env';
+import { getStripe, SHIPPING_COUNTRIES, SHIPPING_OPTIONS } from '@/lib/stripe/server';
+
+export const runtime = 'nodejs';
+
+/**
+ * Création de la session Stripe Checkout pour une précommande du livre.
+ *
+ * Même principe que /api/checkout : le corps de la requête ne contient
+ * qu'un identifiant de palier et une quantité (ou un montant libre pour le
+ * don). Le prix est toujours relu en base ici — jamais fait confiance au
+ * client.
+ */
+export async function POST(request: Request) {
+  let payload: unknown;
+  try {
+    payload = await request.json();
+  } catch {
+    const t = await getTranslations({ locale: 'fr', namespace: 'bookPreorderCheckout' });
+    return NextResponse.json({ error: t('invalidRequest') }, { status: 400 });
+  }
+
+  const locale =
+    typeof payload === 'object' && payload !== null && 'locale' in payload
+      ? String((payload as { locale?: unknown }).locale) === 'en'
+        ? 'en'
+        : 'fr'
+      : 'fr';
+  const t = await getTranslations({ locale, namespace: 'bookPreorderCheckout' });
+
+  if (!isCheckoutEnabled()) {
+    return NextResponse.json({ error: t('serviceDisabled') }, { status: 503 });
+  }
+
+  const parsed = bookPreorderCheckoutRequestSchema.safeParse(payload);
+  if (!parsed.success) {
+    console.error('[book-preorder] validation échouée', parsed.error.issues[0]?.message);
+    return NextResponse.json({ error: t('invalidRequest') }, { status: 400 });
+  }
+
+  const { tierId, quantity, customAmountCents } = parsed.data;
+
+  // --- Rechargement autoritatif depuis la base ------------------------------
+  const tier = await getTierById(tierId);
+
+  if (!tier) {
+    return NextResponse.json({ error: t('tierUnavailable') }, { status: 409 });
+  }
+
+  if (tier.is_donation) {
+    if (!customAmountCents || customAmountCents < tier.price_cents) {
+      return NextResponse.json({ error: t('invalidDonationAmount') }, { status: 400 });
+    }
+  } else {
+    if (customAmountCents !== undefined) {
+      return NextResponse.json({ error: t('invalidRequest') }, { status: 400 });
+    }
+
+    if (tier.stock_limit !== null && tier.claimed_count + quantity > tier.stock_limit) {
+      const remaining = Math.max(0, tier.stock_limit - tier.claimed_count);
+      return remaining === 0
+        ? NextResponse.json({ error: t('tierSoldOut', { tier: tier.name }) }, { status: 409 })
+        : NextResponse.json(
+            { error: t('tierLowStock', { remaining, tier: tier.name }) },
+            { status: 409 },
+          );
+    }
+  }
+
+  const effectiveQuantity = tier.is_donation ? 1 : quantity;
+  const unitAmount = tier.is_donation ? customAmountCents! : tier.price_cents;
+
+  // --- Création de la session ----------------------------------------------
+  try {
+    const stripe = getStripe();
+    const siteUrl = publicEnv.NEXT_PUBLIC_SITE_URL;
+    const localePath = locale === 'en' ? '/en' : '';
+
+    const session = await stripe.checkout.sessions.create({
+      mode: 'payment',
+      line_items: [
+        {
+          quantity: effectiveQuantity,
+          price_data: {
+            currency: 'eur',
+            unit_amount: unitAmount,
+            product_data: {
+              name: tier.name,
+              description: tier.description ?? undefined,
+              metadata: { tier_slug: tier.slug },
+            },
+          },
+        },
+      ],
+      locale: locale === 'en' ? 'en' : 'fr',
+      billing_address_collection: 'required',
+      // Pas de livraison pour le don : aucune contrepartie physique à expédier.
+      ...(tier.is_donation
+        ? {}
+        : {
+            shipping_address_collection: { allowed_countries: SHIPPING_COUNTRIES },
+            shipping_options: SHIPPING_OPTIONS,
+            phone_number_collection: { enabled: true },
+          }),
+      success_url: `${siteUrl}${localePath}/precommande-livre/succes?session_id={CHECKOUT_SESSION_ID}`,
+      cancel_url: `${siteUrl}${localePath}/precommande-livre`,
+      // Seul discriminant lu par le webhook — jamais posé par /api/checkout,
+      // donc sans effet sur les commandes de tirages.
+      metadata: {
+        type: 'book_preorder',
+        tierId: tier.id,
+        tierSlug: tier.slug,
+        quantity: String(effectiveQuantity),
+        isDonation: String(tier.is_donation),
+      },
+    });
+
+    if (!session.url) {
+      throw new Error('Stripe n’a pas renvoyé d’URL de paiement.');
+    }
+
+    return NextResponse.json({ url: session.url });
+  } catch (error) {
+    console.error('[book-preorder] création de session impossible', error);
+    return NextResponse.json({ error: t('stripeUnavailable') }, { status: 502 });
+  }
+}

@@ -292,6 +292,104 @@ export type Database = {
         Update: Partial<Database['public']['Tables']['exhibition_registrations']['Insert']>;
         Relationships: [];
       };
+
+      book_preorder_tiers: {
+        Row: {
+          id: string;
+          slug: string;
+          name: string;
+          description: string | null;
+          price_cents: number;
+          currency: string;
+          is_donation: boolean;
+          stock_limit: number | null;
+          claimed_count: number;
+          book_units: number;
+          published: boolean;
+          position: number;
+          created_at: string;
+          updated_at: string;
+        };
+        Insert: {
+          id?: string;
+          slug: string;
+          name: string;
+          description?: string | null;
+          price_cents: number;
+          currency?: string;
+          is_donation?: boolean;
+          stock_limit?: number | null;
+          claimed_count?: number;
+          book_units?: number;
+          published?: boolean;
+          position?: number;
+          created_at?: string;
+          updated_at?: string;
+        };
+        Update: Partial<Database['public']['Tables']['book_preorder_tiers']['Insert']>;
+        Relationships: [];
+      };
+
+      book_preorder_pledges: {
+        Row: {
+          id: string;
+          tier_id: string;
+          customer_id: string | null;
+          email: string;
+          full_name: string | null;
+          phone: string | null;
+          status: OrderStatus;
+          stripe_checkout_session_id: string;
+          stripe_payment_intent_id: string | null;
+          quantity: number;
+          unit_price_cents: number;
+          amount_cents: number;
+          currency: string;
+          tier_slug_snapshot: string;
+          tier_name_snapshot: string;
+          is_donation: boolean;
+          shipping_name: string | null;
+          shipping_line1: string | null;
+          shipping_line2: string | null;
+          shipping_postal_code: string | null;
+          shipping_city: string | null;
+          shipping_country: string | null;
+          notes: string | null;
+          created_at: string;
+          updated_at: string;
+          paid_at: string | null;
+        };
+        Insert: {
+          id?: string;
+          tier_id: string;
+          customer_id?: string | null;
+          email: string;
+          full_name?: string | null;
+          phone?: string | null;
+          status?: OrderStatus;
+          stripe_checkout_session_id: string;
+          stripe_payment_intent_id?: string | null;
+          quantity?: number;
+          unit_price_cents: number;
+          amount_cents: number;
+          currency?: string;
+          tier_slug_snapshot: string;
+          tier_name_snapshot: string;
+          is_donation?: boolean;
+          shipping_name?: string | null;
+          shipping_line1?: string | null;
+          shipping_line2?: string | null;
+          shipping_postal_code?: string | null;
+          shipping_city?: string | null;
+          shipping_country?: string | null;
+          notes?: string | null;
+          created_at?: string;
+          updated_at?: string;
+          paid_at?: string | null;
+        };
+        Update: Partial<Database['public']['Tables']['book_preorder_pledges']['Insert']>;
+        Relationships: [];
+      };
     };
 
     Views: Record<never, never>;
@@ -304,6 +402,14 @@ export type Database = {
       generate_order_number: {
         Args: Record<never, never>;
         Returns: string;
+      };
+      claim_book_preorder_stock: {
+        Args: { p_tier_id: string; p_quantity: number };
+        Returns: undefined;
+      };
+      get_book_preorder_progress: {
+        Args: Record<never, never>;
+        Returns: { book_units_total: number; raised_cents: number; pledges_count: number }[];
       };
     };
 
@@ -327,11 +433,14 @@ export type CustomerRow = PublicTables['customers']['Row'];
 export type OrderRow = PublicTables['orders']['Row'];
 export type OrderItemRow = PublicTables['order_items']['Row'];
 export type ExhibitionRegistrationRow = PublicTables['exhibition_registrations']['Row'];
+export type BookPreorderTierRow = PublicTables['book_preorder_tiers']['Row'];
+export type BookPreorderPledgeRow = PublicTables['book_preorder_pledges']['Row'];
 
 export type PhotoInsert = PublicTables['photos']['Insert'];
 export type OrderInsert = PublicTables['orders']['Insert'];
 export type OrderItemInsert = PublicTables['order_items']['Insert'];
 export type ExhibitionRegistrationInsert = PublicTables['exhibition_registrations']['Insert'];
+export type BookPreorderPledgeInsert = PublicTables['book_preorder_pledges']['Insert'];
 
 /** Une photo accompagnée de ses options de tirage (page produit). */
 export type PhotoWithOptions = PhotoRow & {
