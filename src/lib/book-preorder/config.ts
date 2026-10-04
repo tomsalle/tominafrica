@@ -13,17 +13,23 @@
 export const BOOK_PREORDER_STEPS = [50, 100, 200] as const;
 
 export type PreorderStepState = {
+  /**
+   * Paliers visibles uniquement : ceux déjà atteints et celui en cours. Les
+   * suivants ne sont jamais envoyés au navigateur, pour qu'on ne puisse pas
+   * les deviner avant d'avoir atteint l'objectif en cours (demande de Tom).
+   */
   steps: readonly number[];
-  /** Index du palier en cours ; `steps.length` quand tous sont atteints. */
+  /** Index du palier en cours dans `steps` ; `steps.length` quand tous sont atteints. */
   currentIndex: number;
   /** Palier visé par la jauge (le dernier si tous sont atteints). */
   target: number;
 };
 
 export function getPreorderStepState(count: number): PreorderStepState {
-  const steps = BOOK_PREORDER_STEPS;
-  const found = steps.findIndex((step) => count < step);
-  const currentIndex = found === -1 ? steps.length : found;
+  const all = BOOK_PREORDER_STEPS;
+  const found = all.findIndex((step) => count < step);
+  const currentIndex = found === -1 ? all.length : found;
+  const steps = all.slice(0, currentIndex + 1);
   const target = steps[Math.min(currentIndex, steps.length - 1)] ?? 0;
   return { steps, currentIndex, target };
 }

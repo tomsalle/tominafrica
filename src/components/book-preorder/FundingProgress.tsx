@@ -11,10 +11,9 @@ type FundingProgressProps = {
 };
 
 /**
- * Compteur par étapes : « N préventes sur {palier en cours} », pastille
- * « Étape X sur 3 », puis une barre en trois segments (50 · 100 · 200) qui se
- * remplissent l'un après l'autre. Le chiffre et la barre montent une seule
- * fois, à l'entrée dans le viewport.
+ * Compteur par étapes : « N préventes sur {objectif en cours} », pastille
+ * « Étape X », puis la barre vers cet objectif seulement — les objectifs
+ * suivants restent cachés tant que celui-ci n'est pas atteint.
  */
 export function FundingProgress({ count, stepState }: FundingProgressProps) {
   const t = useTranslations('bookPreorder.progress');
@@ -69,42 +68,20 @@ export function FundingProgress({ count, stepState }: FundingProgressProps) {
           <p className="mt-1.5 inline-block bg-brand/25 px-2 py-0.5 text-[0.6875rem] font-medium text-paper">
             {allReached
               ? t('allStepsReached')
-              : t('stepChip', { current: currentIndex + 1, total: steps.length })}
+              : t('stepChip', { current: currentIndex + 1 })}
           </p>
         </div>
       </div>
 
-      <div
-        className="mt-6 grid gap-1"
-        style={{ gridTemplateColumns: `repeat(${steps.length}, minmax(0, 1fr))` }}
-        role="img"
-        aria-label={t('stepsAria', { count, steps: steps.join(', ') })}
-      >
-        {steps.map((step, index) => {
-          const from = index === 0 ? 0 : (steps[index - 1] ?? 0);
-          const fill = Math.min(1, Math.max(0, (count - from) / (step - from)));
-          return (
-            <div key={step}>
-              <div className="h-1.5 overflow-hidden bg-ink-line">
-                <div
-                  className="h-full origin-left bg-brand transition-transform duration-[1200ms] ease-[cubic-bezier(0.22,1,0.36,1)]"
-                  style={{
-                    transform: `scaleX(${started ? fill : 0})`,
-                    transitionDelay: started ? `${index * 150}ms` : undefined,
-                  }}
-                />
-              </div>
-              <p
-                className={`mt-2 text-right text-xs tabular-nums ${
-                  index === currentIndex ? 'text-paper' : count >= step ? 'text-brand-text' : 'text-paper-faint'
-                }`}
-              >
-                {step}
-              </p>
-            </div>
-          );
-        })}
+      <div className="mt-6 h-1.5 w-full overflow-hidden rounded-full bg-ink-line">
+        <div
+          className="h-full origin-left rounded-full bg-brand transition-transform duration-[1200ms] ease-[cubic-bezier(0.22,1,0.36,1)]"
+          style={{ transform: `scaleX(${started ? Math.min(1, target > 0 ? count / target : 0) : 0})` }}
+        />
       </div>
+      <p className="mt-2 text-right text-xs text-paper-faint tabular-nums">
+        {count} / {target}
+      </p>
     </div>
   );
 }

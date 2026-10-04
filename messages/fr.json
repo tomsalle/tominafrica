@@ -315,9 +315,8 @@
       "contribute": "Contribuer",
       "from": "À partir de {price}",
       "deliveryShort": "Livraison nov. 2026",
-      "stepChip": "Étape {current} sur {total}",
-      "allStepsReached": "Toutes les étapes atteintes",
-      "stepsAria": "{count} préventes, paliers à {steps}"
+      "stepChip": "Étape {current}",
+      "allStepsReached": "Tous les objectifs atteints"
     },
     "about": {
       "title": "À propos de cette collecte",
@@ -445,11 +444,10 @@
     },
     "steps": {
       "title": "Les étapes de la prévente",
-      "intro": "La prévente avance par paliers : 50, puis 100, puis 200 préventes.",
+      "intro": "La prévente avance par étapes. Chaque objectif atteint débloque le suivant.",
       "stepLabel": "Étape {index} · {count} préventes",
       "reached": "Atteinte",
       "current": "En cours",
-      "upcoming": "À venir",
       "remaining": "{count, plural, =0 {Palier atteint} one {Plus que # prévente} other {Plus que # préventes}}"
     }
   },

@@ -315,9 +315,8 @@
       "contribute": "Contribute",
       "from": "Starting at {price}",
       "deliveryShort": "Delivery Nov. 2026",
-      "stepChip": "Step {current} of {total}",
-      "allStepsReached": "All steps reached",
-      "stepsAria": "{count} pre-orders, steps at {steps}"
+      "stepChip": "Step {current}",
+      "allStepsReached": "All goals reached"
     },
     "about": {
       "title": "About this campaign",
@@ -445,11 +444,10 @@
     },
     "steps": {
       "title": "Pre-order steps",
-      "intro": "The pre-order moves forward in steps: 50, then 100, then 200 pre-orders.",
+      "intro": "The pre-order moves forward in steps. Each goal reached unlocks the next one.",
       "stepLabel": "Step {index} · {count} pre-orders",
       "reached": "Reached",
       "current": "In progress",
-      "upcoming": "Upcoming",
       "remaining": "{count, plural, =0 {Step reached} one {# pre-order to go} other {# pre-orders to go}}"
     }
   },
