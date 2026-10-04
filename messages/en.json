@@ -301,7 +301,8 @@
     },
     "hero": {
       "eyebrow": "Pre-order",
-      "title": "The book is coming"
+      "title": "1 Mother, 1 Son, 1 Dream",
+      "subtitle": "The book of the journey!"
     },
     "progress": {
       "count": "{count} pre-orders out of {goal}",
@@ -313,26 +314,27 @@
     },
     "about": {
       "title": "About this book",
-      "p1": "Book presentation coming soon: cover, excerpts, page count, and the story behind this project."
+      "lead": "From Paris to Cape Town, 25,000 km by 4x4 with my mother: the book",
+      "p1": "Twelve years ago, my mother, Charlotte, took me to Kenya in an old Land Cruiser. I discovered Africa, and I’ve had only one idea in mind ever since: going back. Twelve years later, it was my turn to call her and suggest we set off again, for six months, from Paris to Cape Town.",
+      "p2": "She believed in one of my crazy ideas, and she wasn’t entirely wrong to. We’d never been camping, never driven a 4x4, and our mechanical knowledge came from a handful of videos watched online. I still emptied my bank account to buy my first vehicle: a 1993 Toyota Land Cruiser HDJ80.",
+      "p3": "We left on November 17, 2024. 18 countries, 25,000 km, dozens of mishaps, and above all, encounters that changed everything.",
+      "p4": "This book was born from all of that. It doesn’t tell the story of the road — it tells the story of the people we met along the way, and the stories behind each photograph. Because behind every image, there’s a moment, a face, a story."
     },
     "why": {
       "title": "Why make it a book?",
-      "p1": "The story of why this journey needed to exist in print, beyond a screen, will go here."
+      "p1": "YouTube videos already show our day-to-day and our mishaps. The book tells something else: these faces and these emotions, which I wanted to be able to hold in my hands rather than watch scroll by on a screen. It’s also a way to pay tribute to those who welcomed us, and to introduce the artists and associations we met along the way."
     },
     "specs": {
-      "title": "Book specifications",
-      "format": "Format: to be confirmed",
-      "pages": "Page count: to be confirmed",
-      "paper": "Interior paper: to be confirmed",
-      "binding": "Binding: to be confirmed",
-      "cover": "Cover: to be confirmed",
-      "printRun": "Print run: 120 copies",
-      "note": "Each copy will be signed and numbered."
+      "title": "The book at a glance",
+      "pages": "112 pages, two points of view: a mother, a photographer, and her son",
+      "format": "Format: slightly smaller than a closed A3, unbound",
+      "printRun": "Print run: 150 copies, set by this pre-order",
+      "delivery": "Estimated delivery: November 27, 2026, the day of the exhibition’s opening night in Paris"
     },
     "budget": {
       "title": "What your pre-order will fund",
       "items": {
-        "printing": "Printing the books to sell (120)",
+        "printing": "Printing the books to sell (150)",
         "publisher": "Publisher support",
         "otherFees": "Other costs (ISBN, gifted copies)"
       }
@@ -383,7 +385,7 @@
     "shipping": {
       "title": "Shipping",
       "estimateLabel": "Estimated delivery date",
-      "estimate": "To be confirmed",
+      "estimate": "November 27, 2026, the day of the exhibition’s opening night in Paris",
       "modesTitle": "Shipping methods",
       "modesPlaceholder": "Details coming soon (home delivery, pickup point, or hand delivery)."
     },

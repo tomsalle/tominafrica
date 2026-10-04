@@ -10,9 +10,7 @@ export function ShippingInfo() {
 
       <div className="mt-5">
         <p className="text-xs tracking-wide text-paper-faint uppercase">{t('estimateLabel')}</p>
-        <p className="mt-1 text-sm text-paper-dim">
-          <mark className="bg-accent/15 px-1.5 py-0.5 text-accent">{t('estimate')}</mark>
-        </p>
+        <p className="mt-1 text-sm text-paper-dim">{t('estimate')}</p>
       </div>
 
       <div className="mt-5">

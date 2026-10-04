@@ -301,7 +301,8 @@
     },
     "hero": {
       "eyebrow": "Précommande",
-      "title": "Le livre arrive"
+      "title": "1 Mère, 1 Fils, 1 Rêve",
+      "subtitle": "Le livre de l’aventure !"
     },
     "progress": {
       "count": "{count} préventes sur {goal}",
@@ -313,26 +314,27 @@
     },
     "about": {
       "title": "À propos de ce livre",
-      "p1": "Présentation du livre à venir : couverture, extraits, nombre de pages, et le récit de ce qui a donné naissance à ce projet."
+      "lead": "De Paris à Cape Town, 25 000 km en 4x4 avec ma mère : le livre",
+      "p1": "Il y a douze ans, ma mère, Charlotte, m’a emmené au Kenya, dans un vieux Land Cruiser. J’ai découvert l’Afrique, et depuis je n’ai eu qu’une idée en tête : y retourner. Douze ans plus tard, c’est moi qui l’ai appelée pour lui proposer de repartir, six mois, de Paris à Cape Town.",
+      "p2": "Elle a cru à une de mes idées folles, et elle n’avait pas tout à fait tort. Nous n’avions jamais fait de camping, jamais conduit de 4x4, et nos connaissances en mécanique tenaient à quelques vidéos regardées sur Internet. J’ai quand même vidé mon compte en banque pour acheter mon premier véhicule : un Toyota Land Cruiser HDJ80 de 1993.",
+      "p3": "Nous sommes partis le 17 novembre 2024. 18 pays, 25 000 km, des dizaines de galères, et surtout des rencontres qui ont tout changé.",
+      "p4": "Ce livre est né de tout ça. Il ne raconte pas la route, il raconte les personnes rencontrées en chemin et les histoires qui se cachent derrière chaque photographie. Car derrière chaque image, il y a un moment, un visage, une histoire."
     },
     "why": {
       "title": "Pourquoi en faire un livre ?",
-      "p1": "Le texte expliquant pourquoi ce voyage devait exister en version imprimée, au-delà d’un écran, viendra ici."
+      "p1": "Des films sur YouTube racontent déjà notre quotidien et nos galères. Le livre, lui, raconte autre chose : ces visages et ces émotions, que je voulais pouvoir tenir entre les mains plutôt que de les voir défiler sur un écran. C’est aussi une façon de rendre hommage à ceux qui nous ont accueillis, et de faire connaître les artistes et associations rencontrés en chemin."
     },
     "specs": {
-      "title": "Caractéristiques du livre",
-      "format": "Format : à préciser",
-      "pages": "Nombre de pages : à préciser",
-      "paper": "Papier intérieur : à préciser",
-      "binding": "Reliure : à préciser",
-      "cover": "Couverture : à préciser",
-      "printRun": "Tirage : 120 exemplaires",
-      "note": "Chaque exemplaire sera signé et numéroté."
+      "title": "Le livre en bref",
+      "pages": "112 pages, deux regards : celui d’une mère, photographe, et celui de son fils",
+      "format": "Format : légèrement plus petit qu’un A3 fermé, sans reliure",
+      "printRun": "Tirage : 150 exemplaires, déterminé par cette précommande",
+      "delivery": "Livraison estimée : 27 novembre 2026, jour du vernissage de l’exposition à Paris"
     },
     "budget": {
       "title": "À quoi servira votre précommande",
       "items": {
-        "printing": "Impression des livres à vendre (120)",
+        "printing": "Impression des livres à vendre (150)",
         "publisher": "Accompagnement maison d’édition",
         "otherFees": "Autres frais (ISBN, livres offerts)"
       }
@@ -383,7 +385,7 @@
     "shipping": {
       "title": "Livraison",
       "estimateLabel": "Date de livraison estimée",
-      "estimate": "À préciser",
+      "estimate": "27 novembre 2026, jour du vernissage de l’exposition à Paris",
       "modesTitle": "Modes d’expédition",
       "modesPlaceholder": "Détails à venir (envoi à domicile, point relais, ou remise en main propre)."
     },

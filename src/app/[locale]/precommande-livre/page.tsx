@@ -53,8 +53,21 @@ export default async function BookPreorderPage() {
 
   return (
     <div className="pb-28">
+      {/* Bandeau de couverture */}
+      <div className="relative mt-16 h-[26vh] min-h-[10rem] w-full overflow-hidden sm:mt-20">
+        <Image
+          src="/precommande-livre/bandeau-voyage.avif"
+          alt=""
+          fill
+          sizes="100vw"
+          priority
+          className="object-cover"
+        />
+        <div className="absolute inset-0 bg-linear-to-t from-ink via-ink/10 to-transparent" />
+      </div>
+
       {/* Hero */}
-      <div className="pt-32 sm:pt-40">
+      <div className="pt-16">
         <Container width="wide">
           <div className="grid grid-cols-1 gap-x-16 gap-y-10 lg:grid-cols-[1fr_22rem]">
             <Reveal>
@@ -62,6 +75,7 @@ export default async function BookPreorderPage() {
               <h1 className="mt-6 font-display text-5xl leading-[1.02] font-light sm:text-6xl lg:text-7xl">
                 {t('hero.title')}
               </h1>
+              <p className="mt-4 text-lg text-paper-dim">{t('hero.subtitle')}</p>
             </Reveal>
 
             <Reveal delay={90} className="lg:row-span-2">
@@ -76,13 +90,13 @@ export default async function BookPreorderPage() {
             </Reveal>
 
             <Reveal delay={60}>
-              <div className="relative aspect-3/4 w-full max-w-md overflow-hidden bg-ink-soft">
+              <div className="relative aspect-square w-full max-w-md overflow-hidden bg-ink-soft">
                 <Image
-                  src="/placeholders/tsingy.svg"
+                  src="/precommande-livre/livre-ouvert.avif"
                   alt=""
                   fill
                   sizes="(max-width: 1024px) 100vw, 28rem"
-                  className="object-cover opacity-70"
+                  className="object-cover"
                 />
               </div>
             </Reveal>
@@ -101,9 +115,11 @@ export default async function BookPreorderPage() {
                 <p className="eyebrow">{t('about.title')}</p>
                 <div className="mt-5">
                   <Prose>
-                    <p>
-                      <mark>{t('about.p1')}</mark>
-                    </p>
+                    <p className="font-medium text-paper">{t('about.lead')}</p>
+                    <p>{t('about.p1')}</p>
+                    <p>{t('about.p2')}</p>
+                    <p>{t('about.p3')}</p>
+                    <p>{t('about.p4')}</p>
                   </Prose>
                 </div>
               </Reveal>
@@ -112,9 +128,7 @@ export default async function BookPreorderPage() {
                 <p className="eyebrow">{t('why.title')}</p>
                 <div className="mt-5">
                   <Prose>
-                    <p>
-                      <mark>{t('why.p1')}</mark>
-                    </p>
+                    <p>{t('why.p1')}</p>
                   </Prose>
                 </div>
               </Reveal>
@@ -122,17 +136,10 @@ export default async function BookPreorderPage() {
               <Reveal>
                 <p className="eyebrow">{t('specs.title')}</p>
                 <ul className="mt-5 space-y-2 text-sm text-paper-dim">
-                  {(['format', 'pages', 'paper', 'binding', 'cover', 'printRun'] as const).map((key) => (
-                    <li key={key}>
-                      {key === 'printRun' ? (
-                        t(`specs.${key}`)
-                      ) : (
-                        <mark className="bg-accent/15 px-1.5 py-0.5 text-accent">{t(`specs.${key}`)}</mark>
-                      )}
-                    </li>
+                  {(['pages', 'format', 'printRun', 'delivery'] as const).map((key) => (
+                    <li key={key}>{t(`specs.${key}`)}</li>
                   ))}
                 </ul>
-                <p className="mt-4 text-sm text-paper-dim">{t('specs.note')}</p>
               </Reveal>
 
               <Reveal>
