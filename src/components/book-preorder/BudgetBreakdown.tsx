@@ -13,7 +13,7 @@ export function BudgetBreakdown() {
   const t = useTranslations('bookPreorder.budget');
 
   return (
-    <div className="border border-ink-line p-7">
+    <div>
       <p className="eyebrow">{t('title')}</p>
       <p className="mt-3 font-display text-2xl font-light text-paper">
         {formatPrice(BOOK_PREORDER_BUDGET_TOTAL_CENTS)}

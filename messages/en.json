@@ -308,7 +308,7 @@
       "count": "{count} pre-orders out of {goal}",
       "percent": "{percent}% funded",
       "pledgesCount": "{count, plural, one {# contribution} other {# contributions}}",
-      "ctaFrom": "Contribute — starting at {price}",
+      "ctaFrom": "Contribute, starting at {price}",
       "secureNote": "Secure payment by Stripe",
       "share": "Share"
     },

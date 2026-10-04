@@ -18,9 +18,9 @@ export function Faq() {
       <div className="mt-6 divide-y divide-ink-line border-y border-ink-line">
         {items.map((item) => (
           <details key={item.q} className="group py-5">
-            <summary className="flex cursor-pointer list-none items-center justify-between gap-4 text-sm text-paper">
+            <summary className="group/row flex cursor-pointer list-none items-center justify-between gap-4 text-sm text-paper">
               {item.q}
-              <span className="shrink-0 text-paper-faint transition-transform duration-300 group-open:rotate-45">
+              <span className="shrink-0 text-paper-faint transition-[color,transform] duration-300 group-open:rotate-45 group-hover/row:text-accent">
                 +
               </span>
             </summary>

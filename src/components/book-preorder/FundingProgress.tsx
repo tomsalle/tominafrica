@@ -66,8 +66,8 @@ export function FundingProgress({ count, goal, pledgesCount }: FundingProgressPr
     <div ref={ref}>
       <div className="h-1.5 w-full overflow-hidden bg-ink-line">
         <div
-          className="h-full bg-accent transition-[width] duration-[1200ms] ease-[cubic-bezier(0.22,1,0.36,1)]"
-          style={{ width: started ? `${percent}%` : '0%' }}
+          className="h-full origin-left bg-accent transition-transform duration-[1200ms] ease-[cubic-bezier(0.22,1,0.36,1)]"
+          style={{ transform: `scaleX(${started ? percent / 100 : 0})` }}
         />
       </div>
 

@@ -95,7 +95,7 @@ export function TierPledgeForm({ tier, checkoutEnabled, soldOut }: TierPledgeFor
           <button
             type="button"
             onClick={() => setQuantity((q) => Math.max(1, q - 1))}
-            className="text-paper-dim hover:text-paper"
+            className="p-1 text-paper-dim transition-[color,transform] duration-150 hover:text-paper active:scale-90"
             aria-label={t('decreaseQuantity')}
           >
             −
@@ -104,7 +104,7 @@ export function TierPledgeForm({ tier, checkoutEnabled, soldOut }: TierPledgeFor
           <button
             type="button"
             onClick={() => setQuantity((q) => Math.min(maxQuantity, q + 1))}
-            className="text-paper-dim hover:text-paper"
+            className="p-1 text-paper-dim transition-[color,transform] duration-150 hover:text-paper active:scale-90"
             aria-label={t('increaseQuantity')}
           >
             +

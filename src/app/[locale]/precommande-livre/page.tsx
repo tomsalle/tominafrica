@@ -105,7 +105,7 @@ export default async function BookPreorderPage() {
                   <p className="eyebrow">{t('about.title')}</p>
                   <div className="mt-5">
                     <Prose>
-                      <p className="font-medium text-paper">{t('about.lead')}</p>
+                      <p className="font-display text-xl leading-snug font-light text-paper">{t('about.lead')}</p>
                       <p>{t('about.p1')}</p>
                       <p>{t('about.p2')}</p>
                       <p>{t('about.p3')}</p>
