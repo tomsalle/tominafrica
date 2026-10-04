@@ -1,11 +1,12 @@
 import { useTranslations } from 'next-intl';
 import { FundingProgress } from '@/components/book-preorder/FundingProgress';
 import { CalendarIcon, UsersIcon } from '@/components/book-preorder/icons';
+import type { PreorderStepState } from '@/lib/book-preorder/config';
 import { formatPrice } from '@/lib/format';
 
 type HeroPanelProps = {
   count: number;
-  goal: number;
+  stepState: PreorderStepState;
   pledgesCount: number;
   minPriceCents: number;
 };
@@ -14,12 +15,12 @@ type HeroPanelProps = {
  * Colonne de droite du haut de page, calquée sur Ulule : compteur et jauge,
  * contributions et livraison, gros bouton « Contribuer — à partir de… ».
  */
-export function HeroPanel({ count, goal, pledgesCount, minPriceCents }: HeroPanelProps) {
+export function HeroPanel({ count, stepState, pledgesCount, minPriceCents }: HeroPanelProps) {
   const t = useTranslations('bookPreorder.progress');
 
   return (
     <div className="flex flex-col">
-      <FundingProgress count={count} goal={goal} />
+      <FundingProgress count={count} stepState={stepState} />
 
       <div className="mt-6 flex items-center justify-between gap-4 text-sm text-paper-dim">
         <p className="flex items-center gap-2 whitespace-nowrap">

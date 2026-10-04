@@ -7,6 +7,7 @@ import { BudgetBreakdown } from '@/components/book-preorder/BudgetBreakdown';
 import { ContributionsList } from '@/components/book-preorder/ContributionsList';
 import { Faq } from '@/components/book-preorder/Faq';
 import { HeroPanel } from '@/components/book-preorder/HeroPanel';
+import { PreorderSteps } from '@/components/book-preorder/PreorderSteps';
 import { ShareButton } from '@/components/book-preorder/ShareButton';
 import { ShippingInfo } from '@/components/book-preorder/ShippingInfo';
 import { StickyTabNav } from '@/components/book-preorder/StickyTabNav';
@@ -14,7 +15,7 @@ import { TierCard } from '@/components/book-preorder/TierCard';
 import { TierPledgeForm } from '@/components/book-preorder/TierPledgeForm';
 import { Container } from '@/components/ui/Container';
 import { Prose } from '@/components/ui/Prose';
-import { BOOK_PREORDER_GOAL_COUNT } from '@/lib/book-preorder/config';
+import { getPreorderStepState } from '@/lib/book-preorder/config';
 import { BOOK_PREORDER_PAGE_DISABLED } from '@/lib/book-preorder/flags';
 import { getBookPreorderProgress, getPublicContributions, getPublishedTiers } from '@/lib/book-preorder/queries';
 import { isCheckoutEnabled } from '@/lib/env';
@@ -59,6 +60,7 @@ export default async function BookPreorderPage() {
   const rewardTiers = tiers.filter((tier) => !tier.is_donation);
   const donationTier = tiers.find((tier) => tier.is_donation);
   const minPriceCents = rewardTiers.length > 0 ? Math.min(...rewardTiers.map((tier) => tier.price_cents)) : 0;
+  const stepState = getPreorderStepState(progress.bookUnitsTotal);
   const featuredTier = rewardTiers.find((tier) => tier.slug === 'livre') ?? rewardTiers[0];
   const otherTiers = rewardTiers.filter((tier) => tier.id !== featuredTier?.id);
 
@@ -104,7 +106,7 @@ export default async function BookPreorderPage() {
 
               <HeroPanel
                 count={progress.bookUnitsTotal}
-                goal={BOOK_PREORDER_GOAL_COUNT}
+                stepState={stepState}
                 pledgesCount={progress.pledgesCount}
                 minPriceCents={minPriceCents}
               />
@@ -161,6 +163,8 @@ export default async function BookPreorderPage() {
             </section>
 
             <BudgetBreakdown />
+
+            <PreorderSteps count={progress.bookUnitsTotal} stepState={stepState} />
 
             <AuthorBio />
           </div>

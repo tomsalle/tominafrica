@@ -307,7 +307,6 @@
     },
     "progress": {
       "count": "{count} préventes sur {goal}",
-      "percent": "Financé à {percent} %",
       "pledgesCount": "{count, plural, one {# contribution} other {# contributions}}",
       "ctaFrom": "Contribuer, à partir de {price}",
       "secureNote": "Paiement sécurisé par Stripe",
@@ -315,7 +314,10 @@
       "countLabel": "préventes sur {goal}",
       "contribute": "Contribuer",
       "from": "À partir de {price}",
-      "deliveryShort": "Livraison nov. 2026"
+      "deliveryShort": "Livraison nov. 2026",
+      "stepChip": "Étape {current} sur {total}",
+      "allStepsReached": "Toutes les étapes atteintes",
+      "stepsAria": "{count} préventes, paliers à {steps}"
     },
     "about": {
       "title": "À propos de cette collecte",
@@ -440,6 +442,15 @@
       "choseTier": "a choisi la contrepartie",
       "donated": "a contribué par un don",
       "empty": "Aucune contribution pour l’instant. Soyez la première personne à soutenir le livre."
+    },
+    "steps": {
+      "title": "Les étapes de la prévente",
+      "intro": "La prévente avance par paliers : 50, puis 100, puis 200 préventes.",
+      "stepLabel": "Étape {index} · {count} préventes",
+      "reached": "Atteinte",
+      "current": "En cours",
+      "upcoming": "À venir",
+      "remaining": "{count, plural, =0 {Palier atteint} one {Plus que # prévente} other {Plus que # préventes}}"
     }
   },
   "bookPreorderSucces": {
