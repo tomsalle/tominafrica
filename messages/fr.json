@@ -334,7 +334,7 @@
       "title": "Le livre en bref",
       "pages": "112 pages, deux regards : celui d’une mère, photographe, et celui de son fils",
       "format": "Format : légèrement plus petit qu’un A3 fermé, sans reliure",
-      "printRun": "Tirage : 50 exemplaires, déterminé par cette précommande",
+      "printRun": "Tirage : {count} exemplaires, déterminé par cette précommande",
       "delivery": "Livraison estimée : 27 novembre 2026, jour du vernissage de l’exposition à Paris"
     },
     "budget": {

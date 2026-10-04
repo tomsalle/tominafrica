@@ -334,7 +334,7 @@
       "title": "The book at a glance",
       "pages": "112 pages, two points of view: a mother, a photographer, and her son",
       "format": "Format: slightly smaller than a closed A3, unbound",
-      "printRun": "Print run: 50 copies, set by this pre-order",
+      "printRun": "Print run: {count} copies, set by this pre-order",
       "delivery": "Estimated delivery: November 27, 2026, the day of the exhibition’s opening night in Paris"
     },
     "budget": {

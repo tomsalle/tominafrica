@@ -156,7 +156,7 @@ export default async function BookPreorderPage() {
               <h3 className="text-lg font-medium text-paper">{t('specs.title')}</h3>
               <ul className="mt-4 space-y-3 text-base leading-relaxed text-paper-dim">
                 {(['pages', 'format', 'printRun', 'delivery'] as const).map((key) => (
-                  <SpecLine key={key} text={t(`specs.${key}`)} />
+                  <SpecLine key={key} text={t(`specs.${key}`, { count: stepState.target })} />
                 ))}
               </ul>
             </section>
