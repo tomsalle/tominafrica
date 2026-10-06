@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import { Prose } from '@/components/ui/Prose';
+import { Link } from '@/i18n/navigation';
 
 export const metadata: Metadata = {
   title: 'Conditions générales de vente',
@@ -163,7 +164,7 @@ export default function TermsPage() {
           <h2>Article 10 — Données personnelles</h2>
           <p>
             Les traitements de données personnelles sont décrits dans la{' '}
-            <a href="/confidentialite">politique de confidentialité</a>.
+            <Link href="/confidentialite">politique de confidentialité</Link>.
           </p>
 
           <h2>Article 11 — Litiges et droit applicable</h2>
@@ -171,7 +172,7 @@ export default function TermsPage() {
             Les présentes conditions sont soumises au droit français. En cas de litige, le Client
             s’adresse en priorité au Vendeur pour une solution amiable. À défaut, il peut recourir
             gratuitement au médiateur de la consommation mentionné dans les{' '}
-            <a href="/mentions-legales">mentions légales</a>, ou saisir la plateforme européenne de
+            <Link href="/mentions-legales">mentions légales</Link>, ou saisir la plateforme européenne de
             règlement en ligne des litiges.
           </p>
         </Prose>

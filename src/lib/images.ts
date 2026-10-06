@@ -61,6 +61,8 @@ export function photoAbsoluteSrc(imagePath: string, sourceWidth?: number | null)
 export const SIZES = {
   /** Image plein écran (accueil, page produit). */
   full: '100vw',
+  /** Photo de la page produit : colonne de gauche dès le grand écran. */
+  viewer: '(min-width: 1024px) 62vw, 100vw',
   /** Grille de galerie : 1 colonne en mobile, 2 en tablette, 3 au-delà. */
   grid: '(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw',
   /** Vignette du panier. */

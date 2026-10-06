@@ -2,7 +2,7 @@
   "metadata": {
     "siteName": "Tom in Africa",
     "title": "Tom in Africa — Fine Art Photography & Prints",
-    "description": "Photographic series from Namibia, Kenya, Tanzania and Madagascar. Limited and open-edition fine art prints, made on archival fine art paper."
+    "description": "Photographs from a six-month overland journey by 4x4, from Paris to Cape Town, across 18 countries. Signed, limited-edition fine art prints."
   },
   "layout": {
     "skipToContent": "Skip to content"
@@ -115,25 +115,31 @@
     "srTitle": "Tom in Africa — photographic series and fine art prints",
     "emptyTitle": "Tom in Africa",
     "emptyBody": "No series published yet.",
-    "viewSeries": "View the series",
-    "projectEyebrow": "The project",
-    "projectP1": "In November 2024, we left Paris in our Toyota Land Cruiser HDJ80 to cross Africa all the way to South Africa. Over nearly six months, we traveled through more than twenty countries, meeting local people, artists and associations, to tell the story — in pictures — of an authentic, deeply human Africa.",
+    "viewSeries": "Enter the gallery",
+    "projectEyebrow": "The journey",
+    "projectP1": "In November 2024, we left Paris in our Toyota Land Cruiser HDJ80 to cross Africa all the way to South Africa. Over nearly six months, we traveled through 18 countries, meeting local people, artists and associations, to tell the story — in pictures — of an authentic, deeply human Africa.",
     "projectP2": "Beyond the adventure, this trip was a search for encounters, discoveries and understanding, especially around access to clean water. Through our photographs, we share the landscapes, the faces and the stories that shaped this mother-son crossing and changed how we see the world.",
     "adventureLink": "Our Journey",
     "videosLink": "Watch all the videos",
     "contactEyebrow": "Contact",
     "contactTitle": "A question, a custom order?",
-    "contactBody": "Write to us — we reply directly to the address you provide."
+    "contactBody": "Write to us — we reply directly to the address you provide.",
+    "heroEyebrow": "Paris — Cape Town · 2024 — 2025",
+    "heroLine": "Six months on the road with my mother, from Paris to Cape Town. Faces, places, encounters.",
+    "heroAlt": "Charlotte and Tom with their Land Cruiser, in Angola",
+    "galleryCta": "The full gallery",
+    "galleryCount": "{count, plural, one {# photograph} other {# photographs}}",
+    "numberLocale": "en-GB"
   },
   "notreAventure": {
     "metaTitle": "Our Journey",
-    "metaDescription": "Six months, more than twenty countries, a mother and son crossing Africa in a Toyota Land Cruiser HDJ80.",
+    "metaDescription": "Six months, 18 countries, a mother and son crossing Africa in a Toyota Land Cruiser HDJ80.",
     "dateRange": "November 2024 — May 2025",
     "title": "Our Journey",
     "subtitle": "Paris — Cape Town, by Toyota Land Cruiser HDJ80, mother and son.",
     "bornFromDreamEyebrow": "An adventure born from a dream",
     "lead": "What if the most beautiful journey wasn’t a destination, but the encounters made along the way?",
-    "intro": "For nearly six months, we drove across Africa, from Paris all the way to South Africa. More than twenty countries, thousands of kilometers, and countless stories. This book is the record of that adventure.",
+    "intro": "For nearly six months, we drove across Africa, from Paris all the way to South Africa. 18 countries, thousands of kilometers, and countless stories. This book is the record of that adventure.",
     "canyonPhotoAlt": "Tom and Charlotte in front of their Toyota Land Cruiser, in a red sandstone canyon",
     "whoTitle": "Who are we?",
     "whoP1": "We are Tom and Charlotte, a son and his mother, driven by the same curiosity for the world and for human encounters. A photographer, filmmaker and adventurer at heart, Tom had dreamed for years of crossing Africa by road. Charlotte passed on to him her love of travel and of the African continent. Together, we decided to turn that dream into a life project.",
@@ -219,9 +225,11 @@
   },
   "photo": {
     "notFoundTitle": "Photograph not found",
-    "countryHeading": "The country",
     "placeHeading": "The place",
-    "sameSeries": "From the same series"
+    "landmarksHeading": "Landmarks",
+    "onTheRoad": "On the road",
+    "journeyNav": "Neighbouring photos in the journey",
+    "metaDescription": "“{title}”, a photograph by Tom Sallé, {where} — signed fine art print, limited edition."
   },
   "series": {
     "notFoundTitle": "Series not found",
@@ -452,5 +460,21 @@
     "body": "A confirmation e-mail has just been sent to you. You’ll be kept posted on the project’s progress and the shipping date.",
     "note": "A question about your pre-order? Just reply to the confirmation e-mail.",
     "cta": "Back to the pre-order page"
+  },
+  "journey": {
+    "day": "Day {day}",
+    "from": "Paris",
+    "to": "Cape Town",
+    "lineAria": "Day {day} of the Paris — Cape Town journey",
+    "stats": {
+      "countries": "countries",
+      "km": "kilometres",
+      "months": "months"
+    },
+    "previous": "Previous day",
+    "next": "Next day",
+    "sequenceLabel": "The journey, photo by photo",
+    "earlier": "{count, plural, =0 {The same day} one {The day before} other {# days earlier}}",
+    "later": "{count, plural, =0 {The same day} one {The next day} other {# days later}}"
   }
 }

@@ -2,7 +2,7 @@
   "metadata": {
     "siteName": "Tom in Africa",
     "title": "Tom in Africa — Photographies et tirages d’art",
-    "description": "Séries photographiques de Namibie, du Kenya, de Tanzanie et de Madagascar. Tirages d’art en édition limitée et non limitée, réalisés sur papier fine art."
+    "description": "Photographies d’un voyage de six mois en 4x4, de Paris au Cap, à travers 18 pays. Tirages d’art signés, en édition limitée, réalisés sur papier fine art."
   },
   "layout": {
     "skipToContent": "Aller au contenu"
@@ -115,25 +115,31 @@
     "srTitle": "Tom in Africa — séries photographiques et tirages d’art",
     "emptyTitle": "Tom in Africa",
     "emptyBody": "Aucune série publiée pour le moment.",
-    "viewSeries": "Voir la série",
-    "projectEyebrow": "Le projet",
-    "projectP1": "En novembre 2024, nous avons quitté Paris à bord de notre Toyota Land Cruiser HDJ80 pour traverser l’Afrique jusqu’en Afrique du Sud. Pendant près de six mois, nous avons parcouru plus de vingt pays à la rencontre des habitants, d’artistes et d’associations afin de raconter, en images, une Afrique authentique et profondément humaine.",
+    "viewSeries": "Entrer dans la galerie",
+    "projectEyebrow": "Le voyage",
+    "projectP1": "En novembre 2024, nous avons quitté Paris à bord de notre Toyota Land Cruiser HDJ80 pour traverser l’Afrique jusqu’en Afrique du Sud. Pendant près de six mois, nous avons parcouru 18 pays à la rencontre des habitants, d’artistes et d’associations afin de raconter, en images, une Afrique authentique et profondément humaine.",
     "projectP2": "Au-delà de l’aventure, ce voyage était une quête de rencontres, de découvertes et de compréhension, notamment autour de l’accès à l’eau potable. À travers nos photographies, nous partageons les paysages, les visages et les histoires qui ont marqué cette traversée mère-fils et changé notre regard sur le monde.",
     "adventureLink": "Notre aventure",
     "videosLink": "Voir toutes les vidéos",
     "contactEyebrow": "Contact",
     "contactTitle": "Une question, une commande sur mesure ?",
-    "contactBody": "Écrivez-nous, nous répondons directement à l’adresse indiquée."
+    "contactBody": "Écrivez-nous, nous répondons directement à l’adresse indiquée.",
+    "heroEyebrow": "Paris — Le Cap · 2024 — 2025",
+    "heroLine": "Six mois sur la route avec ma mère, de Paris au Cap. Des visages, des lieux, des rencontres.",
+    "heroAlt": "Charlotte et Tom devant leur Land Cruiser, en Angola",
+    "galleryCta": "Toute la galerie",
+    "galleryCount": "{count, plural, one {# photographie} other {# photographies}}",
+    "numberLocale": "fr-FR"
   },
   "notreAventure": {
     "metaTitle": "Notre aventure",
-    "metaDescription": "Six mois, plus de vingt pays, une mère et son fils en Toyota Land Cruiser HDJ80 à la traversée de l’Afrique.",
+    "metaDescription": "Six mois, 18 pays, une mère et son fils en Toyota Land Cruiser HDJ80 à la traversée de l’Afrique.",
     "dateRange": "Novembre 2024 — mai 2025",
     "title": "Notre aventure",
     "subtitle": "Paris — Le Cap, en Toyota Land Cruiser HDJ80, mère et fils.",
     "bornFromDreamEyebrow": "Une aventure née d’un rêve",
     "lead": "Et si le plus beau des voyages n’était pas une destination, mais les rencontres faites en chemin ?",
-    "intro": "Pendant près de six mois, nous avons traversé l’Afrique en voiture, de Paris jusqu’en Afrique du Sud. Plus de vingt pays, des milliers de kilomètres et une infinité d’histoires. Ce livre est le récit de cette aventure.",
+    "intro": "Pendant près de six mois, nous avons traversé l’Afrique en voiture, de Paris jusqu’en Afrique du Sud. 18 pays, des milliers de kilomètres et une infinité d’histoires. Ce livre est le récit de cette aventure.",
     "canyonPhotoAlt": "Tom et Charlotte devant leur Toyota Land Cruiser, dans un canyon de grès rouge",
     "whoTitle": "Qui sommes-nous ?",
     "whoP1": "Nous sommes Tom et Charlotte, un fils et sa mère, animés par la même curiosité pour le monde et les rencontres humaines. Photographe, vidéaste et passionné d’aventure, Tom rêvait depuis des années de traverser l’Afrique par la route. Charlotte, elle, lui a transmis le goût du voyage et du continent africain. Ensemble, nous avons décidé de transformer ce rêve en un projet de vie.",
@@ -219,9 +225,11 @@
   },
   "photo": {
     "notFoundTitle": "Photographie introuvable",
-    "countryHeading": "Le pays",
     "placeHeading": "Le lieu",
-    "sameSeries": "Dans la même série"
+    "landmarksHeading": "Repères",
+    "onTheRoad": "Sur la route",
+    "journeyNav": "Photos voisines dans le voyage",
+    "metaDescription": "« {title} », photographie de Tom Sallé, {where} — tirage d’art signé, en édition limitée."
   },
   "series": {
     "notFoundTitle": "Série introuvable",
@@ -452,5 +460,21 @@
     "body": "Un e-mail de confirmation vient de vous être envoyé. Vous serez tenu·e informé·e de l’avancée du projet et de la date d’expédition.",
     "note": "Une question sur votre précommande ? Répondez simplement à l’e-mail de confirmation.",
     "cta": "Retour à la précommande"
+  },
+  "journey": {
+    "day": "Jour {day}",
+    "from": "Paris",
+    "to": "Le Cap",
+    "lineAria": "Jour {day} du voyage Paris — Le Cap",
+    "stats": {
+      "countries": "pays",
+      "km": "kilomètres",
+      "months": "mois"
+    },
+    "previous": "Jour précédent",
+    "next": "Jour suivant",
+    "sequenceLabel": "Le voyage, photo par photo",
+    "earlier": "{count, plural, =0 {Le même jour} one {La veille} other {# jours plus tôt}}",
+    "later": "{count, plural, =0 {Le même jour} one {Le lendemain} other {# jours plus tard}}"
   }
 }

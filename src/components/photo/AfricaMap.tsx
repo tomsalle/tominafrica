@@ -18,7 +18,7 @@ export function AfricaMap({ countryCode }: { countryCode: string }) {
         <path
           key={country.id}
           d={country.path}
-          style={{ fill: country.id === target ? 'var(--color-accent)' : 'var(--color-ink-line)' }}
+          style={{ fill: country.id === target ? 'var(--color-paper)' : 'var(--color-ink-line)' }}
           stroke="var(--color-ink)"
           strokeWidth={0.75}
         />

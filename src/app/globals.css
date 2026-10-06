@@ -72,6 +72,13 @@
 }
 
 @layer components {
+  /* Cormorant dessine par défaut des chiffres elzéviriens : le « 1 » du titre
+     « 1 mère, 1 fils, 1 rêve » se lit alors comme un « ı ». Chiffres alignés
+     partout où la police de titre est utilisée. */
+  .font-display {
+    font-feature-settings: 'lnum' 1;
+  }
+
   /* Petites capitales espacées : libellés, catégories, boutons secondaires. */
   .eyebrow {
     font-size: 0.6875rem;
@@ -98,7 +105,9 @@
     transition: transform 0.45s var(--ease-out-soft);
   }
   .link-underline:hover::after,
-  .link-underline:focus-visible::after {
+  .link-underline:focus-visible::after,
+  .group:hover .link-underline::after,
+  .group:focus-visible .link-underline::after {
     transform: scaleX(1);
     transform-origin: left;
   }
@@ -182,7 +191,7 @@
     transform: scale(1);
   }
   to {
-    transform: scale(1.08);
+    transform: scale(1.04);
   }
 }
 

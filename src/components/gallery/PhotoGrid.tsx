@@ -14,6 +14,9 @@ const STAGGER_COLUMNS = 3;
  * chacune dans la colonne la plus courte au lieu de forcer des lignes de
  * hauteur égale — c'est ce qui rend une photothèque aux formats mélangés
  * lisible plutôt que découpée à la serpe.
+ *
+ * Peu de photos : moins de colonnes, et des images plus grandes, plutôt
+ * qu'une grille à moitié vide.
  */
 export function PhotoGrid({ photos }: { photos: PhotoWithMinPrice[] }) {
   const t = useTranslations('series');
@@ -22,13 +25,20 @@ export function PhotoGrid({ photos }: { photos: PhotoWithMinPrice[] }) {
     return <p className="text-sm text-paper-dim">{t('emptySeries')}</p>;
   }
 
+  const columns =
+    photos.length === 1
+      ? 'mx-auto max-w-2xl columns-1'
+      : photos.length === 2
+        ? 'mx-auto max-w-5xl columns-1 gap-10 sm:columns-2'
+        : 'columns-1 gap-8 sm:columns-2 lg:columns-3';
+
   return (
-    <div className="columns-1 gap-8 sm:columns-2 lg:columns-3">
+    <div className={columns}>
       {photos.map((photo, index) => (
         <Reveal
           key={photo.id}
           delay={(index % STAGGER_COLUMNS) * STAGGER_STEP_MS}
-          className="mb-14 break-inside-avoid"
+          className="mb-16 break-inside-avoid"
         >
           <PhotoCard photo={photo} priority={index < 3} />
         </Reveal>

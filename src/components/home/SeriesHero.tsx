@@ -8,48 +8,39 @@ type SeriesHeroProps = {
   series: SeriesWithCover;
   /** La première section est chargée en priorité : c'est le LCP de la page. */
   priority?: boolean;
-  index: number;
 };
 
-export function SeriesHero({ series, priority = false, index }: SeriesHeroProps) {
+/**
+ * Premier écran : une photographie, le titre, une phrase. Assez pour savoir
+ * qui parle et d'où viennent les images — le reste se découvre en défilant.
+ */
+export function SeriesHero({ series, priority = false }: SeriesHeroProps) {
   const t = useTranslations('home');
   const cover = series.cover_photo;
 
   return (
     <section className="relative h-dvh min-h-[36rem] w-full overflow-hidden">
       {cover ? (
-        <HeroCoverImage cover={cover} priority={priority} />
+        <HeroCoverImage cover={cover} priority={priority} alt={t('heroAlt')} />
       ) : (
         <div className="absolute inset-0 bg-ink-soft" />
       )}
 
-      {/* Dégradé de lisibilité : le texte doit tenir sur n'importe quelle image. */}
-      <div className="absolute inset-0 bg-linear-to-t from-black/80 via-black/15 to-black/30" />
+      {/* Dégradé de lisibilité, limité au bas de l'image où se trouve le texte. */}
+      <div className="absolute inset-0 bg-linear-to-t from-black/85 via-black/10 to-black/25 sm:from-black/75 sm:via-black/5" />
 
       <div className="relative flex h-full items-end">
-        <div className="mx-auto w-full max-w-[110rem] px-5 pb-20 sm:px-8 sm:pb-24">
+        <div className="mx-auto w-full max-w-[110rem] px-5 pb-10 sm:px-8 sm:pb-20">
           <Reveal>
-            <p className="eyebrow">
-              <span className="tabular-nums">{String(index + 1).padStart(2, '0')}</span>
-              {series.location_label ? (
-                <span className="ml-4">{series.location_label}</span>
-              ) : null}
-            </p>
+            <p className="eyebrow tabular-nums">{t('heroEyebrow')}</p>
 
-            <h2 className="mt-5 font-display text-5xl leading-[0.95] font-light tracking-tight sm:text-7xl lg:text-8xl">
+            <h2 className="mt-4 font-display text-[2.5rem] leading-[0.95] font-light tracking-tight sm:mt-5 sm:text-7xl">
               {series.title}
             </h2>
 
-            {series.subtitle ? (
-              <p className="mt-4 max-w-xl text-base text-paper-dim sm:text-lg">
-                {series.subtitle}
-              </p>
-            ) : null}
+            <p className="mt-4 max-w-md text-[0.9375rem] leading-relaxed text-paper-dim sm:mt-5 sm:text-lg">{t('heroLine')}</p>
 
-            <Link
-              href={`/series/${series.slug}`}
-              className="eyebrow link-underline mt-9 inline-block text-paper"
-            >
+            <Link href={`/series/${series.slug}`} className="eyebrow link-underline mt-7 inline-block text-paper sm:mt-9">
               {t('viewSeries')}
             </Link>
           </Reveal>

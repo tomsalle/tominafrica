@@ -1,3 +1,4 @@
+import { catalogClient, visibleInCatalog } from '@/lib/catalog-preview';
 import { createClient } from '@/lib/supabase/server';
 import type { PhotoWithMinPrice, SeriesRow, SeriesWithCover } from '@/types/database';
 
@@ -17,7 +18,7 @@ const SERIES_WITH_COVER = `
 
 /** Séries publiées, dans l'ordre défini par `position`. Alimente l'accueil. */
 export async function getSeriesList(): Promise<SeriesWithCover[]> {
-  const supabase = await createClient();
+  const supabase = await catalogClient();
 
   const { data, error } = await supabase
     .from('series')
@@ -33,7 +34,7 @@ export async function getSeriesList(): Promise<SeriesWithCover[]> {
 export async function getSeriesBySlug(
   slug: string,
 ): Promise<{ series: SeriesRow; photos: PhotoWithMinPrice[] } | null> {
-  const supabase = await createClient();
+  const supabase = await catalogClient();
 
   const { data: series, error } = await supabase
     .from('series')
@@ -56,7 +57,7 @@ export async function getSeriesBySlug(
 
   if (photosError) throw new Error(`Lecture des photos impossible : ${photosError.message}`);
 
-  const photosWithMinPrice: PhotoWithMinPrice[] = (photos ?? []).map((row) => {
+  const photosWithMinPrice: PhotoWithMinPrice[] = (photos ?? []).filter(visibleInCatalog).map((row) => {
     const { print_options, ...photo } = row as typeof row & {
       print_options: { price_cents: number; available: boolean }[];
     };

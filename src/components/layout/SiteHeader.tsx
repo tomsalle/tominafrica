@@ -33,8 +33,9 @@ export function SiteHeader() {
     if (!sentinel) return;
 
     const observer = new IntersectionObserver(
+      // Sentinelle de 24 px en haut du document : dès qu'elle sort de
+      // l'écran, l'en-tête se solidifie.
       (entries) => setScrolled(!entries[0]?.isIntersecting),
-      { rootMargin: '-24px 0px 0px 0px' },
     );
 
     observer.observe(sentinel);

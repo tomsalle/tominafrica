@@ -1,5 +1,6 @@
 import Image from 'next/image';
 import { useTranslations } from 'next-intl';
+import { FieldNote } from '@/components/journey/FieldNote';
 import { Link } from '@/i18n/navigation';
 import { formatPrice } from '@/lib/format';
 import { photoSrc, SIZES } from '@/lib/images';
@@ -20,37 +21,38 @@ export function PhotoCard({
     photo.image_width && photo.image_height ? photo.image_width / photo.image_height : 4 / 3;
 
   return (
-    <Link
-      href={`/photo/${photo.slug}`}
-      className="group block transition-transform duration-200 ease-[cubic-bezier(0.22,1,0.36,1)] active:scale-[0.98]"
-    >
-      <div
-        className="relative w-full overflow-hidden bg-ink-soft"
-        style={{ aspectRatio: ratio }}
-      >
+    <Link href={`/photo/${photo.slug}`} className="group block">
+      {/* Pas de zoom ni de voile au survol : la photo reste entière, cadrée
+          comme l'auteur l'a voulue. Le retour visuel passe par le titre. */}
+      <div className="relative w-full overflow-hidden bg-ink-soft" style={{ aspectRatio: ratio }}>
         <Image
           src={photoSrc(photo.image_path, photo.image_width)}
           alt={photo.title}
           fill
           priority={priority}
           sizes={SIZES.grid}
-          className="object-cover transition-transform duration-[900ms] ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-[1.04]"
+          className="object-cover"
           {...(photo.blur_data_url
             ? { placeholder: 'blur' as const, blurDataURL: photo.blur_data_url }
             : {})}
         />
-        <div className="absolute inset-0 bg-black/0 transition-colors duration-500 group-hover:bg-black/15" />
       </div>
 
-      <div className="mt-4 flex items-baseline justify-between gap-4">
-        <div>
-          <h3 className="font-display text-2xl leading-tight font-light">{photo.title}</h3>
-          {photo.location_name ? (
-            <p className="mt-1 text-xs tracking-wide text-paper-faint">{photo.location_name}</p>
-          ) : null}
+      <div className="mt-4 flex items-start justify-between gap-4">
+        <div className="min-w-0">
+          <h3 className="font-display text-2xl leading-tight font-light">
+            <span className="link-underline">{photo.title}</span>
+          </h3>
+          <FieldNote
+            takenAt={photo.taken_at}
+            countryCode={photo.country_code}
+            place={photo.location_name}
+            compact
+            className="mt-1.5"
+          />
         </div>
         {photo.minPriceCents !== null ? (
-          <p className="shrink-0 text-xs tracking-wide text-paper-faint">
+          <p className="mt-2 shrink-0 text-xs tracking-wide text-paper-faint tabular-nums">
             {t('priceFrom', { price: formatPrice(photo.minPriceCents) })}
           </p>
         ) : null}

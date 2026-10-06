@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import { getTranslations } from 'next-intl/server';
 import { notFound } from 'next/navigation';
 import { PhotoGrid } from '@/components/gallery/PhotoGrid';
+import { JourneyTimeline } from '@/components/journey/JourneyTimeline';
 import { Container } from '@/components/ui/Container';
 import { photoAbsoluteSrc } from '@/lib/images';
 import { getAllSeriesSlugs, getSeriesBySlug } from '@/lib/queries/series';
@@ -63,13 +64,16 @@ export default async function SeriesPage({ params }: PageProps) {
             </p>
           ) : null}
 
-          <p className="mt-8 text-xs tracking-wide text-paper-faint">
-            {t('photoCount', { count: photos.length })}
-          </p>
+          <div className="mt-10 max-w-xl">
+            <JourneyTimeline allDates={photos.map((photo) => photo.taken_at)} highlightedDates={[]} />
+          </div>
 
-          {/* Sélection réduite temporairement (demande de Tom, 2026-08-23) :
-              retirer cette bannière quand le catalogue complet revient. */}
-          <p className="mt-2 text-xs tracking-wide text-accent">{t('comingSoon')}</p>
+          <p className="mt-6 text-xs tracking-wide text-paper-faint">
+            {t('photoCount', { count: photos.length })}
+            {/* Sélection réduite temporairement (demande de Tom, 2026-08-23) :
+                retirer cette mention quand le catalogue complet revient. */}
+            <span className="ml-3 text-paper-dim">{t('comingSoon')}</span>
+          </p>
         </header>
 
         <div className="mt-20">

@@ -8,6 +8,7 @@ import type { PhotoRow } from '@/types/database';
 type HeroCoverImageProps = {
   cover: PhotoRow;
   priority?: boolean;
+  alt?: string;
 };
 
 /**
@@ -16,7 +17,7 @@ type HeroCoverImageProps = {
  * séries en bas de page auraient déjà fini leur zoom avant d'être vues. Le
  * zoom ne démarre donc qu'à l'entrée dans le viewport.
  */
-export function HeroCoverImage({ cover, priority = false }: HeroCoverImageProps) {
+export function HeroCoverImage({ cover, priority = false, alt = '' }: HeroCoverImageProps) {
   const ref = useRef<HTMLDivElement>(null);
   const [active, setActive] = useState(false);
 
@@ -41,7 +42,7 @@ export function HeroCoverImage({ cover, priority = false }: HeroCoverImageProps)
     <div ref={ref} className="absolute inset-0">
       <Image
         src={photoSrc(cover.image_path, cover.image_width)}
-        alt=""
+        alt={alt}
         fill
         priority={priority}
         sizes={SIZES.full}

@@ -7,6 +7,7 @@ import { Link } from '@/i18n/navigation';
 
 const STORAGE_KEY = 'tominafrica.exposition-popin.v1';
 const SHOW_DELAY_MS = 1500;
+const ENGAGEMENT_FALLBACK_MS = 20_000;
 
 // Affiche officielle de l'exposition (visuel fixe, pas une photo du
 // catalogue) : elle porte déjà titre, dates et lieu, donc pas de surimpression
@@ -36,8 +37,28 @@ export function ExpositionPopIn() {
     }
     if (alreadySeen) return;
 
-    const timer = window.setTimeout(() => setMounted(true), SHOW_DELAY_MS);
-    return () => window.clearTimeout(timer);
+    // Jamais pendant un achat : la page photo, le panier et le paiement
+    // demandent toute l'attention.
+    if (/\/(photo|panier|commande|precommande-livre)(\/|$)/.test(window.location.pathname)) return;
+
+    // Pas à l'arrivée : la première image doit rester intacte. On attend
+    // que la personne ait commencé à explorer (défilement), ou un moment.
+    let timer = 0;
+    const show = () => {
+      window.removeEventListener('scroll', onScroll);
+      window.clearTimeout(timer);
+      timer = window.setTimeout(() => setMounted(true), SHOW_DELAY_MS);
+    };
+    const onScroll = () => {
+      if (window.scrollY > window.innerHeight * 0.8) show();
+    };
+    window.addEventListener('scroll', onScroll, { passive: true });
+    timer = window.setTimeout(show, ENGAGEMENT_FALLBACK_MS);
+
+    return () => {
+      window.removeEventListener('scroll', onScroll);
+      window.clearTimeout(timer);
+    };
   }, []);
 
   useEffect(() => {

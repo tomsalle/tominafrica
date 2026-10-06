@@ -93,7 +93,7 @@ export default async function RootLayout({
             {/* Sentinelle observée par le header pour savoir s'il est en haut
                 de page (voir SiteHeader) : plus fiable qu'un écouteur de
                 scroll, qui s'exécute à chaque frame. */}
-            <div id="scroll-sentinel" className="h-px" aria-hidden />
+            <div id="scroll-sentinel" className="pointer-events-none absolute top-0 left-0 h-6 w-px" aria-hidden />
             {children}
           </main>
           <SiteFooter />

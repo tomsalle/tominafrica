@@ -123,7 +123,7 @@ export function PhotoViewer({ photo }: { photo: PhotoRow }) {
     <>
       <figure id="photo-viewer" className="animate-photo-in scroll-mt-24 sm:scroll-mt-28">
         <div
-          className="relative h-[55dvh] w-full overflow-hidden sm:h-[65dvh]"
+          className="relative h-[62dvh] w-full overflow-hidden sm:h-[70dvh] lg:h-[min(74dvh,54rem)]"
           onTouchStart={onTouchStart}
           onTouchMove={onTouchMove}
           onTouchEnd={onTouchEnd}
@@ -150,7 +150,7 @@ export function PhotoViewer({ photo }: { photo: PhotoRow }) {
                       alt={photo.title}
                       fill
                       priority
-                      sizes={SIZES.full}
+                      sizes={SIZES.viewer}
                       className="object-cover"
                       {...(photo.blur_data_url
                         ? { placeholder: 'blur' as const, blurDataURL: photo.blur_data_url }
@@ -171,7 +171,7 @@ export function PhotoViewer({ photo }: { photo: PhotoRow }) {
                     alt={photo.title}
                     fill
                     priority
-                    sizes={SIZES.full}
+                    sizes={SIZES.viewer}
                     className="object-contain"
                     {...(photo.blur_data_url
                       ? { placeholder: 'blur' as const, blurDataURL: photo.blur_data_url }
