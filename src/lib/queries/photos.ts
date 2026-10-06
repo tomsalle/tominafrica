@@ -1,4 +1,4 @@
-import { catalogClient, visibleInCatalog } from '@/lib/catalog-preview';
+import { catalogClient, isForSale, visibleInCatalog } from '@/lib/catalog-preview';
 import { createClient } from '@/lib/supabase/server';
 import type { PhotoRow, PhotoWithOptions, PrintOptionRow } from '@/types/database';
 
@@ -121,7 +121,9 @@ export async function getJourneyPhotos(): Promise<JourneyPhoto[]> {
 
   if (error) throw new Error(`Lecture du parcours impossible : ${error.message}`);
 
-  return (data ?? []).filter(visibleInCatalog).map((row) => ({
+  return (data ?? [])
+    .filter((row) => visibleInCatalog(row) && isForSale(row))
+    .map((row) => ({
     id: row.id,
     slug: row.slug,
     title: row.title,

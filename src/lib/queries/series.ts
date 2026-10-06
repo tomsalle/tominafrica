@@ -1,4 +1,4 @@
-import { catalogClient, visibleInCatalog } from '@/lib/catalog-preview';
+import { catalogClient, isForSale, visibleInCatalog } from '@/lib/catalog-preview';
 import { createClient } from '@/lib/supabase/server';
 import type { PhotoWithMinPrice, SeriesRow, SeriesWithCover } from '@/types/database';
 
@@ -57,7 +57,9 @@ export async function getSeriesBySlug(
 
   if (photosError) throw new Error(`Lecture des photos impossible : ${photosError.message}`);
 
-  const photosWithMinPrice: PhotoWithMinPrice[] = (photos ?? []).filter(visibleInCatalog).map((row) => {
+  const photosWithMinPrice: PhotoWithMinPrice[] = (photos ?? [])
+    .filter((row) => visibleInCatalog(row) && isForSale(row))
+    .map((row) => {
     const { print_options, ...photo } = row as typeof row & {
       print_options: { price_cents: number; available: boolean }[];
     };
