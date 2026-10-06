@@ -3,6 +3,7 @@ import Image from 'next/image';
 import { getTranslations } from 'next-intl/server';
 import { ButtonLink } from '@/components/ui/Button';
 import { Container } from '@/components/ui/Container';
+import { RoadTripScroll } from '@/components/journey/RoadTripScroll';
 import { TravelLog } from '@/components/journey/TravelLog';
 import { Prose } from '@/components/ui/Prose';
 import { Reveal } from '@/components/ui/Reveal';
@@ -30,6 +31,8 @@ export default async function AdventurePage() {
 
   return (
     <>
+      <RoadTripScroll />
+
       {/* Vidéo en fond plutôt qu'une photo : c'est le seul endroit du site où
           le mouvement raconte quelque chose que l'image fixe ne peut pas —
           l'aventure elle-même, pas une photographie qui en est issue. */}

@@ -4,20 +4,23 @@ import Image from 'next/image';
 import { useTranslations } from 'next-intl';
 import { useEffect, useRef, useState } from 'react';
 import { Link } from '@/i18n/navigation';
+import { EXHIBITION, EXHIBITION_PATH, EXHIBITION_REGISTERED_KEY, isExhibitionUpcoming } from '@/lib/exhibition/event';
 
-const STORAGE_KEY = 'tominafrica.exposition-popin.v1';
-const SHOW_DELAY_MS = 1500;
-const ENGAGEMENT_FALLBACK_MS = 20_000;
+// v2 : les visiteurs qui l'avaient fermée avant la mise en avant de
+// l'exposition la reverront une fois.
+const STORAGE_KEY = 'tominafrica.exposition-popin.v2';
+const ARRIVAL_DELAY_MS = 2500;
+const SCROLL_DELAY_MS = 600;
+// Fermée sans s'inscrire : elle revient après ce délai, pas à chaque page.
+const SNOOZE_MS = 3 * 24 * 60 * 60 * 1000;
 
-// Affiche officielle de l'exposition (visuel fixe, pas une photo du
-// catalogue) : elle porte déjà titre, dates et lieu, donc pas de surimpression
-// à ajouter par-dessus.
-const POSTER = { src: '/expo/poster.avif', width: 846, height: 1200 };
+const POSTER = EXHIBITION.poster;
 
 /**
- * Annonce l'exposition à venir, une fois par visiteur (localStorage). Montée
- * globalement dans le layout plutôt que sur une seule page : c'est une
- * promotion ponctuelle, pas un élément de navigation.
+ * Annonce de l'exposition. Revient tant que la personne ne s'est pas
+ * inscrite (au plus une fois tous les trois jours), jamais pendant un achat
+ * ni sur la page d'inscription elle-même, et plus du tout une fois
+ * l'exposition passée.
  */
 export function ExpositionPopIn() {
   const t = useTranslations('expositionPopIn');
@@ -27,33 +30,26 @@ export function ExpositionPopIn() {
   const dialogRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    let alreadySeen = true;
+    if (!isExhibitionUpcoming()) return;
+    if (/\/(panier|commande|precommande-livre|notre-aventure\/exposition)(\/|$)/.test(window.location.pathname)) return;
+
     try {
-      alreadySeen = window.localStorage.getItem(STORAGE_KEY) === '1';
+      if (window.localStorage.getItem(EXHIBITION_REGISTERED_KEY) === '1') return;
+      const dismissedAt = Number(window.localStorage.getItem(STORAGE_KEY) ?? 0);
+      if (dismissedAt && Date.now() - dismissedAt < SNOOZE_MS) return;
     } catch {
-      // Navigation privée ou stockage désactivé : on montre la pop-in quand
-      // même, tant pis pour la répétition d'une visite à l'autre.
-      alreadySeen = false;
+      // Stockage indisponible (navigation privée) : on l'affiche quand même.
     }
-    if (alreadySeen) return;
 
-    // Jamais pendant un achat : la page photo, le panier et le paiement
-    // demandent toute l'attention.
-    if (/\/(photo|panier|commande|precommande-livre)(\/|$)/.test(window.location.pathname)) return;
-
-    // Pas à l'arrivée : la première image doit rester intacte. On attend
-    // que la personne ait commencé à explorer (défilement), ou un moment.
-    let timer = 0;
-    const show = () => {
+    // Un court moment pour voir la page d'abord, ou plus tôt si l'on défile.
+    let timer = window.setTimeout(() => setMounted(true), ARRIVAL_DELAY_MS);
+    const onScroll = () => {
+      if (window.scrollY < window.innerHeight * 0.4) return;
       window.removeEventListener('scroll', onScroll);
       window.clearTimeout(timer);
-      timer = window.setTimeout(() => setMounted(true), SHOW_DELAY_MS);
-    };
-    const onScroll = () => {
-      if (window.scrollY > window.innerHeight * 0.8) show();
+      timer = window.setTimeout(() => setMounted(true), SCROLL_DELAY_MS);
     };
     window.addEventListener('scroll', onScroll, { passive: true });
-    timer = window.setTimeout(show, ENGAGEMENT_FALLBACK_MS);
 
     return () => {
       window.removeEventListener('scroll', onScroll);
@@ -70,7 +66,7 @@ export function ExpositionPopIn() {
   function dismiss() {
     setVisible(false);
     try {
-      window.localStorage.setItem(STORAGE_KEY, '1');
+      window.localStorage.setItem(STORAGE_KEY, String(Date.now()));
     } catch {
       // Rien à faire : au pire, elle réapparaîtra à la prochaine visite.
     }
@@ -137,14 +133,14 @@ export function ExpositionPopIn() {
         </div>
 
         <div className="p-7">
-          <p className="eyebrow text-accent">{t('eyebrow')}</p>
+          <p className="eyebrow text-brand-text">{t('eyebrow')}</p>
           <h2 className="mt-3 font-display text-3xl leading-[0.95] font-light">{t('title')}</h2>
           <p className="mt-4 text-sm leading-relaxed text-paper-dim">{t('body')}</p>
 
           <Link
-            href="/notre-aventure/exposition"
+            href={EXHIBITION_PATH}
             onClick={dismiss}
-            className="mt-6 flex w-full items-center justify-center bg-paper px-6 py-3.5 text-[0.6875rem] font-medium tracking-[0.24em] text-ink uppercase transition-colors hover:bg-white"
+            className="mt-6 flex w-full items-center justify-center bg-paper px-6 py-3.5 text-[0.6875rem] font-medium tracking-[0.24em] text-ink uppercase transition-[background-color,transform] duration-200 hover:bg-white active:scale-[0.98]"
           >
             {t('cta')}
           </Link>

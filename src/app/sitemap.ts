@@ -34,6 +34,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     // Pages traduites : une entrée fr + une entrée en, liées entre elles.
     ...bilingualEntry(base, '/', 'monthly', 1),
     ...bilingualEntry(base, '/notre-aventure', 'monthly', 0.9),
+    ...bilingualEntry(base, '/notre-aventure/exposition', 'weekly', 0.9),
     ...bilingualEntry(base, '/videos', 'monthly', 0.5),
 
     // Pages légales et fiches du catalogue : uniquement en français pour l'instant.

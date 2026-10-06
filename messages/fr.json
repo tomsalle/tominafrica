@@ -18,7 +18,9 @@
     "navMobile": "Navigation mobile",
     "cart": "Panier",
     "cartAria": "Panier — {count, plural, =0 {0 article} one {# article} other {# articles}}",
-    "languageLabel": "Changer de langue"
+    "languageLabel": "Changer de langue",
+    "exhibition": "Exposition",
+    "exhibitionDates": "27 — 29 nov."
   },
   "footer": {
     "legalNav": "Informations légales",
@@ -173,11 +175,23 @@
     "viewVideosCta": "Voir les vidéos du voyage"
   },
   "expositionPage": {
-    "metaTitle": "Inscription à l’exposition",
-    "metaDescription": "Inscrivez-vous pour participer à l’exposition « Notre aventure » à Paris.",
+    "metaTitle": "Exposition à Paris, 27 — 29 novembre 2026",
+    "metaDescription": "Exposition photographique « 1 mère, 1 fils, 1 rêve » chez Mecanicus (Paris 14e), du 27 au 29 novembre 2026 : photographies d’un voyage de Paris au Cap, voitures, vidéos et sortie du livre. Inscription au vernissage.",
     "backLink": "← Notre aventure",
     "title": "L’exposition",
-    "body": "Du 27 au 29 novembre 2026, chez Mecanicus (70 avenue Jean Moulin, 75014 Paris), vernissage le vendredi 27 novembre. Au programme : nos photographies du voyage en Afrique, des voitures — en collaboration avec un lieu parisien qui nous accueille —, les vidéos du voyage, la sortie de notre livre, et toutes nos anecdotes en direct. Laissez vos coordonnées pour être invité·e, les détails pratiques vous seront confirmés par e-mail."
+    "eventName": "1 mère, 1 fils, 1 rêve — exposition photographique",
+    "datesShort": "27 — 29.11.2026",
+    "datesLabel": "Dates",
+    "datesValue": "Du vendredi 27 au dimanche 29 novembre 2026",
+    "openingLabel": "Vernissage",
+    "openingValue": "Vendredi 27 novembre 2026",
+    "venueLabel": "Lieu",
+    "programmeLabel": "Au programme",
+    "programmeValue": "Les photographies du voyage, des voitures — en collaboration avec le lieu qui nous accueille —, les vidéos, la sortie du livre, et nos anecdotes en direct.",
+    "mapLink": "Voir le lieu sur la carte",
+    "formTitle": "S’inscrire au vernissage",
+    "formIntro": "Laissez vos coordonnées pour être invité·e. Les détails pratiques vous seront confirmés par e-mail.",
+    "posterAlt": "Affiche de l’exposition « 1 mère, 1 fils, 1 rêve », Paris, 27 — 29 novembre 2026"
   },
   "aPropos": {
     "metaTitle": "À propos",
@@ -482,5 +496,17 @@
     "later": "{count, plural, =0 {Le même jour} one {Le lendemain} other {# jours plus tard}}",
     "logTitle": "Le carnet de route",
     "logIntro": "Un chapitre par pays, extrait du livre — dans l’ordre où nous les avons traversés."
+  },
+  "exhibitionFeature": {
+    "eyebrow": "Exposition · Paris",
+    "title": "Notre exposition arrive à Paris",
+    "dates": "27 — 29.11.2026",
+    "openingLabel": "Vernissage",
+    "opening": "Vendredi 27 novembre 2026",
+    "venueLabel": "Lieu",
+    "programme": "Les photographies du voyage, des voitures, les vidéos, la sortie du livre — et nos anecdotes, en direct.",
+    "cta": "S’inscrire au vernissage",
+    "map": "Voir le lieu",
+    "posterAria": "Affiche de l’exposition — s’inscrire"
   }
 }

@@ -1,4 +1,5 @@
 import { getTranslations } from 'next-intl/server';
+import { ExhibitionFeature } from '@/components/exhibition/ExhibitionFeature';
 import { ContactForm } from '@/components/home/ContactForm';
 import { JourneySequence } from '@/components/home/JourneySequence';
 import { SeriesHero } from '@/components/home/SeriesHero';
@@ -41,6 +42,8 @@ export default async function HomePage() {
       <h1 className="sr-only">{t('srTitle')}</h1>
 
       {main ? <SeriesHero series={main} priority /> : null}
+
+      <ExhibitionFeature />
 
       <JourneySequence photos={journey} excludeId={main?.cover_photo_id} />
 

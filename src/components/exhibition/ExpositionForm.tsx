@@ -3,6 +3,7 @@
 import { useLocale, useTranslations } from 'next-intl';
 import { useState, type FormEvent } from 'react';
 import { Button } from '@/components/ui/Button';
+import { EXHIBITION_REGISTERED_KEY } from '@/lib/exhibition/event';
 
 type Status = 'idle' | 'submitting' | 'success' | 'error';
 
@@ -48,6 +49,11 @@ export function ExpositionForm() {
 
       setStatus('success');
       form.reset();
+      try {
+        window.localStorage.setItem(EXHIBITION_REGISTERED_KEY, '1');
+      } catch {
+        // Stockage indisponible : la pop-in pourra simplement réapparaître.
+      }
     } catch {
       setStatus('error');
       setError(t('genericError'));

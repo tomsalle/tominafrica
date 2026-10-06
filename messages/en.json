@@ -18,7 +18,9 @@
     "navMobile": "Mobile navigation",
     "cart": "Cart",
     "cartAria": "Cart — {count, plural, =0 {0 items} one {# item} other {# items}}",
-    "languageLabel": "Switch language"
+    "languageLabel": "Switch language",
+    "exhibition": "Exhibition",
+    "exhibitionDates": "27 — 29 Nov."
   },
   "footer": {
     "legalNav": "Legal information",
@@ -173,11 +175,23 @@
     "viewVideosCta": "Watch the trip’s videos"
   },
   "expositionPage": {
-    "metaTitle": "Exhibition Registration",
-    "metaDescription": "Register to attend the “Our Journey” exhibition in Paris.",
+    "metaTitle": "Exhibition in Paris, 27 — 29 November 2026",
+    "metaDescription": "Photography exhibition “1 mother, 1 son, 1 dream” at Mecanicus (Paris 14th), 27 — 29 November 2026: photographs from a journey from Paris to Cape Town, cars, videos and the book launch. Register for the opening.",
     "backLink": "← Our Journey",
     "title": "The exhibition",
-    "body": "November 27–29, 2026, at Mecanicus (70 avenue Jean Moulin, 75014 Paris), opening night on Friday, November 27. On the program: our photographs from the trip across Africa, cars — in partnership with a Paris venue hosting us —, videos from the trip, our book launch, and all our stories live. Leave your details to be invited, practical information will be confirmed by e-mail."
+    "eventName": "1 mother, 1 son, 1 dream — photography exhibition",
+    "datesShort": "27 — 29.11.2026",
+    "datesLabel": "Dates",
+    "datesValue": "Friday 27 to Sunday 29 November 2026",
+    "openingLabel": "Opening",
+    "openingValue": "Friday 27 November 2026",
+    "venueLabel": "Venue",
+    "programmeLabel": "Programme",
+    "programmeValue": "Photographs from the journey, cars — in partnership with the venue hosting us —, the videos, the book launch, and our stories told live.",
+    "mapLink": "See the venue on the map",
+    "formTitle": "Register for the opening",
+    "formIntro": "Leave your details to be invited. Practical information will be confirmed by email.",
+    "posterAlt": "Poster for the exhibition “1 mother, 1 son, 1 dream”, Paris, 27 — 29 November 2026"
   },
   "aPropos": {
     "metaTitle": "About",
@@ -482,5 +496,17 @@
     "later": "{count, plural, =0 {The same day} one {The next day} other {# days later}}",
     "logTitle": "The travel log",
     "logIntro": "One chapter per country, taken from the book — in the order we crossed them."
+  },
+  "exhibitionFeature": {
+    "eyebrow": "Exhibition · Paris",
+    "title": "Our exhibition is coming to Paris",
+    "dates": "27 — 29.11.2026",
+    "openingLabel": "Opening",
+    "opening": "Friday 27 November 2026",
+    "venueLabel": "Venue",
+    "programme": "Photographs from the journey, cars, the videos, the book launch — and our stories, told live.",
+    "cta": "Register for the opening",
+    "map": "See the venue",
+    "posterAria": "Exhibition poster — register"
   }
 }

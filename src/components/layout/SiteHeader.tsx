@@ -6,6 +6,7 @@ import { Link, usePathname } from '@/i18n/navigation';
 import { routing } from '@/i18n/routing';
 import { openCart, useCartHydrated, useCartItems } from '@/lib/cart/store';
 import { cartCount } from '@/lib/cart/types';
+import { EXHIBITION_PATH, isExhibitionUpcoming } from '@/lib/exhibition/event';
 
 export function SiteHeader() {
   const t = useTranslations('nav');
@@ -18,10 +19,13 @@ export function SiteHeader() {
 
   const count = cartCount(items);
 
+  // L'exposition est mise en avant (point rouge) jusqu'à sa date de fin,
+  // puis disparaît du menu d'elle-même.
   const NAV = [
-    { href: '/series/1-mere-1-fils-1-reve', label: t('gallery') },
-    { href: '/notre-aventure', label: t('adventure') },
-    { href: '/videos', label: t('videos') },
+    { href: '/series/1-mere-1-fils-1-reve', label: t('gallery'), highlight: false },
+    { href: '/notre-aventure', label: t('adventure'), highlight: false },
+    ...(isExhibitionUpcoming() ? [{ href: EXHIBITION_PATH, label: t('exhibition'), highlight: true }] : []),
+    { href: '/videos', label: t('videos'), highlight: false },
   ];
 
   // Le header est transparent sur les grandes images, puis se solidifie dès
@@ -66,9 +70,12 @@ export function SiteHeader() {
               key={item.href}
               href={item.href}
               className={`eyebrow link-underline ${
-                pathname === item.href ? 'text-paper' : 'hover:text-paper'
+                pathname === item.href || item.highlight ? 'text-paper' : 'hover:text-paper'
               }`}
             >
+              {item.highlight ? (
+                <span aria-hidden className="mr-2 inline-block size-1.5 -translate-y-px rounded-full bg-brand-text" />
+              ) : null}
               {item.label}
             </Link>
           ))}
@@ -121,9 +128,12 @@ export function SiteHeader() {
             // Fermeture au clic plutôt que par un effet sur le pathname : la
             // navigation est l'événement, autant y réagir directement.
             onClick={() => setMenuOpen(false)}
-            className="block py-4 font-display text-2xl font-light"
+            className="flex items-center gap-3 py-4 font-display text-2xl font-light"
           >
             {item.label}
+            {item.highlight ? (
+              <span className="text-[0.6875rem] tracking-[0.14em] text-brand-text uppercase">{t('exhibitionDates')}</span>
+            ) : null}
           </Link>
         ))}
         <div className="border-t border-ink-line py-4">
