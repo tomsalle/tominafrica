@@ -37,7 +37,7 @@ export function getPreorderStepState(count: number): PreorderStepState {
 export const BOOK_PREORDER_BUDGET_TOTAL_CENTS = 330_500; // 3 305 €
 
 export const BOOK_PREORDER_BUDGET_BREAKDOWN = [
-  { labelKey: 'printing', amountCents: 240_000 }, // Impression des livres à vendre (120)
+  { labelKey: 'printing', amountCents: 240_000 }, // Impression des livres à vendre (nombre = objectif en cours)
   { labelKey: 'publisher', amountCents: 40_000 }, // Accompagnement maison d'édition
   { labelKey: 'otherFees', amountCents: 50_500 }, // Autres frais (ISBN, livres offerts)
 ] as const;

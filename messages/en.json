@@ -341,7 +341,7 @@
       "title": "What the funding is for",
       "goalLabel": "pre-order goal",
       "items": {
-        "printing": "Printing the books to sell (120)",
+        "printing": "Printing the books to sell ({count})",
         "publisher": "Publisher support",
         "otherFees": "Other costs (ISBN, gifted copies)"
       }

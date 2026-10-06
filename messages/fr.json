@@ -341,7 +341,7 @@
       "title": "À quoi servira le financement",
       "goalLabel": "objectif de précommande",
       "items": {
-        "printing": "Impression des livres à vendre (120)",
+        "printing": "Impression des livres à vendre ({count})",
         "publisher": "Accompagnement maison d’édition",
         "otherFees": "Autres frais (ISBN, livres offerts)"
       }

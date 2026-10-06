@@ -161,7 +161,7 @@ export default async function BookPreorderPage() {
               </ul>
             </section>
 
-            <BudgetBreakdown />
+            <BudgetBreakdown bookCount={stepState.target} />
 
             <PreorderSteps count={progress.bookUnitsTotal} stepState={stepState} />
           </div>

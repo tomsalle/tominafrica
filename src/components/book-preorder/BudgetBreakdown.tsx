@@ -17,7 +17,7 @@ const GAP = 0.8;
  * réel donné par Tom. Purement informatif : ne pilote pas la jauge de
  * progression (voir FundingProgress, qui compte des livres, pas des euros).
  */
-export function BudgetBreakdown() {
+export function BudgetBreakdown({ bookCount }: { bookCount: number }) {
   const t = useTranslations('bookPreorder.budget');
   const locale = useLocale();
   const percentFormat = new Intl.NumberFormat(locale, { minimumFractionDigits: 1, maximumFractionDigits: 1 });
@@ -33,7 +33,7 @@ export function BudgetBreakdown() {
   }));
 
   const summary = segments
-    .map((s) => `${t(`items.${s.labelKey}`)} : ${formatPrice(s.amountCents)}`)
+    .map((s) => `${t(`items.${s.labelKey}`, { count: bookCount })} : ${formatPrice(s.amountCents)}`)
     .join(', ');
 
   return (
@@ -73,7 +73,7 @@ export function BudgetBreakdown() {
             <li key={s.labelKey} className="flex items-start gap-3">
               <span aria-hidden className={`mt-1.5 size-2.5 shrink-0 ${SWATCH_CLASSES[s.index]}`} />
               <div className="min-w-0 flex-1">
-                <p className="text-sm text-paper-dim">{t(`items.${s.labelKey}`)}</p>
+                <p className="text-sm text-paper-dim">{t(`items.${s.labelKey}`, { count: bookCount })}</p>
                 <p className="mt-0.5 text-sm text-paper-faint tabular-nums">
                   <span className="text-paper">{formatPrice(s.amountCents)}</span> · {percentFormat.format(s.percent)} %
                 </p>
