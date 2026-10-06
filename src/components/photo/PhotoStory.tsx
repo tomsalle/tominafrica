@@ -1,3 +1,5 @@
+import { useTranslations } from 'next-intl';
+
 /**
  * Bloc récit de la page produit.
  *
@@ -8,6 +10,7 @@
  * nécessaire, c'est ce composant, et lui seul, qui change.
  */
 export function PhotoStory({ story, title }: { story: string | null; title: string }) {
+  const t = useTranslations('photo');
   if (!story?.trim()) return null;
 
   const paragraphs = story
@@ -18,12 +21,12 @@ export function PhotoStory({ story, title }: { story: string | null; title: stri
   return (
     <section aria-labelledby="recit-titre">
       <h2 id="recit-titre" className="eyebrow">
-        Le récit
+        {t('storyHeading')}
       </h2>
 
       <div className="mt-7 max-w-[42rem]">
         {/* La première lettre en lettrine, comme dans un magazine. */}
-        <p className="sr-only">Récit de la photographie « {title} ».</p>
+        <p className="sr-only">{t('storySr', { title })}</p>
 
         {paragraphs.map((paragraph, index) => (
           <p

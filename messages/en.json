@@ -229,7 +229,11 @@
     "landmarksHeading": "Landmarks",
     "onTheRoad": "On the road",
     "journeyNav": "Neighbouring photos in the journey",
-    "metaDescription": "“{title}”, a photograph by Tom Sallé, {where} — signed fine art print, limited edition."
+    "metaDescription": "“{title}”, {where} — a photograph from the journey 1 mother, 1 son, 1 dream. Signed fine art print, limited edition.",
+    "storyHeading": "The story",
+    "storySr": "Story behind the photograph “{title}”.",
+    "chapterLabel": "Travel log",
+    "chapterLink": "Read the travel log"
   },
   "series": {
     "notFoundTitle": "Series not found",
@@ -475,6 +479,8 @@
     "next": "Next day",
     "sequenceLabel": "The journey, photo by photo",
     "earlier": "{count, plural, =0 {The same day} one {The day before} other {# days earlier}}",
-    "later": "{count, plural, =0 {The same day} one {The next day} other {# days later}}"
+    "later": "{count, plural, =0 {The same day} one {The next day} other {# days later}}",
+    "logTitle": "The travel log",
+    "logIntro": "One chapter per country, taken from the book — in the order we crossed them."
   }
 }

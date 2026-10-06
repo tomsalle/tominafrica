@@ -14,7 +14,9 @@ import { Reveal } from '@/components/ui/Reveal';
 import { Link } from '@/i18n/navigation';
 import { FramePreferenceProvider } from '@/lib/frame-preference';
 import { photoAbsoluteSrc, photoSrc } from '@/lib/images';
-import { countryName, journeyDay } from '@/lib/journey';
+import { chapterFor } from '@/content/journey-chapters';
+import { photoStory } from '@/content/photo-stories';
+import { countryName, formatFieldDate, journeyDay } from '@/lib/journey';
 import { getAllPhotoSlugs, getJourneyPhotos, getPhotoBySlug, type JourneyPhoto } from '@/lib/queries/photos';
 
 export const revalidate = 3600;
@@ -64,7 +66,12 @@ export default async function PhotoPage({ params }: PageProps) {
   const index = journey.findIndex((item) => item.slug === photo.slug);
   const previous = index > 0 ? journey[index - 1] : undefined;
   const next = index >= 0 && index < journey.length - 1 ? journey[index + 1] : undefined;
-  const country = countryName(photo.country_code, locale);
+  const chapter = chapterFor(photo.country_code, photo.taken_at);
+  const mapCountry = photo.country_code ?? chapter?.countryCode ?? null;
+  const country = countryName(mapCountry, locale);
+  const lang = locale === 'en' ? 'en' : 'fr';
+  // Un récit saisi en base reste prioritaire ; sinon, celui du livre.
+  const story = photo.story?.trim() ? photo.story : photoStory(photo.slug, locale);
   const prices = photo.print_options.map((option) => option.price_cents);
 
   // Données structurées : la photo comme œuvre en vente, pour les résultats
@@ -123,19 +130,19 @@ export default async function PhotoPage({ params }: PageProps) {
               />
 
               <div className="mt-12 space-y-14">
-                <PhotoStory story={photo.story} title={photo.title} />
+                <PhotoStory story={story} title={photo.title} />
 
                 <PurchasePanel photo={photo} />
 
-                {photo.country_code || photo.taken_at ? (
+                {mapCountry || photo.taken_at ? (
                   <section aria-labelledby="reperes-titre" className="border-t border-ink-line pt-8">
                     <h2 id="reperes-titre" className="eyebrow">
                       {t('landmarksHeading')}
                     </h2>
                     <div className="mt-6 flex items-center gap-6">
-                      {photo.country_code ? (
+                      {mapCountry ? (
                         <div className="w-20 shrink-0">
-                          <AfricaMap countryCode={photo.country_code} />
+                          <AfricaMap countryCode={mapCountry} />
                         </div>
                       ) : null}
                       <div className="min-w-0 flex-1">
@@ -143,6 +150,27 @@ export default async function PhotoPage({ params }: PageProps) {
                         <JourneyLine takenAt={photo.taken_at} className="mt-4 pb-6" />
                       </div>
                     </div>
+
+                    {/* Le chapitre du livre consacré à ce pays : le contexte
+                        de la photo, en quelques lignes, pour qui veut lire. */}
+                    {chapter ? (
+                      <figure className="mt-8">
+                        <p className="text-[0.6875rem] tracking-[0.14em] text-paper-faint uppercase tabular-nums">
+                          {t('chapterLabel')} · {formatFieldDate(chapter.date)}
+                        </p>
+                        <p className="mt-3 font-display text-xl font-light">{chapter.title[lang]}</p>
+                        {/* Pas d'extrait si la photo a déjà son récit : ce serait
+                            souvent le même texte, deux fois. */}
+                        {story ? null : (
+                          <blockquote className="mt-3 text-sm leading-relaxed text-paper-dim">
+                            {chapter.excerpt[lang]}
+                          </blockquote>
+                        )}
+                        <Link href={`/notre-aventure#${chapter.countryCode}`} className="eyebrow link-underline mt-5 inline-block text-paper">
+                          {t('chapterLink')}
+                        </Link>
+                      </figure>
+                    ) : null}
                   </section>
                 ) : null}
 

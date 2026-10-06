@@ -3,6 +3,7 @@ import Image from 'next/image';
 import { getTranslations } from 'next-intl/server';
 import { ButtonLink } from '@/components/ui/Button';
 import { Container } from '@/components/ui/Container';
+import { TravelLog } from '@/components/journey/TravelLog';
 import { Prose } from '@/components/ui/Prose';
 import { Reveal } from '@/components/ui/Reveal';
 import { languageAlternates } from '@/i18n/alternates';
@@ -160,6 +161,10 @@ export default async function AdventurePage() {
                   <h2>{t('welcomeTitle')}</h2>
                   <p>{t('welcomeP1')}</p>
                 </Prose>
+              </Reveal>
+
+              <Reveal>
+                <TravelLog />
               </Reveal>
             </div>
 

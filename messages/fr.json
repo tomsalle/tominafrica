@@ -229,7 +229,11 @@
     "landmarksHeading": "Repères",
     "onTheRoad": "Sur la route",
     "journeyNav": "Photos voisines dans le voyage",
-    "metaDescription": "« {title} », photographie de Tom Sallé, {where} — tirage d’art signé, en édition limitée."
+    "metaDescription": "« {title} », {where} — photographie du voyage 1 mère, 1 fils, 1 rêve. Tirage d’art signé, en édition limitée.",
+    "storyHeading": "Le récit",
+    "storySr": "Récit de la photographie « {title} ».",
+    "chapterLabel": "Carnet de route",
+    "chapterLink": "Lire le carnet de route"
   },
   "series": {
     "notFoundTitle": "Série introuvable",
@@ -475,6 +479,8 @@
     "next": "Jour suivant",
     "sequenceLabel": "Le voyage, photo par photo",
     "earlier": "{count, plural, =0 {Le même jour} one {La veille} other {# jours plus tôt}}",
-    "later": "{count, plural, =0 {Le même jour} one {Le lendemain} other {# jours plus tard}}"
+    "later": "{count, plural, =0 {Le même jour} one {Le lendemain} other {# jours plus tard}}",
+    "logTitle": "Le carnet de route",
+    "logIntro": "Un chapitre par pays, extrait du livre — dans l’ordre où nous les avons traversés."
   }
 }

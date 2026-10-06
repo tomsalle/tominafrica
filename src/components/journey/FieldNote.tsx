@@ -1,4 +1,5 @@
 import { useLocale, useTranslations } from 'next-intl';
+import { chapterAt } from '@/content/journey-chapters';
 import { countryName, formatFieldDate, formatJourneyDay, journeyDay } from '@/lib/journey';
 
 type FieldNoteProps = {
@@ -20,7 +21,9 @@ export function FieldNote({ takenAt, countryCode, place, compact = false, classN
   const t = useTranslations('journey');
   const locale = useLocale();
   const day = journeyDay(takenAt);
-  const where = place || countryName(countryCode, locale);
+  // Sans pays renseigné, on le déduit de la date grâce aux dates d'entrée du
+  // carnet de route (livre). Un pays saisi en base garde la priorité.
+  const where = place || countryName(countryCode ?? chapterAt(takenAt)?.countryCode ?? null, locale);
   const date = compact ? null : formatFieldDate(takenAt);
 
   const parts = [day ? t('day', { day: formatJourneyDay(day) }) : null, where, date].filter(Boolean);

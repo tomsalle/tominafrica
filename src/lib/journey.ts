@@ -7,9 +7,8 @@
  */
 
 export const JOURNEY_START = '2024-11-17'; // départ de Paris
-// Arrivée au Cap : mi-mai 2025 (« six mois », « novembre 2024 — mai 2025 »).
-// Date exacte à confirmer par Tom — elle ne sert qu'à la ligne de parcours.
-export const JOURNEY_END = '2025-05-17';
+// Retour en France depuis Le Cap, le 19 mai 2025 (date tirée du livre).
+export const JOURNEY_END = '2025-05-19';
 export const JOURNEY_COUNTRIES = 18;
 export const JOURNEY_KM = 25_000;
 
