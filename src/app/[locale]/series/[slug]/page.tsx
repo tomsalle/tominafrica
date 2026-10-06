@@ -3,6 +3,7 @@ import { getTranslations } from 'next-intl/server';
 import { notFound } from 'next/navigation';
 import { PhotoGrid } from '@/components/gallery/PhotoGrid';
 import { JourneyTimeline } from '@/components/journey/JourneyTimeline';
+import { RoadTripScroll } from '@/components/journey/RoadTripScroll';
 import { Container } from '@/components/ui/Container';
 import { photoAbsoluteSrc } from '@/lib/images';
 import { getAllSeriesSlugs, getSeriesBySlug } from '@/lib/queries/series';
@@ -50,6 +51,7 @@ export default async function SeriesPage({ params }: PageProps) {
 
   return (
     <div className="pt-32 pb-28 sm:pt-40">
+      <RoadTripScroll />
       <Container width="wide">
         <header className="max-w-3xl">
           {series.location_label ? <p className="eyebrow">{series.location_label}</p> : null}

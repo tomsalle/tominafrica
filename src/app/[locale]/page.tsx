@@ -2,6 +2,7 @@ import { getTranslations } from 'next-intl/server';
 import { ExhibitionFeature } from '@/components/exhibition/ExhibitionFeature';
 import { ContactForm } from '@/components/home/ContactForm';
 import { JourneySequence } from '@/components/home/JourneySequence';
+import { RoadTripScroll } from '@/components/journey/RoadTripScroll';
 import { SeriesHero } from '@/components/home/SeriesHero';
 import { Container } from '@/components/ui/Container';
 import { Reveal } from '@/components/ui/Reveal';
@@ -40,6 +41,7 @@ export default async function HomePage() {
   return (
     <>
       <h1 className="sr-only">{t('srTitle')}</h1>
+      <RoadTripScroll />
 
       {main ? <SeriesHero series={main} priority /> : null}
 

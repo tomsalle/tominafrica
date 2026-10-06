@@ -10,40 +10,64 @@ const ENTRIES = JOURNEY_CHAPTERS.map((chapter) => ({
   day: journeyDay(chapter.date) ?? 1,
 }));
 
+function countryAtDay(day: number): string {
+  let current = ENTRIES[0]?.code ?? 'ma';
+  for (const entry of ENTRIES) if (entry.day <= day) current = entry.code;
+  return current;
+}
+
+type RoadTripScrollProps = {
+  /**
+   * Date de prise de vue : la voiture est alors garée à cet endroit du
+   * parcours (page photo) au lieu de suivre le défilement.
+   */
+  parkedAt?: string | null;
+};
+
 /**
- * Le Land Cruiser descend la route Paris → Le Cap au rythme du défilement :
- * une ligne fine sur le bord droit, un repère à chaque frontière (dates du
- * livre), et le pays traversé écrit sous la voiture. Position calculée à
- * chaque frame de défilement (transform uniquement), sans animation ajoutée.
+ * Le Land Cruiser sur la route Paris → Le Cap, sur le bord droit : il suit
+ * le défilement de la page, ou reste garé au jour d'une photo. Un repère à
+ * chaque frontière (dates du livre), le pays traversé écrit derrière la
+ * voiture. Position par transform uniquement, sans animation ajoutée.
  */
-export function RoadTripScroll() {
+export function RoadTripScroll({ parkedAt }: RoadTripScrollProps) {
   const t = useTranslations('journey');
   const locale = useLocale();
   const trackRef = useRef<HTMLDivElement>(null);
   const carRef = useRef<HTMLDivElement>(null);
   const fillRef = useRef<HTMLDivElement>(null);
-  const [country, setCountry] = useState(ENTRIES[0]?.code ?? 'ma');
+
+  const parkedDay = parkedAt ? journeyDay(parkedAt) : null;
+  const [country, setCountry] = useState(() => countryAtDay(parkedDay ?? 1));
 
   useEffect(() => {
     let frame = 0;
 
-    const update = () => {
-      frame = 0;
+    const place = (progress: number) => {
       const track = trackRef.current;
       const car = carRef.current;
       const fill = fillRef.current;
       if (!track || !car || !fill) return;
-
-      const scrollable = document.documentElement.scrollHeight - window.innerHeight;
-      const progress = scrollable > 0 ? Math.min(1, Math.max(0, window.scrollY / scrollable)) : 0;
+      // Seule la voiture compte dans la course : le nom du pays, placé
+      // derrière elle, ne doit jamais l'empêcher d'aller jusqu'au bout.
       const travel = track.clientHeight - car.offsetHeight;
-
       car.style.transform = `translate3d(-50%, ${progress * travel}px, 0)`;
       fill.style.transform = `scaleY(${progress})`;
+    };
 
-      const day = 1 + progress * (JOURNEY_DAYS - 1);
-      let current = ENTRIES[0]?.code ?? 'ma';
-      for (const entry of ENTRIES) if (entry.day <= day) current = entry.code;
+    if (parkedDay !== null) {
+      const placeParked = () => place(journeyProgress(parkedDay));
+      placeParked();
+      window.addEventListener('resize', placeParked);
+      return () => window.removeEventListener('resize', placeParked);
+    }
+
+    const update = () => {
+      frame = 0;
+      const scrollable = document.documentElement.scrollHeight - window.innerHeight;
+      const progress = scrollable > 0 ? Math.min(1, Math.max(0, window.scrollY / scrollable)) : 0;
+      place(progress);
+      const current = countryAtDay(1 + progress * (JOURNEY_DAYS - 1));
       setCountry((previous) => (previous === current ? previous : current));
     };
 
@@ -59,7 +83,7 @@ export function RoadTripScroll() {
       window.removeEventListener('resize', onScroll);
       if (frame) cancelAnimationFrame(frame);
     };
-  }, []);
+  }, [parkedDay]);
 
   return (
     <div
@@ -70,7 +94,9 @@ export function RoadTripScroll() {
         {t('from')}
       </span>
 
-      <div ref={trackRef} className="absolute inset-x-0 top-0 bottom-0 sm:top-12 sm:bottom-14">
+      {/* Départ assez bas pour que le nom du premier pays, écrit derrière
+          la voiture, ne chevauche pas « Paris ». */}
+      <div ref={trackRef} className="absolute inset-x-0 top-0 bottom-0 sm:top-24 sm:bottom-14">
         <div className="absolute inset-y-0 left-1/2 w-px -translate-x-1/2 bg-ink-line" />
         <div
           ref={fillRef}
@@ -85,11 +111,11 @@ export function RoadTripScroll() {
           />
         ))}
 
-        <div ref={carRef} className="absolute top-0 left-1/2 flex flex-col items-center will-change-transform">
-          <LandCruiserTopView />
-          <span className="mt-2 hidden text-[0.5625rem] tracking-[0.14em] whitespace-nowrap text-paper uppercase [writing-mode:vertical-rl] sm:block">
+        <div ref={carRef} className="absolute top-0 left-1/2 will-change-transform">
+          <span className="absolute bottom-full left-1/2 mb-2 hidden -translate-x-1/2 text-[0.5625rem] tracking-[0.14em] whitespace-nowrap text-paper uppercase [writing-mode:vertical-rl] sm:block">
             {countryName(country, locale)}
           </span>
+          <LandCruiserTopView />
         </div>
       </div>
 
@@ -103,7 +129,7 @@ export function RoadTripScroll() {
 /** Land Cruiser vu du dessus, avant vers le bas (cap au sud). */
 function LandCruiserTopView() {
   return (
-    <svg viewBox="0 0 14 24" className="h-6 w-3.5 sm:h-7 sm:w-4" fill="none">
+    <svg viewBox="0 0 14 24" className="block h-6 w-3.5 sm:h-7 sm:w-4" fill="none">
       {/* roues */}
       <rect x="0" y="4" width="2" height="4" rx="0.6" fill="var(--color-paper-dim)" />
       <rect x="12" y="4" width="2" height="4" rx="0.6" fill="var(--color-paper-dim)" />

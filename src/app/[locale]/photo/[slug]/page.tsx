@@ -4,6 +4,7 @@ import { getTranslations } from 'next-intl/server';
 import { notFound } from 'next/navigation';
 import { FieldNote } from '@/components/journey/FieldNote';
 import { JourneyLine } from '@/components/journey/JourneyLine';
+import { RoadTripScroll } from '@/components/journey/RoadTripScroll';
 import { AfricaMap } from '@/components/photo/AfricaMap';
 import { PhotoMap } from '@/components/photo/PhotoMap';
 import { PhotoStory } from '@/components/photo/PhotoStory';
@@ -100,6 +101,9 @@ export default async function PhotoPage({ params }: PageProps) {
   return (
     <article className="pt-24 pb-28 sm:pt-28">
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
+
+      {/* La voiture garée à l'endroit du voyage où la photo a été prise. */}
+      {journeyDay(photo.taken_at) !== null ? <RoadTripScroll parkedAt={photo.taken_at} /> : null}
 
       {/* Grand écran : la photo à gauche, immobile pendant qu'on lit et
           qu'on choisit son tirage à droite — l'image reste sous les yeux au
