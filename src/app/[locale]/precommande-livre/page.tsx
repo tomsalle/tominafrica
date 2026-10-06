@@ -13,6 +13,7 @@ import { StickyTabNav } from '@/components/book-preorder/StickyTabNav';
 import { TierCard } from '@/components/book-preorder/TierCard';
 import { TierPledgeForm } from '@/components/book-preorder/TierPledgeForm';
 import { Container } from '@/components/ui/Container';
+import { HandwrittenTitle } from '@/components/ui/HandwrittenTitle';
 import { Prose } from '@/components/ui/Prose';
 import { getPreorderStepState } from '@/lib/book-preorder/config';
 import { BOOK_PREORDER_PAGE_DISABLED } from '@/lib/book-preorder/flags';
@@ -85,8 +86,12 @@ export default async function BookPreorderPage() {
         <Container className="relative pt-40 sm:pt-56">
           <div className="border border-ink-line bg-ink-soft px-5 py-8 sm:px-10 sm:py-10">
             <header className="text-center">
-              <h1 className="font-display text-4xl leading-tight font-light text-paper sm:text-5xl lg:text-6xl">
-                {t('hero.title')}
+              <h1>
+                <HandwrittenTitle
+                  text={t('hero.title')}
+                  priority
+                  className="mx-auto w-[min(80vw,20rem)] sm:w-[30rem] lg:w-[34rem]"
+                />
               </h1>
               <p className="mt-3 text-base text-paper-dim sm:text-lg">{t('hero.subtitle')}</p>
             </header>

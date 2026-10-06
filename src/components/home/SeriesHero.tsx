@@ -1,5 +1,6 @@
 import { useTranslations } from 'next-intl';
 import { HeroCoverImage } from '@/components/home/HeroCoverImage';
+import { HANDWRITTEN_SERIES_SLUG, HandwrittenTitle } from '@/components/ui/HandwrittenTitle';
 import { Reveal } from '@/components/ui/Reveal';
 import { Link } from '@/i18n/navigation';
 import type { SeriesWithCover } from '@/types/database';
@@ -34,9 +35,19 @@ export function SeriesHero({ series, priority = false }: SeriesHeroProps) {
           <Reveal>
             <p className="eyebrow tabular-nums">{t('heroEyebrow')}</p>
 
-            <h2 className="mt-4 font-display text-[2.5rem] leading-[0.95] font-light tracking-tight sm:mt-5 sm:text-7xl">
-              {series.title}
-            </h2>
+            {series.slug === HANDWRITTEN_SERIES_SLUG ? (
+              <h2 className="mt-5 sm:mt-7">
+                <HandwrittenTitle
+                  text={series.title}
+                  priority={priority}
+                  className="w-[min(86vw,22rem)] sm:w-[34rem] lg:w-[40rem]"
+                />
+              </h2>
+            ) : (
+              <h2 className="mt-4 font-display text-[2.5rem] leading-[0.95] font-light tracking-tight sm:mt-5 sm:text-7xl">
+                {series.title}
+              </h2>
+            )}
 
             <p className="mt-4 max-w-md text-[0.9375rem] leading-relaxed text-paper-dim sm:mt-5 sm:text-lg">{t('heroLine')}</p>
 

@@ -5,6 +5,7 @@ import { PhotoGrid } from '@/components/gallery/PhotoGrid';
 import { JourneyTimeline } from '@/components/journey/JourneyTimeline';
 import { RoadTripScroll } from '@/components/journey/RoadTripScroll';
 import { Container } from '@/components/ui/Container';
+import { HANDWRITTEN_SERIES_SLUG, HandwrittenTitle } from '@/components/ui/HandwrittenTitle';
 import { photoAbsoluteSrc } from '@/lib/images';
 import { getAllSeriesSlugs, getSeriesBySlug } from '@/lib/queries/series';
 
@@ -56,9 +57,13 @@ export default async function SeriesPage({ params }: PageProps) {
         <header className="max-w-3xl">
           {series.location_label ? <p className="eyebrow">{series.location_label}</p> : null}
 
-          <h1 className="mt-5 font-display text-5xl leading-[0.95] font-light sm:text-7xl">
-            {series.title}
-          </h1>
+          {series.slug === HANDWRITTEN_SERIES_SLUG ? (
+            <h1 className="mt-5">
+              <HandwrittenTitle text={series.title} priority className="w-[min(86vw,22rem)] sm:w-[32rem]" />
+            </h1>
+          ) : (
+            <h1 className="mt-5 font-display text-5xl leading-[0.95] font-light sm:text-7xl">{series.title}</h1>
+          )}
 
           {series.description ? (
             <p className="mt-8 text-base leading-relaxed text-paper-dim sm:text-lg">
