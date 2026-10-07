@@ -2,6 +2,7 @@ import { NextResponse } from 'next/server';
 import type Stripe from 'stripe';
 import { isContactFormEnabled, serverEnv } from '@/lib/env';
 import { bookPreorderConfirmationEmail } from '@/lib/book-preorder/confirmation-email';
+import { orderConfirmationEmail, orderNotificationEmail } from '@/lib/orders/confirmation-email';
 import { CONTACT_FROM_ADDRESS, getResend } from '@/lib/resend/server';
 import { getStripe } from '@/lib/stripe/server';
 import { createAdminClient } from '@/lib/supabase/admin';
@@ -236,6 +237,68 @@ async function handleCheckoutCompleted(session: Stripe.Checkout.Session) {
     }
   }
 
+  // E-mails : confirmation à l'acheteur, notification à Tom. Un échec d'envoi
+  // ne fait pas échouer le webhook — la commande est déjà enregistrée.
+  if (isContactFormEnabled() && rows.length > 0) {
+    const { CONTACT_EMAIL } = serverEnv();
+    const emailInput = {
+      locale: (session.locale === 'en' ? 'en' : 'fr') as 'fr' | 'en',
+      orderNumber: order.order_number,
+      firstName: session.customer_details?.name?.trim().split(/\s+/)[0] ?? null,
+      lines: rows.map((row) => ({
+        photoTitle: row.photo_title,
+        optionLabel: row.option_label,
+        quantity: row.quantity,
+        unitPriceCents: row.unit_price_cents,
+      })),
+      shippingCents,
+      totalCents,
+      address: {
+        name: shipping?.name ?? session.customer_details?.name ?? null,
+        line1: address?.line1 ?? null,
+        line2: address?.line2 ?? null,
+        postalCode: address?.postal_code ?? null,
+        city: address?.city ?? null,
+        country: address?.country ?? null,
+      },
+    };
+
+    const sends: Promise<unknown>[] = [];
+    if (email !== 'inconnu@tominafrica.com') {
+      const confirmation = orderConfirmationEmail(emailInput);
+      sends.push(
+        getResend().emails.send({
+          from: CONTACT_FROM_ADDRESS,
+          to: email,
+          replyTo: CONTACT_EMAIL,
+          subject: confirmation.subject,
+          text: confirmation.text,
+        }),
+      );
+    }
+    const notification = orderNotificationEmail({
+      ...emailInput,
+      email,
+      phone: session.customer_details?.phone ?? null,
+    });
+    sends.push(
+      getResend().emails.send({
+        from: CONTACT_FROM_ADDRESS,
+        to: CONTACT_EMAIL,
+        replyTo: email,
+        subject: notification.subject,
+        text: notification.text,
+      }),
+    );
+
+    const results = await Promise.allSettled(sends);
+    for (const result of results) {
+      const failure =
+        result.status === 'rejected' ? result.reason : (result.value as { error?: unknown } | null)?.error;
+      if (failure) console.error('[webhook] e-mail de commande impossible', failure);
+    }
+  }
+
   console.info(`[webhook] commande ${order.order_number} enregistrée (${rows.length} ligne(s))`);
 }
 
@@ -430,13 +493,14 @@ async function handleBookPreorderCompleted(session: Stripe.Checkout.Session) {
         delivery: delivery === 'retraitexposition' || delivery === 'envoivinted' ? delivery : null,
       });
 
-      await getResend().emails.send({
+      const { error: sendError } = await getResend().emails.send({
         from: CONTACT_FROM_ADDRESS,
         to: email,
         replyTo: CONTACT_EMAIL,
         subject: confirmation.subject,
         text: confirmation.text,
       });
+      if (sendError) console.error('[webhook] confirmation acheteur refusée', sendError);
     } catch (sendError) {
       console.error('[webhook] confirmation acheteur impossible', sendError);
     }
