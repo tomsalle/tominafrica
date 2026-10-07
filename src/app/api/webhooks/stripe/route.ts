@@ -400,8 +400,12 @@ async function handleBookPreorderCompleted(session: Stripe.Checkout.Session) {
           tier.name,
           `Quantité : ${quantity}`,
           `Montant : ${(session.amount_total ?? 0) / 100} €`,
+          deliveryNote(session) ?? (tier.is_donation ? 'Livraison : aucune (don)' : 'Livraison : non précisée'),
           email,
-        ].join('\n'),
+          session.customer_details?.phone ? `Téléphone : ${session.customer_details.phone}` : null,
+        ]
+          .filter(Boolean)
+          .join('\n'),
       });
     } catch (sendError) {
       console.error('[webhook] notification précommande impossible', sendError);
