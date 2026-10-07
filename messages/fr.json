@@ -469,6 +469,24 @@
       "reached": "Atteinte",
       "current": "En cours",
       "remaining": "{count, plural, =0 {Palier atteint} one {Plus que # prévente} other {Plus que # préventes}}"
+    },
+    "slideshow": {
+      "label": "Feuilleter le livre",
+      "previous": "Double page précédente",
+      "next": "Double page suivante",
+      "goTo": "Aller à : {page}",
+      "cover": "Le livre ouvert, posé sur le sable",
+      "coverLabel": "Le livre",
+      "pages": "Pages {pages}",
+      "extract": "Extrait",
+      "spreads": {
+        "p0405": "Pages 4 et 5 : le titre écrit à la main et Charlotte et Tom devant leur Land Cruiser",
+        "p1011": "Pages 10 et 11 : « Donner du sens », Charlotte photographie des enfants devant le 4x4",
+        "portrait": "Double page : un homme au bonnet patchwork de profil et un mur de caisses colorées",
+        "p6263": "Pages 62 et 63 : le récit des jumelles et leur photographie au miroir",
+        "p6465": "Pages 64 et 65 : un turban sur fond violet à Agbodrafo Beach et un garçon à la fenêtre d’une ruine",
+        "p7475": "Pages 74 et 75 : les enfants du village de Drabo, devant des murs ocre"
+      }
     }
   },
   "bookPreorderSucces": {

@@ -469,6 +469,24 @@
       "reached": "Reached",
       "current": "In progress",
       "remaining": "{count, plural, =0 {Step reached} one {# pre-order to go} other {# pre-orders to go}}"
+    },
+    "slideshow": {
+      "label": "Leaf through the book",
+      "previous": "Previous spread",
+      "next": "Next spread",
+      "goTo": "Go to: {page}",
+      "cover": "The open book, lying on the sand",
+      "coverLabel": "The book",
+      "pages": "Pages {pages}",
+      "extract": "Extract",
+      "spreads": {
+        "p0405": "Pages 4 and 5: the handwritten title, and Charlotte and Tom with their Land Cruiser",
+        "p1011": "Pages 10 and 11: “Giving it meaning”, Charlotte photographing children by the 4x4",
+        "portrait": "Spread: a man in a patchwork cap in profile, and a wall of colourful crates",
+        "p6263": "Pages 62 and 63: the story of the twins and their mirror photograph",
+        "p6465": "Pages 64 and 65: a turban against purple at Agbodrafo Beach, and a boy at the window of a ruin",
+        "p7475": "Pages 74 and 75: the children of Drabo village, against ochre walls"
+      }
     }
   },
   "bookPreorderSucces": {

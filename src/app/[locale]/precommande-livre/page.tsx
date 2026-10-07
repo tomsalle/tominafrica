@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import Image from 'next/image';
 import { getTranslations } from 'next-intl/server';
 import { notFound } from 'next/navigation';
+import { BookSlideshow } from '@/components/book-preorder/BookSlideshow';
 import { BudgetBreakdown } from '@/components/book-preorder/BudgetBreakdown';
 import { ContributionsList } from '@/components/book-preorder/ContributionsList';
 import { Faq } from '@/components/book-preorder/Faq';
@@ -23,6 +24,16 @@ import { languageAlternates } from '@/i18n/alternates';
 
 // La jauge doit rester à jour — pas une page figée une heure comme le catalogue.
 export const revalidate = 60;
+
+// Extraits du livre (maquettes provisoires), dans l'ordre des pages.
+const BOOK_SPREADS = [
+  { file: '01-pages-04-05', key: 'p0405', pages: '4 — 5' },
+  { file: '02-pages-10-11', key: 'p1011', pages: '10 — 11' },
+  { file: '03-portrait-caisses', key: 'portrait', pages: null },
+  { file: '04-pages-62-63', key: 'p6263', pages: '62 — 63' },
+  { file: '05-pages-64-65', key: 'p6465', pages: '64 — 65' },
+  { file: '06-pages-74-75', key: 'p7475', pages: '74 — 75' },
+] as const;
 
 export async function generateMetadata({
   params,
@@ -97,14 +108,16 @@ export default async function BookPreorderPage() {
             </header>
 
             <div className="mt-8 grid grid-cols-1 gap-8 lg:mt-10 lg:grid-cols-[1fr_20rem] lg:gap-12">
-              <div className="relative aspect-[4/3] overflow-hidden bg-ink sm:aspect-[16/10]">
-                <Image
-                  src="/precommande-livre/livre-ouvert.avif"
-                  alt={t('hero.title')}
-                  fill
-                  sizes="(max-width: 1024px) 100vw, 44rem"
-                  priority
-                  className="object-cover object-[50%_60%]"
+              <div className="relative aspect-[16/10] overflow-hidden bg-ink">
+                <BookSlideshow
+                  slides={[
+                    { src: '/precommande-livre/livre-ouvert.avif', alt: t('slideshow.cover'), label: t('slideshow.coverLabel') },
+                    ...BOOK_SPREADS.map((spread) => ({
+                      src: `/precommande-livre/extraits/${spread.file}.avif`,
+                      alt: t(`slideshow.spreads.${spread.key}`),
+                      label: spread.pages ? t('slideshow.pages', { pages: spread.pages }) : t('slideshow.extract'),
+                    })),
+                  ]}
                 />
               </div>
 
