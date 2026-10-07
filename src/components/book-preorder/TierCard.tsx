@@ -5,6 +5,20 @@ import { TierChooser } from '@/components/book-preorder/TierChooser';
 import { formatPrice } from '@/lib/format';
 import type { BookPreorderTierRow } from '@/types/database';
 
+// Visuel de chaque formule (fournis par Tom). L'early bird contient le livre
+// seul : même visuel que « Le livre ».
+const TIER_IMAGES: Record<string, string> = {
+  'early-bird': '/precommande-livre/formules/livre.avif',
+  livre: '/precommande-livre/formules/livre.avif',
+  'livre-cartes-postales': '/precommande-livre/formules/livre-cartes-postales.avif',
+  'pack-duo': '/precommande-livre/formules/pack-duo.avif',
+  'pack-soutien': '/precommande-livre/formules/pack-soutien.avif',
+};
+
+function tierImage(slug: string): string {
+  return TIER_IMAGES[slug] ?? '/precommande-livre/livre-ouvert.avif';
+}
+
 type TierCardProps = {
   tier: BookPreorderTierRow;
   checkoutEnabled: boolean;
@@ -30,13 +44,13 @@ export function TierCard({ tier, checkoutEnabled, featured = false }: TierCardPr
         </p>
       ) : null}
 
-      <div className="relative m-3 aspect-[4/3] overflow-hidden bg-ink">
+      <div className="relative m-3 aspect-[4/3] overflow-hidden bg-white">
         <Image
-          src="/precommande-livre/livre-ouvert.avif"
+          src={tierImage(tier.slug)}
           alt=""
           fill
           sizes="(max-width: 1024px) 90vw, 22rem"
-          className={`object-cover object-[50%_60%] ${soldOut ? 'opacity-40 grayscale' : ''}`}
+          className={`object-contain ${soldOut ? 'opacity-40 grayscale' : ''}`}
         />
         <span className="absolute top-2.5 right-2.5 flex size-12 items-center justify-center rounded-full bg-brand text-xs font-medium text-paper tabular-nums">
           {formatPrice(tier.price_cents)}
