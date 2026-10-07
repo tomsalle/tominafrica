@@ -20,6 +20,7 @@ import { getPreorderStepState } from '@/lib/book-preorder/config';
 import { BOOK_PREORDER_PAGE_DISABLED } from '@/lib/book-preorder/flags';
 import { getBookPreorderProgress, getPublicContributions, getPublishedTiers } from '@/lib/book-preorder/queries';
 import { readSimulation, simulatePreorder } from '@/lib/book-preorder/simulation';
+import { isEarlyBirdAvailable, visibleTiers } from '@/lib/book-preorder/tiers';
 import { isCheckoutEnabled } from '@/lib/env';
 import { languageAlternates } from '@/i18n/alternates';
 
@@ -89,11 +90,17 @@ export default async function BookPreorderPage({
         )
       : realTiers;
 
-  const rewardTiers = tiers.filter((tier) => !tier.is_donation);
+  // Early bird d'abord ; « Le livre » n'apparaît qu'une fois l'early bird épuisé.
+  const rewardTiers = visibleTiers(tiers).filter((tier) => !tier.is_donation);
   const donationTier = tiers.find((tier) => tier.is_donation);
-  const minPriceCents = rewardTiers.length > 0 ? Math.min(...rewardTiers.map((tier) => tier.price_cents)) : 0;
+  const isSoldOut = (tier: (typeof tiers)[number]) =>
+    tier.stock_limit !== null && tier.claimed_count >= tier.stock_limit;
+  const purchasable = rewardTiers.filter((tier) => !isSoldOut(tier));
+  const minPriceCents = purchasable.length > 0 ? Math.min(...purchasable.map((tier) => tier.price_cents)) : 0;
   const stepState = getPreorderStepState(progress.bookUnitsTotal);
-  const featuredTier = rewardTiers.find((tier) => tier.slug === 'livre') ?? rewardTiers[0];
+  const featuredTier = isEarlyBirdAvailable(tiers)
+    ? rewardTiers.find((tier) => tier.slug === 'early-bird')
+    : (rewardTiers.find((tier) => tier.slug === 'livre') ?? purchasable[0]);
   const otherTiers = rewardTiers.filter((tier) => tier.id !== featuredTier?.id);
 
   return (

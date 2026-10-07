@@ -1,7 +1,8 @@
 import { getTranslations } from 'next-intl/server';
 import { NextResponse } from 'next/server';
 import { bookPreorderCheckoutRequestSchema } from '@/lib/book-preorder/types';
-import { getTierById } from '@/lib/book-preorder/queries';
+import { getPublishedTiers, getTierById } from '@/lib/book-preorder/queries';
+import { isEarlyBirdAvailable } from '@/lib/book-preorder/tiers';
 import { isCheckoutEnabled, publicEnv } from '@/lib/env';
 import { getStripe } from '@/lib/stripe/server';
 
@@ -48,6 +49,11 @@ export async function POST(request: Request) {
   const tier = await getTierById(tierId);
 
   if (!tier) {
+    return NextResponse.json({ error: t('tierUnavailable') }, { status: 409 });
+  }
+
+  // « Le livre » ne se vend qu'une fois l'early bird épuisé (même règle que la page).
+  if (tier.slug === 'livre' && isEarlyBirdAvailable(await getPublishedTiers())) {
     return NextResponse.json({ error: t('tierUnavailable') }, { status: 409 });
   }
 

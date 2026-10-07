@@ -406,6 +406,10 @@
         "name": "The book + 2 postcards",
         "description": "The book and two postcards featuring photographs from the book."
       },
+      "livre-affiche-expo": {
+        "name": "The book + the exhibition poster (A2)",
+        "description": "The book and the official exhibition poster, in A2 format (42 × 59.4 cm)."
+      },
       "pack-duo": {
         "name": "Duo pack",
         "description": "Two copies of the book — one for you, one to give."

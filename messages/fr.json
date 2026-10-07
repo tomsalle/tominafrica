@@ -406,6 +406,10 @@
         "name": "Le livre + 2 cartes postales",
         "description": "Le livre et deux cartes postales tirées des photographies du livre."
       },
+      "livre-affiche-expo": {
+        "name": "Le livre + l’affiche de l’exposition (A2)",
+        "description": "Le livre et l’affiche officielle de l’exposition, au format A2 (42 × 59,4 cm)."
+      },
       "pack-duo": {
         "name": "Pack Duo",
         "description": "Deux exemplaires du livre — pour vous, et pour offrir."

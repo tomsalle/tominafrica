@@ -11,6 +11,7 @@ const TIER_IMAGES: Record<string, string> = {
   'early-bird': '/precommande-livre/formules/livre.avif',
   livre: '/precommande-livre/formules/livre.avif',
   'livre-cartes-postales': '/precommande-livre/formules/livre-cartes-postales.avif',
+  'livre-affiche-expo': '/precommande-livre/formules/livre-affiche-expo.avif',
   'pack-duo': '/precommande-livre/formules/pack-duo.avif',
   'pack-soutien': '/precommande-livre/formules/pack-soutien.avif',
 };
