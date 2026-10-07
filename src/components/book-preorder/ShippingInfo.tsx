@@ -19,9 +19,11 @@ export function ShippingInfo() {
         <BoxIcon className="mt-0.5 size-5 shrink-0 text-paper-faint" />
         <div>
           <p className="text-[0.6875rem] tracking-[0.14em] text-paper-faint uppercase">{t('modesTitle')}</p>
-          <p className="mt-1 text-sm text-paper-dim">
-            <mark className="bg-accent/15 px-1.5 py-0.5 text-accent">{t('modesPlaceholder')}</mark>
-          </p>
+          <ul className="mt-2 space-y-3 text-sm leading-relaxed text-paper-dim">
+            <li>{t('modesPickup')}</li>
+            <li>{t('modesVinted')}</li>
+          </ul>
+          <p className="mt-3 text-xs text-paper-faint">{t('modesNote')}</p>
         </div>
       </div>
     </div>

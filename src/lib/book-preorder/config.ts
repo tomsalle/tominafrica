@@ -4,9 +4,9 @@
  * change avant la mise en ligne (voir flags.ts).
  *
  * L'objectif se mesure en NOMBRE de livres précommandés, par paliers, pas en
- * euros collectés — demande explicite de Tom. Le montant (3 305 €) et
- * sa répartition restent affichés sur la page à titre d'information (« à quoi
- * servira votre précommande »), mais ne pilotent pas la jauge de progression.
+ * euros collectés — demande explicite de Tom. Le budget (voir
+ * getPreorderBudget) reste affiché à titre d'information (« à quoi servira
+ * le financement ») et suit l'objectif en cours, sans piloter la jauge.
  */
 // Paliers successifs, en nombre de préventes (demande de Tom, 2026-10-04) :
 // la jauge vise le premier palier non atteint, comme les paliers d'Ulule.
@@ -34,10 +34,23 @@ export function getPreorderStepState(count: number): PreorderStepState {
   return { steps, currentIndex, target };
 }
 
-export const BOOK_PREORDER_BUDGET_TOTAL_CENTS = 330_500; // 3 305 €
+// Coût d'impression par livre — 20 € provisoire (à confirmer par Tom). Le
+// poste « impression » suit l'objectif en cours : 50 livres = 1 000 €,
+// 100 = 2 000 €, 200 = 4 000 €. Les autres postes sont fixes.
+export const BOOK_PRINT_UNIT_COST_CENTS = 2_000;
 
-export const BOOK_PREORDER_BUDGET_BREAKDOWN = [
-  { labelKey: 'printing', amountCents: 240_000 }, // Impression des livres à vendre (nombre = objectif en cours)
+const FIXED_BUDGET = [
   { labelKey: 'publisher', amountCents: 40_000 }, // Accompagnement maison d'édition
   { labelKey: 'otherFees', amountCents: 50_500 }, // Autres frais (ISBN, livres offerts)
 ] as const;
+
+export type BudgetLine = { labelKey: 'printing' | 'publisher' | 'otherFees'; amountCents: number };
+
+/** Répartition du budget pour un tirage donné (l'objectif en cours). */
+export function getPreorderBudget(bookCount: number): { lines: BudgetLine[]; totalCents: number } {
+  const lines: BudgetLine[] = [
+    { labelKey: 'printing', amountCents: bookCount * BOOK_PRINT_UNIT_COST_CENTS },
+    ...FIXED_BUDGET,
+  ];
+  return { lines, totalCents: lines.reduce((sum, line) => sum + line.amountCents, 0) };
+}

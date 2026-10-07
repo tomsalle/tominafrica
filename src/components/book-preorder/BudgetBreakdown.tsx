@@ -1,5 +1,5 @@
 import { useLocale, useTranslations } from 'next-intl';
-import { BOOK_PREORDER_BUDGET_BREAKDOWN, BOOK_PREORDER_BUDGET_TOTAL_CENTS } from '@/lib/book-preorder/config';
+import { getPreorderBudget } from '@/lib/book-preorder/config';
 import { formatPrice } from '@/lib/format';
 
 // Rouge de la page, puis deux gris du site : la couleur ne porte pas seule
@@ -22,10 +22,10 @@ export function BudgetBreakdown({ bookCount }: { bookCount: number }) {
   const locale = useLocale();
   const percentFormat = new Intl.NumberFormat(locale, { minimumFractionDigits: 1, maximumFractionDigits: 1 });
 
-  const percents = BOOK_PREORDER_BUDGET_BREAKDOWN.map(
-    (item) => (item.amountCents / BOOK_PREORDER_BUDGET_TOTAL_CENTS) * 100,
-  );
-  const segments = BOOK_PREORDER_BUDGET_BREAKDOWN.map((item, index) => ({
+  // Le budget suit l'objectif en cours : le poste impression grossit avec le tirage.
+  const { lines, totalCents } = getPreorderBudget(bookCount);
+  const percents = lines.map((item) => (item.amountCents / totalCents) * 100);
+  const segments = lines.map((item, index) => ({
     ...item,
     index,
     percent: percents[index] ?? 0,
@@ -60,7 +60,7 @@ export function BudgetBreakdown({ bookCount }: { bookCount: number }) {
           </svg>
           <div className="absolute inset-0 flex flex-col items-center justify-center text-center">
             <p className="font-display text-3xl font-light text-paper tabular-nums">
-              {formatPrice(BOOK_PREORDER_BUDGET_TOTAL_CENTS)}
+              {formatPrice(totalCents)}
             </p>
             <p className="mt-1 max-w-[7rem] text-[0.6875rem] leading-tight tracking-wide text-paper-faint uppercase">
               {t('goalLabel')}

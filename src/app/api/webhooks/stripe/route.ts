@@ -356,6 +356,7 @@ async function handleBookPreorderCompleted(session: Stripe.Checkout.Session) {
     shipping_postal_code: address?.postal_code ?? null,
     shipping_city: address?.city ?? null,
     shipping_country: address?.country ?? null,
+    notes: deliveryNote(session),
     public_name: session.metadata?.publicName?.trim().slice(0, 60) || null,
     public_message: session.metadata?.publicMessage?.trim().slice(0, 280) || null,
     paid_at: new Date().toISOString(),
@@ -408,4 +409,12 @@ async function handleBookPreorderCompleted(session: Stripe.Checkout.Session) {
   }
 
   console.info(`[webhook] précommande livre enregistrée (palier ${tier.slug}, ${email})`);
+}
+
+/** Mode de livraison choisi au paiement (champ « livraison » de Stripe Checkout). */
+function deliveryNote(session: Stripe.Checkout.Session): string | null {
+  const value = session.custom_fields?.find((field) => field.key === 'livraison')?.dropdown?.value;
+  if (value === 'retraitexposition') return 'Livraison : retrait à l’exposition';
+  if (value === 'envoivinted') return 'Livraison : envoi via Vinted (à organiser avec l’acheteur)';
+  return null;
 }

@@ -19,6 +19,7 @@ import { Prose } from '@/components/ui/Prose';
 import { getPreorderStepState } from '@/lib/book-preorder/config';
 import { BOOK_PREORDER_PAGE_DISABLED } from '@/lib/book-preorder/flags';
 import { getBookPreorderProgress, getPublicContributions, getPublishedTiers } from '@/lib/book-preorder/queries';
+import { readSimulation, simulatePreorder } from '@/lib/book-preorder/simulation';
 import { isCheckoutEnabled } from '@/lib/env';
 import { languageAlternates } from '@/i18n/alternates';
 
@@ -56,17 +57,37 @@ export async function generateMetadata({
  * porteur), onglets collants, puis la collecte à gauche et les contreparties
  * à droite. Seules la palette et les polices sont celles du site.
  */
-export default async function BookPreorderPage() {
+export default async function BookPreorderPage({
+  searchParams,
+}: {
+  searchParams: Promise<Record<string, string | string[] | undefined>>;
+}) {
   if (BOOK_PREORDER_PAGE_DISABLED) notFound();
+
+  // Simulation locale uniquement : en production, les paramètres d'URL ne
+  // sont jamais lus (la page reste mise en cache).
+  const simulated =
+    process.env.NODE_ENV === 'development' ? readSimulation((await searchParams).simulation) : null;
 
   const t = await getTranslations('bookPreorder');
   const photos = await getTranslations('notreAventure');
   const checkoutEnabled = isCheckoutEnabled();
-  const [tiers, progress, contributions] = await Promise.all([
+  const [realTiers, realProgress, realContributions] = await Promise.all([
     getPublishedTiers(),
     getBookPreorderProgress(),
     getPublicContributions(),
   ]);
+
+  const simulation = simulated !== null ? simulatePreorder(simulated) : null;
+  const progress = simulation?.progress ?? realProgress;
+  const contributions = simulation?.contributions ?? realContributions;
+  // En simulation, l'early bird (stock limité) se remplit avec les préventes.
+  const tiers =
+    simulated !== null
+      ? realTiers.map((tier) =>
+          tier.stock_limit !== null ? { ...tier, claimed_count: Math.min(tier.stock_limit, simulated) } : tier,
+        )
+      : realTiers;
 
   const rewardTiers = tiers.filter((tier) => !tier.is_donation);
   const donationTier = tiers.find((tier) => tier.is_donation);
@@ -77,6 +98,12 @@ export default async function BookPreorderPage() {
 
   return (
     <div className="pb-28">
+      {simulated !== null ? (
+        <p className="fixed bottom-4 left-1/2 z-60 -translate-x-1/2 bg-brand px-4 py-2 text-xs font-medium tracking-[0.14em] text-paper uppercase">
+          Simulation locale · {simulated} préventes · aucune donnée réelle
+        </p>
+      ) : null}
+
       {/* En-tête : bandeau de couverture + carte qui le chevauche */}
       <div className="relative pt-16 pb-10 sm:pt-20">
         <div className="absolute inset-x-0 top-16 h-72 overflow-hidden sm:top-20 sm:h-96">

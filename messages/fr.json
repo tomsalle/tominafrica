@@ -315,7 +315,10 @@
     "tierUnavailable": "Ce palier n’est plus disponible.",
     "tierSoldOut": "« {tier} » est épuisé.",
     "tierLowStock": "Il ne reste que {remaining} exemplaire(s) de « {tier} ».",
-    "stripeUnavailable": "Le paiement est momentanément indisponible. Réessayez dans un instant."
+    "stripeUnavailable": "Le paiement est momentanément indisponible. Réessayez dans un instant.",
+    "deliveryFieldLabel": "Mode de livraison",
+    "deliveryPickup": "Retrait à l’exposition (Paris, 27–29 nov.) — gratuit",
+    "deliveryVinted": "Envoi via Vinted — environ 1 € à payer sur l’app"
   },
   "bookPreorder": {
     "metaTitle": "Précommander le livre",
@@ -421,14 +424,16 @@
       "estimateLabel": "Date de livraison estimée",
       "estimate": "27 novembre 2026, jour du vernissage de l’exposition à Paris",
       "modesTitle": "Modes d’expédition",
-      "modesPlaceholder": "Détails à venir (envoi à domicile, point relais, ou remise en main propre)."
+      "modesPickup": "Retrait à l’exposition — gratuit. Votre livre vous attend chez Mecanicus (Paris 14e), du 27 au 29 novembre 2026.",
+      "modesVinted": "Envoi via Vinted — aucun frais de port sur ce site. Après votre précommande, je vous contacte pour organiser l’envoi depuis mon compte Vinted : vous ne payez que l’expédition sur l’application (environ 1 €).",
+      "modesNote": "Vous choisissez votre mode de livraison au moment du paiement."
     },
     "faq": {
       "title": "FAQ",
       "paymentQ": "Le paiement est-il prélevé tout de suite ?",
       "paymentA": "Oui, votre carte est débitée immédiatement à la précommande — il n’y a pas d’étape de validation différée.",
       "deliveryQ": "Quand vais-je recevoir mon livre ?",
-      "deliveryA": "Dès que l’impression sera terminée. Vous serez informé·e par e-mail de la date d’expédition.",
+      "deliveryA": "Le livre sera disponible à partir du 27 novembre 2026, jour du vernissage. Si vous avez choisi le retrait, il vous attend à l’exposition. Pour un envoi, je vous contacte pour l’organiser via Vinted : vous ne payez que l’expédition sur l’application (environ 1 €).",
       "goalQ": "Que se passe-t-il si l’objectif n’est pas atteint ?",
       "goalA": "Votre livre sera imprimé et envoyé quoi qu’il arrive. Même si l’objectif n’est pas atteint, l’impression a bien lieu : les exemplaires restants seront mis en vente lors de l’exposition à Paris.",
       "contactQ": "Une autre question ?",

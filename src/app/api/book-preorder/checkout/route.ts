@@ -3,7 +3,7 @@ import { NextResponse } from 'next/server';
 import { bookPreorderCheckoutRequestSchema } from '@/lib/book-preorder/types';
 import { getTierById } from '@/lib/book-preorder/queries';
 import { isCheckoutEnabled, publicEnv } from '@/lib/env';
-import { getStripe, SHIPPING_COUNTRIES, SHIPPING_OPTIONS } from '@/lib/stripe/server';
+import { getStripe } from '@/lib/stripe/server';
 
 export const runtime = 'nodejs';
 
@@ -98,13 +98,26 @@ export async function POST(request: Request) {
       ],
       locale: locale === 'en' ? 'en' : 'fr',
       billing_address_collection: 'required',
-      // Pas de livraison pour le don : aucune contrepartie physique à expédier.
+      // Aucun frais de port sur le site : le livre se récupère à l'exposition
+      // (gratuit) ou part via Vinted (l'acheteur paie l'envoi sur l'app). Le
+      // choix est demandé ici et enregistré par le webhook. Rien pour le don.
       ...(tier.is_donation
         ? {}
         : {
-            shipping_address_collection: { allowed_countries: SHIPPING_COUNTRIES },
-            shipping_options: SHIPPING_OPTIONS,
             phone_number_collection: { enabled: true },
+            custom_fields: [
+              {
+                key: 'livraison',
+                label: { type: 'custom' as const, custom: t('deliveryFieldLabel') },
+                type: 'dropdown' as const,
+                dropdown: {
+                  options: [
+                    { label: t('deliveryPickup'), value: 'retraitexposition' },
+                    { label: t('deliveryVinted'), value: 'envoivinted' },
+                  ],
+                },
+              },
+            ],
           }),
       success_url: `${siteUrl}${localePath}/precommande-livre/succes?session_id={CHECKOUT_SESSION_ID}`,
       cancel_url: `${siteUrl}${localePath}/precommande-livre`,

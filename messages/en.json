@@ -315,7 +315,10 @@
     "tierUnavailable": "This tier is no longer available.",
     "tierSoldOut": "“{tier}” is sold out.",
     "tierLowStock": "Only {remaining} left of “{tier}”.",
-    "stripeUnavailable": "Payment is temporarily unavailable. Please try again in a moment."
+    "stripeUnavailable": "Payment is temporarily unavailable. Please try again in a moment.",
+    "deliveryFieldLabel": "Delivery method",
+    "deliveryPickup": "Pick up at the exhibition (Paris, 27–29 Nov.) — free",
+    "deliveryVinted": "Shipping via Vinted — about €1 paid on the app"
   },
   "bookPreorder": {
     "metaTitle": "Pre-order the book",
@@ -421,14 +424,16 @@
       "estimateLabel": "Estimated delivery date",
       "estimate": "November 27, 2026, the day of the exhibition’s opening night in Paris",
       "modesTitle": "Shipping methods",
-      "modesPlaceholder": "Details coming soon (home delivery, pickup point, or hand delivery)."
+      "modesPickup": "Pick up at the exhibition — free. Your book will be waiting for you at Mecanicus (Paris 14th), 27 — 29 November 2026.",
+      "modesVinted": "Shipping via Vinted — no shipping fee on this site. After your pre-order, I will get in touch to arrange shipping from my Vinted account: you only pay the delivery on the app (about €1).",
+      "modesNote": "You choose your delivery method at checkout."
     },
     "faq": {
       "title": "FAQ",
       "paymentQ": "Is payment taken right away?",
       "paymentA": "Yes, your card is charged immediately when you pre-order — there’s no deferred confirmation step.",
       "deliveryQ": "When will I receive my book?",
-      "deliveryA": "As soon as printing is complete. You’ll be notified by e-mail of the shipping date.",
+      "deliveryA": "The book will be available from 27 November 2026, the opening night. If you chose pick-up, it will be waiting for you at the exhibition. For shipping, I will get in touch to arrange it via Vinted: you only pay the delivery on the app (about €1).",
       "goalQ": "What happens if the goal isn’t reached?",
       "goalA": "Your book will be printed and shipped no matter what. Even if the goal isn’t reached, the printing still goes ahead: the remaining copies will be sold at the exhibition in Paris.",
       "contactQ": "Another question?",
