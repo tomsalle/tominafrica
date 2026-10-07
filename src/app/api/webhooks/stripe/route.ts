@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server';
 import type Stripe from 'stripe';
 import { isContactFormEnabled, serverEnv } from '@/lib/env';
+import { bookPreorderConfirmationEmail } from '@/lib/book-preorder/confirmation-email';
 import { CONTACT_FROM_ADDRESS, getResend } from '@/lib/resend/server';
 import { getStripe } from '@/lib/stripe/server';
 import { createAdminClient } from '@/lib/supabase/admin';
@@ -409,6 +410,35 @@ async function handleBookPreorderCompleted(session: Stripe.Checkout.Session) {
       });
     } catch (sendError) {
       console.error('[webhook] notification précommande impossible', sendError);
+    }
+  }
+
+  // Confirmation à l'acheteur. Un échec d'envoi ne doit pas faire échouer le
+  // webhook : la précommande est déjà enregistrée (et un rejeu de Stripe
+  // s'arrêterait au contrôle d'idempotence, sans renvoyer l'e-mail).
+  if (isContactFormEnabled() && email !== 'inconnu@tominafrica.com') {
+    try {
+      const { CONTACT_EMAIL } = serverEnv();
+      const delivery = session.custom_fields?.find((field) => field.key === 'livraison')?.dropdown?.value;
+      const confirmation = bookPreorderConfirmationEmail({
+        locale: session.locale === 'en' ? 'en' : 'fr',
+        firstName: session.customer_details?.name?.trim().split(/\s+/)[0] ?? null,
+        tierName: tier.name,
+        quantity,
+        amountCents: session.amount_total ?? 0,
+        isDonation: tier.is_donation,
+        delivery: delivery === 'retraitexposition' || delivery === 'envoivinted' ? delivery : null,
+      });
+
+      await getResend().emails.send({
+        from: CONTACT_FROM_ADDRESS,
+        to: email,
+        replyTo: CONTACT_EMAIL,
+        subject: confirmation.subject,
+        text: confirmation.text,
+      });
+    } catch (sendError) {
+      console.error('[webhook] confirmation acheteur impossible', sendError);
     }
   }
 
