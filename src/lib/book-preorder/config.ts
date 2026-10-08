@@ -8,6 +8,21 @@
  * getPreorderBudget) reste affiché à titre d'information (« à quoi servira
  * le financement ») et suit l'objectif en cours, sans piloter la jauge.
  */
+// Fin de la précommande : le jour du vernissage, vendredi 27 novembre 2026,
+// à minuit (heure de Paris) — demande de Tom. Après, plus aucun paiement ;
+// les pages restent en ligne et annoncent la clôture.
+export const BOOK_PREORDER_END = new Date('2026-11-28T00:00:00+01:00');
+export const BOOK_PREORDER_LAST_DAY = '2026-11-27';
+
+export function isPreorderClosed(now = new Date()): boolean {
+  return now.getTime() >= BOOK_PREORDER_END.getTime();
+}
+
+/** Jours restants, le jour en cours compris (1 = dernier jour). */
+export function preorderDaysLeft(now = new Date()): number {
+  return Math.max(0, Math.ceil((BOOK_PREORDER_END.getTime() - now.getTime()) / 86_400_000));
+}
+
 // Paliers successifs, en nombre de préventes (demande de Tom, 2026-10-04) :
 // la jauge vise le premier palier non atteint, comme les paliers d'Ulule.
 export const BOOK_PREORDER_STEPS = [50, 100, 200] as const;

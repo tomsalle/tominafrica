@@ -11,7 +11,7 @@ type Section = (typeof SECTIONS)[number];
  * Barre collante : deux repères (Le livre, FAQ) et, toujours à portée, le
  * bouton qui mène au choix de la formule.
  */
-export function StickyTabNav({ ctaHref, priceLabel }: { ctaHref: string; priceLabel: string | null }) {
+export function StickyTabNav({ ctaHref, priceLabel }: { ctaHref: string | null; priceLabel: string | null }) {
   const t = useTranslations('bookPreorder.nav');
   const [active, setActive] = useState<Section>('le-livre');
 
@@ -63,12 +63,14 @@ export function StickyTabNav({ ctaHref, priceLabel }: { ctaHref: string; priceLa
           {priceLabel ? (
             <span className="hidden text-sm text-paper-dim tabular-nums sm:inline">{priceLabel}</span>
           ) : null}
-          <Link
-            href={ctaHref}
-            className="inline-flex shrink-0 items-center justify-center bg-brand px-5 py-2.5 text-[0.6875rem] font-medium tracking-[0.2em] text-paper uppercase transition-[background-color,transform] duration-200 hover:bg-brand-hover active:scale-[0.97] sm:px-8"
-          >
-            {t('cta')}
-          </Link>
+          {ctaHref ? (
+            <Link
+              href={ctaHref}
+              className="inline-flex shrink-0 items-center justify-center bg-brand px-5 py-2.5 text-[0.6875rem] font-medium tracking-[0.2em] text-paper uppercase transition-[background-color,transform] duration-200 hover:bg-brand-hover active:scale-[0.97] sm:px-8"
+            >
+              {t('cta')}
+            </Link>
+          ) : null}
         </div>
       </div>
     </div>

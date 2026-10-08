@@ -1,5 +1,6 @@
 import { getTranslations } from 'next-intl/server';
 import { NextResponse } from 'next/server';
+import { isPreorderClosed } from '@/lib/book-preorder/config';
 import { bookPreorderCheckoutRequestSchema } from '@/lib/book-preorder/types';
 import { getPublishedTiers, getTierById } from '@/lib/book-preorder/queries';
 import { isEarlyBirdAvailable } from '@/lib/book-preorder/tiers';
@@ -35,6 +36,10 @@ export async function POST(request: Request) {
 
   if (!isCheckoutEnabled()) {
     return NextResponse.json({ error: t('serviceDisabled') }, { status: 503 });
+  }
+
+  if (isPreorderClosed()) {
+    return NextResponse.json({ error: t('closed') }, { status: 409 });
   }
 
   const parsed = bookPreorderCheckoutRequestSchema.safeParse(payload);

@@ -322,7 +322,8 @@
     "stripeUnavailable": "Payment is temporarily unavailable. Please try again in a moment.",
     "deliveryFieldLabel": "Delivery method",
     "deliveryPickup": "Pick up at the exhibition (Paris, 27–29 Nov.) — free",
-    "deliveryVinted": "Shipping via Vinted — about €1 paid on the app"
+    "deliveryVinted": "Shipping via Vinted — about €1 paid on the app",
+    "closed": "The pre-order is closed."
   },
   "bookPreorder": {
     "metaTitle": "Pre-order the book",
@@ -361,6 +362,7 @@
       "pages": "112 pages, two points of view: a mother, a photographer, and her son",
       "format": "Format: slightly smaller than a closed A3, unbound",
       "printRun": "Print run: {count} copies, set by this pre-order",
+      "deadline": "Pre-order ends: 27 November 2026, the opening night",
       "delivery": "Estimated delivery: November 27, 2026, the day of the exhibition’s opening night in Paris"
     },
     "budget": {
@@ -378,7 +380,8 @@
     },
     "tierCommon": {
       "soldOut": "Sold out",
-      "remaining": "{count, plural, one {# left} other {# left}}"
+      "remaining": "{count, plural, one {# left} other {# left}}",
+      "closed": "Pre-order closed"
     },
     "tiers": {
       "early-bird": {
@@ -423,6 +426,8 @@
       "title": "FAQ",
       "paymentQ": "Is payment taken right away?",
       "paymentA": "Yes, your card is charged immediately when you pre-order — there’s no deferred confirmation step.",
+      "deadlineQ": "Until when can I pre-order?",
+      "deadlineA": "Until 27 November 2026, the opening night of the exhibition in Paris. After that date, remaining copies will be on sale at the exhibition.",
       "deliveryQ": "When will I receive my book?",
       "deliveryA": "The book will be available from 27 November 2026, the opening night. If you chose pick-up, it will be waiting for you at the exhibition. For shipping, I will get in touch to arrange it via Vinted: you only pay the delivery on the app (about €1).",
       "promoQ": "How does the 10% print code work?",
@@ -504,7 +509,7 @@
       "intro": "The book on its own, or with postcards, the exhibition poster or a print. Every option counts towards the pre-order.",
       "reassurePayment": "Secure payment by Stripe",
       "reassureDelivery": "Free delivery: pick-up at the exhibition or shipping via Vinted (about €1)",
-      "reassureDate": "Estimated delivery: 27 November 2026",
+      "reassureDate": "Pre-order until 27 November 2026",
       "badgeEarlyBird": "Best price",
       "badgeBook": "The book only",
       "donationEyebrow": "Support without buying",
@@ -512,7 +517,18 @@
       "donationBody": "A donation of any amount helps us set up the exhibition in Paris, 27 — 29 November 2026. Thank you!",
       "questions": "Any question?",
       "faqLink": "See the FAQ",
-      "reassureGift": "With every option: 10% off a print at the exhibition"
+      "reassureGift": "With every option: 10% off a print at the exhibition",
+      "closedTitle": "The pre-order is closed",
+      "closedBody": "Thank you to everyone who pre-ordered! Remaining copies will be on sale at the exhibition in Paris, 27 — 29 November 2026."
+    },
+    "deadline": {
+      "daysLeft": "{count, plural, =0 {Pre-order closed} one {Last day} other {# days left}}",
+      "until": "until 27 November 2026",
+      "ended": "Pre-order closed on 27 November 2026"
+    },
+    "closed": {
+      "title": "The pre-order is closed",
+      "body": "Thank you to everyone who pre-ordered! Remaining copies will be on sale at the exhibition in Paris, 27 — 29 November 2026."
     }
   },
   "bookPreorderSucces": {

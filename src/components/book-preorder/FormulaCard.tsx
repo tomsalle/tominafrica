@@ -23,9 +23,11 @@ export function FormulaCard({
   checkoutEnabled,
   compareAtCents = null,
   badge = null,
+  closed = false,
 }: {
   tier: BookPreorderTierRow;
   checkoutEnabled: boolean;
+  closed?: boolean;
   compareAtCents?: number | null;
   badge?: string | null;
 }) {
@@ -70,7 +72,7 @@ export function FormulaCard({
         ) : null}
 
         <div className="mt-auto pt-6">
-          <TierPledgeForm tier={tier} checkoutEnabled={checkoutEnabled} soldOut={soldOut} />
+          <TierPledgeForm tier={tier} checkoutEnabled={checkoutEnabled} soldOut={soldOut} closed={closed} />
         </div>
       </div>
     </article>

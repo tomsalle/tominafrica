@@ -1,6 +1,6 @@
 import 'server-only';
 
-import { getPreorderStepState } from '@/lib/book-preorder/config';
+import { getPreorderStepState, isPreorderClosed, preorderDaysLeft } from '@/lib/book-preorder/config';
 import { getBookPreorderProgress, getPublicContributions, getPublishedTiers } from '@/lib/book-preorder/queries';
 import { readSimulation, simulatePreorder } from '@/lib/book-preorder/simulation';
 import { isEarlyBirdAvailable, visibleTiers } from '@/lib/book-preorder/tiers';
@@ -22,10 +22,16 @@ export function isTierSoldOut(tier: BookPreorderTierRow): boolean {
 
 /**
  * Données communes aux deux pages de précommande (présentation du livre et
- * choix de la formule). `simulation` : paramètre d'URL, lu en `next dev` seulement.
+ * choix de la formule). Paramètres d'URL lus en `next dev` seulement :
+ * `simulation` (nombre de préventes) et `cloture=1` (précommande terminée).
  */
-export async function loadPreorderData(simulationParam: string | string[] | undefined) {
+export async function loadPreorderData(
+  simulationParam: string | string[] | undefined,
+  closedParam?: string | string[] | undefined,
+) {
   const simulated = readSimulation(simulationParam);
+  const closed = isPreorderClosed() || (process.env.NODE_ENV === 'development' && closedParam === '1');
+  const daysLeft = closed ? 0 : preorderDaysLeft();
   const [realTiers, realProgress, realContributions] = await Promise.all([
     getPublishedTiers(),
     getBookPreorderProgress(),
@@ -61,5 +67,5 @@ export async function loadPreorderData(simulationParam: string | string[] | unde
     offer = { tier: book, priceCents: book.price_cents, compareAtCents: null, remaining: null };
   }
 
-  return { simulated, progress, contributions, formulas, donationTier, stepState, offer };
+  return { simulated, progress, contributions, formulas, donationTier, stepState, offer, closed, daysLeft };
 }

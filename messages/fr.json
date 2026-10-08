@@ -322,7 +322,8 @@
     "stripeUnavailable": "Le paiement est momentanément indisponible. Réessayez dans un instant.",
     "deliveryFieldLabel": "Mode de livraison",
     "deliveryPickup": "Retrait à l’exposition (Paris, 27–29 nov.) — gratuit",
-    "deliveryVinted": "Envoi via Vinted — environ 1 € à payer sur l’app"
+    "deliveryVinted": "Envoi via Vinted — environ 1 € à payer sur l’app",
+    "closed": "La précommande est terminée."
   },
   "bookPreorder": {
     "metaTitle": "Précommander le livre",
@@ -361,6 +362,7 @@
       "pages": "112 pages, deux regards : celui d’une mère, photographe, et celui de son fils",
       "format": "Format : légèrement plus petit qu’un A3 fermé, sans reliure",
       "printRun": "Tirage : {count} exemplaires, déterminé par cette précommande",
+      "deadline": "Fin de la précommande : 27 novembre 2026, jour du vernissage",
       "delivery": "Livraison estimée : 27 novembre 2026, jour du vernissage de l’exposition à Paris"
     },
     "budget": {
@@ -378,7 +380,8 @@
     },
     "tierCommon": {
       "soldOut": "Épuisé",
-      "remaining": "{count, plural, one {# restant} other {# restants}}"
+      "remaining": "{count, plural, one {# restant} other {# restants}}",
+      "closed": "Précommande terminée"
     },
     "tiers": {
       "early-bird": {
@@ -423,6 +426,8 @@
       "title": "FAQ",
       "paymentQ": "Le paiement est-il prélevé tout de suite ?",
       "paymentA": "Oui, votre carte est débitée immédiatement à la précommande — il n’y a pas d’étape de validation différée.",
+      "deadlineQ": "Jusqu’à quand puis-je précommander ?",
+      "deadlineA": "Jusqu’au 27 novembre 2026, jour du vernissage de l’exposition à Paris. Après cette date, les exemplaires restants seront en vente à l’exposition.",
       "deliveryQ": "Quand vais-je recevoir mon livre ?",
       "deliveryA": "Le livre sera disponible à partir du 27 novembre 2026, jour du vernissage. Si vous avez choisi le retrait, il vous attend à l’exposition. Pour un envoi, je vous contacte pour l’organiser via Vinted : vous ne payez que l’expédition sur l’application (environ 1 €).",
       "promoQ": "Comment fonctionne le code -10 % sur un tirage ?",
@@ -504,7 +509,7 @@
       "intro": "Le livre seul, ou accompagné de cartes postales, de l’affiche de l’exposition ou d’un tirage. Chaque formule compte pour la précommande.",
       "reassurePayment": "Paiement sécurisé par Stripe",
       "reassureDelivery": "Livraison gratuite : retrait à l’exposition ou envoi via Vinted (environ 1 €)",
-      "reassureDate": "Livraison estimée : 27 novembre 2026",
+      "reassureDate": "Précommande jusqu’au 27 novembre 2026",
       "badgeEarlyBird": "Meilleur prix",
       "badgeBook": "Le livre seul",
       "donationEyebrow": "Soutenir sans acheter",
@@ -512,7 +517,18 @@
       "donationBody": "Un don, du montant de votre choix, nous aide à financer la mise en place de l’exposition à Paris, du 27 au 29 novembre 2026. Merci !",
       "questions": "Une question ?",
       "faqLink": "Voir la FAQ",
-      "reassureGift": "Offert avec chaque formule : -10 % sur un tirage à l’exposition"
+      "reassureGift": "Offert avec chaque formule : -10 % sur un tirage à l’exposition",
+      "closedTitle": "La précommande est terminée",
+      "closedBody": "Merci à toutes celles et ceux qui ont précommandé ! Les exemplaires restants seront en vente à l’exposition à Paris, du 27 au 29 novembre 2026."
+    },
+    "deadline": {
+      "daysLeft": "{count, plural, =0 {Précommande terminée} one {Dernier jour} other {# jours restants}}",
+      "until": "jusqu’au 27 novembre 2026",
+      "ended": "Précommande terminée le 27 novembre 2026"
+    },
+    "closed": {
+      "title": "La précommande est terminée",
+      "body": "Merci à toutes celles et ceux qui ont précommandé ! Les exemplaires restants seront en vente à l’exposition à Paris, du 27 au 29 novembre 2026."
     }
   },
   "bookPreorderSucces": {

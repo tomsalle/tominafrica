@@ -6,6 +6,7 @@ export function Faq() {
 
   const items = [
     { q: t('paymentQ'), a: t('paymentA'), placeholder: false },
+    { q: t('deadlineQ'), a: t('deadlineA'), placeholder: false },
     { q: t('deliveryQ'), a: t('deliveryA'), placeholder: false },
     { q: t('promoQ'), a: t('promoA'), placeholder: false },
     { q: t('goalQ'), a: t('goalA'), placeholder: false },

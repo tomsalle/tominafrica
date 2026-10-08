@@ -12,6 +12,7 @@ type TierPledgeFormProps = {
   tier: BookPreorderTierRow;
   checkoutEnabled: boolean;
   soldOut: boolean;
+  closed?: boolean;
 };
 
 /**
@@ -19,7 +20,7 @@ type TierPledgeFormProps = {
  * fixe, montant libre pour le don. Même forme d'état (idle/submitting/error)
  * que ExpositionForm.tsx, même redirection que CartView.tsx.
  */
-export function TierPledgeForm({ tier, checkoutEnabled, soldOut }: TierPledgeFormProps) {
+export function TierPledgeForm({ tier, checkoutEnabled, soldOut, closed = false }: TierPledgeFormProps) {
   const t = useTranslations('bookPreorder.form');
   const common = useTranslations('bookPreorder.tierCommon');
   const locale = useLocale();
@@ -67,6 +68,14 @@ export function TierPledgeForm({ tier, checkoutEnabled, soldOut }: TierPledgeFor
       setStatus('error');
       setError(t('genericError'));
     }
+  }
+
+  if (closed) {
+    return (
+      <Button type="button" variant="outline" className="w-full" disabled>
+        {common('closed')}
+      </Button>
+    );
   }
 
   if (!checkoutEnabled) {

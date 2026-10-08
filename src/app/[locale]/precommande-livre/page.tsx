@@ -65,8 +65,11 @@ export default async function BookPreorderPage({
 
   // Simulation locale uniquement : en production, l'URL n'est jamais lue
   // (la page reste mise en cache).
-  const simulationParam = process.env.NODE_ENV === 'development' ? (await searchParams).simulation : undefined;
-  const { simulated, progress, contributions, stepState, offer } = await loadPreorderData(simulationParam);
+  const devParams = process.env.NODE_ENV === 'development' ? await searchParams : {};
+  const { simulated, progress, contributions, stepState, offer, closed, daysLeft } = await loadPreorderData(
+    devParams.simulation,
+    devParams.cloture,
+  );
 
   const t = await getTranslations('bookPreorder');
   const photos = await getTranslations('notreAventure');
@@ -127,6 +130,8 @@ export default async function BookPreorderPage({
                 count={progress.bookUnitsTotal}
                 stepState={stepState}
                 ordersCount={progress.pledgesCount}
+                closed={closed}
+                daysLeft={daysLeft}
               />
             </div>
 
@@ -138,8 +143,8 @@ export default async function BookPreorderPage({
       </div>
 
       <StickyTabNav
-        ctaHref={ctaHref}
-        priceLabel={offer ? `${t('product.name')} · ${formatPrice(offer.priceCents)}` : null}
+        ctaHref={closed ? null : ctaHref}
+        priceLabel={offer && !closed ? `${t('product.name')} · ${formatPrice(offer.priceCents)}` : null}
       />
 
       <Container className="pt-12">
@@ -191,19 +196,21 @@ export default async function BookPreorderPage({
 
               <h3 className="text-lg font-medium text-paper">{t('specs.title')}</h3>
               <ul className="mt-4 space-y-3 text-base leading-relaxed text-paper-dim">
-                {(['pages', 'format', 'printRun', 'delivery'] as const).map((key) => (
+                {(['pages', 'format', 'printRun', 'deadline', 'delivery'] as const).map((key) => (
                   <SpecLine key={key} text={t(`specs.${key}`, { count: stepState.target })} />
                 ))}
               </ul>
 
-              <div className="mt-10">
-                <Link
-                  href={ctaHref}
-                  className="inline-flex min-h-12 items-center justify-center bg-brand px-8 text-xs font-medium tracking-[0.24em] text-paper uppercase transition-[background-color,transform] duration-200 hover:bg-brand-hover active:scale-[0.98]"
-                >
-                  {t('product.cta')}
-                </Link>
-              </div>
+              {closed ? null : (
+                <div className="mt-10">
+                  <Link
+                    href={ctaHref}
+                    className="inline-flex min-h-12 items-center justify-center bg-brand px-8 text-xs font-medium tracking-[0.24em] text-paper uppercase transition-[background-color,transform] duration-200 hover:bg-brand-hover active:scale-[0.98]"
+                  >
+                    {t('product.cta')}
+                  </Link>
+                </div>
+              )}
             </section>
 
             <BudgetBreakdown bookCount={stepState.target} />
@@ -222,21 +229,30 @@ export default async function BookPreorderPage({
                 <Image src={BOOK_IMAGE} alt="" fill sizes="18rem" className="object-contain" />
               </div>
               <p className="mt-4 font-display text-2xl font-light text-paper">{t('product.name')}</p>
-              {offer ? (
-                <p className="mt-1 flex items-baseline gap-2 text-paper tabular-nums">
-                  <span className="text-lg">{formatPrice(offer.priceCents)}</span>
-                  {offer.compareAtCents ? (
-                    <span className="text-sm text-paper-faint line-through">{formatPrice(offer.compareAtCents)}</span>
+              {closed ? (
+                <p className="mt-3 text-sm text-paper-dim">{t('closed.title')}</p>
+              ) : (
+                <>
+                  {offer ? (
+                    <p className="mt-1 flex items-baseline gap-2 text-paper tabular-nums">
+                      <span className="text-lg">{formatPrice(offer.priceCents)}</span>
+                      {offer.compareAtCents ? (
+                        <span className="text-sm text-paper-faint line-through">{formatPrice(offer.compareAtCents)}</span>
+                      ) : null}
+                    </p>
                   ) : null}
-                </p>
-              ) : null}
-              <Link
-                href={ctaHref}
-                className="mt-5 flex min-h-12 items-center justify-center bg-brand px-4 text-[0.6875rem] font-medium tracking-[0.2em] text-paper uppercase transition-[background-color,transform] duration-200 hover:bg-brand-hover active:scale-[0.98]"
-              >
-                {t('product.cta')}
-              </Link>
-              <p className="mt-3 text-center text-[0.6875rem] text-paper-faint">{t('product.formulasHint')}</p>
+                  <Link
+                    href={ctaHref}
+                    className="mt-5 flex min-h-12 items-center justify-center bg-brand px-4 text-[0.6875rem] font-medium tracking-[0.2em] text-paper uppercase transition-[background-color,transform] duration-200 hover:bg-brand-hover active:scale-[0.98]"
+                  >
+                    {t('product.cta')}
+                  </Link>
+                  <p className="mt-3 text-center text-[0.6875rem] text-paper-faint">{t('product.formulasHint')}</p>
+                  <p className="mt-4 border-t border-ink-line pt-3 text-center text-xs text-paper-dim">
+                    {t('deadline.daysLeft', { count: daysLeft })} · {t('deadline.until')}
+                  </p>
+                </>
+              )}
             </div>
           </aside>
         </div>

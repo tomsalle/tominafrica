@@ -40,9 +40,13 @@ export default async function BookFormulasPage({
 }) {
   if (BOOK_PREORDER_PAGE_DISABLED) notFound();
 
-  const simulationParam = process.env.NODE_ENV === 'development' ? (await searchParams).simulation : undefined;
-  const { simulated, formulas, donationTier, offer } = await loadPreorderData(simulationParam);
+  const devParams = process.env.NODE_ENV === 'development' ? await searchParams : {};
+  const { simulated, formulas, donationTier, offer, closed, daysLeft } = await loadPreorderData(
+    devParams.simulation,
+    devParams.cloture,
+  );
   const t = await getTranslations('bookPreorder.chooser');
+  const deadline = await getTranslations('bookPreorder.deadline');
   const checkoutEnabled = isCheckoutEnabled();
 
   // Le livre seul (l'offre du moment) en premier, puis les autres formules
@@ -59,7 +63,10 @@ export default async function BookFormulasPage({
     { icon: GiftIcon, text: t('reassureGift') },
     { icon: CheckIcon, text: t('reassurePayment') },
     { icon: CheckIcon, text: t('reassureDelivery') },
-    { icon: CalendarIcon, text: t('reassureDate') },
+    {
+      icon: CalendarIcon,
+      text: `${t('reassureDate')} · ${deadline('daysLeft', { count: daysLeft })}`,
+    },
   ];
 
   return (
@@ -73,14 +80,21 @@ export default async function BookFormulasPage({
         <h1 className="mt-6 font-display text-4xl leading-tight font-light text-paper sm:text-6xl">{t('title')}</h1>
         <p className="mt-4 max-w-2xl text-base leading-relaxed text-paper-dim sm:text-lg">{t('intro')}</p>
 
-        <ul className="mt-8 flex flex-col gap-3 text-sm text-paper-dim sm:flex-row sm:flex-wrap sm:gap-x-8">
-          {reassurance.map(({ icon: Icon, text }, index) => (
-            <li key={text} className={`flex items-center gap-2 ${index === 0 ? 'text-paper' : ''}`}>
-              <Icon className="size-4 shrink-0 text-brand-text" />
-              {text}
-            </li>
-          ))}
-        </ul>
+        {closed ? (
+          <div role="status" className="mt-8 max-w-2xl border border-brand bg-ink-soft px-5 py-4">
+            <p className="text-base text-paper">{t('closedTitle')}</p>
+            <p className="mt-1 text-sm leading-relaxed text-paper-dim">{t('closedBody')}</p>
+          </div>
+        ) : (
+          <ul className="mt-8 flex flex-col gap-3 text-sm text-paper-dim sm:flex-row sm:flex-wrap sm:gap-x-8">
+            {reassurance.map(({ icon: Icon, text }, index) => (
+              <li key={text} className={`flex items-center gap-2 ${index === 0 ? 'text-paper' : ''}`}>
+                <Icon className="size-4 shrink-0 text-brand-text" />
+                {text}
+              </li>
+            ))}
+          </ul>
+        )}
 
         <div className="mt-12 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {soldOutLast.map((tier) => {
@@ -90,8 +104,9 @@ export default async function BookFormulasPage({
                 key={tier.id}
                 tier={tier}
                 checkoutEnabled={checkoutEnabled}
+                closed={closed}
                 compareAtCents={isOffer ? offer?.compareAtCents : null}
-                badge={isOffer ? (offer?.compareAtCents ? t('badgeEarlyBird') : t('badgeBook')) : null}
+                badge={isOffer && !closed ? (offer?.compareAtCents ? t('badgeEarlyBird') : t('badgeBook')) : null}
               />
             );
           })}
@@ -114,7 +129,7 @@ export default async function BookFormulasPage({
               <p className="mt-4 max-w-xl text-base leading-relaxed text-paper-dim">{t('donationBody')}</p>
             </div>
             <div className="lg:pt-10">
-              <TierPledgeForm tier={donationTier} checkoutEnabled={checkoutEnabled} soldOut={false} />
+              <TierPledgeForm tier={donationTier} checkoutEnabled={checkoutEnabled} soldOut={false} closed={closed} />
             </div>
           </section>
         ) : null}
