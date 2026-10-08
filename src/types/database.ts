@@ -426,7 +426,7 @@ export type Database = {
         }[];
       };
       exhibition_registration_exists: {
-        Args: { p_email: string; p_phone: string };
+        Args: { p_first_name: string; p_email: string; p_phone: string };
         Returns: boolean;
       };
       get_book_preorder_progress: {

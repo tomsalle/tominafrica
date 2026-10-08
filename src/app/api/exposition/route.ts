@@ -41,13 +41,14 @@ export async function POST(request: Request) {
     return NextResponse.json({ ok: true });
   }
 
-  // Déjà inscrit (même e-mail ou même téléphone) : on ne crée pas de doublon.
+  // Déjà inscrit (même prénom, et même e-mail ou même téléphone) : on ne crée
+  // pas de doublon. Le prénom compte : une famille partage souvent un e-mail.
   // Si la vérification échoue, on enregistre quand même — mieux vaut un
   // doublon qu'une inscription perdue.
   try {
     const { data: alreadyRegistered, error: checkError } = await createAdminClient().rpc(
       'exhibition_registration_exists',
-      { p_email: email, p_phone: phone },
+      { p_first_name: firstName, p_email: email, p_phone: phone },
     );
     if (checkError) throw checkError;
     if (alreadyRegistered) {
