@@ -324,10 +324,9 @@
     "metaTitle": "Pre-order the book",
     "metaDescription": "Pre-order Tom in Africa’s photography book — limited edition, crowdfunded.",
     "nav": {
-      "book": "Campaign",
-      "tiers": "Rewards",
+      "book": "The book",
       "faq": "FAQ",
-      "contribute": "Contribute"
+      "cta": "Pre-order"
     },
     "hero": {
       "eyebrow": "Pre-order",
@@ -335,17 +334,11 @@
       "subtitle": "The book of the journey!"
     },
     "progress": {
-      "count": "{count} pre-orders out of {goal}",
-      "pledgesCount": "{count, plural, one {# contribution} other {# contributions}}",
-      "ctaFrom": "Contribute, starting at {price}",
-      "secureNote": "Secure payment by Stripe",
       "share": "Share",
       "countLabel": "pre-orders out of {goal}",
-      "contribute": "Contribute",
-      "from": "Starting at {price}",
-      "deliveryShort": "Delivery Nov. 2026",
       "stepChip": "Step {current}",
-      "allStepsReached": "All goals reached"
+      "allStepsReached": "All goals reached",
+      "ordersCount": "{count, plural, =0 {No orders yet} one {# order} other {# orders}}"
     },
     "about": {
       "title": "About this campaign",
@@ -379,28 +372,18 @@
       "title": "Follow the project",
       "placeholder": "Links coming soon: website, Instagram."
     },
-    "tiersIntro": "Support the campaign and receive rewards in return.",
     "tierCommon": {
       "soldOut": "Sold out",
-      "remaining": "{count, plural, one {# left} other {# left}}",
-      "donationLabel": "Any amount",
-      "choose": "Choose",
-      "featured": "Featured reward",
-      "priceFor": "For {price}",
-      "allTiers": "All rewards",
-      "available": "{count} available",
-      "reserved": "{count} reserved",
-      "deliveryChip": "November 2026",
-      "donationTitle": "Make a donation"
+      "remaining": "{count, plural, one {# left} other {# left}}"
     },
     "tiers": {
       "early-bird": {
-        "name": "Early bird",
-        "description": "The book alone — limited to the first 15 backers."
+        "name": "The book · Early bird",
+        "description": "The book on its own, at the price reserved for the first 15."
       },
       "livre": {
         "name": "The book",
-        "description": "The book alone."
+        "description": "The book on its own."
       },
       "livre-cartes-postales": {
         "name": "The book + 2 postcards",
@@ -438,6 +421,8 @@
       "paymentA": "Yes, your card is charged immediately when you pre-order — there’s no deferred confirmation step.",
       "deliveryQ": "When will I receive my book?",
       "deliveryA": "The book will be available from 27 November 2026, the opening night. If you chose pick-up, it will be waiting for you at the exhibition. For shipping, I will get in touch to arrange it via Vinted: you only pay the delivery on the app (about €1).",
+      "promoQ": "How does the 10% print code work?",
+      "promoA": "Every purchase of a book or an option gives you a personal promo code, sent in the confirmation email. It gives 10% off a photo print of your choice, bought on site at the exhibition in Paris (27 — 29 November 2026). It can be used once and is not valid online.",
       "goalQ": "What happens if the goal isn’t reached?",
       "goalA": "Your book will be printed and shipped no matter what. Even if the goal isn’t reached, the printing still goes ahead: the remaining copies will be sold at the exhibition in Paris.",
       "contactQ": "Another question?",
@@ -445,8 +430,8 @@
     },
     "howItWorks": {
       "title": "How it works",
-      "p1": "You pre-order one or more copies of the book, at a fixed price for each reward tier. Payment is secured by Stripe — no card details ever pass through this site.",
-      "p2": "The more pre-orders, the stronger the project: every contribution directly helps fund the printing and what comes next."
+      "p1": "You pre-order one or more copies of the book, on its own or with postcards, the exhibition poster or a print. Payment is secured by Stripe — no card details ever pass through this site.",
+      "p2": "The more pre-orders, the stronger the project: every copy directly helps fund the printing."
     },
     "form": {
       "genericError": "Something went wrong. Please try again in a moment.",
@@ -461,15 +446,14 @@
       "publicNameLabel": "Display name",
       "publicNamePlaceholder": "Anonymous if left blank",
       "publicMessageLabel": "Your message",
-      "publicMessageHelp": "Visible to everyone in the contributions."
+      "publicMessageHelp": "Visible to everyone in the pre-order list."
     },
-    "tiersTitle": "Rewards",
     "contributions": {
-      "title": "{count, plural, =0 {Contributions} one {# contribution} other {# contributions}}",
+      "title": "{count, plural, =0 {Pre-orders} one {# pre-order} other {# pre-orders}}",
       "anonymous": "Someone anonymous",
-      "choseTier": "chose the reward",
+      "choseTier": "pre-ordered",
       "donated": "made a donation",
-      "empty": "No contributions yet. Be the first to support the book."
+      "empty": "No pre-orders yet. Be the first to pre-order the book."
     },
     "steps": {
       "title": "Pre-order steps",
@@ -495,14 +479,43 @@
         "p6263": "Pages 62 and 63: the story of the twins and their mirror photograph",
         "p6465": "Pages 64 and 65: a turban against purple at Agbodrafo Beach, and a boy at the window of a ruin",
         "p7475": "Pages 74 and 75: the children of Drabo village, against ochre walls"
-      }
+      },
+      "caption": "A few pages from the book (draft layouts)."
+    },
+    "product": {
+      "eyebrow": "Pre-order",
+      "name": "The book",
+      "tagline": "112 pages · two perspectives, a mother’s and her son’s.",
+      "earlyBirdLeft": "{count, plural, one {Early bird price · only # copy left} other {Early bird price · only # copies left}}",
+      "cta": "Pre-order the book",
+      "reassurance": "Secure payment · Free delivery",
+      "imageAlt": "The book “1 Mother, 1 Son, 1 Dream”",
+      "formulasHint": "On its own, or with postcards, the poster or a print.",
+      "gift": "Free gift: 10% off a print at the exhibition"
+    },
+    "chooser": {
+      "metaTitle": "Choose your option",
+      "back": "← The book",
+      "title": "Choose your option",
+      "intro": "The book on its own, or with postcards, the exhibition poster or a print. Every option counts towards the pre-order.",
+      "reassurePayment": "Secure payment by Stripe",
+      "reassureDelivery": "Free delivery: pick-up at the exhibition or shipping via Vinted (about €1)",
+      "reassureDate": "Estimated delivery: 27 November 2026",
+      "badgeEarlyBird": "Best price",
+      "badgeBook": "The book only",
+      "donationEyebrow": "Support without buying",
+      "donationTitle": "Make a donation for the exhibition",
+      "donationBody": "A donation of any amount helps us set up the exhibition in Paris, 27 — 29 November 2026. Thank you!",
+      "questions": "Any question?",
+      "faqLink": "See the FAQ",
+      "reassureGift": "With every option: 10% off a print at the exhibition"
     }
   },
   "bookPreorderSucces": {
     "metaTitle": "Pre-order confirmed",
     "eyebrow": "Thank you",
     "title": "Your pre-order is confirmed.",
-    "body": "A confirmation e-mail has just been sent to you. You’ll be kept posted on the project’s progress and the shipping date.",
+    "body": "A confirmation email is on its way, with your code for 10% off a print at the exhibition. We will keep you posted on the project.",
     "note": "A question about your pre-order? Just reply to the confirmation e-mail.",
     "cta": "Back to the pre-order page"
   },

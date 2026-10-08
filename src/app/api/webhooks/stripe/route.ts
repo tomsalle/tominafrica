@@ -2,6 +2,7 @@ import { NextResponse } from 'next/server';
 import type Stripe from 'stripe';
 import { isContactFormEnabled, serverEnv } from '@/lib/env';
 import { bookPreorderConfirmationEmail } from '@/lib/book-preorder/confirmation-email';
+import { generateExpoPromoCode } from '@/lib/book-preorder/expo-promo';
 import { orderConfirmationEmail, orderNotificationEmail } from '@/lib/orders/confirmation-email';
 import { CONTACT_FROM_ADDRESS, getResend } from '@/lib/resend/server';
 import { getStripe } from '@/lib/stripe/server';
@@ -396,6 +397,7 @@ async function handleBookPreorderCompleted(session: Stripe.Checkout.Session) {
   const shipping = session.collected_information?.shipping_details ?? null;
   const address = shipping?.address ?? session.customer_details?.address ?? null;
   const quantity = Number(session.metadata?.quantity ?? '1');
+  const expoPromoCode = tier.is_donation ? null : generateExpoPromoCode();
 
   const { error: pledgeError } = await supabase.from('book_preorder_pledges').insert({
     tier_id: tier.id,
@@ -423,6 +425,7 @@ async function handleBookPreorderCompleted(session: Stripe.Checkout.Session) {
     notes: deliveryNote(session),
     public_name: session.metadata?.publicName?.trim().slice(0, 60) || null,
     public_message: session.metadata?.publicMessage?.trim().slice(0, 280) || null,
+    expo_promo_code: expoPromoCode,
     paid_at: new Date().toISOString(),
   });
 
@@ -467,6 +470,7 @@ async function handleBookPreorderCompleted(session: Stripe.Checkout.Session) {
           deliveryNote(session) ?? (tier.is_donation ? 'Livraison : aucune (don)' : 'Livraison : non précisée'),
           email,
           session.customer_details?.phone ? `Téléphone : ${session.customer_details.phone}` : null,
+          expoPromoCode ? `Code -10 % tirage à l’expo : ${expoPromoCode}` : null,
         ]
           .filter(Boolean)
           .join('\n'),
@@ -491,6 +495,7 @@ async function handleBookPreorderCompleted(session: Stripe.Checkout.Session) {
         amountCents: session.amount_total ?? 0,
         isDonation: tier.is_donation,
         delivery: delivery === 'retraitexposition' || delivery === 'envoivinted' ? delivery : null,
+        expoPromoCode,
       });
 
       const { error: sendError } = await getResend().emails.send({

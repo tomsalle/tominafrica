@@ -49,6 +49,15 @@ export function BoxIcon(props: IconProps) {
   );
 }
 
+export function GiftIcon(props: IconProps) {
+  return (
+    <Icon {...props}>
+      <rect x="3.5" y="8" width="17" height="4" rx="1" />
+      <path d="M5 12v8h14v-8M12 8v12M12 8S10.5 3.5 8 4.2C6 4.8 6.6 8 12 8ZM12 8s1.5-4.5 4-3.8C18 4.8 17.4 8 12 8Z" />
+    </Icon>
+  );
+}
+
 export function HeartIcon(props: IconProps) {
   return (
     <Icon {...props}>

@@ -126,7 +126,7 @@ export async function POST(request: Request) {
             ],
           }),
       success_url: `${siteUrl}${localePath}/precommande-livre/succes?session_id={CHECKOUT_SESSION_ID}`,
-      cancel_url: `${siteUrl}${localePath}/precommande-livre`,
+      cancel_url: `${siteUrl}${localePath}/precommande-livre/formules`,
       // Seul discriminant lu par le webhook — jamais posé par /api/checkout,
       // donc sans effet sur les commandes de tirages.
       metadata: {

@@ -324,10 +324,9 @@
     "metaTitle": "Précommander le livre",
     "metaDescription": "Précommandez le livre photographique de Tom in Africa — édition limitée, financement participatif.",
     "nav": {
-      "book": "Collecte",
-      "tiers": "Contreparties",
+      "book": "Le livre",
       "faq": "FAQ",
-      "contribute": "Contribuer"
+      "cta": "Précommander"
     },
     "hero": {
       "eyebrow": "Précommande",
@@ -335,17 +334,11 @@
       "subtitle": "Le livre de l’aventure !"
     },
     "progress": {
-      "count": "{count} préventes sur {goal}",
-      "pledgesCount": "{count, plural, one {# contribution} other {# contributions}}",
-      "ctaFrom": "Contribuer, à partir de {price}",
-      "secureNote": "Paiement sécurisé par Stripe",
       "share": "Partager",
       "countLabel": "préventes sur {goal}",
-      "contribute": "Contribuer",
-      "from": "À partir de {price}",
-      "deliveryShort": "Livraison nov. 2026",
       "stepChip": "Étape {current}",
-      "allStepsReached": "Tous les objectifs atteints"
+      "allStepsReached": "Tous les objectifs atteints",
+      "ordersCount": "{count, plural, =0 {Aucune commande pour l’instant} one {# commande} other {# commandes}}"
     },
     "about": {
       "title": "À propos de cette collecte",
@@ -379,24 +372,14 @@
       "title": "Suivre le projet",
       "placeholder": "Liens à venir : site, Instagram."
     },
-    "tiersIntro": "Soutenez la collecte et recevez des contreparties en échange.",
     "tierCommon": {
       "soldOut": "Épuisé",
-      "remaining": "{count, plural, one {# restant} other {# restants}}",
-      "donationLabel": "Montant libre",
-      "choose": "Choisir",
-      "featured": "Contrepartie à la une",
-      "priceFor": "Pour {price}",
-      "allTiers": "Toutes les contreparties",
-      "available": "{count, plural, one {# disponible} other {# disponibles}}",
-      "reserved": "{count, plural, one {# réservé} other {# réservés}}",
-      "deliveryChip": "Novembre 2026",
-      "donationTitle": "Faire un don"
+      "remaining": "{count, plural, one {# restant} other {# restants}}"
     },
     "tiers": {
       "early-bird": {
-        "name": "Early bird",
-        "description": "Le livre seul — réservé aux 15 premiers soutiens."
+        "name": "Le livre · Early bird",
+        "description": "Le livre seul, au prix réservé aux 15 premiers."
       },
       "livre": {
         "name": "Le livre",
@@ -438,6 +421,8 @@
       "paymentA": "Oui, votre carte est débitée immédiatement à la précommande — il n’y a pas d’étape de validation différée.",
       "deliveryQ": "Quand vais-je recevoir mon livre ?",
       "deliveryA": "Le livre sera disponible à partir du 27 novembre 2026, jour du vernissage. Si vous avez choisi le retrait, il vous attend à l’exposition. Pour un envoi, je vous contacte pour l’organiser via Vinted : vous ne payez que l’expédition sur l’application (environ 1 €).",
+      "promoQ": "Comment fonctionne le code -10 % sur un tirage ?",
+      "promoA": "Chaque achat d’un livre ou d’une formule vous donne un code promo personnel, envoyé dans l’e-mail de confirmation. Il offre -10 % sur un tirage photo de votre choix, acheté sur place à l’exposition à Paris (du 27 au 29 novembre 2026). Il est utilisable une fois et n’est pas valable en ligne.",
       "goalQ": "Que se passe-t-il si l’objectif n’est pas atteint ?",
       "goalA": "Votre livre sera imprimé et envoyé quoi qu’il arrive. Même si l’objectif n’est pas atteint, l’impression a bien lieu : les exemplaires restants seront mis en vente lors de l’exposition à Paris.",
       "contactQ": "Une autre question ?",
@@ -445,8 +430,8 @@
     },
     "howItWorks": {
       "title": "Comment ça marche",
-      "p1": "Vous précommandez un ou plusieurs exemplaires du livre, à un tarif fixé pour chaque contrepartie. Le paiement est sécurisé par Stripe — aucune donnée bancaire ne transite par ce site.",
-      "p2": "Plus il y a de précommandes, plus le projet est solide : chaque contribution aide directement à financer l’impression et la suite du travail."
+      "p1": "Vous précommandez un ou plusieurs exemplaires du livre, seul ou avec des cartes postales, l’affiche de l’exposition ou un tirage. Le paiement est sécurisé par Stripe — aucune donnée bancaire ne transite par ce site.",
+      "p2": "Plus il y a de précommandes, plus le projet est solide : chaque exemplaire aide directement à financer l’impression."
     },
     "form": {
       "genericError": "Une erreur est survenue. Réessayez dans un instant.",
@@ -461,15 +446,14 @@
       "publicNameLabel": "Nom affiché",
       "publicNamePlaceholder": "Anonyme si vide",
       "publicMessageLabel": "Votre message",
-      "publicMessageHelp": "Visible par tous dans les contributions."
+      "publicMessageHelp": "Visible par tous dans la liste des précommandes."
     },
-    "tiersTitle": "Contreparties",
     "contributions": {
-      "title": "{count, plural, =0 {Contributions} one {# contribution} other {# contributions}}",
+      "title": "{count, plural, =0 {Les précommandes} one {# précommande} other {# précommandes}}",
       "anonymous": "Une personne anonyme",
-      "choseTier": "a choisi la contrepartie",
-      "donated": "a contribué par un don",
-      "empty": "Aucune contribution pour l’instant. Soyez la première personne à soutenir le livre."
+      "choseTier": "a précommandé",
+      "donated": "a fait un don",
+      "empty": "Aucune précommande pour l’instant. Soyez la première personne à précommander le livre."
     },
     "steps": {
       "title": "Les étapes de la prévente",
@@ -495,14 +479,43 @@
         "p6263": "Pages 62 et 63 : le récit des jumelles et leur photographie au miroir",
         "p6465": "Pages 64 et 65 : un turban sur fond violet à Agbodrafo Beach et un garçon à la fenêtre d’une ruine",
         "p7475": "Pages 74 et 75 : les enfants du village de Drabo, devant des murs ocre"
-      }
+      },
+      "caption": "Quelques pages du livre (maquettes provisoires)."
+    },
+    "product": {
+      "eyebrow": "Précommande",
+      "name": "Le livre",
+      "tagline": "112 pages · deux regards, celui d’une mère et celui de son fils.",
+      "earlyBirdLeft": "{count, plural, one {Prix early bird · plus que # exemplaire} other {Prix early bird · plus que # exemplaires}}",
+      "cta": "Précommander le livre",
+      "reassurance": "Paiement sécurisé · Livraison gratuite",
+      "imageAlt": "Le livre « 1 Mère, 1 Fils, 1 Rêve »",
+      "formulasHint": "Seul, ou avec cartes postales, affiche ou tirage.",
+      "gift": "Offert : -10 % sur un tirage à l’exposition"
+    },
+    "chooser": {
+      "metaTitle": "Choisir votre formule",
+      "back": "← Le livre",
+      "title": "Choisissez votre formule",
+      "intro": "Le livre seul, ou accompagné de cartes postales, de l’affiche de l’exposition ou d’un tirage. Chaque formule compte pour la précommande.",
+      "reassurePayment": "Paiement sécurisé par Stripe",
+      "reassureDelivery": "Livraison gratuite : retrait à l’exposition ou envoi via Vinted (environ 1 €)",
+      "reassureDate": "Livraison estimée : 27 novembre 2026",
+      "badgeEarlyBird": "Meilleur prix",
+      "badgeBook": "Le livre seul",
+      "donationEyebrow": "Soutenir sans acheter",
+      "donationTitle": "Faire un don pour l’exposition",
+      "donationBody": "Un don, du montant de votre choix, nous aide à financer la mise en place de l’exposition à Paris, du 27 au 29 novembre 2026. Merci !",
+      "questions": "Une question ?",
+      "faqLink": "Voir la FAQ",
+      "reassureGift": "Offert avec chaque formule : -10 % sur un tirage à l’exposition"
     }
   },
   "bookPreorderSucces": {
     "metaTitle": "Précommande confirmée",
     "eyebrow": "Merci",
     "title": "Votre précommande est confirmée.",
-    "body": "Un e-mail de confirmation vient de vous être envoyé. Vous serez tenu·e informé·e de l’avancée du projet et de la date d’expédition.",
+    "body": "Un e-mail de confirmation vient de vous être envoyé, avec votre code de -10 % sur un tirage à l’exposition. Vous serez tenu·e informé·e de l’avancée du projet.",
     "note": "Une question sur votre précommande ? Répondez simplement à l’e-mail de confirmation.",
     "cta": "Retour à la précommande"
   },

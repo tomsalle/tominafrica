@@ -2,30 +2,29 @@ import type { Metadata } from 'next';
 import Image from 'next/image';
 import { getTranslations } from 'next-intl/server';
 import { notFound } from 'next/navigation';
+import { BookOfferPanel, FORMULAS_PATH } from '@/components/book-preorder/BookOfferPanel';
 import { BookSlideshow } from '@/components/book-preorder/BookSlideshow';
 import { BudgetBreakdown } from '@/components/book-preorder/BudgetBreakdown';
 import { ContributionsList } from '@/components/book-preorder/ContributionsList';
 import { Faq } from '@/components/book-preorder/Faq';
-import { HeroPanel } from '@/components/book-preorder/HeroPanel';
 import { PreorderSteps } from '@/components/book-preorder/PreorderSteps';
 import { ShareButton } from '@/components/book-preorder/ShareButton';
 import { ShippingInfo } from '@/components/book-preorder/ShippingInfo';
+import { SimulationBanner } from '@/components/book-preorder/SimulationBanner';
 import { StickyTabNav } from '@/components/book-preorder/StickyTabNav';
-import { TierCard } from '@/components/book-preorder/TierCard';
-import { TierPledgeForm } from '@/components/book-preorder/TierPledgeForm';
 import { Container } from '@/components/ui/Container';
 import { HandwrittenTitle } from '@/components/ui/HandwrittenTitle';
 import { Prose } from '@/components/ui/Prose';
-import { getPreorderStepState } from '@/lib/book-preorder/config';
+import { Link } from '@/i18n/navigation';
 import { BOOK_PREORDER_PAGE_DISABLED } from '@/lib/book-preorder/flags';
-import { getBookPreorderProgress, getPublicContributions, getPublishedTiers } from '@/lib/book-preorder/queries';
-import { readSimulation, simulatePreorder } from '@/lib/book-preorder/simulation';
-import { isEarlyBirdAvailable, visibleTiers } from '@/lib/book-preorder/tiers';
-import { isCheckoutEnabled } from '@/lib/env';
+import { loadPreorderData } from '@/lib/book-preorder/page-data';
+import { formatPrice } from '@/lib/format';
 import { languageAlternates } from '@/i18n/alternates';
 
 // La jauge doit rester à jour — pas une page figée une heure comme le catalogue.
 export const revalidate = 60;
+
+const BOOK_IMAGE = '/precommande-livre/formules/livre.avif';
 
 // Extraits du livre (maquettes provisoires), dans l'ordre des pages.
 const BOOK_SPREADS = [
@@ -53,10 +52,9 @@ export async function generateMetadata({
 }
 
 /**
- * Page de précommande calquée, bloc pour bloc, sur une collecte Ulule
- * (fr.ulule.com/lueur) : bandeau, carte d'en-tête (titre, visuel, compteur,
- * porteur), onglets collants, puis la collecte à gauche et les contreparties
- * à droite. Seules la palette et les polices sont celles du site.
+ * Page 1 de la précommande : le livre. Un seul article mis en avant, visible
+ * sans défiler, avec un seul bouton qui mène au choix de la formule (page 2).
+ * Le reste de la page raconte le livre.
  */
 export default async function BookPreorderPage({
   searchParams,
@@ -65,53 +63,20 @@ export default async function BookPreorderPage({
 }) {
   if (BOOK_PREORDER_PAGE_DISABLED) notFound();
 
-  // Simulation locale uniquement : en production, les paramètres d'URL ne
-  // sont jamais lus (la page reste mise en cache).
-  const simulated =
-    process.env.NODE_ENV === 'development' ? readSimulation((await searchParams).simulation) : null;
+  // Simulation locale uniquement : en production, l'URL n'est jamais lue
+  // (la page reste mise en cache).
+  const simulationParam = process.env.NODE_ENV === 'development' ? (await searchParams).simulation : undefined;
+  const { simulated, progress, contributions, stepState, offer } = await loadPreorderData(simulationParam);
 
   const t = await getTranslations('bookPreorder');
   const photos = await getTranslations('notreAventure');
-  const checkoutEnabled = isCheckoutEnabled();
-  const [realTiers, realProgress, realContributions] = await Promise.all([
-    getPublishedTiers(),
-    getBookPreorderProgress(),
-    getPublicContributions(),
-  ]);
-
-  const simulation = simulated !== null ? simulatePreorder(simulated) : null;
-  const progress = simulation?.progress ?? realProgress;
-  const contributions = simulation?.contributions ?? realContributions;
-  // En simulation, l'early bird (stock limité) se remplit avec les préventes.
-  const tiers =
-    simulated !== null
-      ? realTiers.map((tier) =>
-          tier.stock_limit !== null ? { ...tier, claimed_count: Math.min(tier.stock_limit, simulated) } : tier,
-        )
-      : realTiers;
-
-  // Early bird d'abord ; « Le livre » n'apparaît qu'une fois l'early bird épuisé.
-  const rewardTiers = visibleTiers(tiers).filter((tier) => !tier.is_donation);
-  const donationTier = tiers.find((tier) => tier.is_donation);
-  const isSoldOut = (tier: (typeof tiers)[number]) =>
-    tier.stock_limit !== null && tier.claimed_count >= tier.stock_limit;
-  const purchasable = rewardTiers.filter((tier) => !isSoldOut(tier));
-  const minPriceCents = purchasable.length > 0 ? Math.min(...purchasable.map((tier) => tier.price_cents)) : 0;
-  const stepState = getPreorderStepState(progress.bookUnitsTotal);
-  const featuredTier = isEarlyBirdAvailable(tiers)
-    ? rewardTiers.find((tier) => tier.slug === 'early-bird')
-    : (rewardTiers.find((tier) => tier.slug === 'livre') ?? purchasable[0]);
-  const otherTiers = rewardTiers.filter((tier) => tier.id !== featuredTier?.id);
+  const ctaHref = simulated !== null ? `${FORMULAS_PATH}?simulation=${simulated}` : FORMULAS_PATH;
 
   return (
     <div className="pb-28">
-      {simulated !== null ? (
-        <p className="fixed bottom-4 left-1/2 z-60 -translate-x-1/2 bg-brand px-4 py-2 text-xs font-medium tracking-[0.14em] text-paper uppercase">
-          Simulation locale · {simulated} préventes · aucune donnée réelle
-        </p>
-      ) : null}
+      {simulated !== null ? <SimulationBanner count={simulated} /> : null}
 
-      {/* En-tête : bandeau de couverture + carte qui le chevauche */}
+      {/* En-tête : bandeau + carte qui le chevauche, avec l'article et son bouton. */}
       <div className="relative pt-16 pb-10 sm:pt-20">
         <div className="absolute inset-x-0 top-16 h-72 overflow-hidden sm:top-20 sm:h-96">
           <video
@@ -128,38 +93,40 @@ export default async function BookPreorderPage({
           <div className="absolute inset-0 bg-linear-to-b from-ink/10 via-ink/30 to-ink" />
         </div>
 
-        <Container className="relative pt-40 sm:pt-56">
-          <div className="border border-ink-line bg-ink-soft px-5 py-8 sm:px-10 sm:py-10">
+        <Container className="relative pt-16 sm:pt-20">
+          <div className="border border-ink-line bg-ink-soft px-5 py-7 sm:px-10 sm:py-8">
             <header className="text-center">
               <h1>
                 <HandwrittenTitle
                   text={t('hero.title')}
                   priority
-                  className="mx-auto w-[min(80vw,20rem)] sm:w-[30rem] lg:w-[34rem]"
+                  className="mx-auto w-[min(72vw,18rem)] sm:w-[24rem] lg:w-[26rem]"
                 />
               </h1>
-              <p className="mt-3 text-base text-paper-dim sm:text-lg">{t('hero.subtitle')}</p>
+              <p className="mt-2 text-base text-paper-dim sm:text-lg">{t('hero.subtitle')}</p>
             </header>
 
-            <div className="mt-8 grid grid-cols-1 gap-8 lg:mt-10 lg:grid-cols-[1fr_20rem] lg:gap-12">
-              <div className="relative aspect-[16/10] overflow-hidden bg-ink">
-                <BookSlideshow
-                  slides={[
-                    { src: '/precommande-livre/livre-ouvert.avif', alt: t('slideshow.cover'), label: t('slideshow.coverLabel') },
-                    ...BOOK_SPREADS.map((spread) => ({
-                      src: `/precommande-livre/extraits/${spread.file}.avif`,
-                      alt: t(`slideshow.spreads.${spread.key}`),
-                      label: spread.pages ? t('slideshow.pages', { pages: spread.pages }) : t('slideshow.extract'),
-                    })),
-                  ]}
+            <div className="mt-6 grid grid-cols-1 items-start gap-6 sm:mt-8 lg:grid-cols-[1fr_22rem] lg:gap-12">
+              <Link
+                href={ctaHref}
+                className="relative block h-44 overflow-hidden bg-white sm:h-72 lg:h-[23rem]"
+                aria-label={t('product.cta')}
+              >
+                <Image
+                  src={BOOK_IMAGE}
+                  alt={t('product.imageAlt')}
+                  fill
+                  priority
+                  sizes="(max-width: 1024px) 100vw, 44rem"
+                  className="object-contain"
                 />
-              </div>
+              </Link>
 
-              <HeroPanel
+              <BookOfferPanel
+                offer={offer}
                 count={progress.bookUnitsTotal}
                 stepState={stepState}
-                pledgesCount={progress.pledgesCount}
-                minPriceCents={minPriceCents}
+                ordersCount={progress.pledgesCount}
               />
             </div>
 
@@ -170,11 +137,13 @@ export default async function BookPreorderPage({
         </Container>
       </div>
 
-      <StickyTabNav />
+      <StickyTabNav
+        ctaHref={ctaHref}
+        priceLabel={offer ? `${t('product.name')} · ${formatPrice(offer.priceCents)}` : null}
+      />
 
       <Container className="pt-12">
-        <div className="grid grid-cols-1 gap-x-14 gap-y-20 lg:grid-cols-[1fr_22rem]">
-          {/* Collecte */}
+        <div className="grid grid-cols-1 gap-x-14 gap-y-20 lg:grid-cols-[1fr_18rem]">
           <div id="le-livre" className="min-w-0 scroll-mt-36 space-y-20">
             <section>
               <h2 className="font-display text-3xl font-light text-paper sm:text-4xl">{t('about.title')}</h2>
@@ -187,7 +156,22 @@ export default async function BookPreorderPage({
                 </Prose>
               </div>
 
-              <StoryPhoto src="/notre-aventure/vehicule-canyon.jpg" alt={photos('canyonPhotoAlt')} width={2000} height={1333} />
+              {/* Les pages du livre défilent seules, comme un GIF. */}
+              <figure className="my-10">
+                <div className="relative aspect-[16/10] overflow-hidden bg-ink">
+                  <BookSlideshow
+                    slides={[
+                      { src: '/precommande-livre/livre-ouvert.avif', alt: t('slideshow.cover'), label: t('slideshow.coverLabel') },
+                      ...BOOK_SPREADS.map((spread) => ({
+                        src: `/precommande-livre/extraits/${spread.file}.avif`,
+                        alt: t(`slideshow.spreads.${spread.key}`),
+                        label: spread.pages ? t('slideshow.pages', { pages: spread.pages }) : t('slideshow.extract'),
+                      })),
+                    ]}
+                  />
+                </div>
+                <figcaption className="mt-3 text-xs text-paper-faint">{t('slideshow.caption')}</figcaption>
+              </figure>
 
               <Prose>
                 <p>{t('about.p3')}</p>
@@ -211,55 +195,53 @@ export default async function BookPreorderPage({
                   <SpecLine key={key} text={t(`specs.${key}`, { count: stepState.target })} />
                 ))}
               </ul>
+
+              <div className="mt-10">
+                <Link
+                  href={ctaHref}
+                  className="inline-flex min-h-12 items-center justify-center bg-brand px-8 text-xs font-medium tracking-[0.24em] text-paper uppercase transition-[background-color,transform] duration-200 hover:bg-brand-hover active:scale-[0.98]"
+                >
+                  {t('product.cta')}
+                </Link>
+              </div>
             </section>
 
             <BudgetBreakdown bookCount={stepState.target} />
 
             <PreorderSteps count={progress.bookUnitsTotal} stepState={stepState} />
+
+            <ShippingInfo />
+
+            <ContributionsList contributions={contributions} total={progress.pledgesCount} />
           </div>
 
-          {/* Contreparties */}
-          <aside id="contreparties" className="scroll-mt-36">
-            <h2 className="font-display text-3xl font-light text-paper">{t('tiersTitle')}</h2>
-            <p className="mt-2 text-sm leading-relaxed text-paper-dim">{t('tiersIntro')}</p>
-
-            {featuredTier ? (
-              <div className="mt-6">
-                <TierCard tier={featuredTier} checkoutEnabled={checkoutEnabled} featured />
+          {/* Rappel collant (grand écran) : l'article et son bouton restent à portée. */}
+          <aside className="hidden lg:block">
+            <div className="sticky top-36 border border-ink-line bg-ink-soft p-5">
+              <div className="relative aspect-[4/3] overflow-hidden bg-white">
+                <Image src={BOOK_IMAGE} alt="" fill sizes="18rem" className="object-contain" />
               </div>
-            ) : null}
-
-            {otherTiers.length > 0 ? (
-              <>
-                <p className="mt-10 text-center text-sm font-medium text-paper">{t('tierCommon.allTiers')}</p>
-                <div className="mt-4 space-y-6">
-                  {otherTiers.map((tier) => (
-                    <TierCard key={tier.id} tier={tier} checkoutEnabled={checkoutEnabled} />
-                  ))}
-                </div>
-              </>
-            ) : null}
-
-            {donationTier ? (
-              <div className="mt-6 border border-ink-line bg-ink-soft p-5">
-                <h3 className="text-lg font-medium text-paper">{t('tierCommon.donationTitle')}</h3>
-                <p className="mt-1 mb-4 text-sm text-paper-dim">{t('tiers.don.description')}</p>
-                <TierPledgeForm tier={donationTier} checkoutEnabled={checkoutEnabled} soldOut={false} />
-              </div>
-            ) : null}
-
-            <div className="mt-10">
-              <ShippingInfo />
-            </div>
-
-            <div className="mt-10">
-              <ContributionsList contributions={contributions} total={progress.pledgesCount} />
+              <p className="mt-4 font-display text-2xl font-light text-paper">{t('product.name')}</p>
+              {offer ? (
+                <p className="mt-1 flex items-baseline gap-2 text-paper tabular-nums">
+                  <span className="text-lg">{formatPrice(offer.priceCents)}</span>
+                  {offer.compareAtCents ? (
+                    <span className="text-sm text-paper-faint line-through">{formatPrice(offer.compareAtCents)}</span>
+                  ) : null}
+                </p>
+              ) : null}
+              <Link
+                href={ctaHref}
+                className="mt-5 flex min-h-12 items-center justify-center bg-brand px-4 text-[0.6875rem] font-medium tracking-[0.2em] text-paper uppercase transition-[background-color,transform] duration-200 hover:bg-brand-hover active:scale-[0.98]"
+              >
+                {t('product.cta')}
+              </Link>
+              <p className="mt-3 text-center text-[0.6875rem] text-paper-faint">{t('product.formulasHint')}</p>
             </div>
           </aside>
         </div>
       </Container>
 
-      {/* FAQ */}
       <div id="faq" className="scroll-mt-36 pt-24">
         <Container>
           <div className="max-w-[46rem]">
@@ -277,7 +259,7 @@ export default async function BookPreorderPage({
   );
 }
 
-/** Grande photo entre deux paragraphes, comme les visuels intercalés d'Ulule. */
+/** Grande photo entre deux paragraphes. */
 function StoryPhoto({ src, alt, width, height }: { src: string; alt: string; width: number; height: number }) {
   return (
     <div className="my-10 bg-ink-soft">
@@ -286,7 +268,7 @@ function StoryPhoto({ src, alt, width, height }: { src: string; alt: string; wid
   );
 }
 
-/** « Format : … » → libellé en gras, comme les listes de caractéristiques d'Ulule. */
+/** « Format : … » → libellé en gras. */
 function SpecLine({ text }: { text: string }) {
   const separator = text.indexOf(' : ') >= 0 ? ' : ' : text.indexOf(': ') >= 0 ? ': ' : null;
   if (!separator) {

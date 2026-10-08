@@ -12,6 +12,7 @@ type ConfirmationInput = {
   amountCents: number;
   isDonation: boolean;
   delivery: Delivery;
+  expoPromoCode: string | null;
 };
 
 const euros = (cents: number, locale: 'fr' | 'en') =>
@@ -25,7 +26,7 @@ const ADDRESS = `${EXHIBITION.venue}, ${EXHIBITION.street}, ${EXHIBITION.postalC
  * Texte brut volontairement : lisible partout, rien à casser.
  */
 export function bookPreorderConfirmationEmail(input: ConfirmationInput): { subject: string; text: string } {
-  const { locale, firstName, tierName, quantity, amountCents, isDonation, delivery } = input;
+  const { locale, firstName, tierName, quantity, amountCents, isDonation, delivery, expoPromoCode } = input;
 
   if (locale === 'en') {
     const next = isDonation
@@ -41,12 +42,20 @@ export function bookPreorderConfirmationEmail(input: ConfirmationInput): { subje
         '',
         isDonation ? 'Thank you! Your donation has been received.' : 'Thank you! Your pre-order is confirmed.',
         '',
-        `Reward: ${tierName}`,
+        `Item: ${tierName}`,
         ...(isDonation ? [] : [`Quantity: ${quantity}`]),
         `Amount paid: ${euros(amountCents, locale)}`,
         '',
         next,
         ...(isDonation ? [] : ['', 'Estimated delivery: 27 November 2026, the opening night of the exhibition in Paris.']),
+        ...(expoPromoCode
+          ? [
+              '',
+              'Our gift to you: 10% off a print at the exhibition',
+              `Your code: ${expoPromoCode}`,
+              'Valid on one photo print of your choice, bought on site at the exhibition (27 — 29 November 2026). Just show this code when you buy. Single use, not valid online.',
+            ]
+          : []),
         '',
         'Any question? Simply reply to this email.',
         '',
@@ -69,12 +78,20 @@ export function bookPreorderConfirmationEmail(input: ConfirmationInput): { subje
       '',
       isDonation ? 'Merci ! Votre don est bien reçu.' : 'Merci ! Votre précommande est bien enregistrée.',
       '',
-      `Contrepartie : ${tierName}`,
+      `Article : ${tierName}`,
       ...(isDonation ? [] : [`Quantité : ${quantity}`]),
       `Montant payé : ${euros(amountCents, locale)}`,
       '',
       next,
       ...(isDonation ? [] : ['', 'Livraison estimée : 27 novembre 2026, jour du vernissage de l’exposition à Paris.']),
+      ...(expoPromoCode
+        ? [
+            '',
+            'Notre cadeau : -10 % sur un tirage à l’exposition',
+            `Votre code : ${expoPromoCode}`,
+            'Valable sur un tirage photo de votre choix, acheté sur place à l’exposition (du 27 au 29 novembre 2026). Présentez simplement ce code au moment de l’achat. Utilisable une fois, non valable en ligne.',
+          ]
+        : []),
       '',
       'Une question ? Répondez simplement à cet e-mail.',
       '',

@@ -2,15 +2,16 @@
 
 import { useTranslations } from 'next-intl';
 import { useEffect, useState } from 'react';
+import { Link } from '@/i18n/navigation';
 
-const SECTIONS = ['le-livre', 'contreparties', 'faq'] as const;
+const SECTIONS = ['le-livre', 'faq'] as const;
 type Section = (typeof SECTIONS)[number];
 
 /**
- * Barre d'onglets collante façon Ulule (Collecte / Contreparties / FAQ),
- * soulignement sur l'onglet de la section visible, bouton « Contribuer » à droite.
+ * Barre collante : deux repères (Le livre, FAQ) et, toujours à portée, le
+ * bouton qui mène au choix de la formule.
  */
-export function StickyTabNav() {
+export function StickyTabNav({ ctaHref, priceLabel }: { ctaHref: string; priceLabel: string | null }) {
   const t = useTranslations('bookPreorder.nav');
   const [active, setActive] = useState<Section>('le-livre');
 
@@ -32,16 +33,12 @@ export function StickyTabNav() {
     return () => observer.disconnect();
   }, []);
 
-  const labels: Record<Section, string> = {
-    'le-livre': t('book'),
-    contreparties: t('tiers'),
-    faq: t('faq'),
-  };
+  const labels: Record<Section, string> = { 'le-livre': t('book'), faq: t('faq') };
 
   return (
     <div className="sticky top-16 z-40 border-b border-ink-line bg-ink/95 backdrop-blur-md sm:top-20">
-      <div className="mx-auto flex w-full max-w-6xl items-center justify-between gap-6 px-5 sm:px-8">
-        <nav className="flex gap-7 overflow-x-auto">
+      <div className="mx-auto flex w-full max-w-6xl items-center justify-between gap-4 px-5 sm:px-8">
+        <nav className="flex gap-7">
           {SECTIONS.map((id) => (
             <a
               key={id}
@@ -62,12 +59,17 @@ export function StickyTabNav() {
           ))}
         </nav>
 
-        <a
-          href="#contreparties"
-          className="hidden shrink-0 items-center justify-center bg-brand px-8 py-2.5 text-[0.6875rem] font-medium tracking-[0.24em] text-paper uppercase transition-[background-color,transform] duration-200 hover:bg-brand-hover active:scale-[0.97] sm:inline-flex"
-        >
-          {t('contribute')}
-        </a>
+        <div className="flex items-center gap-4">
+          {priceLabel ? (
+            <span className="hidden text-sm text-paper-dim tabular-nums sm:inline">{priceLabel}</span>
+          ) : null}
+          <Link
+            href={ctaHref}
+            className="inline-flex shrink-0 items-center justify-center bg-brand px-5 py-2.5 text-[0.6875rem] font-medium tracking-[0.2em] text-paper uppercase transition-[background-color,transform] duration-200 hover:bg-brand-hover active:scale-[0.97] sm:px-8"
+          >
+            {t('cta')}
+          </Link>
+        </div>
       </div>
     </div>
   );
