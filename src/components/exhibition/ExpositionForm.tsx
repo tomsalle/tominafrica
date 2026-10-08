@@ -5,10 +5,19 @@ import { useState, type FormEvent } from 'react';
 import { Button } from '@/components/ui/Button';
 import { EXHIBITION_REGISTERED_KEY } from '@/lib/exhibition/event';
 
-type Status = 'idle' | 'submitting' | 'success' | 'error';
+type Status = 'idle' | 'submitting' | 'success' | 'already' | 'error';
 
 const FIELD_CLASS =
   'mt-2 w-full border-b border-ink-line bg-transparent py-2.5 text-sm text-paper placeholder:text-paper-faint transition-colors duration-300 focus:border-paper focus:outline-none';
+
+/** La pop-in d'invitation ne revient plus une fois la personne inscrite. */
+function rememberRegistration() {
+  try {
+    window.localStorage.setItem(EXHIBITION_REGISTERED_KEY, '1');
+  } catch {
+    // Stockage indisponible : la pop-in pourra simplement réapparaître.
+  }
+}
 
 export function ExpositionForm() {
   const t = useTranslations('expositionForm');
@@ -39,7 +48,16 @@ export function ExpositionForm() {
         }),
       });
 
-      const result = (await response.json().catch(() => null)) as { error?: string } | null;
+      const result = (await response.json().catch(() => null)) as {
+        error?: string;
+        alreadyRegistered?: boolean;
+      } | null;
+
+      if (result?.alreadyRegistered) {
+        setStatus('already');
+        rememberRegistration();
+        return;
+      }
 
       if (!response.ok) {
         setStatus('error');
@@ -49,22 +67,19 @@ export function ExpositionForm() {
 
       setStatus('success');
       form.reset();
-      try {
-        window.localStorage.setItem(EXHIBITION_REGISTERED_KEY, '1');
-      } catch {
-        // Stockage indisponible : la pop-in pourra simplement réapparaître.
-      }
+      rememberRegistration();
     } catch {
       setStatus('error');
       setError(t('genericError'));
     }
   }
 
-  if (status === 'success') {
+  if (status === 'success' || status === 'already') {
+    const already = status === 'already';
     return (
-      <div className="border border-ink-line px-7 py-10 text-center">
-        <p className="font-display text-2xl font-light">{t('successTitle')}</p>
-        <p className="mt-3 text-sm text-paper-dim">{t('successBody')}</p>
+      <div role="status" className="border border-ink-line px-7 py-10 text-center">
+        <p className="font-display text-2xl font-light">{already ? t('alreadyTitle') : t('successTitle')}</p>
+        <p className="mt-3 text-sm text-paper-dim">{already ? t('alreadyBody') : t('successBody')}</p>
       </div>
     );
   }

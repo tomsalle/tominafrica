@@ -425,6 +425,10 @@ export type Database = {
           created_at: string;
         }[];
       };
+      exhibition_registration_exists: {
+        Args: { p_email: string; p_phone: string };
+        Returns: boolean;
+      };
       get_book_preorder_progress: {
         Args: Record<never, never>;
         Returns: { book_units_total: number; raised_cents: number; pledges_count: number }[];

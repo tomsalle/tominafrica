@@ -3,6 +3,7 @@ import { NextResponse } from 'next/server';
 import { exhibitionRegistrationRequestSchema } from '@/lib/exhibition/types';
 import { isContactFormEnabled, serverEnv } from '@/lib/env';
 import { CONTACT_FROM_ADDRESS, getResend } from '@/lib/resend/server';
+import { createAdminClient } from '@/lib/supabase/admin';
 import { createClient } from '@/lib/supabase/server';
 
 export const runtime = 'nodejs';
@@ -38,6 +39,22 @@ export async function POST(request: Request) {
   // Robot détecté : on répond succès sans rien enregistrer, sans le lui dire.
   if (honeypot) {
     return NextResponse.json({ ok: true });
+  }
+
+  // Déjà inscrit (même e-mail ou même téléphone) : on ne crée pas de doublon.
+  // Si la vérification échoue, on enregistre quand même — mieux vaut un
+  // doublon qu'une inscription perdue.
+  try {
+    const { data: alreadyRegistered, error: checkError } = await createAdminClient().rpc(
+      'exhibition_registration_exists',
+      { p_email: email, p_phone: phone },
+    );
+    if (checkError) throw checkError;
+    if (alreadyRegistered) {
+      return NextResponse.json({ alreadyRegistered: true }, { status: 409 });
+    }
+  } catch (checkError) {
+    console.error('[exposition] vérification des doublons impossible', checkError);
   }
 
   const supabase = await createClient();

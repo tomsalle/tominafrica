@@ -79,6 +79,8 @@
   "expositionForm": {
     "successTitle": "Inscription confirmée.",
     "successBody": "Merci — vous recevrez les détails pratiques de l’exposition par e-mail.",
+    "alreadyTitle": "Vous êtes déjà inscrit·e.",
+    "alreadyBody": "Nous avons déjà votre inscription avec cet e-mail ou ce numéro de téléphone : inutile de vous réinscrire. À très vite à l’exposition !",
     "honeypotLabel": "Ne pas remplir",
     "firstName": "Prénom",
     "firstNamePlaceholder": "Votre prénom",
