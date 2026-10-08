@@ -17,6 +17,8 @@ type OrderEmailInput = {
   firstName: string | null;
   lines: Line[];
   shippingCents: number;
+  discountCents: number;
+  promoCode: string | null;
   totalCents: number;
   address: Address;
 };
@@ -35,6 +37,13 @@ function addressLines(address: Address, locale: 'fr' | 'en'): string[] {
     [address.postalCode, address.city].filter(Boolean).join(' ') || null,
     country,
   ].filter((line): line is string => Boolean(line));
+}
+
+function discountLine(input: OrderEmailInput, locale: 'fr' | 'en'): string[] {
+  if (input.discountCents <= 0) return [];
+  const amount = euros(-input.discountCents, locale);
+  const code = input.promoCode ? ` (${input.promoCode})` : '';
+  return [locale === 'en' ? `Discount${code}: ${amount}` : `Remise${code} : ${amount}`];
 }
 
 function itemLines(lines: Line[], locale: 'fr' | 'en'): string[] {
@@ -62,6 +71,7 @@ export function orderConfirmationEmail(input: OrderEmailInput): { subject: strin
         '',
         `Order no. ${orderNumber}`,
         ...itemLines(lines, locale),
+        ...discountLine(input, locale),
         `Shipping: ${euros(shippingCents, locale)}`,
         `Total paid: ${euros(totalCents, locale)}`,
         ...(shipTo.length ? ['', 'Delivery address:', ...shipTo] : []),
@@ -85,6 +95,7 @@ export function orderConfirmationEmail(input: OrderEmailInput): { subject: strin
       '',
       `Commande n° ${orderNumber}`,
       ...itemLines(lines, locale),
+      ...discountLine(input, locale),
       `Frais de port : ${euros(shippingCents, locale)}`,
       `Total payé : ${euros(totalCents, locale)}`,
       ...(shipTo.length ? ['', 'Adresse de livraison :', ...shipTo] : []),
@@ -109,6 +120,7 @@ export function orderNotificationEmail(
     text: [
       `Commande n° ${orderNumber}`,
       ...itemLines(lines, 'fr'),
+      ...discountLine(input, 'fr'),
       `Frais de port : ${euros(shippingCents, 'fr')}`,
       `Total payé : ${euros(totalCents, 'fr')}`,
       '',

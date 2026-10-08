@@ -17,6 +17,11 @@ export function CartView({ checkoutEnabled }: { checkoutEnabled: boolean }) {
   const { items, subtotalCents, setQuantity, removeItem, hydrated } = useCart();
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  // Code promo (offert avec le livre) : replié par défaut, pour ne pas
+  // distraire les acheteurs qui n'en ont pas.
+  const [promoOpen, setPromoOpen] = useState(false);
+  const [promoCode, setPromoCode] = useState('');
+  const [promoError, setPromoError] = useState<string | null>(null);
   // Le tiroir panier renvoie ici avec ?mur=1 plutôt que d'afficher l'aperçu
   // sur place : il n'a pas la place pour un aperçu mural correct.
   const searchParams = useSearchParams();
@@ -25,6 +30,7 @@ export function CartView({ checkoutEnabled }: { checkoutEnabled: boolean }) {
   async function handleCheckout() {
     setSubmitting(true);
     setError(null);
+    setPromoError(null);
 
     try {
       const response = await fetch('/api/checkout', {
@@ -34,14 +40,19 @@ export function CartView({ checkoutEnabled }: { checkoutEnabled: boolean }) {
         // prix en base.
         body: JSON.stringify({
           items: items.map((item) => ({ optionId: item.optionId, quantity: item.quantity })),
+          ...(promoCode.trim() ? { promoCode: promoCode.trim() } : {}),
           locale,
         }),
       });
 
-      const data: { url?: string; error?: string } = await response.json();
+      const data: { url?: string; error?: string; field?: string } = await response.json();
 
       if (!response.ok || !data.url) {
-        setError(data.error ?? t('checkoutStartError'));
+        if (data.field === 'promoCode') {
+          setPromoError(data.error ?? t('checkoutStartError'));
+        } else {
+          setError(data.error ?? t('checkoutStartError'));
+        }
         return;
       }
 
@@ -175,6 +186,49 @@ export function CartView({ checkoutEnabled }: { checkoutEnabled: boolean }) {
               {formatPrice(subtotalCents)}
             </span>
           </div>
+
+          {checkoutEnabled ? (
+            <div className="mt-6">
+              {promoOpen ? (
+                <div>
+                  <label htmlFor="promo-code" className="text-xs text-paper-dim">
+                    {t('promoLabel')}
+                  </label>
+                  <input
+                    id="promo-code"
+                    type="text"
+                    value={promoCode}
+                    onChange={(event) => {
+                      setPromoCode(event.target.value);
+                      setPromoError(null);
+                    }}
+                    autoComplete="off"
+                    autoCapitalize="characters"
+                    spellCheck={false}
+                    aria-invalid={promoError ? true : undefined}
+                    aria-describedby="promo-code-help"
+                    className="mt-2 block min-h-11 w-full border border-ink-line bg-transparent px-3 text-base tracking-[0.08em] text-paper uppercase placeholder:text-paper-faint focus:border-paper-dim focus:outline-none"
+                    placeholder="EXPO10-XXXXXX"
+                  />
+                  <p
+                    id="promo-code-help"
+                    role={promoError ? 'alert' : undefined}
+                    className={`mt-2 text-xs leading-relaxed ${promoError ? 'text-accent' : 'text-paper-faint'}`}
+                  >
+                    {promoError ?? t('promoHint')}
+                  </p>
+                </div>
+              ) : (
+                <button
+                  type="button"
+                  onClick={() => setPromoOpen(true)}
+                  className="min-h-11 text-xs text-paper-dim underline underline-offset-4 hover:text-paper"
+                >
+                  {t('promoToggle')}
+                </button>
+              )}
+            </div>
+          ) : null}
 
           {error ? (
             <p role="alert" className="mt-5 border border-accent/40 px-4 py-3 text-xs text-accent">

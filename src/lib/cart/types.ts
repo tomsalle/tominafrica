@@ -50,6 +50,7 @@ export const checkoutRequestSchema = z.object({
     )
     .min(1, 'Le panier est vide')
     .max(20, 'Trop d’articles dans le panier'),
+  promoCode: z.string().trim().max(32).optional(),
 });
 
 export type CheckoutRequest = z.infer<typeof checkoutRequestSchema>;

@@ -2,7 +2,7 @@ import { NextResponse } from 'next/server';
 import type Stripe from 'stripe';
 import { isContactFormEnabled, serverEnv } from '@/lib/env';
 import { bookPreorderConfirmationEmail } from '@/lib/book-preorder/confirmation-email';
-import { generateExpoPromoCode } from '@/lib/book-preorder/expo-promo';
+import { generateExpoPromoCode, redeemExpoPromoCode } from '@/lib/book-preorder/expo-promo';
 import { orderConfirmationEmail, orderNotificationEmail } from '@/lib/orders/confirmation-email';
 import { CONTACT_FROM_ADDRESS, getResend } from '@/lib/resend/server';
 import { getStripe } from '@/lib/stripe/server';
@@ -154,6 +154,7 @@ async function handleCheckoutCompleted(session: Stripe.Checkout.Session) {
       shipping_postal_code: address?.postal_code ?? null,
       shipping_city: address?.city ?? null,
       shipping_country: address?.country ?? null,
+      notes: session.metadata?.expoPromoCode ? `Code promo livre : ${session.metadata.expoPromoCode}` : null,
       paid_at: new Date().toISOString(),
     })
     .select('id, order_number')
@@ -167,6 +168,11 @@ async function handleCheckoutCompleted(session: Stripe.Checkout.Session) {
       return;
     }
     throw new Error(`insertion commande : ${orderError.message}`);
+  }
+
+  // Code offert avec le livre : utilisable une seule fois.
+  if (session.metadata?.expoPromoCode) {
+    await redeemExpoPromoCode(session.metadata.expoPromoCode);
   }
 
   // --- Lignes de commande ---------------------------------------------------
@@ -253,6 +259,8 @@ async function handleCheckoutCompleted(session: Stripe.Checkout.Session) {
         unitPriceCents: row.unit_price_cents,
       })),
       shippingCents,
+      discountCents: session.total_details?.amount_discount ?? 0,
+      promoCode: session.metadata?.expoPromoCode ?? null,
       totalCents,
       address: {
         name: shipping?.name ?? session.customer_details?.name ?? null,

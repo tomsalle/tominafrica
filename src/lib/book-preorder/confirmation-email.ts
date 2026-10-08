@@ -53,7 +53,7 @@ export function bookPreorderConfirmationEmail(input: ConfirmationInput): { subje
               '',
               'Our gift to you: 10% off a print at the exhibition',
               `Your code: ${expoPromoCode}`,
-              'Valid on one photo print of your choice, bought on site at the exhibition (27 — 29 November 2026). Just show this code when you buy. Single use, not valid online.',
+              'Valid on one photo print of your choice, bought on site at the exhibition (27 — 29 November 2026). Just show this code when you buy. Single use.',
             ]
           : []),
         '',
@@ -89,7 +89,7 @@ export function bookPreorderConfirmationEmail(input: ConfirmationInput): { subje
             '',
             'Notre cadeau : -10 % sur un tirage à l’exposition',
             `Votre code : ${expoPromoCode}`,
-            'Valable sur un tirage photo de votre choix, acheté sur place à l’exposition (du 27 au 29 novembre 2026). Présentez simplement ce code au moment de l’achat. Utilisable une fois, non valable en ligne.',
+            'Valable sur un tirage photo de votre choix, acheté sur place à l’exposition (du 27 au 29 novembre 2026). Présentez simplement ce code au moment de l’achat. Utilisable une fois.',
           ]
         : []),
       '',

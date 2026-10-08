@@ -71,7 +71,10 @@
     "redirecting": "Redirecting…",
     "checkout": "Proceed to checkout",
     "checkoutDisabled": "Online payment isn’t enabled yet. You can still build your selection — it will be kept in this browser.",
-    "stripeNote": "Secure payment by Stripe. No card details ever pass through this site."
+    "stripeNote": "Secure payment by Stripe. No card details ever pass through this site.",
+    "promoToggle": "Have a promo code?",
+    "promoLabel": "Promo code",
+    "promoHint": "The discount will show at the payment step."
   },
   "expositionForm": {
     "successTitle": "Registration confirmed.",
@@ -306,7 +309,8 @@
     "itemUnavailable": "One of the prints in your cart is no longer available.",
     "itemSoldOut": "“{item}” is sold out.",
     "itemLowStock": "Only {remaining} left of “{item}”.",
-    "stripeUnavailable": "Payment is temporarily unavailable. Please try again in a moment."
+    "stripeUnavailable": "Payment is temporarily unavailable. Please try again in a moment.",
+    "promoInvalid": "This code is not valid or has already been used."
   },
   "bookPreorderCheckout": {
     "serviceDisabled": "Online payment isn’t enabled on this site yet.",
@@ -422,7 +426,7 @@
       "deliveryQ": "When will I receive my book?",
       "deliveryA": "The book will be available from 27 November 2026, the opening night. If you chose pick-up, it will be waiting for you at the exhibition. For shipping, I will get in touch to arrange it via Vinted: you only pay the delivery on the app (about €1).",
       "promoQ": "How does the 10% print code work?",
-      "promoA": "Every purchase of a book or an option gives you a personal promo code, sent in the confirmation email. It gives 10% off a photo print of your choice, bought on site at the exhibition in Paris (27 — 29 November 2026). It can be used once and is not valid online.",
+      "promoA": "Every purchase of a book or an option gives you a personal promo code, sent in the confirmation email. It gives 10% off a photo print of your choice at the exhibition in Paris (27 — 29 November 2026). It can be used once.",
       "goalQ": "What happens if the goal isn’t reached?",
       "goalA": "Your book will be printed and shipped no matter what. Even if the goal isn’t reached, the printing still goes ahead: the remaining copies will be sold at the exhibition in Paris.",
       "contactQ": "Another question?",

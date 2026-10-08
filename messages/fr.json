@@ -71,7 +71,10 @@
     "redirecting": "Redirection…",
     "checkout": "Passer au paiement",
     "checkoutDisabled": "Le paiement en ligne n’est pas encore activé. Vous pouvez composer votre sélection ; elle sera conservée dans ce navigateur.",
-    "stripeNote": "Paiement sécurisé par Stripe. Aucune donnée bancaire ne transite par ce site."
+    "stripeNote": "Paiement sécurisé par Stripe. Aucune donnée bancaire ne transite par ce site.",
+    "promoToggle": "Vous avez un code promo ?",
+    "promoLabel": "Code promo",
+    "promoHint": "La remise s’affichera à l’étape du paiement."
   },
   "expositionForm": {
     "successTitle": "Inscription confirmée.",
@@ -306,7 +309,8 @@
     "itemUnavailable": "Un des tirages de votre panier n’est plus disponible.",
     "itemSoldOut": "« {item} » est épuisé.",
     "itemLowStock": "Il ne reste que {remaining} exemplaire(s) de « {item} ».",
-    "stripeUnavailable": "Le paiement est momentanément indisponible. Réessayez dans un instant."
+    "stripeUnavailable": "Le paiement est momentanément indisponible. Réessayez dans un instant.",
+    "promoInvalid": "Ce code n’est pas valable ou a déjà été utilisé."
   },
   "bookPreorderCheckout": {
     "serviceDisabled": "Le paiement en ligne n’est pas encore activé sur ce site.",
@@ -422,7 +426,7 @@
       "deliveryQ": "Quand vais-je recevoir mon livre ?",
       "deliveryA": "Le livre sera disponible à partir du 27 novembre 2026, jour du vernissage. Si vous avez choisi le retrait, il vous attend à l’exposition. Pour un envoi, je vous contacte pour l’organiser via Vinted : vous ne payez que l’expédition sur l’application (environ 1 €).",
       "promoQ": "Comment fonctionne le code -10 % sur un tirage ?",
-      "promoA": "Chaque achat d’un livre ou d’une formule vous donne un code promo personnel, envoyé dans l’e-mail de confirmation. Il offre -10 % sur un tirage photo de votre choix, acheté sur place à l’exposition à Paris (du 27 au 29 novembre 2026). Il est utilisable une fois et n’est pas valable en ligne.",
+      "promoA": "Chaque achat d’un livre ou d’une formule vous donne un code promo personnel, envoyé dans l’e-mail de confirmation. Il offre -10 % sur un tirage photo de votre choix, à l’exposition à Paris (du 27 au 29 novembre 2026). Il est utilisable une fois.",
       "goalQ": "Que se passe-t-il si l’objectif n’est pas atteint ?",
       "goalA": "Votre livre sera imprimé et envoyé quoi qu’il arrive. Même si l’objectif n’est pas atteint, l’impression a bien lieu : les exemplaires restants seront mis en vente lors de l’exposition à Paris.",
       "contactQ": "Une autre question ?",
