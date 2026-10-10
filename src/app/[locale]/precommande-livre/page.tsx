@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import Image from 'next/image';
 import { getTranslations } from 'next-intl/server';
 import { notFound } from 'next/navigation';
+import { Book3D } from '@/components/book-preorder/Book3D';
 import { BookOfferPanel, FORMULAS_PATH } from '@/components/book-preorder/BookOfferPanel';
 import { BookSlideshow } from '@/components/book-preorder/BookSlideshow';
 import { BudgetBreakdown } from '@/components/book-preorder/BudgetBreakdown';
@@ -122,20 +123,15 @@ export default async function BookPreorderPage({
             </header>
 
             <div className="mt-6 grid grid-cols-1 items-start gap-6 sm:mt-8 lg:grid-cols-[1fr_22rem] lg:gap-12">
-              <Link
-                href={ctaHref}
-                className="relative block h-44 overflow-hidden bg-[#232115] sm:h-72 lg:h-[23rem]"
-                aria-label={t('product.cta')}
-              >
-                <Image
-                  src={BOOK_IMAGE}
-                  alt={t('product.imageAlt')}
-                  fill
-                  priority
-                  sizes="(max-width: 1024px) 100vw, 44rem"
-                  className="object-contain"
+              {/* Le livre en 3D : suit la souris, se retourne pour montrer le dos. */}
+              <div className="relative h-56 overflow-hidden sm:h-72 lg:h-[23rem]">
+                <Book3D
+                  frontSrc="/precommande-livre/livre-3d/recto.avif"
+                  backSrc="/precommande-livre/livre-3d/verso.avif"
+                  frontAlt={t('product.imageAlt')}
+                  backAlt={t('book3d.backAlt')}
                 />
-              </Link>
+              </div>
 
               <BookOfferPanel
                 offer={offer}

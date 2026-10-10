@@ -543,6 +543,11 @@
     "closed": {
       "title": "The pre-order is closed",
       "body": "Thank you to everyone who pre-ordered! Remaining copies will be on sale at the exhibition in Paris, 27 — 29 November 2026."
+    },
+    "book3d": {
+      "showBack": "See the back",
+      "showFront": "See the cover",
+      "backAlt": "The back of the book: a contact sheet of Kodak Portra 400 film strips"
     }
   },
   "bookPreorderSucces": {

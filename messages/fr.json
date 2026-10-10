@@ -543,6 +543,11 @@
     "closed": {
       "title": "La précommande est terminée",
       "body": "Merci à toutes celles et ceux qui ont précommandé ! Les exemplaires restants seront en vente à l’exposition à Paris, du 27 au 29 novembre 2026."
+    },
+    "book3d": {
+      "showBack": "Voir le dos",
+      "showFront": "Voir la couverture",
+      "backAlt": "Le dos du livre : une planche contact de pellicules Kodak Portra 400"
     }
   },
   "bookPreorderSucces": {
