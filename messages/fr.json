@@ -492,16 +492,15 @@
       "previous": "Double page précédente",
       "next": "Double page suivante",
       "goTo": "Aller à : {page}",
-      "cover": "Le livre ouvert, posé sur le sable",
-      "coverLabel": "Le livre",
+      "cover": "La couverture du livre « 1 Mère, 1 Fils, 1 Rêve », signée Charlotte Badelon et Tom Sallé",
+      "coverLabel": "La couverture",
       "pages": "Pages {pages}",
       "extract": "Extrait",
       "spreads": {
-        "p0405": "Pages 4 et 5 : le titre écrit à la main et Charlotte et Tom devant leur Land Cruiser",
         "p1011": "Pages 10 et 11 : « Donner du sens », Charlotte photographie des enfants devant le 4x4",
         "portrait": "Double page : un homme au bonnet patchwork de profil et un mur de caisses colorées",
         "p6263": "Pages 62 et 63 : le récit des jumelles et leur photographie au miroir",
-        "p6465": "Pages 64 et 65 : un turban sur fond violet à Agbodrafo Beach et un garçon à la fenêtre d’une ruine",
+        "p6465": "Pages 64 et 65 : un turban sur fond violet et un garçon à la fenêtre d’une ruine",
         "p7475": "Pages 74 et 75 : les enfants du village de Drabo, devant des murs ocre"
       },
       "caption": "Quelques pages du livre (maquettes provisoires)."

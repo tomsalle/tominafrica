@@ -24,16 +24,16 @@ import { languageAlternates } from '@/i18n/alternates';
 // La jauge doit rester à jour — pas une page figée une heure comme le catalogue.
 export const revalidate = 60;
 
-const BOOK_IMAGE = '/precommande-livre/formules/livre.avif';
+// Couverture photographiée (maquette fournie par Tom), sur son fond olive.
+const BOOK_IMAGE = '/precommande-livre/extraits/01-couverture.avif';
 
-// Extraits du livre (maquettes provisoires), dans l'ordre des pages.
+// Extraits du livre (maquettes fournies par Tom), dans l'ordre des pages.
 const BOOK_SPREADS = [
-  { file: '01-pages-04-05', key: 'p0405', pages: '4 — 5' },
   { file: '02-pages-10-11', key: 'p1011', pages: '10 — 11' },
-  { file: '03-portrait-caisses', key: 'portrait', pages: null },
-  { file: '04-pages-62-63', key: 'p6263', pages: '62 — 63' },
-  { file: '05-pages-64-65', key: 'p6465', pages: '64 — 65' },
-  { file: '06-pages-74-75', key: 'p7475', pages: '74 — 75' },
+  { file: '03-pages-62-63', key: 'p6263', pages: '62 — 63' },
+  { file: '04-pages-64-65', key: 'p6465', pages: '64 — 65' },
+  { file: '05-pages-74-75', key: 'p7475', pages: '74 — 75' },
+  { file: '06-portrait-caisses', key: 'portrait', pages: null },
 ] as const;
 
 export async function generateMetadata({
@@ -124,7 +124,7 @@ export default async function BookPreorderPage({
             <div className="mt-6 grid grid-cols-1 items-start gap-6 sm:mt-8 lg:grid-cols-[1fr_22rem] lg:gap-12">
               <Link
                 href={ctaHref}
-                className="relative block h-44 overflow-hidden bg-white sm:h-72 lg:h-[23rem]"
+                className="relative block h-44 overflow-hidden bg-[#232115] sm:h-72 lg:h-[23rem]"
                 aria-label={t('product.cta')}
               >
                 <Image
@@ -173,10 +173,10 @@ export default async function BookPreorderPage({
 
               {/* Les pages du livre défilent seules, comme un GIF. */}
               <figure className="mt-10">
-                <div className="relative aspect-[16/10] overflow-hidden bg-ink">
+                <div className="relative aspect-[4/3] overflow-hidden bg-[#272417]">
                   <BookSlideshow
                     slides={[
-                      { src: '/precommande-livre/livre-ouvert.avif', alt: t('slideshow.cover'), label: t('slideshow.coverLabel') },
+                      { src: BOOK_IMAGE, alt: t('slideshow.cover'), label: t('slideshow.coverLabel') },
                       ...BOOK_SPREADS.map((spread) => ({
                         src: `/precommande-livre/extraits/${spread.file}.avif`,
                         alt: t(`slideshow.spreads.${spread.key}`),
@@ -244,8 +244,8 @@ export default async function BookPreorderPage({
           {/* Rappel collant (grand écran) : l'article et son bouton restent à portée. */}
           <aside className="hidden lg:block">
             <div className="sticky top-36 border border-ink-line bg-ink-soft p-5">
-              <div className="relative aspect-[4/3] overflow-hidden bg-white">
-                <Image src={BOOK_IMAGE} alt="" fill sizes="18rem" className="object-contain" />
+              <div className="relative aspect-[4/3] overflow-hidden bg-[#232115]">
+                <Image src={BOOK_IMAGE} alt="" fill sizes="18rem" className="object-cover" />
               </div>
               <p className="mt-4 font-display text-2xl font-light text-paper">{t('product.name')}</p>
               {closed ? (
