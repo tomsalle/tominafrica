@@ -38,7 +38,7 @@ export function BudgetBreakdown({ bookCount }: { bookCount: number }) {
 
   return (
     <section>
-      <h2 className="font-display text-3xl font-light text-paper sm:text-4xl">{t('title')}</h2>
+      <h3 className="text-lg font-medium text-paper">{t('title')}</h3>
 
       <div className="mt-8 flex flex-col items-center gap-10 sm:flex-row sm:items-center sm:gap-12">
         <div className="relative size-52 shrink-0">

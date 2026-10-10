@@ -75,6 +75,18 @@ export default async function BookPreorderPage({
   const photos = await getTranslations('notreAventure');
   const ctaHref = simulated !== null ? `${FORMULAS_PATH}?simulation=${simulated}` : FORMULAS_PATH;
 
+  // Bouton repris à la fin des sections longues (absent une fois la précommande close).
+  const inlineCta = closed ? null : (
+    <div className="mt-10">
+      <Link
+        href={ctaHref}
+        className="inline-flex min-h-12 items-center justify-center bg-brand px-8 text-xs font-medium tracking-[0.24em] text-paper uppercase transition-[background-color,transform] duration-200 hover:bg-brand-hover active:scale-[0.98]"
+      >
+        {t('product.cta')}
+      </Link>
+    </div>
+  );
+
   return (
     <div className="pb-28">
       {simulated !== null ? <SimulationBanner count={simulated} /> : null}
@@ -150,19 +162,17 @@ export default async function BookPreorderPage({
       <Container className="pt-12">
         <div className="grid grid-cols-1 gap-x-14 gap-y-20 lg:grid-cols-[1fr_18rem]">
           <div id="le-livre" className="min-w-0 scroll-mt-36 space-y-20">
+            {/* 1. L'essentiel, pour ceux qui ne liront pas plus loin. */}
             <section>
-              <h2 className="font-display text-3xl font-light text-paper sm:text-4xl">{t('about.title')}</h2>
-              <p className="mt-6 text-lg font-medium text-paper">{t('about.lead')}</p>
-
-              <div className="mt-6">
-                <Prose>
-                  <p>{t('about.p1')}</p>
-                  <p>{t('about.p2')}</p>
-                </Prose>
-              </div>
+              <h2 className="font-display text-3xl font-light text-paper sm:text-4xl">{t('specs.title')}</h2>
+              <ul className="mt-6 space-y-3 text-base leading-relaxed text-paper-dim">
+                {(['pages', 'format', 'printRun', 'deadline', 'delivery'] as const).map((key) => (
+                  <SpecLine key={key} text={t(`specs.${key}`, { count: stepState.target })} />
+                ))}
+              </ul>
 
               {/* Les pages du livre défilent seules, comme un GIF. */}
-              <figure className="my-10">
+              <figure className="mt-10">
                 <div className="relative aspect-[16/10] overflow-hidden bg-ink">
                   <BookSlideshow
                     slides={[
@@ -177,11 +187,40 @@ export default async function BookPreorderPage({
                 </div>
                 <figcaption className="mt-3 text-xs text-paper-faint">{t('slideshow.caption')}</figcaption>
               </figure>
+            </section>
 
-              <Prose>
-                <p>{t('about.p3')}</p>
-                <p>{t('about.p4')}</p>
-              </Prose>
+            {/* 2. Pourquoi précommander : financer l'impression, et surtout savoir combien imprimer. */}
+            <section className="space-y-12">
+              <div>
+                <h2 className="font-display text-3xl font-light text-paper sm:text-4xl">{t('preorderWhy.title')}</h2>
+                <div className="mt-6">
+                  <Prose>
+                    <p>{t('preorderWhy.p1')}</p>
+                    <p>{t('preorderWhy.p2')}</p>
+                  </Prose>
+                </div>
+              </div>
+
+              <BudgetBreakdown bookCount={stepState.target} />
+
+              <PreorderSteps count={progress.bookUnitsTotal} stepState={stepState} />
+
+              {inlineCta}
+            </section>
+
+            {/* 3. Les détails, pour ceux qui veulent en savoir plus. */}
+            <section>
+              <h2 className="font-display text-3xl font-light text-paper sm:text-4xl">{t('about.title')}</h2>
+              <p className="mt-6 text-lg font-medium text-paper">{t('about.lead')}</p>
+
+              <div className="mt-6">
+                <Prose>
+                  <p>{t('about.p1')}</p>
+                  <p>{t('about.p2')}</p>
+                  <p>{t('about.p3')}</p>
+                  <p>{t('about.p4')}</p>
+                </Prose>
+              </div>
 
               <StoryPhoto src="/notre-aventure/rencontre-chef-village.jpg" alt={photos('villageChiefPhotoAlt')} width={2000} height={1125} />
 
@@ -194,28 +233,8 @@ export default async function BookPreorderPage({
 
               <StoryPhoto src="/notre-aventure/traversee-riviere.jpg" alt={photos('riverPhotoAlt')} width={2000} height={1292} />
 
-              <h3 className="text-lg font-medium text-paper">{t('specs.title')}</h3>
-              <ul className="mt-4 space-y-3 text-base leading-relaxed text-paper-dim">
-                {(['pages', 'format', 'printRun', 'deadline', 'delivery'] as const).map((key) => (
-                  <SpecLine key={key} text={t(`specs.${key}`, { count: stepState.target })} />
-                ))}
-              </ul>
-
-              {closed ? null : (
-                <div className="mt-10">
-                  <Link
-                    href={ctaHref}
-                    className="inline-flex min-h-12 items-center justify-center bg-brand px-8 text-xs font-medium tracking-[0.24em] text-paper uppercase transition-[background-color,transform] duration-200 hover:bg-brand-hover active:scale-[0.98]"
-                  >
-                    {t('product.cta')}
-                  </Link>
-                </div>
-              )}
+              {inlineCta}
             </section>
-
-            <BudgetBreakdown bookCount={stepState.target} />
-
-            <PreorderSteps count={progress.bookUnitsTotal} stepState={stepState} />
 
             <ShippingInfo />
 

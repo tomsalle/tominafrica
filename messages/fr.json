@@ -348,7 +348,7 @@
       "ordersCount": "{count, plural, =0 {Aucune commande pour l’instant} one {# commande} other {# commandes}}"
     },
     "about": {
-      "title": "À propos de cette collecte",
+      "title": "À propos de ce livre",
       "lead": "De Paris à Cape Town, 25 000 km en 4x4 avec ma mère : le livre",
       "p1": "Il y a douze ans, ma mère, Charlotte, m’a emmené au Kenya, dans un vieux Land Cruiser. J’ai découvert l’Afrique, et depuis je n’ai eu qu’une idée en tête : y retourner. Douze ans plus tard, c’est moi qui l’ai appelée pour lui proposer de repartir, six mois, de Paris à Cape Town.",
       "p2": "Elle a cru à une de mes idées folles, et elle n’avait pas tout à fait tort. Nous n’avions jamais fait de camping, jamais conduit de 4x4, et nos connaissances en mécanique tenaient à quelques vidéos regardées sur Internet. J’ai quand même vidé mon compte en banque pour acheter mon premier véhicule : un Toyota Land Cruiser HDJ80 de 1993.",
@@ -359,8 +359,13 @@
       "title": "Pourquoi en faire un livre ?",
       "p1": "Des films sur YouTube racontent déjà notre quotidien et nos galères. Le livre, lui, raconte autre chose : ces visages et ces émotions, que je voulais pouvoir tenir entre les mains plutôt que de les voir défiler sur un écran. C’est aussi une façon de rendre hommage à ceux qui nous ont accueillis, et de faire connaître les artistes et associations rencontrés en chemin."
     },
+    "preorderWhy": {
+      "title": "Pourquoi cette précommande ?",
+      "p1": "Vos précommandes nous aident à financer l’impression du livre, qui se paie avant même que le premier exemplaire soit vendu.",
+      "p2": "Mais elles servent surtout à savoir combien d’exemplaires imprimer : assez pour que chacun ait le sien, sans finir avec des cartons de livres invendus. Le tirage sera fixé d’après le nombre de précommandes, étape par étape."
+    },
     "specs": {
-      "title": "Le livre en bref",
+      "title": "Ce livre en bref",
       "pages": "112 pages, deux regards : celui d’une mère, photographe, et celui de son fils",
       "format": "Format : légèrement plus petit qu’un A3 fermé, sans reliure",
       "printRun": "Tirage : {count} exemplaires, déterminé par cette précommande",
@@ -368,7 +373,7 @@
       "delivery": "Livraison estimée : 27 novembre 2026, jour du vernissage de l’exposition à Paris"
     },
     "budget": {
-      "title": "À quoi servira le financement",
+      "title": "Ce que financent les précommandes",
       "goalLabel": "objectif de précommande",
       "items": {
         "printing": "Impression des livres à vendre ({count})",

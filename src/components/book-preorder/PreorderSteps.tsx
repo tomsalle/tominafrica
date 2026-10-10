@@ -13,7 +13,7 @@ export function PreorderSteps({ count, stepState }: { count: number; stepState: 
 
   return (
     <section>
-      <h2 className="font-display text-3xl font-light text-paper sm:text-4xl">{t('title')}</h2>
+      <h3 className="text-lg font-medium text-paper">{t('title')}</h3>
       <p className="mt-4 text-base leading-relaxed text-paper-dim">{t('intro')}</p>
 
       <ol className="mt-8 space-y-4">
