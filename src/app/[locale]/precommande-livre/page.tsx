@@ -17,6 +17,7 @@ import { Container } from '@/components/ui/Container';
 import { HandwrittenTitle } from '@/components/ui/HandwrittenTitle';
 import { Prose } from '@/components/ui/Prose';
 import { Link } from '@/i18n/navigation';
+import { BOOK_PRINT_RUN } from '@/lib/book-preorder/config';
 import { BOOK_PREORDER_PAGE_DISABLED } from '@/lib/book-preorder/flags';
 import { loadPreorderData } from '@/lib/book-preorder/page-data';
 import { formatPrice } from '@/lib/format';
@@ -163,7 +164,7 @@ export default async function BookPreorderPage({
               <h2 className="font-display text-3xl font-light text-paper sm:text-4xl">{t('specs.title')}</h2>
               <ul className="mt-6 space-y-3 text-base leading-relaxed text-paper-dim">
                 {(['pages', 'format', 'printRun', 'deadline', 'delivery'] as const).map((key) => (
-                  <SpecLine key={key} text={t(`specs.${key}`, { count: stepState.target })} />
+                  <SpecLine key={key} text={t(`specs.${key}`, { count: BOOK_PRINT_RUN })} />
                 ))}
               </ul>
 
@@ -197,7 +198,17 @@ export default async function BookPreorderPage({
                 </div>
               </div>
 
-              <BudgetBreakdown bookCount={stepState.target} />
+              <div>
+                <h3 className="text-lg font-medium text-paper">{t('priceWhy.title')}</h3>
+                <div className="mt-4">
+                  <Prose>
+                    <p>{t('priceWhy.p1')}</p>
+                    <p>{t('priceWhy.p2')}</p>
+                  </Prose>
+                </div>
+              </div>
+
+              <BudgetBreakdown />
 
               <PreorderSteps count={progress.bookUnitsTotal} stepState={stepState} />
 

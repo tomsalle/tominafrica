@@ -1,5 +1,5 @@
 import { useLocale, useTranslations } from 'next-intl';
-import { getPreorderBudget } from '@/lib/book-preorder/config';
+import { BOOK_PRINT_RUN, getPreorderBudget } from '@/lib/book-preorder/config';
 import { formatPrice } from '@/lib/format';
 
 // Rouge de la page, puis deux gris du site : la couleur ne porte pas seule
@@ -17,13 +17,14 @@ const GAP = 0.8;
  * réel donné par Tom. Purement informatif : ne pilote pas la jauge de
  * progression (voir FundingProgress, qui compte des livres, pas des euros).
  */
-export function BudgetBreakdown({ bookCount }: { bookCount: number }) {
+export function BudgetBreakdown() {
   const t = useTranslations('bookPreorder.budget');
   const locale = useLocale();
   const percentFormat = new Intl.NumberFormat(locale, { minimumFractionDigits: 1, maximumFractionDigits: 1 });
 
-  // Le budget suit l'objectif en cours : le poste impression grossit avec le tirage.
-  const { lines, totalCents } = getPreorderBudget(bookCount);
+  // Budget fixe, d'après le devis de l'imprimeur (tirage de 250 exemplaires).
+  const { lines, totalCents } = getPreorderBudget();
+  const bookCount = BOOK_PRINT_RUN;
   const percents = lines.map((item) => (item.amountCents / totalCents) * 100);
   const segments = lines.map((item, index) => ({
     ...item,
@@ -77,11 +78,23 @@ export function BudgetBreakdown({ bookCount }: { bookCount: number }) {
                 <p className="mt-0.5 text-sm text-paper-faint tabular-nums">
                   <span className="text-paper">{formatPrice(s.amountCents)}</span> · {percentFormat.format(s.percent)} %
                 </p>
+                {s.details ? (
+                  <ul className="mt-2 space-y-1 border-l border-ink-line pl-3 text-xs text-paper-faint tabular-nums">
+                    {s.details.map((detail) => (
+                      <li key={detail.labelKey} className="flex justify-between gap-4">
+                        <span>{t(`items.${detail.labelKey}`)}</span>
+                        <span>{formatPrice(detail.amountCents)}</span>
+                      </li>
+                    ))}
+                  </ul>
+                ) : null}
               </div>
             </li>
           ))}
         </ul>
       </div>
+
+      <p className="mt-6 text-xs text-paper-faint">{t('note')}</p>
     </section>
   );
 }

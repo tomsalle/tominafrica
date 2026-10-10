@@ -49,23 +49,34 @@ export function getPreorderStepState(count: number): PreorderStepState {
   return { steps, currentIndex, target };
 }
 
-// Coût d'impression par livre — 20 € provisoire (à confirmer par Tom). Le
-// poste « impression » suit l'objectif en cours : 50 livres = 1 000 €,
-// 100 = 2 000 €, 200 = 4 000 €. Les autres postes sont fixes.
-export const BOOK_PRINT_UNIT_COST_CENTS = 2_000;
+// Tirage et coûts d'impression d'après le devis de l'imprimeur KOPA
+// (offre P0118119 du 8 octobre 2026, option couverture 250 g pelliculée +
+// intérieur 108 pages), retenue par Tom : 250 exemplaires. Montants HT.
+export const BOOK_PRINT_RUN = 250;
 
-const FIXED_BUDGET = [
-  { labelKey: 'publisher', amountCents: 40_000 }, // Accompagnement maison d'édition
-  { labelKey: 'otherFees', amountCents: 50_500 }, // Autres frais (ISBN, livres offerts)
+const PRINTING_DETAILS = [
+  { labelKey: 'printingCopies', amountCents: 470_900 }, // 250 × 18,83 €
+  { labelKey: 'printingDelivery', amountCents: 23_300 }, // livraison à Paris
+  { labelKey: 'printingPackaging', amountCents: BOOK_PRINT_RUN * 13 }, // film individuel, 0,13 € / livre
 ] as const;
 
-export type BudgetLine = { labelKey: 'printing' | 'publisher' | 'otherFees'; amountCents: number };
+export type BudgetDetail = { labelKey: (typeof PRINTING_DETAILS)[number]['labelKey']; amountCents: number };
+export type BudgetLine = {
+  labelKey: 'printing' | 'publisher' | 'otherFees';
+  amountCents: number;
+  details?: readonly BudgetDetail[];
+};
 
-/** Répartition du budget pour un tirage donné (l'objectif en cours). */
-export function getPreorderBudget(bookCount: number): { lines: BudgetLine[]; totalCents: number } {
+/** Répartition du budget du livre (fixe : le tirage est arrêté à 250 exemplaires). */
+export function getPreorderBudget(): { lines: BudgetLine[]; totalCents: number } {
   const lines: BudgetLine[] = [
-    { labelKey: 'printing', amountCents: bookCount * BOOK_PRINT_UNIT_COST_CENTS },
-    ...FIXED_BUDGET,
+    {
+      labelKey: 'printing',
+      amountCents: PRINTING_DETAILS.reduce((sum, d) => sum + d.amountCents, 0),
+      details: PRINTING_DETAILS,
+    },
+    { labelKey: 'publisher', amountCents: 40_000 }, // Accompagnement maison d'édition
+    { labelKey: 'otherFees', amountCents: 50_500 }, // Autres frais (ISBN, livres offerts)
   ];
   return { lines, totalCents: lines.reduce((sum, line) => sum + line.amountCents, 0) };
 }

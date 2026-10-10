@@ -12,8 +12,16 @@ const priceFormatter = new Intl.NumberFormat('fr-FR', {
 /** 25000 → « 250 € » ; 25050 → « 250,50 € ». Toujours en euros, quelle que
  * soit la langue de l'interface — c'est le prix facturé, pas un texte à
  * traduire. */
+const priceWithCentsFormatter = new Intl.NumberFormat('fr-FR', {
+  style: 'currency',
+  currency: 'EUR',
+  minimumFractionDigits: 2,
+  maximumFractionDigits: 2,
+});
+
+/** 4900 → « 49 € », 4410 → « 44,10 € » (jamais « 44,1 € »). */
 export function formatPrice(cents: number): string {
-  return priceFormatter.format(cents / 100);
+  return (cents % 100 === 0 ? priceFormatter : priceWithCentsFormatter).format(cents / 100);
 }
 
 /** 30 × 40 → « 30 × 40 cm » */

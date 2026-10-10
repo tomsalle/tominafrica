@@ -372,22 +372,31 @@
       "p1": "Your pre-orders help us pay for printing the book, which has to be paid for before a single copy is sold.",
       "p2": "Above all, they tell us how many copies to print: enough for everyone to get theirs, without ending up with boxes of unsold books. The print run will be set from the number of pre-orders, step by step."
     },
+    "priceWhy": {
+      "title": "Why this price?",
+      "p1": "We chose the best possible materials to give you the most beautiful book possible: a large A3 format, a thick laminated cover and fine coated paper, so that every photograph lives up to what we experienced.",
+      "p2": "But this quality comes at a cost. We are not even sure this book will make us any money: our only goal is to cover our costs."
+    },
     "specs": {
       "title": "This book at a glance",
       "pages": "112 pages, two points of view: a mother, a photographer, and her son",
       "format": "Format: slightly smaller than a closed A3, unbound",
-      "printRun": "Print run: {count} copies, set by this pre-order",
+      "printRun": "Print run: {count} copies, limited edition",
       "deadline": "Pre-order ends: 27 November 2026, the opening night",
       "delivery": "Estimated delivery: November 27, 2026, the day of the exhibition’s opening night in Paris"
     },
     "budget": {
       "title": "What pre-orders pay for",
-      "goalLabel": "pre-order goal",
+      "goalLabel": "book budget",
       "items": {
-        "printing": "Printing the books to sell ({count})",
+        "printing": "Printing {count} copies",
+        "printingCopies": "Printing",
+        "printingDelivery": "Delivery to Paris",
+        "printingPackaging": "Individual wrapping",
         "publisher": "Publisher support",
-        "otherFees": "Other costs (ISBN, gifted copies)"
-      }
+        "otherFees": "Other costs (ISBN, free copies)"
+      },
+      "note": "Amounts excluding VAT, based on the printer’s quote (October 2026)."
     },
     "follow": {
       "title": "Follow the project",
