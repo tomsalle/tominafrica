@@ -278,6 +278,7 @@ export type Database = {
           email: string;
           phone: string;
           message: string | null;
+          visit_days: string[] | null;
           created_at: string;
         };
         Insert: {
@@ -287,6 +288,7 @@ export type Database = {
           email: string;
           phone: string;
           message?: string | null;
+          visit_days?: string[] | null;
           created_at?: string;
         };
         Update: Partial<Database['public']['Tables']['exhibition_registrations']['Insert']>;

@@ -90,6 +90,14 @@
     "emailPlaceholder": "vous@exemple.com",
     "phone": "Téléphone",
     "phonePlaceholder": "06 12 34 56 78",
+    "daysLabel": "Quel(s) jour(s) pensez-vous venir ?",
+    "daysHelp": "Plusieurs choix possibles.",
+    "days": {
+      "friday": "Vendredi 27 · vernissage",
+      "saturday": "Samedi 28",
+      "sunday": "Dimanche 29"
+    },
+    "daysRequired": "Choisissez au moins un jour.",
     "message": "Message",
     "messageOptional": "(facultatif)",
     "messagePlaceholder": "Une question, le nombre de personnes qui vous accompagnent, ou souhaitez-vous précommander le livre (édition limitée) ?",
@@ -194,7 +202,7 @@
     "programmeLabel": "Au programme",
     "programmeValue": "Les photographies du voyage, des voitures — en collaboration avec le lieu qui nous accueille —, les vidéos, la sortie du livre, et nos anecdotes en direct.",
     "mapLink": "Voir le lieu sur la carte",
-    "formTitle": "S’inscrire au vernissage",
+    "formTitle": "S’inscrire à l’exposition",
     "formIntro": "Laissez vos coordonnées pour être invité·e. Les détails pratiques vous seront confirmés par e-mail.",
     "posterAlt": "Affiche de l’exposition « 1 mère, 1 fils, 1 rêve », Paris, 27 — 29 novembre 2026"
   },

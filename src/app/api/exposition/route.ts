@@ -8,6 +8,16 @@ import { createClient } from '@/lib/supabase/server';
 
 export const runtime = 'nodejs';
 
+const DAY_LABELS_FR: Record<string, string> = {
+  '2026-11-27': 'vendredi 27 (vernissage)',
+  '2026-11-28': 'samedi 28',
+  '2026-11-29': 'dimanche 29',
+};
+
+function formatDayFr(day: string): string {
+  return DAY_LABELS_FR[day] ?? day;
+}
+
 export async function POST(request: Request) {
   let payload: unknown;
   try {
@@ -34,7 +44,8 @@ export async function POST(request: Request) {
     return NextResponse.json({ error: t('invalidForm') }, { status: 400 });
   }
 
-  const { firstName, lastName, email, phone, message, honeypot } = parsed.data;
+  const { firstName, lastName, email, phone, message, visitDays, honeypot } = parsed.data;
+  const days = visitDays?.length ? [...new Set(visitDays)].sort() : null;
 
   // Robot détecté : on répond succès sans rien enregistrer, sans le lui dire.
   if (honeypot) {
@@ -65,6 +76,7 @@ export async function POST(request: Request) {
     email,
     phone,
     message: message || null,
+    visit_days: days,
   });
 
   if (error) {
@@ -88,6 +100,7 @@ export async function POST(request: Request) {
           `${firstName} ${lastName}`,
           email,
           phone,
+          days ? `Jour(s) : ${days.map(formatDayFr).join(', ')}` : 'Jour(s) : non précisé',
           message ? `\n${message}` : '',
         ].join('\n'),
       });

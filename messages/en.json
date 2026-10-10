@@ -90,6 +90,14 @@
     "emailPlaceholder": "you@example.com",
     "phone": "Phone",
     "phonePlaceholder": "+33 6 12 34 56 78",
+    "daysLabel": "Which day(s) are you planning to come?",
+    "daysHelp": "You can choose more than one.",
+    "days": {
+      "friday": "Friday 27 · opening night",
+      "saturday": "Saturday 28",
+      "sunday": "Sunday 29"
+    },
+    "daysRequired": "Please choose at least one day.",
     "message": "Message",
     "messageOptional": "(optional)",
     "messagePlaceholder": "A question, how many people will be joining you, or would you like to pre-order the book (limited edition)?",
@@ -194,7 +202,7 @@
     "programmeLabel": "Programme",
     "programmeValue": "Photographs from the journey, cars — in partnership with the venue hosting us —, the videos, the book launch, and our stories told live.",
     "mapLink": "See the venue on the map",
-    "formTitle": "Register for the opening",
+    "formTitle": "Register for the exhibition",
     "formIntro": "Leave your details to be invited. Practical information will be confirmed by email.",
     "posterAlt": "Poster for the exhibition “1 mother, 1 son, 1 dream”, Paris, 27 — 29 November 2026"
   },
