@@ -331,11 +331,13 @@
 }
 
 .book3d-page-front {
-  transform: translateZ(calc(var(--t) / 2 - 0.5px));
+  visibility: var(--pages-front, hidden);
+  transform: translateZ(calc(var(--t) / 2 - 1px));
 }
 
 .book3d-page-back {
-  transform: rotateY(180deg) translateZ(calc(var(--t) / 2 - 0.5px));
+  visibility: var(--pages-back, hidden);
+  transform: rotateY(180deg) translateZ(calc(var(--t) / 2 - 1px));
 }
 
 /* Pliure arrondie (livre piqué). */

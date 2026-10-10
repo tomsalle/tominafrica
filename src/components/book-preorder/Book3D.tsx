@@ -67,6 +67,12 @@ export function Book3D({
       sp.pos += sp.vel;
       if (Math.abs(sp.vel) > 0.01 || Math.abs(sp.target - sp.pos) > 0.05) moving = true;
     }
+    // Une couverture ne se referme pas au-delà de « fermée » : sinon, avec le
+    // rebond du ressort, elle traverserait les pages (flash clair).
+    if (s.open.pos < 0) {
+      s.open.pos = 0;
+      s.open.vel = 0;
+    }
 
     const x = s.x.pos;
     const y = s.y.pos;
@@ -80,8 +86,13 @@ export function Book3D({
 
     // La couverture visible s'entrouvre (avant ou arrière selon la face montrée).
     const backVisible = Math.abs(halfTurns.current) % 2 === 1;
-    book.style.setProperty('--open-front', `${backVisible ? 0 : s.open.pos.toFixed(2)}deg`);
-    book.style.setProperty('--open-back', `${backVisible ? s.open.pos.toFixed(2) : 0}deg`);
+    const open = s.open.pos;
+    book.style.setProperty('--open-front', `${backVisible ? 0 : open.toFixed(2)}deg`);
+    book.style.setProperty('--open-back', `${backVisible ? open.toFixed(2) : 0}deg`);
+    // Les pages intérieures n'existent que couverture entrouverte : fermée,
+    // elles pourraient transparaître à travers elle.
+    book.style.setProperty('--pages-front', !backVisible && open > 0.3 ? 'visible' : 'hidden');
+    book.style.setProperty('--pages-back', backVisible && open > 0.3 ? 'visible' : 'hidden');
 
     // Lumière : chaque face s'assombrit quand elle se détourne de la lampe.
     const front = Math.cos(rad(y - LIGHT));
