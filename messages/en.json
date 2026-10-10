@@ -393,10 +393,11 @@
         "printingCopies": "Printing",
         "printingDelivery": "Delivery to Paris",
         "printingPackaging": "Individual wrapping",
+        "printingVat": "VAT ({rate}%)",
         "publisher": "Publisher support",
         "otherFees": "Other costs (ISBN, free copies)"
       },
-      "note": "Amounts excluding VAT, based on the printer’s quote (October 2026)."
+      "note": "Printing: printer’s quote (October 2026), including 5.5% VAT, the French rate for books."
     },
     "follow": {
       "title": "Follow the project",

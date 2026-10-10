@@ -393,10 +393,11 @@
         "printingCopies": "Impression",
         "printingDelivery": "Livraison jusqu’à Paris",
         "printingPackaging": "Emballage individuel",
+        "printingVat": "TVA ({rate} %)",
         "publisher": "Accompagnement maison d’édition",
         "otherFees": "Autres frais (ISBN, livres offerts)"
       },
-      "note": "Montants hors taxes, d’après le devis de l’imprimeur (octobre 2026)."
+      "note": "Impression : devis de l’imprimeur (octobre 2026), TVA à 5,5 % comprise, taux du livre en France."
     },
     "follow": {
       "title": "Suivre le projet",

@@ -51,13 +51,24 @@ export function getPreorderStepState(count: number): PreorderStepState {
 
 // Tirage et coûts d'impression d'après le devis de l'imprimeur KOPA
 // (offre P0118119 du 8 octobre 2026, option couverture 250 g pelliculée +
-// intérieur 108 pages), retenue par Tom : 250 exemplaires. Montants HT.
+// intérieur 108 pages), retenue par Tom : 250 exemplaires. Devis HT, TVA ajoutée.
 export const BOOK_PRINT_RUN = 250;
 
-const PRINTING_DETAILS = [
+const PRINTING_HT = [
   { labelKey: 'printingCopies', amountCents: 470_900 }, // 250 × 18,83 €
   { labelKey: 'printingDelivery', amountCents: 23_300 }, // livraison à Paris
   { labelKey: 'printingPackaging', amountCents: BOOK_PRINT_RUN * 13 }, // film individuel, 0,13 € / livre
+] as const;
+
+// Le devis est hors taxes : on ajoute la TVA au taux du livre en France.
+export const PRINTING_VAT_RATE = 0.055;
+
+const PRINTING_DETAILS = [
+  ...PRINTING_HT,
+  {
+    labelKey: 'printingVat',
+    amountCents: Math.round(PRINTING_HT.reduce((sum, d) => sum + d.amountCents, 0) * PRINTING_VAT_RATE),
+  },
 ] as const;
 
 export type BudgetDetail = { labelKey: (typeof PRINTING_DETAILS)[number]['labelKey']; amountCents: number };
