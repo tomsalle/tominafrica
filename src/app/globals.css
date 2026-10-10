@@ -231,7 +231,7 @@
   left: 50%;
   top: 50%;
   height: 78%;
-  aspect-ratio: 1000 / 1415;
+  aspect-ratio: 628 / 880; /* proportions du livre sur la photo de Tom */
   translate: -50% -53%;
   transform-style: preserve-3d;
   will-change: transform;
