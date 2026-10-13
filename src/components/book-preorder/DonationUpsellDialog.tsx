@@ -145,7 +145,9 @@ export function DonationUpsellDialog({
         {/* Récapitulatif : ce qui sera payé, sans surprise. */}
         <dl className="mt-6 space-y-2 border-t border-ink-line pt-4 text-sm tabular-nums">
           <div className="flex justify-between gap-4">
-            <dt className="text-paper-dim">{orderLabel}</dt>
+            <dt translate="no" className="text-paper-dim">
+              {orderLabel}
+            </dt>
             <dd>{formatPrice(orderCents)}</dd>
           </div>
           {donationCents ? (

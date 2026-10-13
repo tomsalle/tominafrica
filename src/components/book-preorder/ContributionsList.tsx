@@ -61,7 +61,9 @@ export function ContributionsList({ contributions, total }: { contributions: Pub
                       t('donated')
                     ) : (
                       <>
-                        {t('choseTier')} <span className="text-brand-text">{tierName}</span>
+                        {t('choseTier')} <span translate="no" className="text-brand-text">
+                          {tierName}
+                        </span>
                       </>
                     )}
                   </p>

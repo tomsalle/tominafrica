@@ -46,7 +46,7 @@ export function BookOfferPanel({
             ) : null}
           </p>
           {offer.remaining !== null ? (
-            <p className="mt-3 inline-block bg-brand/25 px-2 py-1 text-xs font-medium text-paper">
+            <p translate="no" className="mt-3 inline-block bg-brand/25 px-2 py-1 text-xs font-medium text-paper">
               {t('product.earlyBirdLeft', { count: offer.remaining })}
             </p>
           ) : null}

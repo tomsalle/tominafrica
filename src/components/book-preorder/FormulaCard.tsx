@@ -54,7 +54,10 @@ export function FormulaCard({
       </div>
 
       <div className="flex flex-1 flex-col p-5">
-        <h3 className="font-display text-2xl leading-tight font-light text-paper">{t('name')}</h3>
+        {/* « Early bird » reste tel quel : pas de traduction automatique du navigateur. */}
+        <h3 translate="no" className="font-display text-2xl leading-tight font-light text-paper">
+          {t('name')}
+        </h3>
         <p className="mt-2 text-sm leading-relaxed text-paper-dim">{t('description')}</p>
 
         <p className="mt-5 flex items-baseline gap-3">
