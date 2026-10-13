@@ -333,7 +333,8 @@
     "deliveryFieldLabel": "Mode de livraison",
     "deliveryPickup": "Retrait à l’exposition (Paris, 27–29 nov.) — gratuit",
     "deliveryVinted": "Envoi via Vinted — environ 1 € à payer sur l’app",
-    "closed": "La précommande est terminée."
+    "closed": "La précommande est terminée.",
+    "extraDonationName": "Don pour l’installation de l’exposition"
   },
   "bookPreorder": {
     "metaTitle": "Précommander le livre",
@@ -480,7 +481,22 @@
       "publicNameLabel": "Nom affiché",
       "publicNamePlaceholder": "Anonyme si vide",
       "publicMessageLabel": "Votre message",
-      "publicMessageHelp": "Visible par tous dans la liste des précommandes."
+      "publicMessageHelp": "Visible par tous dans la liste des précommandes.",
+      "upsell": {
+        "eyebrow": "Soutenir l’exposition",
+        "title": "Un petit coup de pouce pour l’expo ?",
+        "body": "Ajoutez un don à votre commande pour nous aider à installer l’exposition à Paris, du 27 au 29 novembre. C’est facultatif, et chaque euro compte.",
+        "amountsLabel": "Montant du don",
+        "other": "Autre",
+        "otherLabel": "Montant de votre choix (à partir de 1 €)",
+        "invalidAmount": "Entrez un montant entre 1 € et 1 000 €.",
+        "donationLine": "Don pour l’exposition",
+        "total": "Total",
+        "continueWithout": "Continuer sans don",
+        "continueWith": "Continuer avec un don de {amount}",
+        "submitting": "Redirection vers le paiement…",
+        "close": "Fermer"
+      }
     },
     "contributions": {
       "title": "{count, plural, =0 {Les précommandes} one {# précommande} other {# précommandes}}",

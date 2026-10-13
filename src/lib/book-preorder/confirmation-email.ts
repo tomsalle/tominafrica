@@ -13,6 +13,7 @@ type ConfirmationInput = {
   isDonation: boolean;
   delivery: Delivery;
   expoPromoCode: string | null;
+  extraDonationCents?: number;
 };
 
 const euros = (cents: number, locale: 'fr' | 'en') =>
@@ -26,7 +27,7 @@ const ADDRESS = `${EXHIBITION.venue}, ${EXHIBITION.street}, ${EXHIBITION.postalC
  * Texte brut volontairement : lisible partout, rien à casser.
  */
 export function bookPreorderConfirmationEmail(input: ConfirmationInput): { subject: string; text: string } {
-  const { locale, firstName, tierName, quantity, amountCents, isDonation, delivery, expoPromoCode } = input;
+  const { locale, firstName, tierName, quantity, amountCents, isDonation, delivery, expoPromoCode, extraDonationCents = 0 } = input;
 
   if (locale === 'en') {
     const next = isDonation
@@ -44,6 +45,7 @@ export function bookPreorderConfirmationEmail(input: ConfirmationInput): { subje
         '',
         `Item: ${tierName}`,
         ...(isDonation ? [] : [`Quantity: ${quantity}`]),
+        ...(extraDonationCents ? [`Donation for the exhibition: ${euros(extraDonationCents, locale)} — thank you!`] : []),
         `Amount paid: ${euros(amountCents, locale)}`,
         '',
         next,
@@ -80,6 +82,7 @@ export function bookPreorderConfirmationEmail(input: ConfirmationInput): { subje
       '',
       `Article : ${tierName}`,
       ...(isDonation ? [] : [`Quantité : ${quantity}`]),
+      ...(extraDonationCents ? [`Don pour l’exposition : ${euros(extraDonationCents, locale)}, merci !`] : []),
       `Montant payé : ${euros(amountCents, locale)}`,
       '',
       next,

@@ -48,7 +48,7 @@ export async function POST(request: Request) {
     return NextResponse.json({ error: t('invalidRequest') }, { status: 400 });
   }
 
-  const { tierId, quantity, customAmountCents, publicName, publicMessage } = parsed.data;
+  const { tierId, quantity, customAmountCents, extraDonationCents, publicName, publicMessage } = parsed.data;
 
   // --- Rechargement autoritatif depuis la base ------------------------------
   const tier = await getTierById(tierId);
@@ -60,6 +60,10 @@ export async function POST(request: Request) {
   // « Le livre » ne se vend qu'une fois l'early bird épuisé (même règle que la page).
   if (tier.slug === 'livre' && isEarlyBirdAvailable(await getPublishedTiers())) {
     return NextResponse.json({ error: t('tierUnavailable') }, { status: 409 });
+  }
+
+  if (tier.is_donation && extraDonationCents !== undefined) {
+    return NextResponse.json({ error: t('invalidRequest') }, { status: 400 });
   }
 
   if (tier.is_donation) {
@@ -106,6 +110,19 @@ export async function POST(request: Request) {
             },
           },
         },
+        // Don ajouté à la commande, sur sa propre ligne pour qu'il soit clair au paiement.
+        ...(extraDonationCents
+          ? [
+              {
+                quantity: 1,
+                price_data: {
+                  currency: 'eur',
+                  unit_amount: extraDonationCents,
+                  product_data: { name: t('extraDonationName') },
+                },
+              },
+            ]
+          : []),
       ],
       locale: locale === 'en' ? 'en' : 'fr',
       billing_address_collection: 'required',
@@ -140,6 +157,7 @@ export async function POST(request: Request) {
         tierSlug: tier.slug,
         quantity: String(effectiveQuantity),
         isDonation: String(tier.is_donation),
+        ...(extraDonationCents ? { extraDonationCents: String(extraDonationCents) } : {}),
         // Relus par le webhook, qui les enregistre sur la précommande payée.
         // (Stripe limite chaque valeur à 500 caractères ; le schéma plafonne à 280.)
         ...(publicName ? { publicName } : {}),

@@ -406,6 +406,10 @@ async function handleBookPreorderCompleted(session: Stripe.Checkout.Session) {
   const address = shipping?.address ?? session.customer_details?.address ?? null;
   const quantity = Number(session.metadata?.quantity ?? '1');
   const expoPromoCode = tier.is_donation ? null : generateExpoPromoCode();
+  // Don ajouté à la commande (déjà compris dans amount_total).
+  const extraDonationCents = tier.is_donation
+    ? 0
+    : Math.max(0, Math.round(Number(session.metadata?.extraDonationCents ?? '0')) || 0);
 
   const { error: pledgeError } = await supabase.from('book_preorder_pledges').insert({
     tier_id: tier.id,
@@ -434,6 +438,7 @@ async function handleBookPreorderCompleted(session: Stripe.Checkout.Session) {
     public_name: session.metadata?.publicName?.trim().slice(0, 60) || null,
     public_message: session.metadata?.publicMessage?.trim().slice(0, 280) || null,
     expo_promo_code: expoPromoCode,
+    extra_donation_cents: extraDonationCents,
     paid_at: new Date().toISOString(),
   });
 
@@ -475,6 +480,7 @@ async function handleBookPreorderCompleted(session: Stripe.Checkout.Session) {
           tier.name,
           `Quantité : ${quantity}`,
           `Montant : ${(session.amount_total ?? 0) / 100} €`,
+          extraDonationCents ? `dont don pour l’exposition : ${extraDonationCents / 100} €` : null,
           deliveryNote(session) ?? (tier.is_donation ? 'Livraison : aucune (don)' : 'Livraison : non précisée'),
           email,
           session.customer_details?.phone ? `Téléphone : ${session.customer_details.phone}` : null,
@@ -504,6 +510,7 @@ async function handleBookPreorderCompleted(session: Stripe.Checkout.Session) {
         isDonation: tier.is_donation,
         delivery: delivery === 'retraitexposition' || delivery === 'envoivinted' ? delivery : null,
         expoPromoCode,
+        extraDonationCents,
       });
 
       const { error: sendError } = await getResend().emails.send({

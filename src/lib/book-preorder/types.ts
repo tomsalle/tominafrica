@@ -13,6 +13,9 @@ export const bookPreorderCheckoutRequestSchema = z.object({
   tierId: z.uuid(),
   quantity: z.number().int().min(1).max(10).default(1),
   customAmountCents: z.number().int().min(100).max(1_000_000).optional(),
+  // Don ajouté à un article (1 €, 5 €, 10 € ou montant libre) pour soutenir
+  // l'installation de l'exposition — refusé sur le palier « Don » lui-même.
+  extraDonationCents: z.number().int().min(100).max(100_000).optional(),
   locale: z.enum(['fr', 'en']).optional(),
   // Affichés publiquement dans la liste des contributions — facultatifs.
   publicName: z.string().trim().max(60).optional(),

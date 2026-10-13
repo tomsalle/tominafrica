@@ -361,6 +361,7 @@ export type Database = {
           public_message: string | null;
           expo_promo_code: string | null;
           expo_promo_redeemed_at: string | null;
+          extra_donation_cents: number;
           created_at: string;
           updated_at: string;
           paid_at: string | null;
@@ -393,6 +394,7 @@ export type Database = {
           public_message?: string | null;
           expo_promo_code?: string | null;
           expo_promo_redeemed_at?: string | null;
+          extra_donation_cents?: number;
           created_at?: string;
           updated_at?: string;
           paid_at?: string | null;

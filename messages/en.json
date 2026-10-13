@@ -333,7 +333,8 @@
     "deliveryFieldLabel": "Delivery method",
     "deliveryPickup": "Pick up at the exhibition (Paris, 27–29 Nov.) — free",
     "deliveryVinted": "Shipping via Vinted — about €1 paid on the app",
-    "closed": "The pre-order is closed."
+    "closed": "The pre-order is closed.",
+    "extraDonationName": "Donation to set up the exhibition"
   },
   "bookPreorder": {
     "metaTitle": "Pre-order the book",
@@ -480,7 +481,22 @@
       "publicNameLabel": "Display name",
       "publicNamePlaceholder": "Anonymous if left blank",
       "publicMessageLabel": "Your message",
-      "publicMessageHelp": "Visible to everyone in the pre-order list."
+      "publicMessageHelp": "Visible to everyone in the pre-order list.",
+      "upsell": {
+        "eyebrow": "Support the exhibition",
+        "title": "A little boost for the exhibition?",
+        "body": "Add a donation to your order to help us set up the exhibition in Paris, 27 — 29 November. It is optional, and every euro counts.",
+        "amountsLabel": "Donation amount",
+        "other": "Other",
+        "otherLabel": "Amount of your choice (from €1)",
+        "invalidAmount": "Enter an amount between €1 and €1,000.",
+        "donationLine": "Donation for the exhibition",
+        "total": "Total",
+        "continueWithout": "Continue without a donation",
+        "continueWith": "Continue with a {amount} donation",
+        "submitting": "Redirecting to payment…",
+        "close": "Close"
+      }
     },
     "contributions": {
       "title": "{count, plural, =0 {Pre-orders} one {# pre-order} other {# pre-orders}}",

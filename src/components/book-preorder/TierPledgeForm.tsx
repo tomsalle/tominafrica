@@ -2,6 +2,7 @@
 
 import { useLocale, useTranslations } from 'next-intl';
 import { useState } from 'react';
+import { DonationUpsellDialog } from '@/components/book-preorder/DonationUpsellDialog';
 import { Button } from '@/components/ui/Button';
 import { formatPrice } from '@/lib/format';
 import type { BookPreorderTierRow } from '@/types/database';
@@ -23,7 +24,9 @@ type TierPledgeFormProps = {
 export function TierPledgeForm({ tier, checkoutEnabled, soldOut, closed = false }: TierPledgeFormProps) {
   const t = useTranslations('bookPreorder.form');
   const common = useTranslations('bookPreorder.tierCommon');
+  const tiers = useTranslations('bookPreorder.tiers');
   const locale = useLocale();
+  const [upsellOpen, setUpsellOpen] = useState(false);
 
   const [quantity, setQuantity] = useState(1);
   const [donationAmount, setDonationAmount] = useState(tier.price_cents / 100);
@@ -37,7 +40,7 @@ export function TierPledgeForm({ tier, checkoutEnabled, soldOut, closed = false 
   const maxQuantity =
     tier.stock_limit !== null ? Math.max(0, tier.stock_limit - tier.claimed_count) : 10;
 
-  async function handleSubmit() {
+  async function handleSubmit(extraDonationCents: number | null = null) {
     setStatus('submitting');
     setError(null);
 
@@ -49,6 +52,7 @@ export function TierPledgeForm({ tier, checkoutEnabled, soldOut, closed = false 
           tierId: tier.id,
           quantity: tier.is_donation ? 1 : quantity,
           customAmountCents: tier.is_donation ? Math.round(donationAmount * 100) : undefined,
+          extraDonationCents: !tier.is_donation && extraDonationCents ? extraDonationCents : undefined,
           locale,
           publicName: publicName.trim() || undefined,
           publicMessage: publicMessage.trim() || undefined,
@@ -180,12 +184,28 @@ export function TierPledgeForm({ tier, checkoutEnabled, soldOut, closed = false 
       <Button
         type="button"
         variant="brand"
-        onClick={handleSubmit}
+        // Article : on propose d'abord d'ajouter un don pour l'expo. Don : paiement direct.
+        onClick={() => (tier.is_donation ? handleSubmit() : setUpsellOpen(true))}
         className="w-full"
         disabled={status === 'submitting'}
       >
         {status === 'submitting' ? t('submitting') : tier.is_donation ? t('donate') : t('preorder')}
       </Button>
+
+      {tier.is_donation ? null : (
+        <DonationUpsellDialog
+          open={upsellOpen}
+          orderLabel={`${tiers(`${tier.slug}.name`)} × ${quantity}`}
+          orderCents={tier.price_cents * quantity}
+          submitting={status === 'submitting'}
+          error={upsellOpen ? error : null}
+          onClose={() => {
+            setUpsellOpen(false);
+            setError(null);
+          }}
+          onConfirm={(extra) => handleSubmit(extra)}
+        />
+      )}
     </div>
   );
 }
