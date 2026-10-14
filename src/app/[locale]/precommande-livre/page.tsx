@@ -8,6 +8,7 @@ import { BookSlideshow } from '@/components/book-preorder/BookSlideshow';
 import { BudgetBreakdown } from '@/components/book-preorder/BudgetBreakdown';
 import { ContributionsList } from '@/components/book-preorder/ContributionsList';
 import { Faq } from '@/components/book-preorder/Faq';
+import { LoopVideo } from '@/components/book-preorder/LoopVideo';
 import { PreorderSteps } from '@/components/book-preorder/PreorderSteps';
 import { ShareButton } from '@/components/book-preorder/ShareButton';
 import { ShippingInfo } from '@/components/book-preorder/ShippingInfo';
@@ -224,10 +225,24 @@ export default async function BookPreorderPage({
                 <Prose>
                   <p>{t('about.p1')}</p>
                   <p>{t('about.p2')}</p>
-                  <p>{t('about.p3')}</p>
-                  <p>{t('about.p4')}</p>
                 </Prose>
               </div>
+
+              {/* Le livre feuilleté, en boucle, comme un GIF. */}
+              <figure className="my-10">
+                <div className="relative aspect-video overflow-hidden bg-ink-soft">
+                  <LoopVideo
+                    src="/precommande-livre/livre-feuilletage.mp4"
+                    poster="/precommande-livre/livre-feuilletage.avif"
+                    label={t('about.videoLabel')}
+                  />
+                </div>
+              </figure>
+
+              <Prose>
+                <p>{t('about.p3')}</p>
+                <p>{t('about.p4')}</p>
+              </Prose>
 
               <StoryPhoto src="/notre-aventure/rencontre-chef-village.jpg" alt={photos('villageChiefPhotoAlt')} width={2000} height={1125} />
 
