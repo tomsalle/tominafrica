@@ -49,45 +49,24 @@ export function getPreorderStepState(count: number): PreorderStepState {
   return { steps, currentIndex, target };
 }
 
-// Tirage et coûts d'impression d'après le devis de l'imprimeur KOPA
-// (offre P0118119 du 8 octobre 2026, option couverture 250 g pelliculée +
-// intérieur 108 pages), retenue par Tom : 250 exemplaires. Devis HT, TVA ajoutée.
+// Tirage et budget du livre, affichés volontairement arrondis (demande de Tom,
+// 14 octobre 2026). Base de calcul, gardée ici pour mémoire :
+//  - impression : devis KOPA au format 22 × 29,7 cm, au moins 1 200 € de moins
+//    que l'offre P0118119 (4 709 € HT pour 250 ex.) → 3 509 € + livraison 233 €
+//    + emballage 32,50 € = 3 774,50 € HT, soit 3 982,10 € TTC (TVA 5,5 %)
+//    → affiché « 4 000 € » ;
+//  - accompagnement maison d'édition : 800 € ;
+//  - frais divers : 505 € + 15 € = 520 € → affiché « 500 € ».
 export const BOOK_PRINT_RUN = 250;
 
-const PRINTING_HT = [
-  { labelKey: 'printingCopies', amountCents: 470_900 }, // 250 × 18,83 €
-  { labelKey: 'printingDelivery', amountCents: 23_300 }, // livraison à Paris
-  { labelKey: 'printingPackaging', amountCents: BOOK_PRINT_RUN * 13 }, // film individuel, 0,13 € / livre
-] as const;
+export type BudgetLine = { labelKey: 'printing' | 'publisher' | 'otherFees'; amountCents: number };
 
-// Le devis est hors taxes : on ajoute la TVA au taux du livre en France.
-export const PRINTING_VAT_RATE = 0.055;
-
-const PRINTING_DETAILS = [
-  ...PRINTING_HT,
-  {
-    labelKey: 'printingVat',
-    amountCents: Math.round(PRINTING_HT.reduce((sum, d) => sum + d.amountCents, 0) * PRINTING_VAT_RATE),
-  },
-] as const;
-
-export type BudgetDetail = { labelKey: (typeof PRINTING_DETAILS)[number]['labelKey']; amountCents: number };
-export type BudgetLine = {
-  labelKey: 'printing' | 'publisher' | 'otherFees';
-  amountCents: number;
-  details?: readonly BudgetDetail[];
-};
-
-/** Répartition du budget du livre (fixe : le tirage est arrêté à 250 exemplaires). */
+/** Répartition du budget du livre (tirage de 250 exemplaires, montants arrondis). */
 export function getPreorderBudget(): { lines: BudgetLine[]; totalCents: number } {
   const lines: BudgetLine[] = [
-    {
-      labelKey: 'printing',
-      amountCents: PRINTING_DETAILS.reduce((sum, d) => sum + d.amountCents, 0),
-      details: PRINTING_DETAILS,
-    },
-    { labelKey: 'publisher', amountCents: 40_000 }, // Accompagnement maison d'édition
-    { labelKey: 'otherFees', amountCents: 50_500 }, // Autres frais (ISBN, livres offerts)
+    { labelKey: 'printing', amountCents: 400_000 },
+    { labelKey: 'publisher', amountCents: 80_000 },
+    { labelKey: 'otherFees', amountCents: 50_000 },
   ];
   return { lines, totalCents: lines.reduce((sum, line) => sum + line.amountCents, 0) };
 }

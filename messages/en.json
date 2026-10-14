@@ -376,13 +376,13 @@
     },
     "priceWhy": {
       "title": "Why this price?",
-      "p1": "We chose the best possible materials to give you the most beautiful book possible: a large A3 format, a thick laminated cover and fine coated paper, so that every photograph lives up to what we experienced.",
+      "p1": "We chose the best possible materials to give you the most beautiful book possible: a 22 × 29.7 cm format designed to go everywhere with you, a thick laminated cover and fine coated paper, so that every photograph lives up to what we experienced.",
       "p2": "But this quality comes at a cost. We are not even sure this book will make us any money: our only goal is to cover our costs."
     },
     "specs": {
       "title": "This book at a glance",
       "pages": "112 pages, two points of view: a mother, a photographer, and her son",
-      "format": "Format: slightly smaller than a closed A3, unbound",
+      "format": "Format: 22 × 29.7 cm, slightly larger than A4: ideal to take anywhere without damaging it",
       "printRun": "Print run: {count} copies, limited edition",
       "deadline": "Pre-order ends: 27 November 2026, the opening night",
       "delivery": "Estimated delivery: November 27, 2026, the day of the exhibition’s opening night in Paris"
@@ -391,15 +391,11 @@
       "title": "What pre-orders pay for",
       "goalLabel": "book budget",
       "items": {
-        "printing": "Printing {count} copies",
-        "printingCopies": "Printing",
-        "printingDelivery": "Delivery to Paris",
-        "printingPackaging": "Individual wrapping",
-        "printingVat": "VAT ({rate}%)",
+        "printing": "Printing and delivery of the {count} books",
         "publisher": "Publisher support",
-        "otherFees": "Other costs (ISBN, free copies)"
+        "otherFees": "Miscellaneous costs"
       },
-      "note": "Printing: printer’s quote (October 2026), including 5.5% VAT, the French rate for books."
+      "note": "Rounded amounts, VAT included."
     },
     "follow": {
       "title": "Follow the project",

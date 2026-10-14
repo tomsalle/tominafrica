@@ -1,5 +1,5 @@
 import { useLocale, useTranslations } from 'next-intl';
-import { BOOK_PRINT_RUN, getPreorderBudget, PRINTING_VAT_RATE } from '@/lib/book-preorder/config';
+import { BOOK_PRINT_RUN, getPreorderBudget } from '@/lib/book-preorder/config';
 import { formatPrice } from '@/lib/format';
 
 // Rouge de la page, puis deux gris du site : la couleur ne porte pas seule
@@ -20,10 +20,9 @@ const GAP = 0.8;
 export function BudgetBreakdown() {
   const t = useTranslations('bookPreorder.budget');
   const locale = useLocale();
-  const percentFormat = new Intl.NumberFormat(locale, { minimumFractionDigits: 1, maximumFractionDigits: 1 });
-  const vatRate = percentFormat.format(PRINTING_VAT_RATE * 100);
+  const percentFormat = new Intl.NumberFormat(locale, { maximumFractionDigits: 0 });
 
-  // Budget fixe, d'après le devis de l'imprimeur (tirage de 250 exemplaires).
+  // Budget fixe et arrondi (tirage de 250 exemplaires).
   const { lines, totalCents } = getPreorderBudget();
   const bookCount = BOOK_PRINT_RUN;
   const percents = lines.map((item) => (item.amountCents / totalCents) * 100);
@@ -79,16 +78,6 @@ export function BudgetBreakdown() {
                 <p className="mt-0.5 text-sm text-paper-faint tabular-nums">
                   <span className="text-paper">{formatPrice(s.amountCents)}</span> · {percentFormat.format(s.percent)} %
                 </p>
-                {s.details ? (
-                  <ul className="mt-2 space-y-1 border-l border-ink-line pl-3 text-xs text-paper-faint tabular-nums">
-                    {s.details.map((detail) => (
-                      <li key={detail.labelKey} className="flex justify-between gap-4">
-                        <span>{t(`items.${detail.labelKey}`, { rate: vatRate })}</span>
-                        <span>{formatPrice(detail.amountCents)}</span>
-                      </li>
-                    ))}
-                  </ul>
-                ) : null}
               </div>
             </li>
           ))}
