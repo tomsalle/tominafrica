@@ -8,11 +8,11 @@
  * getPreorderBudget) reste affiché à titre d'information (« à quoi servira
  * le financement ») et suit l'objectif en cours, sans piloter la jauge.
  */
-// Fin de la précommande : le jour du vernissage, vendredi 27 novembre 2026,
-// à minuit (heure de Paris) — demande de Tom. Après, plus aucun paiement ;
-// les pages restent en ligne et annoncent la clôture.
-export const BOOK_PREORDER_END = new Date('2026-11-28T00:00:00+01:00');
-export const BOOK_PREORDER_LAST_DAY = '2026-11-27';
+// Fin de la précommande : vendredi 20 novembre 2026 à minuit (heure de Paris),
+// une semaine avant le vernissage — demande de Tom. Après, plus aucun
+// paiement ; les pages restent en ligne et annoncent la clôture.
+export const BOOK_PREORDER_END = new Date('2026-11-21T00:00:00+01:00');
+export const BOOK_PREORDER_LAST_DAY = '2026-11-20';
 
 export function isPreorderClosed(now = new Date()): boolean {
   return now.getTime() >= BOOK_PREORDER_END.getTime();
