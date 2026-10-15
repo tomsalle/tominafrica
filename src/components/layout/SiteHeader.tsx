@@ -6,6 +6,7 @@ import { Link, usePathname } from '@/i18n/navigation';
 import { routing } from '@/i18n/routing';
 import { openCart, useCartHydrated, useCartItems } from '@/lib/cart/store';
 import { cartCount } from '@/lib/cart/types';
+import { isPreorderClosed } from '@/lib/book-preorder/config';
 import { EXHIBITION_PATH, isExhibitionUpcoming } from '@/lib/exhibition/event';
 
 export function SiteHeader() {
@@ -19,12 +20,17 @@ export function SiteHeader() {
 
   const count = cartCount(items);
 
-  // L'exposition est mise en avant (point rouge) jusqu'à sa date de fin,
-  // puis disparaît du menu d'elle-même.
-  const NAV = [
+  // Mis en avant (point rouge) : le livre tant que sa précommande est ouverte,
+  // sinon l'exposition jusqu'à sa date de fin. L'exposition quitte le menu
+  // d'elle-même une fois passée.
+  const preorderOpen = !isPreorderClosed();
+  const NAV: { href: string; label: string; highlight: boolean; badge?: string }[] = [
     { href: '/series/1-mere-1-fils-1-reve', label: t('gallery'), highlight: false },
     { href: '/notre-aventure', label: t('adventure'), highlight: false },
-    ...(isExhibitionUpcoming() ? [{ href: EXHIBITION_PATH, label: t('exhibition'), highlight: true }] : []),
+    { href: '/precommande-livre', label: t('book'), highlight: preorderOpen, badge: preorderOpen ? t('bookBadge') : undefined },
+    ...(isExhibitionUpcoming()
+      ? [{ href: EXHIBITION_PATH, label: t('exhibition'), highlight: !preorderOpen, badge: t('exhibitionDates') }]
+      : []),
     { href: '/videos', label: t('videos'), highlight: false },
   ];
 
@@ -62,15 +68,15 @@ export function SiteHeader() {
           Tom in Africa
         </Link>
 
-        {/* Bascule à lg plutôt que sm : à quatre liens, « Notre aventure »
-            rendrait la barre trop juste entre 640 et 1024px. */}
-        <nav className="hidden items-center gap-8 lg:flex" aria-label={t('navPrimary')}>
+        {/* Bascule à lg plutôt que sm : avec cinq liens, la barre serait trop
+            juste entre 640 et 1024px. Espacement resserré jusqu'à xl. */}
+        <nav className="hidden items-center gap-5 lg:flex xl:gap-8" aria-label={t('navPrimary')}>
           {NAV.map((item) => (
             <Link
               key={item.href}
               href={item.href}
               className={`eyebrow link-underline ${
-                pathname === item.href || item.highlight ? 'text-paper' : 'hover:text-paper'
+                pathname === item.href || pathname.startsWith(`${item.href}/`) || item.highlight ? 'text-paper' : 'hover:text-paper'
               }`}
             >
               {item.highlight ? (
@@ -115,7 +121,7 @@ export function SiteHeader() {
       <nav
         className={`overflow-hidden border-t px-5 transition-[max-height,opacity,border-color] duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] lg:hidden ${
           menuOpen
-            ? 'max-h-96 border-ink-line pb-6 opacity-100'
+            ? 'max-h-[34rem] border-ink-line pb-6 opacity-100'
             : 'max-h-0 border-transparent pb-0 opacity-0'
         }`}
         aria-label={t('navMobile')}
@@ -131,8 +137,8 @@ export function SiteHeader() {
             className="flex items-center gap-3 py-4 font-display text-2xl font-light"
           >
             {item.label}
-            {item.highlight ? (
-              <span className="text-[0.6875rem] tracking-[0.14em] text-brand-text uppercase">{t('exhibitionDates')}</span>
+            {item.badge ? (
+              <span className="text-[0.6875rem] tracking-[0.14em] text-brand-text uppercase">{item.badge}</span>
             ) : null}
           </Link>
         ))}

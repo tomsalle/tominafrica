@@ -35,6 +35,8 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     ...bilingualEntry(base, '/', 'monthly', 1),
     ...bilingualEntry(base, '/notre-aventure', 'monthly', 0.9),
     ...bilingualEntry(base, '/notre-aventure/exposition', 'weekly', 0.9),
+    ...bilingualEntry(base, '/precommande-livre', 'weekly', 0.9),
+    ...bilingualEntry(base, '/precommande-livre/formules', 'weekly', 0.8),
     ...bilingualEntry(base, '/videos', 'monthly', 0.5),
 
     // Pages légales et fiches du catalogue : uniquement en français pour l'instant.

@@ -20,7 +20,9 @@
     "cartAria": "Panier — {count, plural, =0 {0 article} one {# article} other {# articles}}",
     "languageLabel": "Changer de langue",
     "exhibition": "Exposition",
-    "exhibitionDates": "27 — 29 nov."
+    "exhibitionDates": "27 — 29 nov.",
+    "book": "Le livre",
+    "bookBadge": "Précommande"
   },
   "footer": {
     "legalNav": "Informations légales",
@@ -610,5 +612,15 @@
     "cta": "S’inscrire au vernissage",
     "map": "Voir le lieu",
     "posterAria": "Affiche de l’exposition — s’inscrire"
+  },
+  "bookPopIn": {
+    "imageAlt": "La couverture du livre « 1 Mère, 1 Fils, 1 Rêve »",
+    "close": "Fermer",
+    "eyebrow": "Précommande ouverte",
+    "title": "Notre livre est en précommande",
+    "body": "1 Mère, 1 Fils, 1 Rêve : notre voyage de Paris à Cape Town en 112 pages, deux regards. Édition limitée à 250 exemplaires, à récupérer au vernissage le 27 novembre. Précommande jusqu’au 20 novembre.",
+    "cta": "Précommander le livre",
+    "discover": "Découvrir le livre",
+    "later": "Plus tard"
   }
 }

@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import { getTranslations } from 'next-intl/server';
 import { notFound } from 'next/navigation';
+import { RememberPreorder } from '@/components/book-preorder/RememberPreorder';
 import { ButtonLink } from '@/components/ui/Button';
 import { Container } from '@/components/ui/Container';
 import { BOOK_PREORDER_PAGE_DISABLED } from '@/lib/book-preorder/flags';
@@ -24,6 +25,7 @@ export default async function BookPreorderSuccessPage() {
 
   return (
     <div className="flex min-h-dvh items-center pt-32 pb-28">
+      <RememberPreorder />
       <Container width="prose">
         <p className="eyebrow">{t('eyebrow')}</p>
 

@@ -24,7 +24,6 @@ export async function generateMetadata({
   return {
     title: t('metaTitle'),
     alternates: { languages: languageAlternates('/precommande-livre/formules') },
-    robots: { index: false, follow: false },
   };
 }
 

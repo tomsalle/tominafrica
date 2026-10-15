@@ -5,6 +5,7 @@ import { NextIntlClientProvider } from 'next-intl';
 import { getTranslations, setRequestLocale } from 'next-intl/server';
 import { notFound } from 'next/navigation';
 import { CartDrawer } from '@/components/cart/CartDrawer';
+import { BookPopIn } from '@/components/layout/BookPopIn';
 import { ExpositionPopIn } from '@/components/layout/ExpositionPopIn';
 import { SiteFooter } from '@/components/layout/SiteFooter';
 import { SiteHeader } from '@/components/layout/SiteHeader';
@@ -98,6 +99,9 @@ export default async function RootLayout({
           </main>
           <SiteFooter />
           <CartDrawer />
+          {/* Une seule pop-in à la fois : le livre tant que la précommande est
+              ouverte, puis l'exposition jusqu'à sa date de fin. */}
+          <BookPopIn />
           <ExpositionPopIn />
         </NextIntlClientProvider>
       </body>

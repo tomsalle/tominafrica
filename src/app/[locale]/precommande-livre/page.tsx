@@ -50,7 +50,6 @@ export async function generateMetadata({
     title: t('metaTitle'),
     description: t('metaDescription'),
     alternates: { languages: languageAlternates('/precommande-livre') },
-    robots: { index: false, follow: false },
   };
 }
 

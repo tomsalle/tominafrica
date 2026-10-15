@@ -4,6 +4,7 @@ import Image from 'next/image';
 import { useTranslations } from 'next-intl';
 import { useEffect, useRef, useState } from 'react';
 import { Link } from '@/i18n/navigation';
+import { isPreorderClosed } from '@/lib/book-preorder/config';
 import { EXHIBITION, EXHIBITION_PATH, EXHIBITION_REGISTERED_KEY, isExhibitionUpcoming } from '@/lib/exhibition/event';
 
 // v2 : les visiteurs qui l'avaient fermée avant la mise en avant de
@@ -31,6 +32,8 @@ export function ExpositionPopIn() {
 
   useEffect(() => {
     if (!isExhibitionUpcoming()) return;
+    // Tant que la précommande du livre est ouverte, c'est sa pop-in qui s'affiche.
+    if (!isPreorderClosed()) return;
     if (/\/(panier|commande|precommande-livre|notre-aventure\/exposition)(\/|$)/.test(window.location.pathname)) return;
 
     try {
