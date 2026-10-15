@@ -336,7 +336,8 @@
     "deliveryPickup": "Pick up at the exhibition (Paris, 27–29 Nov.) — free",
     "deliveryVinted": "Shipping via Vinted — about €1 paid on the app",
     "closed": "The pre-order is closed.",
-    "extraDonationName": "Donation to set up the exhibition"
+    "extraDonationName": "Donation to set up the exhibition",
+    "notYetOpen": "Pre-order opens on Friday 16 October at 12 pm (Paris time)."
   },
   "bookPreorder": {
     "metaTitle": "Pre-order the book",
@@ -573,6 +574,15 @@
       "showBack": "See the back",
       "showFront": "See the cover",
       "backAlt": "The back of the book: a contact sheet of Kodak Portra 400 film strips"
+    },
+    "countdown": {
+      "label": "Pre-order opens in",
+      "date": "Friday 16 October 2026 at 12 pm (Paris time)",
+      "hours": "hours",
+      "minutes": "min",
+      "seconds": "sec",
+      "buttonBefore": "Opens Friday at 12 pm",
+      "srTime": "{hours, plural, =0 {} one {# hour and } other {# hours and }}{minutes, plural, one {# minute} other {# minutes}} before opening"
     }
   },
   "bookPreorderSucces": {
@@ -621,6 +631,10 @@
     "body": "1 Mother, 1 Son, 1 Dream: our journey from Paris to Cape Town in 112 pages, two perspectives. Limited edition of 250 copies, to collect at the opening night on 27 November. Pre-order until 20 November.",
     "cta": "Pre-order the book",
     "discover": "Discover the book",
-    "later": "Later"
+    "later": "Later",
+    "eyebrowBefore": "Coming soon",
+    "titleBefore": "Pre-order opens Friday at 12 pm",
+    "bodyBefore": "1 Mother, 1 Son, 1 Dream: our journey from Paris to Cape Town in 112 pages. Limited edition of 250 copies, with early birds at a reduced price for the quickest.",
+    "ctaBefore": "Discover the book"
   }
 }

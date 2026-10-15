@@ -9,6 +9,7 @@ import { BudgetBreakdown } from '@/components/book-preorder/BudgetBreakdown';
 import { ContributionsList } from '@/components/book-preorder/ContributionsList';
 import { Faq } from '@/components/book-preorder/Faq';
 import { LoopVideo } from '@/components/book-preorder/LoopVideo';
+import { PreorderCountdown, PreorderGate } from '@/components/book-preorder/PreorderCountdown';
 import { PreorderSteps } from '@/components/book-preorder/PreorderSteps';
 import { ShareButton } from '@/components/book-preorder/ShareButton';
 import { ShippingInfo } from '@/components/book-preorder/ShippingInfo';
@@ -70,7 +71,7 @@ export default async function BookPreorderPage({
   // Simulation locale uniquement : en production, l'URL n'est jamais lue
   // (la page reste mise en cache).
   const devParams = process.env.NODE_ENV === 'development' ? await searchParams : {};
-  const { simulated, progress, contributions, stepState, offer, closed, daysLeft } = await loadPreorderData(
+  const { simulated, progress, contributions, stepState, offer, closed, daysLeft, phase } = await loadPreorderData(
     devParams.simulation,
     devParams.cloture,
   );
@@ -79,8 +80,10 @@ export default async function BookPreorderPage({
   const photos = await getTranslations('notreAventure');
   const ctaHref = simulated !== null ? `${FORMULAS_PATH}?simulation=${simulated}` : FORMULAS_PATH;
 
-  // Bouton repris à la fin des sections longues (absent une fois la précommande close).
+  // Bouton repris à la fin des sections longues (absent une fois la précommande close,
+  // remplacé par rien avant l'ouverture : le compte à rebours est déjà en haut).
   const inlineCta = closed ? null : (
+    <PreorderGate serverPhase={phase} fallback={null}>
     <div className="mt-10">
       <Link
         href={ctaHref}
@@ -89,6 +92,7 @@ export default async function BookPreorderPage({
         {t('product.cta')}
       </Link>
     </div>
+    </PreorderGate>
   );
 
   return (
@@ -143,6 +147,7 @@ export default async function BookPreorderPage({
                 ordersCount={progress.pledgesCount}
                 closed={closed}
                 daysLeft={daysLeft}
+                phase={phase}
               />
             </div>
 
@@ -155,6 +160,7 @@ export default async function BookPreorderPage({
 
       <StickyTabNav
         ctaHref={closed ? null : ctaHref}
+        phase={phase}
         priceLabel={offer && !closed ? `${t('product.name')} · ${formatPrice(offer.priceCents)}` : null}
       />
 
@@ -283,13 +289,22 @@ export default async function BookPreorderPage({
                       ) : null}
                     </p>
                   ) : null}
-                  <Link
-                    href={ctaHref}
-                    className="mt-5 flex min-h-12 items-center justify-center bg-brand px-4 text-[0.6875rem] font-medium tracking-[0.2em] text-paper uppercase transition-[background-color,transform] duration-200 hover:bg-brand-hover active:scale-[0.98]"
+                  <PreorderGate
+                    serverPhase={phase}
+                    fallback={
+                      <div className="mt-5 border border-[#ff3b3b]/35 bg-black px-3 py-3 text-center">
+                        <PreorderCountdown serverPhase={phase} variant="compact" />
+                      </div>
+                    }
                   >
-                    {t('product.cta')}
-                  </Link>
-                  <p className="mt-3 text-center text-[0.6875rem] text-paper-faint">{t('product.formulasHint')}</p>
+                    <Link
+                      href={ctaHref}
+                      className="mt-5 flex min-h-12 items-center justify-center bg-brand px-4 text-[0.6875rem] font-medium tracking-[0.2em] text-paper uppercase transition-[background-color,transform] duration-200 hover:bg-brand-hover active:scale-[0.98]"
+                    >
+                      {t('product.cta')}
+                    </Link>
+                    <p className="mt-3 text-center text-[0.6875rem] text-paper-faint">{t('product.formulasHint')}</p>
+                  </PreorderGate>
                   <p className="mt-4 border-t border-ink-line pt-3 text-center text-xs text-paper-dim">
                     {t('deadline.daysLeft', { count: daysLeft })} · {t('deadline.until')}
                   </p>

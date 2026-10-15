@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import { getTranslations } from 'next-intl/server';
 import { notFound } from 'next/navigation';
 import { FormulaCard } from '@/components/book-preorder/FormulaCard';
+import { PreorderCountdown, PreorderGate } from '@/components/book-preorder/PreorderCountdown';
 import { CalendarIcon, CheckIcon, GiftIcon, HeartIcon } from '@/components/book-preorder/icons';
 import { SimulationBanner } from '@/components/book-preorder/SimulationBanner';
 import { TierPledgeForm } from '@/components/book-preorder/TierPledgeForm';
@@ -40,7 +41,7 @@ export default async function BookFormulasPage({
   if (BOOK_PREORDER_PAGE_DISABLED) notFound();
 
   const devParams = process.env.NODE_ENV === 'development' ? await searchParams : {};
-  const { simulated, formulas, donationTier, offer, closed, daysLeft } = await loadPreorderData(
+  const { simulated, formulas, donationTier, offer, closed, daysLeft, phase } = await loadPreorderData(
     devParams.simulation,
     devParams.cloture,
   );
@@ -95,6 +96,20 @@ export default async function BookFormulasPage({
           </ul>
         )}
 
+        {/* Avant l'ouverture : le compte à rebours, au-dessus des formules. */}
+        {closed ? null : (
+          <PreorderGate
+            serverPhase={phase}
+            fallback={
+              <div className="mt-10 max-w-md">
+                <PreorderCountdown serverPhase={phase} />
+              </div>
+            }
+          >
+            {null}
+          </PreorderGate>
+        )}
+
         <div className="mt-12 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {soldOutLast.map((tier) => {
             const isOffer = tier.id === offer?.tier.id;
@@ -104,6 +119,7 @@ export default async function BookFormulasPage({
                 tier={tier}
                 checkoutEnabled={checkoutEnabled}
                 closed={closed}
+                phase={phase}
                 compareAtCents={isOffer ? offer?.compareAtCents : null}
                 badge={isOffer && !closed ? (offer?.compareAtCents ? t('badgeEarlyBird') : t('badgeBook')) : null}
               />
@@ -128,7 +144,7 @@ export default async function BookFormulasPage({
               <p className="mt-4 max-w-xl text-base leading-relaxed text-paper-dim">{t('donationBody')}</p>
             </div>
             <div className="lg:pt-10">
-              <TierPledgeForm tier={donationTier} checkoutEnabled={checkoutEnabled} soldOut={false} closed={closed} />
+              <TierPledgeForm tier={donationTier} checkoutEnabled={checkoutEnabled} soldOut={false} closed={closed} phase={phase} />
             </div>
           </section>
         ) : null}

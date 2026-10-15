@@ -5,6 +5,8 @@ import { useState } from 'react';
 import { DonationUpsellDialog } from '@/components/book-preorder/DonationUpsellDialog';
 import { Button } from '@/components/ui/Button';
 import { formatPrice } from '@/lib/format';
+import type { PreorderPhase } from '@/lib/book-preorder/config';
+import { usePreorderPhase } from '@/lib/book-preorder/use-preorder-phase';
 import type { BookPreorderTierRow } from '@/types/database';
 
 type Status = 'idle' | 'submitting' | 'error';
@@ -14,6 +16,7 @@ type TierPledgeFormProps = {
   checkoutEnabled: boolean;
   soldOut: boolean;
   closed?: boolean;
+  phase?: PreorderPhase;
 };
 
 /**
@@ -21,7 +24,9 @@ type TierPledgeFormProps = {
  * fixe, montant libre pour le don. Même forme d'état (idle/submitting/error)
  * que ExpositionForm.tsx, même redirection que CartView.tsx.
  */
-export function TierPledgeForm({ tier, checkoutEnabled, soldOut, closed = false }: TierPledgeFormProps) {
+export function TierPledgeForm({ tier, checkoutEnabled, soldOut, closed = false, phase: serverPhase = 'open' }: TierPledgeFormProps) {
+  const { phase } = usePreorderPhase(serverPhase);
+  const countdown = useTranslations('bookPreorder.countdown');
   const t = useTranslations('bookPreorder.form');
   const common = useTranslations('bookPreorder.tierCommon');
   const tiers = useTranslations('bookPreorder.tiers');
@@ -72,6 +77,14 @@ export function TierPledgeForm({ tier, checkoutEnabled, soldOut, closed = false 
       setStatus('error');
       setError(t('genericError'));
     }
+  }
+
+  if (phase === 'before') {
+    return (
+      <Button type="button" variant="outline" className="w-full" disabled>
+        {countdown('buttonBefore')}
+      </Button>
+    );
   }
 
   if (closed) {

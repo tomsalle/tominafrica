@@ -1,8 +1,9 @@
 import { useTranslations } from 'next-intl';
 import { FundingProgress } from '@/components/book-preorder/FundingProgress';
+import { PreorderCountdown, PreorderGate } from '@/components/book-preorder/PreorderCountdown';
 import { CalendarIcon, GiftIcon, UsersIcon } from '@/components/book-preorder/icons';
 import { Link } from '@/i18n/navigation';
-import type { PreorderStepState } from '@/lib/book-preorder/config';
+import type { PreorderPhase, PreorderStepState } from '@/lib/book-preorder/config';
 import type { BookOffer } from '@/lib/book-preorder/page-data';
 import { formatPrice } from '@/lib/format';
 
@@ -19,6 +20,7 @@ export function BookOfferPanel({
   ordersCount,
   closed,
   daysLeft,
+  phase,
 }: {
   offer: BookOffer | null;
   count: number;
@@ -26,6 +28,7 @@ export function BookOfferPanel({
   ordersCount: number;
   closed: boolean;
   daysLeft: number;
+  phase: PreorderPhase;
 }) {
   const t = useTranslations('bookPreorder');
 
@@ -59,19 +62,28 @@ export function BookOfferPanel({
           <p className="mt-1 text-sm leading-relaxed text-paper-dim">{t('closed.body')}</p>
         </div>
       ) : (
-        <>
-          <Link
-            href={FORMULAS_PATH}
-            className="mt-5 flex min-h-14 items-center justify-center bg-brand px-6 text-xs font-medium tracking-[0.24em] text-paper uppercase transition-[background-color,transform] duration-200 hover:bg-brand-hover active:scale-[0.98]"
-          >
-            {t('product.cta')}
-          </Link>
-          <p className="mt-3 text-center text-xs text-paper-faint">{t('product.reassurance')}</p>
-          <p className="mt-4 flex items-center justify-center gap-2 text-sm text-paper">
-            <GiftIcon className="size-4 shrink-0 text-brand-text" />
-            {t('product.gift')}
-          </p>
-        </>
+        <PreorderGate
+          serverPhase={phase}
+          fallback={
+            <div className="mt-5">
+              <PreorderCountdown serverPhase={phase} />
+            </div>
+          }
+        >
+          <>
+            <Link
+              href={FORMULAS_PATH}
+              className="mt-5 flex min-h-14 items-center justify-center bg-brand px-6 text-xs font-medium tracking-[0.24em] text-paper uppercase transition-[background-color,transform] duration-200 hover:bg-brand-hover active:scale-[0.98]"
+            >
+              {t('product.cta')}
+            </Link>
+            <p className="mt-3 text-center text-xs text-paper-faint">{t('product.reassurance')}</p>
+            <p className="mt-4 flex items-center justify-center gap-2 text-sm text-paper">
+              <GiftIcon className="size-4 shrink-0 text-brand-text" />
+              {t('product.gift')}
+            </p>
+          </>
+        </PreorderGate>
       )}
 
       <div className="mt-8 border-t border-ink-line pt-6">

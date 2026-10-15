@@ -396,3 +396,58 @@
   background: radial-gradient(closest-side, rgb(0 0 0 / 0.34), transparent);
   filter: blur(7px);
 }
+
+/* ------------------------------------------------------------------------
+   Compte à rebours de l'ouverture (PreorderCountdown.tsx), façon minuterie
+   de bombe : deux-points qui clignotent, alarme la dernière minute, et un
+   bref flash quand la précommande s'ouvre.
+   ------------------------------------------------------------------------ */
+@keyframes countdown-blink {
+  50% {
+    opacity: 0.15;
+  }
+}
+
+.countdown-blink {
+  animation: countdown-blink 1s steps(1, end) infinite;
+}
+
+@keyframes countdown-alarm {
+  50% {
+    box-shadow: 0 0 0 1px #ff3b3b, 0 0 32px rgb(255 59 59 / 0.45);
+  }
+}
+
+.countdown-alarm {
+  animation: countdown-alarm 0.5s steps(1, end) infinite;
+}
+
+@keyframes countdown-boom {
+  0% {
+    opacity: 0;
+    scale: 0.92;
+    filter: brightness(3) saturate(0);
+  }
+  35% {
+    opacity: 1;
+    scale: 1.03;
+    filter: brightness(1.6);
+  }
+  100% {
+    opacity: 1;
+    scale: 1;
+    filter: none;
+  }
+}
+
+.countdown-boom {
+  animation: countdown-boom 0.6s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .countdown-blink,
+  .countdown-alarm,
+  .countdown-boom {
+    animation: none;
+  }
+}

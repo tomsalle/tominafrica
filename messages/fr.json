@@ -336,7 +336,8 @@
     "deliveryPickup": "Retrait à l’exposition (Paris, 27–29 nov.) — gratuit",
     "deliveryVinted": "Envoi via Vinted — environ 1 € à payer sur l’app",
     "closed": "La précommande est terminée.",
-    "extraDonationName": "Don pour l’installation de l’exposition"
+    "extraDonationName": "Don pour l’installation de l’exposition",
+    "notYetOpen": "La précommande ouvre le vendredi 16 octobre à 12 h."
   },
   "bookPreorder": {
     "metaTitle": "Précommander le livre",
@@ -573,6 +574,15 @@
       "showBack": "Voir le dos",
       "showFront": "Voir la couverture",
       "backAlt": "Le dos du livre : une planche contact de pellicules Kodak Portra 400"
+    },
+    "countdown": {
+      "label": "Ouverture de la précommande dans",
+      "date": "Vendredi 16 octobre 2026 à 12 h",
+      "hours": "heures",
+      "minutes": "min",
+      "seconds": "sec",
+      "buttonBefore": "Ouverture vendredi à 12 h",
+      "srTime": "{hours, plural, =0 {} one {# heure et } other {# heures et }}{minutes, plural, one {# minute} other {# minutes}} avant l’ouverture"
     }
   },
   "bookPreorderSucces": {
@@ -621,6 +631,10 @@
     "body": "1 Mère, 1 Fils, 1 Rêve : notre voyage de Paris à Cape Town en 112 pages, deux regards. Édition limitée à 250 exemplaires, à récupérer au vernissage le 27 novembre. Précommande jusqu’au 20 novembre.",
     "cta": "Précommander le livre",
     "discover": "Découvrir le livre",
-    "later": "Plus tard"
+    "later": "Plus tard",
+    "eyebrowBefore": "Bientôt",
+    "titleBefore": "La précommande ouvre vendredi à 12 h",
+    "bodyBefore": "1 Mère, 1 Fils, 1 Rêve : notre voyage de Paris à Cape Town en 112 pages. Édition limitée à 250 exemplaires, et des early birds à prix réduit pour les plus rapides.",
+    "ctaBefore": "Découvrir le livre"
   }
 }

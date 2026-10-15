@@ -8,6 +8,19 @@
  * getPreorderBudget) reste affiché à titre d'information (« à quoi servira
  * le financement ») et suit l'objectif en cours, sans piloter la jauge.
  */
+// Ouverture de la précommande : vendredi 16 octobre 2026 à 12 h (heure de
+// Paris) — demande de Tom, pour l'annoncer sur Instagram et par e-mail. Avant,
+// la page affiche un compte à rebours à la place des boutons de commande.
+export const BOOK_PREORDER_START = new Date('2026-10-16T12:00:00+02:00');
+
+export type PreorderPhase = 'before' | 'open' | 'closed';
+
+export function getPreorderPhase(now: number = Date.now()): PreorderPhase {
+  if (now < BOOK_PREORDER_START.getTime()) return 'before';
+  if (now >= BOOK_PREORDER_END.getTime()) return 'closed';
+  return 'open';
+}
+
 // Fin de la précommande : vendredi 20 novembre 2026 à minuit (heure de Paris),
 // une semaine avant le vernissage — demande de Tom. Après, plus aucun
 // paiement ; les pages restent en ligne et annoncent la clôture.

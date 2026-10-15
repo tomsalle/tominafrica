@@ -1,6 +1,7 @@
 import Image from 'next/image';
 import { useTranslations } from 'next-intl';
 import { TierPledgeForm } from '@/components/book-preorder/TierPledgeForm';
+import type { PreorderPhase } from '@/lib/book-preorder/config';
 import { formatPrice } from '@/lib/format';
 import type { BookPreorderTierRow } from '@/types/database';
 
@@ -24,10 +25,12 @@ export function FormulaCard({
   compareAtCents = null,
   badge = null,
   closed = false,
+  phase = 'open',
 }: {
   tier: BookPreorderTierRow;
   checkoutEnabled: boolean;
   closed?: boolean;
+  phase?: PreorderPhase;
   compareAtCents?: number | null;
   badge?: string | null;
 }) {
@@ -75,7 +78,7 @@ export function FormulaCard({
         ) : null}
 
         <div className="mt-auto pt-6">
-          <TierPledgeForm tier={tier} checkoutEnabled={checkoutEnabled} soldOut={soldOut} closed={closed} />
+          <TierPledgeForm tier={tier} checkoutEnabled={checkoutEnabled} soldOut={soldOut} closed={closed} phase={phase} />
         </div>
       </div>
     </article>

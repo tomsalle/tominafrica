@@ -2,7 +2,10 @@
 
 import { useTranslations } from 'next-intl';
 import { useEffect, useState } from 'react';
+import { PreorderCountdown } from '@/components/book-preorder/PreorderCountdown';
 import { Link } from '@/i18n/navigation';
+import type { PreorderPhase } from '@/lib/book-preorder/config';
+import { usePreorderPhase } from '@/lib/book-preorder/use-preorder-phase';
 
 const SECTIONS = ['le-livre', 'faq'] as const;
 type Section = (typeof SECTIONS)[number];
@@ -11,7 +14,16 @@ type Section = (typeof SECTIONS)[number];
  * Barre collante : deux repères (Le livre, FAQ) et, toujours à portée, le
  * bouton qui mène au choix de la formule.
  */
-export function StickyTabNav({ ctaHref, priceLabel }: { ctaHref: string | null; priceLabel: string | null }) {
+export function StickyTabNav({
+  ctaHref,
+  priceLabel,
+  phase: serverPhase,
+}: {
+  ctaHref: string | null;
+  priceLabel: string | null;
+  phase: PreorderPhase;
+}) {
+  const { phase } = usePreorderPhase(serverPhase);
   const t = useTranslations('bookPreorder.nav');
   const [active, setActive] = useState<Section>('le-livre');
 
@@ -63,7 +75,9 @@ export function StickyTabNav({ ctaHref, priceLabel }: { ctaHref: string | null; 
           {priceLabel ? (
             <span className="hidden text-sm text-paper-dim tabular-nums sm:inline">{priceLabel}</span>
           ) : null}
-          {ctaHref ? (
+          {phase === 'before' ? (
+            <PreorderCountdown serverPhase={serverPhase} variant="compact" />
+          ) : ctaHref ? (
             <Link
               href={ctaHref}
               className="inline-flex shrink-0 items-center justify-center bg-brand px-5 py-2.5 text-[0.6875rem] font-medium tracking-[0.2em] text-paper uppercase transition-[background-color,transform] duration-200 hover:bg-brand-hover active:scale-[0.97] sm:px-8"

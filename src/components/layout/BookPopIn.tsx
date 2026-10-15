@@ -4,7 +4,9 @@ import Image from 'next/image';
 import { useTranslations } from 'next-intl';
 import { useEffect, useRef, useState } from 'react';
 import { Link } from '@/i18n/navigation';
-import { isPreorderClosed } from '@/lib/book-preorder/config';
+import { PreorderCountdown } from '@/components/book-preorder/PreorderCountdown';
+import { getPreorderPhase, isPreorderClosed } from '@/lib/book-preorder/config';
+import { usePreorderPhase } from '@/lib/book-preorder/use-preorder-phase';
 
 export const BOOK_PREORDERED_KEY = 'tominafrica.livre-precommande.v1';
 const STORAGE_KEY = 'tominafrica.livre-popin.v1';
@@ -26,6 +28,12 @@ export function BookPopIn() {
   const [mounted, setMounted] = useState(false);
   const [visible, setVisible] = useState(false);
   const closeButtonRef = useRef<HTMLButtonElement>(null);
+  // Avant l'ouverture (16 octobre, 12 h) : annonce + compte à rebours.
+  const [serverPhase] = useState(() => getPreorderPhase());
+  const { phase } = usePreorderPhase(serverPhase);
+  const before = phase === 'before';
+  // Fermée pendant le compte à rebours : elle revient quand même à l'ouverture.
+  const storageKey = useRef(`${STORAGE_KEY}${serverPhase === 'before' ? '.avant' : ''}`);
 
   useEffect(() => {
     if (isPreorderClosed()) return;
@@ -33,7 +41,7 @@ export function BookPopIn() {
 
     try {
       if (window.localStorage.getItem(BOOK_PREORDERED_KEY) === '1') return;
-      const dismissedAt = Number(window.localStorage.getItem(STORAGE_KEY) ?? 0);
+      const dismissedAt = Number(window.localStorage.getItem(storageKey.current) ?? 0);
       if (dismissedAt && Date.now() - dismissedAt < SNOOZE_MS) return;
     } catch {
       // Stockage indisponible (navigation privée) : on l'affiche quand même.
@@ -64,7 +72,7 @@ export function BookPopIn() {
   function dismiss() {
     setVisible(false);
     try {
-      window.localStorage.setItem(STORAGE_KEY, String(Date.now()));
+      window.localStorage.setItem(storageKey.current, String(Date.now()));
     } catch {
       // Rien à faire : au pire, elle réapparaîtra à la prochaine visite.
     }
@@ -128,29 +136,39 @@ export function BookPopIn() {
         <div className="p-7">
           <p className="eyebrow flex items-center gap-2 text-brand-text">
             <span aria-hidden className="inline-block size-1.5 rounded-full bg-brand-text" />
-            {t('eyebrow')}
+            {before ? t('eyebrowBefore') : t('eyebrow')}
           </p>
           <h2 id="book-popin-title" className="mt-3 font-display text-3xl leading-[0.98] font-light">
-            {t('title')}
+            {before ? t('titleBefore') : t('title')}
           </h2>
-          <p className="mt-4 text-sm leading-relaxed text-paper-dim">{t('body')}</p>
+          <p className="mt-4 text-sm leading-relaxed text-paper-dim">{before ? t('bodyBefore') : t('body')}</p>
+
+          {before ? (
+            <div className="mt-5 border border-[#ff3b3b]/35 bg-black px-3 py-3 text-center">
+              <PreorderCountdown serverPhase={serverPhase} variant="compact" />
+            </div>
+          ) : null}
 
           <Link
-            href="/precommande-livre/formules"
+            href={before ? '/precommande-livre' : '/precommande-livre/formules'}
             onClick={dismiss}
             className="mt-6 flex min-h-12 w-full items-center justify-center bg-brand px-6 text-[0.6875rem] font-medium tracking-[0.24em] text-paper uppercase transition-[background-color,transform] duration-200 hover:bg-brand-hover active:scale-[0.98]"
           >
-            {t('cta')}
+            {before ? t('ctaBefore') : t('cta')}
           </Link>
 
           <div className="mt-4 flex items-center justify-between gap-4 text-xs">
-            <Link
-              href="/precommande-livre"
-              onClick={dismiss}
-              className="text-paper-dim underline underline-offset-4 hover:text-paper"
-            >
-              {t('discover')}
-            </Link>
+            {before ? (
+              <span />
+            ) : (
+              <Link
+                href="/precommande-livre"
+                onClick={dismiss}
+                className="text-paper-dim underline underline-offset-4 hover:text-paper"
+              >
+                {t('discover')}
+              </Link>
+            )}
             <button type="button" onClick={dismiss} className="min-h-11 text-paper-faint hover:text-paper">
               {t('later')}
             </button>

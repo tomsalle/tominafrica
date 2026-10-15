@@ -1,6 +1,6 @@
 import 'server-only';
 
-import { getPreorderStepState, isPreorderClosed, preorderDaysLeft } from '@/lib/book-preorder/config';
+import { getPreorderPhase, getPreorderStepState, isPreorderClosed, preorderDaysLeft } from '@/lib/book-preorder/config';
 import { getBookPreorderProgress, getPublicContributions, getPublishedTiers } from '@/lib/book-preorder/queries';
 import { readSimulation, simulatePreorder } from '@/lib/book-preorder/simulation';
 import { isEarlyBirdAvailable, visibleTiers } from '@/lib/book-preorder/tiers';
@@ -32,6 +32,9 @@ export async function loadPreorderData(
   const simulated = readSimulation(simulationParam);
   const closed = isPreorderClosed() || (process.env.NODE_ENV === 'development' && closedParam === '1');
   const daysLeft = closed ? 0 : preorderDaysLeft();
+  // Phase au moment du rendu serveur ; le navigateur la recalcule ensuite à la
+  // seconde près (ouverture à 12 h sans recharger la page).
+  const phase = closed ? 'closed' : getPreorderPhase();
   const [realTiers, realProgress, realContributions] = await Promise.all([
     getPublishedTiers(),
     getBookPreorderProgress(),
@@ -67,5 +70,5 @@ export async function loadPreorderData(
     offer = { tier: book, priceCents: book.price_cents, compareAtCents: null, remaining: null };
   }
 
-  return { simulated, progress, contributions, formulas, donationTier, stepState, offer, closed, daysLeft };
+  return { simulated, progress, contributions, formulas, donationTier, stepState, offer, closed, daysLeft, phase };
 }
