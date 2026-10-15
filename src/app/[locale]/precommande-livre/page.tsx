@@ -31,7 +31,7 @@ export const revalidate = 60;
 const BOOK_IMAGE = '/precommande-livre/extraits/01-couverture.avif';
 
 // Pages du livre au format 22 × 29,7 (visuels de Tom, octobre 2026) : le titre,
-// cinq doubles pages dans l'ordre du livre, puis « Disponible en précommande ».
+// puis cinq doubles pages dans l'ordre du livre.
 const BOOK_SPREADS = [
   { file: '02-pages-10-11', key: 'p1011', pages: '10 — 11' },
   { file: '03-pages-62-63', key: 'p6263', pages: '62 — 63' },
@@ -181,11 +181,6 @@ export default async function BookPreorderPage({
                         alt: t(`slideshow.spreads.${spread.key}`),
                         label: spread.pages ? t('slideshow.pages', { pages: spread.pages }) : t('slideshow.extract'),
                       })),
-                      {
-                        src: `${PAGES_DIR}/07-disponible-en-precommande.avif`,
-                        alt: t('slideshow.preorderAlt'),
-                        label: t('slideshow.preorderLabel'),
-                      },
                     ]}
                   />
                 </div>
