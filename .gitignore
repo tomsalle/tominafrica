@@ -22,3 +22,6 @@ tsconfig.tsbuildinfo
 
 # Dossier local des photos sources (jamais versionné : fichiers lourds)
 photos-source/
+
+# Exports de données personnelles (contacts Brevo…) : jamais sur GitHub.
+exports/
