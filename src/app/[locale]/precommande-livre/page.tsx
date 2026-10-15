@@ -30,7 +30,8 @@ export const revalidate = 60;
 // Couverture photographiée (maquette fournie par Tom), sur son fond olive.
 const BOOK_IMAGE = '/precommande-livre/extraits/01-couverture.avif';
 
-// Extraits du livre (maquettes fournies par Tom), dans l'ordre des pages.
+// Pages du livre au format 22 × 29,7 (visuels de Tom, octobre 2026) : le titre,
+// cinq doubles pages dans l'ordre du livre, puis « Disponible en précommande ».
 const BOOK_SPREADS = [
   { file: '02-pages-10-11', key: 'p1011', pages: '10 — 11' },
   { file: '03-pages-62-63', key: 'p6263', pages: '62 — 63' },
@@ -38,6 +39,7 @@ const BOOK_SPREADS = [
   { file: '05-pages-74-75', key: 'p7475', pages: '74 — 75' },
   { file: '06-portrait-caisses', key: 'portrait', pages: null },
 ] as const;
+const PAGES_DIR = '/precommande-livre/pages';
 
 export async function generateMetadata({
   params,
@@ -173,12 +175,17 @@ export default async function BookPreorderPage({
                 <div className="relative aspect-[4/3] overflow-hidden bg-[#272417]">
                   <BookSlideshow
                     slides={[
-                      { src: BOOK_IMAGE, alt: t('slideshow.cover'), label: t('slideshow.coverLabel') },
+                      { src: `${PAGES_DIR}/01-titre.avif`, alt: t('slideshow.titleAlt'), label: t('slideshow.titleLabel') },
                       ...BOOK_SPREADS.map((spread) => ({
-                        src: `/precommande-livre/extraits/${spread.file}.avif`,
+                        src: `${PAGES_DIR}/${spread.file}.avif`,
                         alt: t(`slideshow.spreads.${spread.key}`),
                         label: spread.pages ? t('slideshow.pages', { pages: spread.pages }) : t('slideshow.extract'),
                       })),
+                      {
+                        src: `${PAGES_DIR}/07-disponible-en-precommande.avif`,
+                        alt: t('slideshow.preorderAlt'),
+                        label: t('slideshow.preorderLabel'),
+                      },
                     ]}
                   />
                 </div>

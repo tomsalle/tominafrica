@@ -517,18 +517,20 @@
       "previous": "Previous spread",
       "next": "Next spread",
       "goTo": "Go to: {page}",
-      "cover": "The cover of the book “1 Mother, 1 Son, 1 Dream”, by Charlotte Badelon and Tom Sallé",
-      "coverLabel": "The cover",
       "pages": "Pages {pages}",
       "extract": "Extract",
       "spreads": {
         "p1011": "Pages 10 and 11: “Giving it meaning”, Charlotte photographing children by the 4x4",
         "portrait": "Spread: a man in a patchwork cap in profile, and a wall of colourful crates",
         "p6263": "Pages 62 and 63: the story of the twins and their mirror photograph",
-        "p6465": "Pages 64 and 65: a turban against a purple background and a boy at the window of a ruin",
+        "p6465": "Pages 64 and 65: a turban against a purple background at Agbodrafo Beach and a boy at the window of a ruin",
         "p7475": "Pages 74 and 75: the children of Drabo village, against ochre walls"
       },
-      "caption": "A few pages from the book (draft layouts)."
+      "caption": "A few pages from the book (draft layouts).",
+      "titleAlt": "The handwritten title “1 Mother, 1 Son, 1 Dream”, by Tom Sallé and Charlotte Badelon",
+      "titleLabel": "1 Mother, 1 Son, 1 Dream",
+      "preorderAlt": "Available for pre-order",
+      "preorderLabel": "Pre-order"
     },
     "product": {
       "eyebrow": "Pre-order",
