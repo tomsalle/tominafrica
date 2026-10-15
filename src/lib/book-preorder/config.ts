@@ -49,12 +49,12 @@ export function getPreorderStepState(count: number): PreorderStepState {
   return { steps, currentIndex, target };
 }
 
-// Tirage et budget du livre, affichés volontairement arrondis (demande de Tom,
-// 14 octobre 2026). Base de calcul, gardée ici pour mémoire :
-//  - impression : devis KOPA au format 22 × 29,7 cm, au moins 1 200 € de moins
-//    que l'offre P0118119 (4 709 € HT pour 250 ex.) → 3 509 € + livraison 233 €
-//    + emballage 32,50 € = 3 774,50 € HT, soit 3 982,10 € TTC (TVA 5,5 %)
-//    → affiché « 4 000 € » ;
+// Tirage et budget du livre, affichés volontairement arrondis (demande de Tom).
+// Base de calcul, gardée ici pour mémoire :
+//  - impression : devis KOPA P0118119 du 15 octobre 2026, format 22 × 29,7 cm,
+//    couverture 250 g pelliculée, 250 ex. à 14,38 € HT = 3 596 € + livraison
+//    233 € + emballage 32,50 € = 3 861,50 € HT, soit 4 073,88 € TTC (TVA 5,5 %)
+//    → affiché « 4 100 € » ;
 //  - accompagnement maison d'édition : 800 € ;
 //  - frais divers : 505 € + 15 € = 520 € → affiché « 500 € ».
 export const BOOK_PRINT_RUN = 250;
@@ -64,7 +64,7 @@ export type BudgetLine = { labelKey: 'printing' | 'publisher' | 'otherFees'; amo
 /** Répartition du budget du livre (tirage de 250 exemplaires, montants arrondis). */
 export function getPreorderBudget(): { lines: BudgetLine[]; totalCents: number } {
   const lines: BudgetLine[] = [
-    { labelKey: 'printing', amountCents: 400_000 },
+    { labelKey: 'printing', amountCents: 410_000 },
     { labelKey: 'publisher', amountCents: 80_000 },
     { labelKey: 'otherFees', amountCents: 50_000 },
   ];
