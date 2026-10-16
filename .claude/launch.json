@@ -3,8 +3,17 @@
   "configurations": [
     {
       "name": "tominafrica-dev",
-      "runtimeExecutable": "npm",
-      "runtimeArgs": ["run", "dev"],
+      "runtimeExecutable": "npx",
+      "runtimeArgs": [
+        "-y",
+        "-p",
+        "node@20",
+        "--",
+        "next",
+        "dev",
+        "-p",
+        "3000"
+      ],
       "port": 3000
     }
   ]

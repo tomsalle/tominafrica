@@ -34,7 +34,7 @@ export function ExpositionPopIn() {
     if (!isExhibitionUpcoming()) return;
     // Tant que la précommande du livre est ouverte, c'est sa pop-in qui s'affiche.
     if (!isPreorderClosed()) return;
-    if (/\/(panier|commande|precommande-livre|notre-aventure\/exposition)(\/|$)/.test(window.location.pathname)) return;
+    if (/\/(admin|panier|commande|precommande-livre|notre-aventure\/exposition)(\/|$)/.test(window.location.pathname)) return;
 
     try {
       if (window.localStorage.getItem(EXHIBITION_REGISTERED_KEY) === '1') return;

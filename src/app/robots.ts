@@ -6,9 +6,9 @@ export default function robots(): MetadataRoute.Robots {
     rules: {
       userAgent: '*',
       allow: '/',
-      // Ni le panier ni les pages de commande n'ont vocation à être indexés,
+      // Ni le panier, ni les pages de commande, ni l'espace privé n'ont vocation à être indexés,
       // dans aucune langue.
-      disallow: ['/panier', '/en/panier', '/commande/', '/en/commande/', '/api/'],
+      disallow: ['/panier', '/en/panier', '/commande/', '/en/commande/', '/api/', '/admin', '/en/admin'],
     },
     sitemap: `${publicEnv.NEXT_PUBLIC_SITE_URL}/sitemap.xml`,
   };

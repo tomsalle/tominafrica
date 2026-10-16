@@ -37,7 +37,7 @@ export function BookPopIn() {
 
   useEffect(() => {
     if (isPreorderClosed()) return;
-    if (/\/(panier|commande|precommande-livre)(\/|$)/.test(window.location.pathname)) return;
+    if (/\/(admin|panier|commande|precommande-livre)(\/|$)/.test(window.location.pathname)) return;
 
     try {
       if (window.localStorage.getItem(BOOK_PREORDERED_KEY) === '1') return;
