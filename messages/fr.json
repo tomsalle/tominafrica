@@ -379,7 +379,7 @@
     },
     "priceWhy": {
       "title": "Pourquoi ce prix ?",
-      "p1": "Nous avons fait le choix des meilleurs matériaux possibles pour vous offrir le plus beau livre possible : un format 22 × 29,7 cm pensé pour vous suivre partout, une couverture épaisse pelliculée et un beau papier couché, pour que chaque photographie soit à la hauteur de ce que nous avons vécu.",
+      "p1": "Nous avons fait le choix des meilleurs matériaux possibles pour vous offrir le plus beau livre possible : un format 22 × 29,7 cm pensé pour vous suivre partout, un papier mat épais qui fait honneur aux photographies, et une couverture pelliculée anti-rayures, pour que chaque image soit à la hauteur de ce que nous avons vécu.",
       "p2": "Mais cette qualité a un coût. Nous ne savons même pas si ce livre nous rapportera quelque chose : notre objectif est simplement de rentrer dans nos frais."
     },
     "specs": {
@@ -628,13 +628,13 @@
     "close": "Fermer",
     "eyebrow": "Précommande ouverte",
     "title": "Notre livre est en précommande",
-    "body": "1 Mère, 1 Fils, 1 Rêve : notre voyage de Paris à Cape Town en 112 pages, deux regards. Édition limitée à 250 exemplaires, à récupérer au vernissage le 27 novembre. Précommande jusqu’au 20 novembre.",
+    "body": "1 Mère, 1 Fils, 1 Rêve : notre voyage de Paris à Cape Town en 112 pages, deux regards. Édition limitée à 300 exemplaires, à récupérer au vernissage le 27 novembre. Précommande jusqu’au 20 novembre.",
     "cta": "Précommander le livre",
     "discover": "Découvrir le livre",
     "later": "Plus tard",
     "eyebrowBefore": "Bientôt",
     "titleBefore": "La précommande ouvre vendredi à 12 h",
-    "bodyBefore": "1 Mère, 1 Fils, 1 Rêve : notre voyage de Paris à Cape Town en 112 pages. Édition limitée à 250 exemplaires, et des early birds à prix réduit pour les plus rapides.",
+    "bodyBefore": "1 Mère, 1 Fils, 1 Rêve : notre voyage de Paris à Cape Town en 112 pages. Édition limitée à 300 exemplaires, et des early birds à prix réduit pour les plus rapides.",
     "ctaBefore": "Découvrir le livre"
   }
 }

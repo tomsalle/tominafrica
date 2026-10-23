@@ -379,7 +379,7 @@
     },
     "priceWhy": {
       "title": "Why this price?",
-      "p1": "We chose the best possible materials to give you the most beautiful book possible: a 22 × 29.7 cm format designed to go everywhere with you, a thick laminated cover and fine coated paper, so that every photograph lives up to what we experienced.",
+      "p1": "We chose the best possible materials to give you the most beautiful book possible: a 22 × 29.7 cm format designed to go everywhere with you, a thick matte paper that does justice to the photographs, and a scratch-resistant laminated cover, so that every image lives up to what we experienced.",
       "p2": "But this quality comes at a cost. We are not even sure this book will make us any money: our only goal is to cover our costs."
     },
     "specs": {
@@ -628,13 +628,13 @@
     "close": "Close",
     "eyebrow": "Pre-order open",
     "title": "Our book is available for pre-order",
-    "body": "1 Mother, 1 Son, 1 Dream: our journey from Paris to Cape Town in 112 pages, two perspectives. Limited edition of 250 copies, to collect at the opening night on 27 November. Pre-order until 20 November.",
+    "body": "1 Mother, 1 Son, 1 Dream: our journey from Paris to Cape Town in 112 pages, two perspectives. Limited edition of 300 copies, to collect at the opening night on 27 November. Pre-order until 20 November.",
     "cta": "Pre-order the book",
     "discover": "Discover the book",
     "later": "Later",
     "eyebrowBefore": "Coming soon",
     "titleBefore": "Pre-order opens Friday at 12 pm",
-    "bodyBefore": "1 Mother, 1 Son, 1 Dream: our journey from Paris to Cape Town in 112 pages. Limited edition of 250 copies, with early birds at a reduced price for the quickest.",
+    "bodyBefore": "1 Mother, 1 Son, 1 Dream: our journey from Paris to Cape Town in 112 pages. Limited edition of 300 copies, with early birds at a reduced price for the quickest.",
     "ctaBefore": "Discover the book"
   }
 }

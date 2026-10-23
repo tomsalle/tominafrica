@@ -22,7 +22,7 @@ export function BudgetBreakdown() {
   const locale = useLocale();
   const percentFormat = new Intl.NumberFormat(locale, { maximumFractionDigits: 0 });
 
-  // Budget fixe et arrondi (tirage de 250 exemplaires).
+  // Budget fixe et arrondi (tirage de 300 exemplaires).
   const { lines, totalCents } = getPreorderBudget();
   const bookCount = BOOK_PRINT_RUN;
   const percents = lines.map((item) => (item.amountCents / totalCents) * 100);
