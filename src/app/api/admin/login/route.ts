@@ -3,12 +3,15 @@ import { ADMIN_COOKIE, ADMIN_COOKIE_MAX_AGE, adminSessionToken, checkAdminPasswo
 
 export const runtime = 'nodejs';
 
-const ADMIN_PAGE = '/admin/precommandes';
+const ADMIN_PAGES = ['/admin/precommandes', '/admin/tirages'] as const;
 
 /** Connexion à l'espace privé (formulaire classique : marche même sans JavaScript). */
 export async function POST(request: Request) {
   const form = await request.formData().catch(() => null);
   const password = String(form?.get('password') ?? '');
+  // Retour vers la page privée d'origine : liste fermée, jamais une URL libre.
+  const next = String(form?.get('next') ?? '');
+  const ADMIN_PAGE = ADMIN_PAGES.find((page) => page === next) ?? ADMIN_PAGES[0];
 
   if (!checkAdminPassword(password)) {
     // Petit délai : rend les essais en rafale inutiles.

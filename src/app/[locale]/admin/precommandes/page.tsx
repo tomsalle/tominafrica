@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import { AdminLoginForm, AdminNav } from '@/components/admin/AdminLoginForm';
 import { isAdmin, isAdminConfigured } from '@/lib/admin/auth';
 import { BOOK_PREORDER_STEPS } from '@/lib/book-preorder/config';
 import { formatPrice } from '@/lib/format';
@@ -58,7 +59,14 @@ export default async function AdminPreordersPage({
 }) {
   if (!(await isAdmin())) {
     const { erreur } = await searchParams;
-    return <LoginForm error={erreur === '1'} configured={isAdminConfigured()} />;
+    return (
+      <AdminLoginForm
+        title="Précommandes du livre"
+        next="/admin/precommandes"
+        error={erreur === '1'}
+        configured={isAdminConfigured()}
+      />
+    );
   }
 
   const supabase = createAdminClient();
@@ -105,7 +113,7 @@ export default async function AdminPreordersPage({
       <div className="mx-auto w-full max-w-6xl px-5 sm:px-8">
         <div className="flex flex-wrap items-end justify-between gap-6">
           <div>
-            <p className="eyebrow">Espace privé</p>
+            <AdminNav current="precommandes" />
             <h1 className="mt-3 font-display text-4xl font-light sm:text-5xl">Précommandes du livre</h1>
           </div>
           <form action="/api/admin/logout" method="post">
@@ -211,51 +219,6 @@ export default async function AdminPreordersPage({
           )}
         </section>
       </div>
-    </div>
-  );
-}
-
-function LoginForm({ error, configured }: { error: boolean; configured: boolean }) {
-  return (
-    <div className="flex min-h-dvh items-center justify-center px-5 pt-20">
-      <form action="/api/admin/login" method="post" className="w-full max-w-sm border border-ink-line bg-ink-soft p-7">
-        <p className="eyebrow">Espace privé</p>
-        <h1 className="mt-3 font-display text-3xl font-light">Précommandes du livre</h1>
-        {configured ? (
-          <>
-            <label htmlFor="admin-password" className="mt-8 block text-xs text-paper-dim">
-              Mot de passe
-            </label>
-            <input
-              id="admin-password"
-              name="password"
-              type="password"
-              required
-              autoComplete="current-password"
-              autoFocus
-              aria-invalid={error || undefined}
-              aria-describedby={error ? 'admin-error' : undefined}
-              className="mt-2 block min-h-12 w-full border border-ink-line bg-transparent px-3 text-base text-paper focus:border-paper-dim focus:outline-none"
-            />
-            {error ? (
-              <p id="admin-error" role="alert" className="mt-2 text-xs text-brand-text">
-                Mot de passe incorrect.
-              </p>
-            ) : null}
-            <button
-              type="submit"
-              className="mt-6 flex min-h-12 w-full items-center justify-center bg-brand px-6 text-[0.6875rem] font-medium tracking-[0.24em] text-paper uppercase transition-[background-color,transform] duration-200 hover:bg-brand-hover active:scale-[0.98]"
-            >
-              Se connecter
-            </button>
-          </>
-        ) : (
-          <p className="mt-6 text-sm leading-relaxed text-paper-dim">
-            Le mot de passe n’est pas encore configuré : ajoutez la variable <code>ADMIN_PASSWORD</code> dans les
-            réglages du site (Vercel), puis redéployez.
-          </p>
-        )}
-      </form>
     </div>
   );
 }
