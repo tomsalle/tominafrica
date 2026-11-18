@@ -77,6 +77,7 @@ export type Database = {
           is_black_and_white: boolean;
           position: number;
           published: boolean;
+          publish_at: string | null;
           featured: boolean;
           created_at: string;
           updated_at: string;
@@ -105,6 +106,7 @@ export type Database = {
           is_black_and_white?: boolean;
           position?: number;
           published?: boolean;
+          publish_at?: string | null;
           featured?: boolean;
           created_at?: string;
           updated_at?: string;

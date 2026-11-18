@@ -67,6 +67,73 @@ Today, some 45,000 people still live to the rhythm of the water. It is everywher
   },
 };
 
+// --- Tirages de l'exposition (novembre 2026) -------------------------------
+
+PHOTO_STORIES.benin = {
+  fr: `Cet enfant, Kandji, porte sur la tête un filet qui lui sert à tamiser le sable destiné au béton. Nous avions garé le 4x4 dans la cour d’une petite maison en construction, près du sanctuaire des singes de Drabo, au Bénin. Chaque jour, Kandji préparait le sable des futures fondations.
+
+Au fil des jours, nous avons commencé à discuter, et je me suis même mis à l’aider : je remplissais la brouette à la pelle, il tamisait le sable avec cette sorte de méduse posée sur sa tête.
+
+Là où je voyais un outil de travail, Charlotte, elle, a vu un costume. Elle a demandé au propriétaire une petite pause pour faire quelques portraits devant le mur brut de la maison. Kandji, ravi de souffler un peu, s’est tout de suite pris au jeu.`,
+  en: `This boy, Kandji, wears a net on his head that he uses to sieve the sand for concrete. We had parked the 4x4 in the yard of a small house under construction, near the Drabo monkey sanctuary in Benin. Every day, Kandji prepared the sand for the future foundations.
+
+Over the days we started talking, and I even began to help him: I filled the wheelbarrow with a shovel while he sieved the sand with this jellyfish-like net on his head.
+
+Where I saw a work tool, Charlotte saw a costume. She asked the owner for a short break to take a few portraits against the bare wall of the house. Kandji, happy to catch his breath, played along straight away.`,
+};
+
+PHOTO_STORIES['le-foulard-rouge'] = {
+  fr: `Pour traverser la Gambie et franchir le fleuve, tout le monde nous conseille le ferry : « Vous gagnerez du temps. » Très mauvais choix.
+
+Pendant plus de quinze heures, nous restons prisonniers d’une file de véhicules interminable. Chacun tente de passer devant les autres, les klaxons ne s’arrêtent jamais et la chaleur devient écrasante. En fin de journée, le dernier ferry part sans nous : nous dormons sur place, la tente dépliée au milieu des voitures.
+
+Cette photo est née de cette attente : un taxi jaune chargé jusqu’au toit, et une passante au foulard rouge qui traverse le décor.`,
+  en: `To cross The Gambia and its river, everyone tells us to take the ferry: “You’ll save time.” A very bad choice.
+
+For more than fifteen hours we are stuck in an endless line of vehicles. Everyone tries to jump the queue, the horns never stop and the heat becomes overwhelming. At the end of the day, the last ferry leaves without us: we spend the night there, our tent unfolded among the cars.
+
+This photo was born of that wait: a yellow taxi loaded to the roof, and a passer-by in a red headscarf crossing the scene.`,
+};
+
+PHOTO_STORIES['le-passant-au-bonnet-bleu'] = {
+  fr: `Quinze heures d’attente dans la file du ferry, en Gambie. Lorsque les voitures s’immobilisent, Charlotte sort son appareil photo.
+
+Le décor, lui, ne bouge presque pas : le même taxi jaune, les mêmes sacs ficelés sur le toit, la même enseigne bleue. Ce sont les visages qui changent au fil des heures. Charlotte en fait une série entière, prise depuis le même endroit.
+
+Une façon de transformer une attente interminable en terrain de jeu photographique.`,
+  en: `Fifteen hours waiting in the ferry queue in The Gambia. Whenever the cars come to a standstill, Charlotte takes out her camera.
+
+The scene itself barely moves: the same yellow taxi, the same bags tied to the roof, the same blue sign. It is the faces that change as the hours go by. Charlotte turns it into a whole series, shot from the same spot.
+
+A way of turning an endless wait into a photographic playground.`,
+};
+
+PHOTO_STORIES['la-maisonnette-dans-le-desert'] = {
+  fr: `En entrant en Mauritanie, le paysage change d’un coup. Le désert semble ne jamais finir, et le vent soulève le sable en permanence, au point de tendre un voile jaune sur tout l’horizon.
+
+Au milieu de cette immensité, une maisonnette de béton, un panneau solaire posé dans le sable et quelques bidons. Une question nous obsède dès les premiers jours : comment vit-on au cœur d’un désert où l’eau est si rare ?
+
+La Mauritanie a été notre première vraie immersion dans l’un des fils rouges du voyage : l’accès à l’eau potable.`,
+  en: `As we enter Mauritania, the landscape changes all at once. The desert seems endless, and the wind lifts the sand constantly, drawing a yellow veil across the whole horizon.
+
+In the middle of this vastness: a small concrete house, a solar panel lying in the sand and a few jerrycans. One question haunts us from the very first days: how do people live in the heart of a desert where water is so scarce?
+
+Mauritania was our first real immersion in one of the threads of this journey: access to drinking water.`,
+};
+
+PHOTO_STORIES.dsf9479 = {
+  fr: `Mauritanie. Ici, chaque déplacement est une expédition, et les points d’eau dictent la vie de ceux qui habitent le désert.
+
+Pour comprendre leur quotidien, nous partons à la rencontre de ceux qui y vivent. Malgré la barrière de la langue, les échanges nous permettent peu à peu de mieux comprendre leur vie.
+
+Sur le seuil d’une maison de béton, à l’abri du vent et du sable, un homme se tient immobile.`,
+  en: `Mauritania. Here, every journey is an expedition, and water points shape the lives of the people who live in the desert.
+
+To understand their daily life, we set out to meet the people who live there. Despite the language barrier, our conversations slowly help us understand their lives better.
+
+On the threshold of a concrete house, sheltered from the wind and the sand, a man stands still.`,
+};
+
 export function photoStory(slug: string, locale: string): string | null {
   const story = PHOTO_STORIES[slug];
   if (!story) return null;
