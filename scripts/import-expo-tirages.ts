@@ -30,18 +30,18 @@ const SERIES_SLUG = '1-mere-1-fils-1-reve';
 const DERIVATIVE_WIDTHS = [480, 960, 1600, 2400];
 const PAPER = 'Hahnemühle Bright White 310g';
 
-// Affiche « Les tirages » (prix TTC, en centimes).
+// Prix de l'affiche « Les tirages », arrondis à la dizaine (TTC, en centimes).
 const FORMATS = {
   normal: [
-    { w: 20, h: 30, price: 6100 },
-    { w: 40, h: 60, price: 15100 },
-    { w: 60, h: 90, price: 33700 },
+    { w: 20, h: 30, price: 6000 },
+    { w: 40, h: 60, price: 15000 },
+    { w: 60, h: 90, price: 34000 },
   ],
   square: [
-    { w: 30, h: 30, price: 8300 },
+    { w: 30, h: 30, price: 8000 },
     { w: 40, h: 40, price: 13000 },
-    { w: 60, h: 60, price: 29500 },
-    { w: 80, h: 80, price: 38900 },
+    { w: 60, h: 60, price: 30000 },
+    { w: 80, h: 80, price: 39000 },
   ],
 } as const;
 
