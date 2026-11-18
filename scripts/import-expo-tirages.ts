@@ -47,7 +47,8 @@ const FORMATS = {
 
 type Entry = {
   slug: string;
-  file: string;
+  /** Fichier HD dans SELECTION EXPO (null : photo déjà en ligne sans fichier local). */
+  file: string | null;
   square?: boolean;
   /** Régénère les dérivés web depuis le fichier HD (photo existante). */
   refresh?: boolean;
@@ -57,17 +58,19 @@ type Entry = {
 
 const EXPO: Entry[] = [
   // --- déjà au catalogue ---------------------------------------------------
-  { slug: 'maroc', file: 'MAROC2O25370.jpg', square: true },
+  { slug: 'habi', file: 'MAROC2O25370.jpg', square: true },
   { slug: 'benin', file: 'Bénin2O25285.jpg', square: true },
   { slug: 'la-cabine', file: '_DSF9727.jpeg' },
   { slug: 'le-chapeau-de-paille', file: '_DSF9647.jpeg' },
-  { slug: 'dsf9254', file: '_DSF9254.jpeg' },
+  { slug: 'nene', file: '_DSF9254.jpeg' },
   { slug: 'sous-la-feuille', file: '_DSF9038.jpeg' },
   { slug: 'silhouette-bleue', file: 'Silhouette.jpg' },
   { slug: 'les-jumelles', file: 'Les jumelles - Togo.JPG' },
   { slug: 'le-palmier', file: "Le palmier - Cote D'ivoire.JPG" },
   { slug: 'robe-blanche', file: '_DSF9956.jpeg' },
   { slug: 'la-cour', file: '_DSF9151.jpeg' },
+  // Pas de fichier HD dans SELECTION EXPO : seuls ses formats sont gérés ici.
+  { slug: 'les-maillots-rouges', file: null, square: true },
   { slug: 'dsf9479', file: '_DSF9479.jpg' },
   { slug: 'dsf9016', file: '_DSF9016.jpg' },
   // Le dérivé en ligne ne faisait que 960 px : on le régénère depuis la HD.
@@ -77,7 +80,7 @@ const EXPO: Entry[] = [
   { slug: 'la-foret-rose', file: '2093-04-1.jpeg', square: true, create: { title: 'La forêt rose' } },
   { slug: 'le-passant-au-bonnet-bleu', file: '_DSF9489.jpeg', create: { title: 'Le passant au bonnet bleu' } },
   { slug: 'la-maisonnette-dans-le-desert', file: '_DSF9466.jpeg', create: { title: 'La maisonnette dans le désert' } },
-  { slug: 'sous-le-tissu-patchwork', file: '_DSF9225.jpeg', create: { title: 'Sous le tissu patchwork' } },
+  { slug: 'aissata', file: '_DSF9225.jpeg', create: { title: 'Aïssata' } },
   { slug: 'la-fenetre-en-ruine', file: '_DSF9204NB.jpeg', create: { title: 'La fenêtre en ruine', blackAndWhite: true } },
   { slug: 'le-foulard-rouge', file: '_DSF9638.jpeg', create: { title: 'Le foulard rouge' } },
 ];
@@ -153,12 +156,17 @@ async function main() {
 
   for (const entry of EXPO) {
     process.stdout.write(`${entry.create ? '[nouvelle]' : '[existante]'} ${entry.slug} … `);
-    const buffer = await readFile(join(SOURCE_DIR, entry.file));
+    const buffer = entry.file ? await readFile(join(SOURCE_DIR, entry.file)) : null;
+    if (!buffer && (entry.create || entry.refresh)) throw new Error(`Fichier HD requis pour ${entry.slug}`);
+
+    // Déjà importée lors d'un passage précédent : on garde sa fiche (titre,
+    // date, pays corrigés à la main) et on ne touche qu'aux formats.
+    const { data: existing } = await supabase.from('photos').select('id').eq('slug', entry.slug).maybeSingle();
 
     let photoId: string;
-    if (entry.create) {
-      const { derivatives, width, height, blurDataUrl } = await buildDerivatives(buffer);
-      const { latitude, longitude, takenAt } = await readExif(buffer);
+    if (entry.create && !existing) {
+      const { derivatives, width, height, blurDataUrl } = await buildDerivatives(buffer!);
+      const { latitude, longitude, takenAt } = await readExif(buffer!);
       if (dryRun) {
         console.log(`simulation — ${derivatives.length} dérivé(s), ${width}×${height}${takenAt ? `, ${takenAt}` : ''}`);
         continue;
@@ -175,7 +183,7 @@ async function main() {
         image_width: width,
         image_height: height,
         blur_data_url: blurDataUrl,
-        master_filename: entry.file,
+        master_filename: entry.file!,
         is_black_and_white: entry.create.blackAndWhite ?? false,
         position: nextPosition++,
         published: false,
@@ -192,13 +200,13 @@ async function main() {
       }
       let imageFields = {};
       if (entry.refresh) {
-        const { derivatives, width, height, blurDataUrl } = await buildDerivatives(buffer);
+        const { derivatives, width, height, blurDataUrl } = await buildDerivatives(buffer!);
         await uploadDerivatives(supabase, entry.slug, derivatives);
         imageFields = { image_path: entry.slug, image_width: width, image_height: height, blur_data_url: blurDataUrl };
       }
       const { error: updateError } = await supabase
         .from('photos')
-        .update({ master_filename: entry.file, ...imageFields })
+        .update({ ...(entry.file ? { master_filename: entry.file } : {}), ...imageFields })
         .eq('id', data.id);
       if (updateError) throw new Error(`Mise à jour de ${entry.slug} : ${updateError.message}`);
       photoId = data.id;

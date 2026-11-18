@@ -134,6 +134,58 @@ To understand their daily life, we set out to meet the people who live there. De
 On the threshold of a concrete house, sheltered from the wind and the sand, a man stands still.`,
 };
 
+PHOTO_STORIES.habi = {
+  fr: `Quelques jours après avoir débarqué au Maroc, nous rejoignons Imsouane, un petit village bercé par les vagues, connu des surfeurs du monde entier.
+
+Ici, nous ralentissons le rythme et profitons de nos premiers couchers de soleil africains. C’est là que nous croisons Habi, barman et pêcheur du village, avec sa casquette en patchwork de tissus.
+
+L’aventure ne fait que commencer : devant nous s’étendent encore des milliers de kilomètres.`,
+  en: `A few days after landing in Morocco, we reach Imsouane, a small village rocked by the waves and known to surfers the world over.
+
+Here, we slow down and enjoy our first African sunsets. It is there that we meet Habi, the village’s barman and fisherman, in his patchwork fabric cap.
+
+The adventure is only beginning: thousands of kilometres still lie ahead of us.`,
+};
+
+PHOTO_STORIES.nene = {
+  fr: `Guinée, début janvier. La chaleur devient étouffante et, sans climatisation, nous roulons les fenêtres ouvertes à la recherche d’une rivière.
+
+Au bord de la rivière de Guéckédou, des femmes et des enfants sont déjà là, entre lessive et jeux d’eau. Nous les rejoignons, et ce qui devait être une simple pause se transforme en un moment de partage, puis en une séance photo improvisée.
+
+C’est là que Charlotte photographie Nènè. La Guinée nous aura appris une chose essentielle : parfois, ralentir est la meilleure façon d’aller à la rencontre des autres.`,
+  en: `Guinea, early January. The heat becomes stifling and, with no air conditioning, we drive with the windows down, looking for a river.
+
+On the banks of the Guéckédou river, women and children are already there, doing the washing and playing in the water. We join them, and what was meant to be a short break turns into a moment of sharing, then an impromptu photo shoot.
+
+That is where Charlotte photographs Nènè. Guinea taught us something essential: sometimes, slowing down is the best way to meet others.`,
+};
+
+PHOTO_STORIES.aissata = {
+  fr: `L’île de Gorée, au large de Dakar. Un lieu marqué par l’histoire de l’esclavage, où nous avons pourtant fait l’une des rencontres les plus inspirantes du voyage.
+
+Dans une ruelle de sable, Aïssata s’est assise sur une borne de pierre, le visage caché par un grand tissu patchwork étendu au soleil.
+
+On ne voit d’elle que ses jambes et ses sandales : le reste, c’est le tissu qui le raconte.`,
+  en: `Gorée Island, off Dakar. A place marked by the history of slavery, yet where we had one of the most inspiring encounters of the trip.
+
+In a sandy alley, Aïssata has sat down on a stone post, her face hidden by a large patchwork cloth spread out in the sun.
+
+All we see of her are her legs and her sandals: the cloth tells the rest.`,
+};
+
+PHOTO_STORIES['les-maillots-rouges'] = {
+  fr: `Île de Gorée, Sénégal. Une rangée de maillots rouges sèche sur un fil, devant une maison à la façade usée, avec des moutons couchés au premier plan.
+
+C’est l’image qui résume le mieux l’idée de notre exposition : le linge étendu au milieu du décor. Pendant six mois, nous avons nous aussi fait sécher notre linge sur des fils attachés à ce qui nous entourait.
+
+À l’exposition, dix chasubles rouges étendues sur un fil lui font écho.`,
+  en: `Gorée Island, Senegal. A row of red jerseys dries on a line in front of a house with a weathered façade, with sheep lying in the foreground.
+
+It is the image that best sums up the idea of our exhibition: laundry hung out in the middle of the scenery. For six months, we too dried our clothes on lines tied to whatever was around us.
+
+At the exhibition, ten red bibs hung on a line echo it.`,
+};
+
 export function photoStory(slug: string, locale: string): string | null {
   const story = PHOTO_STORIES[slug];
   if (!story) return null;
