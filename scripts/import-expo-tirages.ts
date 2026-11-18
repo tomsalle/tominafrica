@@ -52,6 +52,8 @@ type Entry = {
   square?: boolean;
   /** Régénère les dérivés web depuis le fichier HD (photo existante). */
   refresh?: boolean;
+  /** Dossier des dérivés (par défaut le slug) : un nouveau nom évite de servir l'ancienne image en cache. */
+  imagePath?: string;
   /** Présent = nouvelle photo à importer. */
   create?: { title: string; blackAndWhite?: boolean };
 };
@@ -75,6 +77,9 @@ const EXPO: Entry[] = [
   { slug: 'dsf9016', file: '_DSF9016.jpg' },
   // Le dérivé en ligne ne faisait que 960 px : on le régénère depuis la HD.
   { slug: 'ruine', file: "Ruine - Cote d'Ivoire.png", refresh: true },
+  { slug: 'turban', file: null },
+  // Version noir et blanc tirée pour l'expo : remplace l'image couleur.
+  { slug: 'la-chorale', file: 'La chorale NB - Angola.jpg', refresh: true, imagePath: 'la-chorale-nb' },
 
   // --- nouvelles -------------------------------------------------------------
   { slug: 'la-foret-rose', file: '2093-04-1.jpeg', square: true, create: { title: 'La forêt rose' } },
@@ -83,6 +88,11 @@ const EXPO: Entry[] = [
   { slug: 'aissata', file: '_DSF9225.jpeg', create: { title: 'Aïssata' } },
   { slug: 'la-fenetre-en-ruine', file: '_DSF9204NB.jpeg', create: { title: 'La fenêtre en ruine', blackAndWhite: true } },
   { slug: 'le-foulard-rouge', file: '_DSF9638.jpeg', create: { title: 'Le foulard rouge' } },
+  // Envoyées par Tom le 18/11 (fichiers de 2000 px, suffisants pour le site).
+  { slug: 'samba', file: 'Samba - Paris.jpg', create: { title: 'Samba' } },
+  { slug: 'ruben', file: 'Ruben - Paris.jpg', square: true, create: { title: 'Ruben' } },
+  { slug: 'double-exposition', file: 'Double exposition.jpg', square: true, create: { title: 'Double exposition' } },
+  { slug: 'les-choristes', file: 'Les choristes NB - Angola.jpg', create: { title: 'Les choristes', blackAndWhite: true } },
 ];
 
 // ---------------------------------------------------------------------------
@@ -91,10 +101,12 @@ async function buildDerivatives(buffer: Buffer) {
   const sourceWidth = (await sharp(buffer, { failOn: 'none' }).rotate().metadata()).width ?? 0;
   const derivatives: { width: number; body: Buffer }[] = [];
   for (const width of DERIVATIVE_WIDTHS) {
-    if (sourceWidth > 0 && width > sourceWidth && width !== DERIVATIVE_WIDTHS[0]) continue;
+    // Léger agrandissement toléré (×1,25 au plus) : un fichier de 1 339 px
+    // donne ainsi un dérivé de 1 600 px au lieu de s'arrêter à 960.
+    if (sourceWidth > 0 && width > sourceWidth * 1.25 && width !== DERIVATIVE_WIDTHS[0]) continue;
     const body = await sharp(buffer, { failOn: 'none' })
       .rotate()
-      .resize({ width, withoutEnlargement: true })
+      .resize({ width })
       .toColorspace('srgb')
       .avif({ quality: 78, effort: 4 })
       .toBuffer();
@@ -201,8 +213,9 @@ async function main() {
       let imageFields = {};
       if (entry.refresh) {
         const { derivatives, width, height, blurDataUrl } = await buildDerivatives(buffer!);
-        await uploadDerivatives(supabase, entry.slug, derivatives);
-        imageFields = { image_path: entry.slug, image_width: width, image_height: height, blur_data_url: blurDataUrl };
+        const imagePath = entry.imagePath ?? entry.slug;
+        await uploadDerivatives(supabase, imagePath, derivatives);
+        imageFields = { image_path: imagePath, image_width: width, image_height: height, blur_data_url: blurDataUrl };
       }
       const { error: updateError } = await supabase
         .from('photos')

@@ -186,6 +186,26 @@ It is the image that best sums up the idea of our exhibition: laundry hung out i
 At the exhibition, ten red bibs hung on a line echo it.`,
 };
 
+// La chorale de Luanda (livre, chapitre « L'Angola nous surprend », 13 mars
+// 2025) : un même moment, raconté sous deux angles.
+PHOTO_STORIES['la-chorale'] = {
+  fr: `L’Angola est l’un des pays qui nous a le plus surpris. Peu présent dans les itinéraires de voyage, il nous offre pourtant certains des moments les plus forts de notre traversée.
+
+À Luanda, une chorale d’enfants nous interpelle dans la rue.`,
+  en: `Angola is one of the countries that surprised us most. Rarely on travel itineraries, it gave us some of the strongest moments of our crossing.
+
+In Luanda, a children’s choir calls out to us in the street.`,
+};
+
+PHOTO_STORIES['les-choristes'] = {
+  fr: `En quelques instants, les voix s’élèvent et un concert improvisé prend vie au milieu de Luanda.
+
+Un moment simple, sincère, qui nous rappelle une nouvelle fois la place qu’occupe la musique dans de nombreuses cultures africaines.`,
+  en: `Within moments the voices rise and an impromptu concert comes to life in the middle of Luanda.
+
+A simple, sincere moment that reminds us once again of the place music holds in so many African cultures.`,
+};
+
 export function photoStory(slug: string, locale: string): string | null {
   const story = PHOTO_STORIES[slug];
   if (!story) return null;
