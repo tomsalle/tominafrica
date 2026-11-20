@@ -19,6 +19,24 @@ const nextConfig: NextConfig = {
     formats: ['image/avif', 'image/webp'],
   },
 
+  // Photos de l'expo renommées le 20/11/2026 (avant l'impression des QR
+  // codes) : les anciennes adresses mènent toujours à la bonne page.
+  async redirects() {
+    const renamed: [string, string][] = [
+      ['benin', 'kandji'], ['la-cabine', 'yellow-cabine'], ['le-chapeau-de-paille', 'kodjo'],
+      ['sous-la-feuille', 'ekoue'], ['silhouette-bleue', 'ayawa'], ['le-palmier', 'on-a-joue-ensemble'],
+      ['robe-blanche', 'kemi'], ['la-cour', 'retour-du-marche'], ['dsf9479', 'hacen'],
+      ['dsf9016', 'sur-la-colline'], ['ruine', 'devant-la-fenetre'], ['turban', 'blase'],
+      ['dsf9605', 'sekou'], ['dsf9045', 'yao'], ['le-passant-au-bonnet-bleu', 'l-attente'],
+      ['la-maisonnette-dans-le-desert', 'sirocco'], ['la-fenetre-en-ruine', 'tu-passais-par-la'],
+      ['double-exposition', 'amy-sow'], ['les-choristes', 'la-chorale'],
+    ];
+    return renamed.flatMap(([from, to]) => [
+      { source: `/photo/${from}`, destination: `/photo/${to}`, permanent: true },
+      { source: `/en/photo/${from}`, destination: `/en/photo/${to}`, permanent: true },
+    ]);
+  },
+
   async headers() {
     return [
       {

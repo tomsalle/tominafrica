@@ -61,40 +61,40 @@ type Entry = {
 const EXPO: Entry[] = [
   // --- déjà au catalogue ---------------------------------------------------
   { slug: 'habi', file: 'MAROC2O25370.jpg', square: true },
-  { slug: 'benin', file: 'Bénin2O25285.jpg', square: true },
-  { slug: 'la-cabine', file: '_DSF9727.jpeg' },
-  { slug: 'le-chapeau-de-paille', file: '_DSF9647.jpeg' },
+  { slug: 'kandji', file: 'Bénin2O25285.jpg', square: true },
+  { slug: 'yellow-cabine', file: '_DSF9727.jpeg' },
+  { slug: 'kodjo', file: '_DSF9647.jpeg' },
   { slug: 'nene', file: '_DSF9254.jpeg' },
-  { slug: 'sous-la-feuille', file: '_DSF9038.jpeg' },
-  { slug: 'silhouette-bleue', file: 'Silhouette.jpg' },
+  { slug: 'ekoue', file: '_DSF9038.jpeg' },
+  { slug: 'ayawa', file: 'Silhouette.jpg' },
   { slug: 'les-jumelles', file: 'Les jumelles - Togo.JPG' },
-  { slug: 'le-palmier', file: "Le palmier - Cote D'ivoire.JPG" },
-  { slug: 'robe-blanche', file: '_DSF9956.jpeg' },
-  { slug: 'la-cour', file: '_DSF9151.jpeg' },
+  { slug: 'on-a-joue-ensemble', file: "Le palmier - Cote D'ivoire.JPG" },
+  { slug: 'kemi', file: '_DSF9956.jpeg' },
+  { slug: 'retour-du-marche', file: '_DSF9151.jpeg' },
   // Pas de fichier HD dans SELECTION EXPO : seuls ses formats sont gérés ici.
   { slug: 'les-maillots-rouges', file: null, square: true },
-  { slug: 'dsf9479', file: '_DSF9479.jpg' },
-  { slug: 'dsf9016', file: '_DSF9016.jpg' },
+  { slug: 'hacen', file: '_DSF9479.jpg' },
+  { slug: 'sur-la-colline', file: '_DSF9016.jpg' },
   // Le dérivé en ligne ne faisait que 960 px : on le régénère depuis la HD.
-  { slug: 'ruine', file: "Ruine - Cote d'Ivoire.png", refresh: true },
-  { slug: 'turban', file: null },
-  { slug: 'dsf9605', file: '_DSF9605.jpg' }, // Sékou
-  { slug: 'dsf9045', file: '_DSF9045.jpg' }, // Yao
+  { slug: 'devant-la-fenetre', file: "Ruine - Cote d'Ivoire.png", refresh: true, imagePath: 'ruine' },
+  { slug: 'blase', file: null },
+  { slug: 'sekou', file: '_DSF9605.jpg' }, // Sékou
+  { slug: 'yao', file: '_DSF9045.jpg' }, // Yao
   // Version noir et blanc tirée pour l'expo : remplace l'image couleur.
-  { slug: 'la-chorale', file: 'La chorale NB - Angola.jpg', refresh: true, imagePath: 'la-chorale-nb' },
+  { slug: 'les-chanteuses', file: 'La chorale NB - Angola.jpg', refresh: true, imagePath: 'la-chorale-nb' },
 
   // --- nouvelles -------------------------------------------------------------
   { slug: 'la-foret-rose', file: '2093-04-1.jpeg', square: true, create: { title: 'La forêt rose' } },
-  { slug: 'le-passant-au-bonnet-bleu', file: '_DSF9489.jpeg', create: { title: 'Le passant au bonnet bleu' } },
-  { slug: 'la-maisonnette-dans-le-desert', file: '_DSF9466.jpeg', create: { title: 'La maisonnette dans le désert' } },
+  { slug: 'l-attente', file: '_DSF9489.jpeg', create: { title: 'Le passant au bonnet bleu' } },
+  { slug: 'sirocco', file: '_DSF9466.jpeg', create: { title: 'La maisonnette dans le désert' } },
   { slug: 'aissata', file: '_DSF9225.jpeg', create: { title: 'Aïssata' } },
-  { slug: 'la-fenetre-en-ruine', file: '_DSF9204NB.jpeg', create: { title: 'La fenêtre en ruine', blackAndWhite: true } },
+  { slug: 'tu-passais-par-la', file: '_DSF9204NB.jpeg', create: { title: 'La fenêtre en ruine', blackAndWhite: true } },
   { slug: 'le-foulard-rouge', file: '_DSF9638.jpeg', create: { title: 'Le foulard rouge' } },
   // Envoyées par Tom le 18/11 (fichiers de 2000 px, suffisants pour le site).
   { slug: 'samba', file: 'Samba - Paris.jpg', create: { title: 'Samba' } },
   { slug: 'ruben', file: 'Ruben - Paris.jpg', square: true, create: { title: 'Ruben' } },
-  { slug: 'double-exposition', file: 'Double exposition.jpg', square: true, create: { title: 'Double exposition' } },
-  { slug: 'les-choristes', file: 'Les choristes NB - Angola.jpg', create: { title: 'Les choristes', blackAndWhite: true } },
+  { slug: 'amy-sow', file: 'Double exposition.jpg', square: true, create: { title: 'Double exposition' } },
+  { slug: 'la-chorale', file: 'Les choristes NB - Angola.jpg', create: { title: 'Les choristes', blackAndWhite: true } },
 ];
 
 // ---------------------------------------------------------------------------

@@ -69,7 +69,7 @@ Today, some 45,000 people still live to the rhythm of the water. It is everywher
 
 // --- Tirages de l'exposition (novembre 2026) -------------------------------
 
-PHOTO_STORIES.benin = {
+PHOTO_STORIES.kandji = {
   fr: `Cet enfant, Kandji, porte sur la tête un filet qui lui sert à tamiser le sable destiné au béton. Nous avions garé le 4x4 dans la cour d’une petite maison en construction, près du sanctuaire des singes de Drabo, au Bénin. Chaque jour, Kandji préparait le sable des futures fondations.
 
 Au fil des jours, nous avons commencé à discuter, et je me suis même mis à l’aider : je remplissais la brouette à la pelle, il tamisait le sable avec cette sorte de méduse posée sur sa tête.
@@ -95,7 +95,7 @@ For more than fifteen hours we are stuck in an endless line of vehicles. Everyon
 This photo was born of that wait: a yellow taxi loaded to the roof, and a passer-by in a red headscarf crossing the scene.`,
 };
 
-PHOTO_STORIES['le-passant-au-bonnet-bleu'] = {
+PHOTO_STORIES['l-attente'] = {
   fr: `Quinze heures d’attente dans la file du ferry, en Gambie. Lorsque les voitures s’immobilisent, Charlotte sort son appareil photo.
 
 Le décor, lui, ne bouge presque pas : le même taxi jaune, les mêmes sacs ficelés sur le toit, la même enseigne bleue. Ce sont les visages qui changent au fil des heures. Charlotte en fait une série entière, prise depuis le même endroit.
@@ -108,7 +108,7 @@ The scene itself barely moves: the same yellow taxi, the same bags tied to the r
 A way of turning an endless wait into a photographic playground.`,
 };
 
-PHOTO_STORIES['la-maisonnette-dans-le-desert'] = {
+PHOTO_STORIES.sirocco = {
   fr: `En entrant en Mauritanie, le paysage change d’un coup. Le désert semble ne jamais finir, et le vent soulève le sable en permanence, au point de tendre un voile jaune sur tout l’horizon.
 
 Au milieu de cette immensité, une maisonnette de béton, un panneau solaire posé dans le sable et quelques bidons. Une question nous obsède dès les premiers jours : comment vit-on au cœur d’un désert où l’eau est si rare ?
@@ -121,7 +121,7 @@ In the middle of this vastness: a small concrete house, a solar panel lying in t
 Mauritania was our first real immersion in one of the threads of this journey: access to drinking water.`,
 };
 
-PHOTO_STORIES.dsf9479 = {
+PHOTO_STORIES.hacen = {
   fr: `Mauritanie. Ici, chaque déplacement est une expédition, et les points d’eau dictent la vie de ceux qui habitent le désert.
 
 Pour comprendre leur quotidien, nous partons à la rencontre de ceux qui y vivent. Malgré la barrière de la langue, les échanges nous permettent peu à peu de mieux comprendre leur vie.
@@ -188,7 +188,7 @@ At the exhibition, ten red bibs hung on a line echo it.`,
 
 // La chorale de Luanda (livre, chapitre « L'Angola nous surprend », 13 mars
 // 2025) : un même moment, raconté sous deux angles.
-PHOTO_STORIES['la-chorale'] = {
+PHOTO_STORIES['les-chanteuses'] = {
   fr: `L’Angola est l’un des pays qui nous a le plus surpris. Peu présent dans les itinéraires de voyage, il nous offre pourtant certains des moments les plus forts de notre traversée.
 
 À Luanda, une chorale d’enfants nous interpelle dans la rue.`,
@@ -197,7 +197,7 @@ PHOTO_STORIES['la-chorale'] = {
 In Luanda, a children’s choir calls out to us in the street.`,
 };
 
-PHOTO_STORIES['les-choristes'] = {
+PHOTO_STORIES['la-chorale'] = {
   fr: `En quelques instants, les voix s’élèvent et un concert improvisé prend vie au milieu de Luanda.
 
 Un moment simple, sincère, qui nous rappelle une nouvelle fois la place qu’occupe la musique dans de nombreuses cultures africaines.`,
@@ -207,7 +207,7 @@ A simple, sincere moment that reminds us once again of the place music holds in 
 };
 
 // Sékou, le garçon de la file du ferry en Gambie (livre, 20 décembre 2024).
-PHOTO_STORIES.dsf9605 = {
+PHOTO_STORIES.sekou = {
   fr: `Bloqués plus de quinze heures dans la file du ferry, en Gambie, nous faisons une belle rencontre : Sékou, un jeune garçon du village, qui passe des heures à nos côtés.
 
 À chaque fois que nous nous éloignons, il finit toujours par réapparaître à la fenêtre du 4x4, avec son immense sourire. Il nous raconte qu’il rêve de devenir pilote d’avion pour voyager à travers le monde. Au fil des heures, il me confie même qu’il aimerait partir avec nous sur les routes d’Afrique.`,
@@ -217,7 +217,7 @@ Whenever we wander off, he always reappears at the window of the 4x4 with his hu
 };
 
 // Amy Sow, artiste plasticienne à Nouakchott (livre, chapitre Mauritanie).
-PHOTO_STORIES['double-exposition'] = {
+PHOTO_STORIES['amy-sow'] = {
   fr: `À Nouakchott, nous retrouvons Amy Sow, une artiste engagée qui nous fait découvrir plusieurs points d’approvisionnement en eau de la capitale.
 
 Née en 1977 à Nouakchott, Amy Sow est une artiste plasticienne autodidacte. À travers ses peintures aux couleurs vives, elle dénonce les discriminations et les violences faites aux femmes. Elle a créé ArtGallé, un espace d’exposition et de partage où chacun peut s’exprimer librement, avec une attention particulière portée aux femmes et aux enfants.
@@ -231,7 +231,7 @@ Born in 1977 in Nouakchott, Amy Sow is a self-taught visual artist. Through her 
 };
 
 // Ayawa, l'une des jumelles de la plage d'Agbodrafa (livre, chapitre Togo).
-PHOTO_STORIES['silhouette-bleue'] = {
+PHOTO_STORIES.ayawa = {
   fr: `Ayawa est la sœur jumelle de Sophie, que Charlotte rencontre un soir sur une plage du Togo, où nous avons installé notre campement.
 
 Sophie avait promis de revenir le lendemain matin avec sa sœur. À notre réveil, Sophie et Ayawa étaient déjà là.`,
