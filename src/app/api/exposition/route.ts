@@ -1,5 +1,6 @@
 import { getTranslations } from 'next-intl/server';
 import { NextResponse } from 'next/server';
+import { exhibitionInfoEmail } from '@/lib/exhibition/confirmation-email';
 import { exhibitionRegistrationRequestSchema } from '@/lib/exhibition/types';
 import { isContactFormEnabled, serverEnv } from '@/lib/env';
 import { CONTACT_FROM_ADDRESS, getResend } from '@/lib/resend/server';
@@ -106,6 +107,22 @@ export async function POST(request: Request) {
       });
     } catch (sendError) {
       console.error('[exposition] notification e-mail impossible', sendError);
+    }
+
+    // Confirmation à la personne inscrite : lieu, horaires, programme.
+    try {
+      const { CONTACT_EMAIL } = serverEnv();
+      const confirmation = exhibitionInfoEmail({ locale, firstName, visitDays: days, kind: 'confirmation' });
+      const { error: sendError } = await getResend().emails.send({
+        from: CONTACT_FROM_ADDRESS,
+        to: email,
+        replyTo: CONTACT_EMAIL,
+        subject: confirmation.subject,
+        text: confirmation.text,
+      });
+      if (sendError) console.error('[exposition] confirmation à l’inscrit refusée', sendError);
+    } catch (sendError) {
+      console.error('[exposition] confirmation à l’inscrit impossible', sendError);
     }
   }
 

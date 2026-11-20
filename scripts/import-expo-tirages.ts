@@ -78,6 +78,8 @@ const EXPO: Entry[] = [
   // Le dérivé en ligne ne faisait que 960 px : on le régénère depuis la HD.
   { slug: 'ruine', file: "Ruine - Cote d'Ivoire.png", refresh: true },
   { slug: 'turban', file: null },
+  { slug: 'dsf9605', file: '_DSF9605.jpg' }, // Sékou
+  { slug: 'dsf9045', file: '_DSF9045.jpg' }, // Yao
   // Version noir et blanc tirée pour l'expo : remplace l'image couleur.
   { slug: 'la-chorale', file: 'La chorale NB - Angola.jpg', refresh: true, imagePath: 'la-chorale-nb' },
 

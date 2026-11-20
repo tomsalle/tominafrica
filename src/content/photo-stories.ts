@@ -206,6 +206,40 @@ Un moment simple, sincère, qui nous rappelle une nouvelle fois la place qu’oc
 A simple, sincere moment that reminds us once again of the place music holds in so many African cultures.`,
 };
 
+// Sékou, le garçon de la file du ferry en Gambie (livre, 20 décembre 2024).
+PHOTO_STORIES.dsf9605 = {
+  fr: `Bloqués plus de quinze heures dans la file du ferry, en Gambie, nous faisons une belle rencontre : Sékou, un jeune garçon du village, qui passe des heures à nos côtés.
+
+À chaque fois que nous nous éloignons, il finit toujours par réapparaître à la fenêtre du 4x4, avec son immense sourire. Il nous raconte qu’il rêve de devenir pilote d’avion pour voyager à travers le monde. Au fil des heures, il me confie même qu’il aimerait partir avec nous sur les routes d’Afrique.`,
+  en: `Stuck for more than fifteen hours in the ferry queue in The Gambia, we make a lovely encounter: Sékou, a young boy from the village, who spends hours by our side.
+
+Whenever we wander off, he always reappears at the window of the 4x4 with his huge smile. He tells us he dreams of becoming an airline pilot to travel the world. As the hours go by, he even confides that he would like to come with us on the roads of Africa.`,
+};
+
+// Amy Sow, artiste plasticienne à Nouakchott (livre, chapitre Mauritanie).
+PHOTO_STORIES['double-exposition'] = {
+  fr: `À Nouakchott, nous retrouvons Amy Sow, une artiste engagée qui nous fait découvrir plusieurs points d’approvisionnement en eau de la capitale.
+
+Née en 1977 à Nouakchott, Amy Sow est une artiste plasticienne autodidacte. À travers ses peintures aux couleurs vives, elle dénonce les discriminations et les violences faites aux femmes. Elle a créé ArtGallé, un espace d’exposition et de partage où chacun peut s’exprimer librement, avec une attention particulière portée aux femmes et aux enfants.
+
+« L’art est la meilleure façon d’exprimer ma liberté. »`,
+  en: `In Nouakchott, we meet Amy Sow, a committed artist who shows us several of the capital’s water supply points.
+
+Born in 1977 in Nouakchott, Amy Sow is a self-taught visual artist. Through her brightly coloured paintings, she speaks out against discrimination and violence against women. She founded ArtGallé, a space for exhibitions and exchange where everyone can express themselves freely, with special attention to women and children.
+
+“Art is the best way to express my freedom.”`,
+};
+
+// Ayawa, l'une des jumelles de la plage d'Agbodrafa (livre, chapitre Togo).
+PHOTO_STORIES['silhouette-bleue'] = {
+  fr: `Ayawa est la sœur jumelle de Sophie, que Charlotte rencontre un soir sur une plage du Togo, où nous avons installé notre campement.
+
+Sophie avait promis de revenir le lendemain matin avec sa sœur. À notre réveil, Sophie et Ayawa étaient déjà là.`,
+  en: `Ayawa is the twin sister of Sophie, whom Charlotte meets one evening on a beach in Togo where we have set up camp.
+
+Sophie had promised to come back the next morning with her sister. When we woke up, Sophie and Ayawa were already there.`,
+};
+
 export function photoStory(slug: string, locale: string): string | null {
   const story = PHOTO_STORIES[slug];
   if (!story) return null;

@@ -11,6 +11,12 @@ export const EXHIBITION = {
   city: 'Paris',
   mapsUrl: 'https://www.google.com/maps/search/?api=1&query=Mecanicus%2C%2070%20avenue%20Jean%20Moulin%2C%2075014%20Paris',
   poster: { src: '/expo/poster.avif', width: 846, height: 1200 },
+  /** Horaires d'ouverture, jour par jour (heure de Paris). */
+  hours: [
+    { day: '2026-11-27', open: '19:00', close: '22:00', opening: true },
+    { day: '2026-11-28', open: '10:00', close: '17:00', opening: false },
+    { day: '2026-11-29', open: '10:00', close: '17:00', opening: false },
+  ],
 } as const;
 
 /** Jours d'ouverture, proposés au choix dans le formulaire d'inscription. */
