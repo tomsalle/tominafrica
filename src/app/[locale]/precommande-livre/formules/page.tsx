@@ -9,9 +9,11 @@ import { TierPledgeForm } from '@/components/book-preorder/TierPledgeForm';
 import { Container } from '@/components/ui/Container';
 import { Link } from '@/i18n/navigation';
 import { languageAlternates } from '@/i18n/alternates';
+import { BOOK_PRINT_RUN } from '@/lib/book-preorder/config';
 import { BOOK_PREORDER_PAGE_DISABLED } from '@/lib/book-preorder/flags';
 import { loadPreorderData } from '@/lib/book-preorder/page-data';
 import { isCheckoutEnabled } from '@/lib/env';
+import { isExhibitionUpcoming } from '@/lib/exhibition/event';
 
 export const revalidate = 60;
 
@@ -62,10 +64,14 @@ export default async function BookFormulasPage({
   const reassurance = [
     { icon: GiftIcon, text: t('reassureGift') },
     { icon: CheckIcon, text: t('reassurePayment') },
-    { icon: CheckIcon, text: t('reassureDelivery') },
+    { icon: CheckIcon, text: isExhibitionUpcoming() ? t('reassureDelivery') : t('reassureDeliveryVinted') },
     {
       icon: CalendarIcon,
-      text: `${t('reassureDate')} · ${deadline('daysLeft', { count: daysLeft })}`,
+      // Sans date de fin : l'édition limitée remplace le compte à rebours.
+      text:
+        daysLeft === null
+          ? deadline('noEnd', { count: BOOK_PRINT_RUN })
+          : `${t('reassureDate')} · ${deadline('daysLeft', { count: daysLeft })}`,
     },
   ];
 

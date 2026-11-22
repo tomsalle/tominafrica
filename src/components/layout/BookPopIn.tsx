@@ -7,6 +7,7 @@ import { Link } from '@/i18n/navigation';
 import { PreorderCountdown } from '@/components/book-preorder/PreorderCountdown';
 import { getPreorderPhase, isPreorderClosed } from '@/lib/book-preorder/config';
 import { usePreorderPhase } from '@/lib/book-preorder/use-preorder-phase';
+import { isExhibitionUpcoming } from '@/lib/exhibition/event';
 
 export const BOOK_PREORDERED_KEY = 'tominafrica.livre-precommande.v1';
 const STORAGE_KEY = 'tominafrica.livre-popin.v1';
@@ -37,6 +38,8 @@ export function BookPopIn() {
 
   useEffect(() => {
     if (isPreorderClosed()) return;
+    // Pendant l'exposition, c'est sa pop-in à elle qui s'affiche.
+    if (isExhibitionUpcoming()) return;
     if (/\/(admin|panier|commande|precommande-livre)(\/|$)/.test(window.location.pathname)) return;
 
     try {

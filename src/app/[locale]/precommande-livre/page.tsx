@@ -171,7 +171,7 @@ export default async function BookPreorderPage({
             <section>
               <h2 className="font-display text-3xl font-light text-paper sm:text-4xl">{t('specs.title')}</h2>
               <ul className="mt-6 space-y-3 text-base leading-relaxed text-paper-dim">
-                {(['pages', 'format', 'printRun', 'deadline', 'delivery'] as const).map((key) => (
+                {(['pages', 'format', 'printRun', ...(daysLeft === null ? [] : ['deadline' as const]), 'delivery'] as const).map((key) => (
                   <SpecLine key={key} text={t(`specs.${key}`, { count: BOOK_PRINT_RUN })} />
                 ))}
               </ul>
@@ -306,7 +306,9 @@ export default async function BookPreorderPage({
                     <p className="mt-3 text-center text-[0.6875rem] text-paper-faint">{t('product.formulasHint')}</p>
                   </PreorderGate>
                   <p className="mt-4 border-t border-ink-line pt-3 text-center text-xs text-paper-dim">
-                    {t('deadline.daysLeft', { count: daysLeft })} · {t('deadline.until')}
+                    {daysLeft === null
+                      ? t('deadline.noEnd', { count: BOOK_PRINT_RUN })
+                      : `${t('deadline.daysLeft', { count: daysLeft })} · ${t('deadline.until')}`}
                   </p>
                 </>
               )}

@@ -388,7 +388,7 @@
       "format": "Format : 22 × 29,7 cm, un peu plus grand qu’un A4 : idéal pour l’emporter partout sans l’abîmer",
       "printRun": "Tirage : {count} exemplaires, en édition limitée",
       "deadline": "Fin de la précommande : 20 novembre 2026",
-      "delivery": "Livraison estimée : 27 novembre 2026, jour du vernissage de l’exposition à Paris"
+      "delivery": "Disponible à partir du 27 novembre 2026, jour du vernissage de l’exposition à Paris"
     },
     "budget": {
       "title": "Ce que financent les précommandes",
@@ -453,7 +453,7 @@
       "paymentQ": "Le paiement est-il prélevé tout de suite ?",
       "paymentA": "Oui, votre carte est débitée immédiatement à la précommande — il n’y a pas d’étape de validation différée.",
       "deadlineQ": "Jusqu’à quand puis-je précommander ?",
-      "deadlineA": "Jusqu’au 20 novembre 2026 inclus. Après cette date, les exemplaires restants seront en vente à l’exposition à Paris, du 27 au 29 novembre.",
+      "deadlineA": "Il n’y a pas de date limite : le livre reste en vente tant qu’il reste des exemplaires de cette édition limitée à 300.",
       "deliveryQ": "Quand vais-je recevoir mon livre ?",
       "deliveryA": "Le livre sera disponible à partir du 27 novembre 2026, jour du vernissage. Si vous avez choisi le retrait, il vous attend à l’exposition. Pour un envoi, je vous contacte pour l’organiser via Vinted : vous ne payez que l’expédition sur l’application (environ 1 €).",
       "promoQ": "Comment fonctionne le code -10 % sur un tirage ?",
@@ -559,12 +559,14 @@
       "faqLink": "Voir la FAQ",
       "reassureGift": "Offert avec chaque formule : -10 % sur un tirage à l’exposition",
       "closedTitle": "La précommande est terminée",
-      "closedBody": "Merci à toutes celles et ceux qui ont précommandé ! Les exemplaires restants seront en vente à l’exposition à Paris, du 27 au 29 novembre 2026."
+      "closedBody": "Merci à toutes celles et ceux qui ont précommandé ! Les exemplaires restants seront en vente à l’exposition à Paris, du 27 au 29 novembre 2026.",
+      "reassureDeliveryVinted": "Envoi via Vinted (environ 1 €)"
     },
     "deadline": {
       "daysLeft": "{count, plural, =0 {Précommande terminée} one {Dernier jour} other {# jours restants}}",
       "until": "jusqu’au 20 novembre 2026",
-      "ended": "Précommande terminée le 20 novembre 2026"
+      "ended": "Précommande terminée le 20 novembre 2026",
+      "noEnd": "Édition limitée à {count} exemplaires"
     },
     "closed": {
       "title": "La précommande est terminée",
@@ -628,7 +630,7 @@
     "close": "Fermer",
     "eyebrow": "Précommande ouverte",
     "title": "Notre livre est en précommande",
-    "body": "1 Mère, 1 Fils, 1 Rêve : notre voyage de Paris à Cape Town en 112 pages, deux regards. Édition limitée à 300 exemplaires, à récupérer au vernissage le 27 novembre. Précommande jusqu’au 20 novembre.",
+    "body": "1 Mère, 1 Fils, 1 Rêve : notre voyage de Paris à Cape Town en 112 pages, deux regards. Édition limitée à 300 exemplaires, tant qu’il en reste.",
     "cta": "Précommander le livre",
     "discover": "Découvrir le livre",
     "later": "Plus tard",

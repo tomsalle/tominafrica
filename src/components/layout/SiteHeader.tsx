@@ -20,16 +20,22 @@ export function SiteHeader() {
 
   const count = cartCount(items);
 
-  // Mis en avant (point rouge) : le livre tant que sa précommande est ouverte,
-  // sinon l'exposition jusqu'à sa date de fin. L'exposition quitte le menu
+  // Mis en avant (point rouge) : l'exposition jusqu'à sa date de fin, puis le
+  // livre tant que sa précommande est ouverte. L'exposition quitte le menu
   // d'elle-même une fois passée.
+  const exhibitionUpcoming = isExhibitionUpcoming();
   const preorderOpen = !isPreorderClosed();
   const NAV: { href: string; label: string; highlight: boolean; badge?: string }[] = [
     { href: '/series/1-mere-1-fils-1-reve', label: t('gallery'), highlight: false },
     { href: '/notre-aventure', label: t('adventure'), highlight: false },
-    { href: '/precommande-livre', label: t('book'), highlight: preorderOpen, badge: preorderOpen ? t('bookBadge') : undefined },
-    ...(isExhibitionUpcoming()
-      ? [{ href: EXHIBITION_PATH, label: t('exhibition'), highlight: !preorderOpen, badge: t('exhibitionDates') }]
+    {
+      href: '/precommande-livre',
+      label: t('book'),
+      highlight: preorderOpen && !exhibitionUpcoming,
+      badge: preorderOpen ? t('bookBadge') : undefined,
+    },
+    ...(exhibitionUpcoming
+      ? [{ href: EXHIBITION_PATH, label: t('exhibition'), highlight: true, badge: t('exhibitionDates') }]
       : []),
     { href: '/videos', label: t('videos'), highlight: false },
   ];

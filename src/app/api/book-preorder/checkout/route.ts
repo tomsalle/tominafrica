@@ -1,6 +1,7 @@
 import { getTranslations } from 'next-intl/server';
 import { NextResponse } from 'next/server';
 import { getPreorderPhase, isPreorderClosed } from '@/lib/book-preorder/config';
+import { isExhibitionUpcoming } from '@/lib/exhibition/event';
 import { bookPreorderCheckoutRequestSchema } from '@/lib/book-preorder/types';
 import { getPublishedTiers, getTierById } from '@/lib/book-preorder/queries';
 import { isEarlyBirdAvailable } from '@/lib/book-preorder/tiers';
@@ -143,8 +144,9 @@ export async function POST(request: Request) {
                 label: { type: 'custom' as const, custom: t('deliveryFieldLabel') },
                 type: 'dropdown' as const,
                 dropdown: {
+                  // Le retrait à l'exposition n'est proposé que jusqu'à sa fin.
                   options: [
-                    { label: t('deliveryPickup'), value: 'retraitexposition' },
+                    ...(isExhibitionUpcoming() ? [{ label: t('deliveryPickup'), value: 'retraitexposition' }] : []),
                     { label: t('deliveryVinted'), value: 'envoivinted' },
                   ],
                 },

@@ -388,7 +388,7 @@
       "format": "Format: 22 × 29.7 cm, slightly larger than A4: ideal to take anywhere without damaging it",
       "printRun": "Print run: {count} copies, limited edition",
       "deadline": "Pre-order ends: 20 November 2026",
-      "delivery": "Estimated delivery: November 27, 2026, the day of the exhibition’s opening night in Paris"
+      "delivery": "Available from 27 November 2026, the opening night of the exhibition in Paris"
     },
     "budget": {
       "title": "What pre-orders pay for",
@@ -453,7 +453,7 @@
       "paymentQ": "Is payment taken right away?",
       "paymentA": "Yes, your card is charged immediately when you pre-order — there’s no deferred confirmation step.",
       "deadlineQ": "Until when can I pre-order?",
-      "deadlineA": "Until 20 November 2026 included. After that date, remaining copies will be on sale at the exhibition in Paris, 27 — 29 November.",
+      "deadlineA": "There is no deadline: the book stays on sale as long as copies of this limited edition of 300 remain.",
       "deliveryQ": "When will I receive my book?",
       "deliveryA": "The book will be available from 27 November 2026, the opening night. If you chose pick-up, it will be waiting for you at the exhibition. For shipping, I will get in touch to arrange it via Vinted: you only pay the delivery on the app (about €1).",
       "promoQ": "How does the 10% print code work?",
@@ -559,12 +559,14 @@
       "faqLink": "See the FAQ",
       "reassureGift": "With every option: 10% off a print at the exhibition",
       "closedTitle": "The pre-order is closed",
-      "closedBody": "Thank you to everyone who pre-ordered! Remaining copies will be on sale at the exhibition in Paris, 27 — 29 November 2026."
+      "closedBody": "Thank you to everyone who pre-ordered! Remaining copies will be on sale at the exhibition in Paris, 27 — 29 November 2026.",
+      "reassureDeliveryVinted": "Shipping via Vinted (about €1)"
     },
     "deadline": {
       "daysLeft": "{count, plural, =0 {Pre-order closed} one {Last day} other {# days left}}",
       "until": "until 20 November 2026",
-      "ended": "Pre-order closed on 20 November 2026"
+      "ended": "Pre-order closed on 20 November 2026",
+      "noEnd": "Limited edition of {count} copies"
     },
     "closed": {
       "title": "The pre-order is closed",
@@ -628,7 +630,7 @@
     "close": "Close",
     "eyebrow": "Pre-order open",
     "title": "Our book is available for pre-order",
-    "body": "1 Mother, 1 Son, 1 Dream: our journey from Paris to Cape Town in 112 pages, two perspectives. Limited edition of 300 copies, to collect at the opening night on 27 November. Pre-order until 20 November.",
+    "body": "1 Mother, 1 Son, 1 Dream: our journey from Paris to Cape Town in 112 pages, two perspectives. Limited edition of 300 copies, while they last.",
     "cta": "Pre-order the book",
     "discover": "Discover the book",
     "later": "Later",

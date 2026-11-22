@@ -3,7 +3,7 @@ import { FundingProgress } from '@/components/book-preorder/FundingProgress';
 import { PreorderCountdown, PreorderGate } from '@/components/book-preorder/PreorderCountdown';
 import { CalendarIcon, GiftIcon, UsersIcon } from '@/components/book-preorder/icons';
 import { Link } from '@/i18n/navigation';
-import type { PreorderPhase, PreorderStepState } from '@/lib/book-preorder/config';
+import { BOOK_PRINT_RUN, type PreorderPhase, type PreorderStepState } from '@/lib/book-preorder/config';
 import type { BookOffer } from '@/lib/book-preorder/page-data';
 import { formatPrice } from '@/lib/format';
 
@@ -27,7 +27,8 @@ export function BookOfferPanel({
   stepState: PreorderStepState;
   ordersCount: number;
   closed: boolean;
-  daysLeft: number;
+  /** null : précommande sans date de fin. */
+  daysLeft: number | null;
   phase: PreorderPhase;
 }) {
   const t = useTranslations('bookPreorder');
@@ -94,7 +95,11 @@ export function BookOfferPanel({
         </p>
         <p className="mt-2 flex items-center gap-2 text-sm text-paper-dim">
           <CalendarIcon className="size-5 text-paper-faint" />
-          {closed ? t('deadline.ended') : `${t('deadline.daysLeft', { count: daysLeft })} · ${t('deadline.until')}`}
+          {closed
+            ? t('deadline.ended')
+            : daysLeft === null
+              ? t('deadline.noEnd', { count: BOOK_PRINT_RUN })
+              : `${t('deadline.daysLeft', { count: daysLeft })} · ${t('deadline.until')}`}
         </p>
       </div>
     </div>

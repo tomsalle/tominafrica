@@ -17,22 +17,24 @@ export type PreorderPhase = 'before' | 'open' | 'closed';
 
 export function getPreorderPhase(now: number = Date.now()): PreorderPhase {
   if (now < BOOK_PREORDER_START.getTime()) return 'before';
-  if (now >= BOOK_PREORDER_END.getTime()) return 'closed';
+  if (BOOK_PREORDER_END !== null && now >= BOOK_PREORDER_END.getTime()) return 'closed';
   return 'open';
 }
 
-// Fin de la précommande : vendredi 20 novembre 2026 à minuit (heure de Paris),
-// une semaine avant le vernissage — demande de Tom. Après, plus aucun
-// paiement ; les pages restent en ligne et annoncent la clôture.
-export const BOOK_PREORDER_END = new Date('2026-11-21T00:00:00+01:00');
-export const BOOK_PREORDER_LAST_DAY = '2026-11-20';
+// Fin de la précommande. Fermée d'abord le 20 novembre 2026 à minuit, puis
+// rouverte le 22 novembre SANS date de fin, à la demande de Tom : le livre
+// reste en vente tant qu'il en reste. Pour refixer une fin, mettre une date
+// ici (ex. new Date('2026-12-31T23:59:59+01:00')) : compte à rebours et
+// clôture reviennent d'eux-mêmes.
+export const BOOK_PREORDER_END: Date | null = null;
 
 export function isPreorderClosed(now = new Date()): boolean {
-  return now.getTime() >= BOOK_PREORDER_END.getTime();
+  return BOOK_PREORDER_END !== null && now.getTime() >= BOOK_PREORDER_END.getTime();
 }
 
-/** Jours restants, le jour en cours compris (1 = dernier jour). */
-export function preorderDaysLeft(now = new Date()): number {
+/** Jours restants, le jour en cours compris (1 = dernier jour) ; null sans date de fin. */
+export function preorderDaysLeft(now = new Date()): number | null {
+  if (BOOK_PREORDER_END === null) return null;
   return Math.max(0, Math.ceil((BOOK_PREORDER_END.getTime() - now.getTime()) / 86_400_000));
 }
 
