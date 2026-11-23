@@ -61,7 +61,7 @@ export function bookPreorderConfirmationEmail(input: ConfirmationInput): { subje
         '',
         'Any question? Simply reply to this email.',
         '',
-        'Tom & Charlotte',
+        'Charlotte and Tom',
         'tominafrica.com',
       ].join('\n'),
     };
@@ -98,7 +98,7 @@ export function bookPreorderConfirmationEmail(input: ConfirmationInput): { subje
       '',
       'Une question ? Répondez simplement à cet e-mail.',
       '',
-      'Tom & Charlotte',
+      'Charlotte et Tom',
       'tominafrica.com',
     ].join('\n'),
   };

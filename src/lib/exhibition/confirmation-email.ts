@@ -81,7 +81,7 @@ export function exhibitionInfoEmail({ locale, firstName, visitDays, kind }: Inpu
         'Any question? Simply reply to this email.',
         '',
         'See you very soon!',
-        'Tom & Charlotte',
+        'Charlotte and Tom',
         'tominafrica.com',
       ].join('\n'),
     };
@@ -122,7 +122,7 @@ export function exhibitionInfoEmail({ locale, firstName, visitDays, kind }: Inpu
       'Une question ? Répondez simplement à cet e-mail.',
       '',
       'À très vite !',
-      'Tom & Charlotte',
+      'Charlotte et Tom',
       'tominafrica.com',
     ].join('\n'),
   };

@@ -30,18 +30,18 @@ const SERIES_SLUG = '1-mere-1-fils-1-reve';
 const DERIVATIVE_WIDTHS = [480, 960, 1600, 2400];
 const PAPER = 'Hahnemühle Bright White 310g';
 
-// Prix de l'affiche « Les tirages », arrondis à la dizaine (TTC, en centimes).
+// Prix de l'affiche « Les tirages » (TTC, en centimes), revus par Tom le
+// 23/11/2026 ; le 30 × 30 est retiré.
 const FORMATS = {
   normal: [
-    { w: 20, h: 30, price: 6000 },
-    { w: 40, h: 60, price: 15000 },
-    { w: 60, h: 90, price: 34000 },
+    { w: 20, h: 30, price: 6800 },
+    { w: 40, h: 60, price: 23000 },
+    { w: 60, h: 90, price: 42000 },
   ],
   square: [
-    { w: 30, h: 30, price: 8000 },
-    { w: 40, h: 40, price: 13000 },
-    { w: 60, h: 60, price: 30000 },
-    { w: 80, h: 80, price: 39000 },
+    { w: 40, h: 40, price: 19000 },
+    { w: 60, h: 60, price: 38000 },
+    { w: 80, h: 80, price: 48000 },
   ],
 } as const;
 
