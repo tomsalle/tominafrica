@@ -444,7 +444,7 @@ Some children came to see us, one of them in a lovely striped shirt. I took out 
 Afterwards, we watched the sunset together.`,
 };
 
-// Pas encore au catalogue (fichier de la photo à recevoir) : récit prêt.
+// Photo reçue le 24/11/2026 (Grand-Béréby).
 PHOTO_STORIES['le-voisin-du-garagiste'] = {
   fr: `Pendant la révision de la voiture, à Grand-Béréby, j’ai eu le temps de faire connaissance avec tous les voisins : Yao, des femmes qui lavaient leur linge, et ce jeune homme, dont je ne connais pas le nom, qui attendait un ami. Je lui ai demandé de poser devant cette tôle rouge, jaune et bleue.
 

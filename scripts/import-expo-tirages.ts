@@ -97,6 +97,8 @@ const EXPO: Entry[] = [
   { slug: 'ruben', file: 'Ruben - Paris.jpg', square: true, create: { title: 'Ruben' } },
   { slug: 'amy-sow', file: 'Double exposition.jpg', square: true, create: { title: 'Double exposition' } },
   { slug: 'la-chorale', file: 'Les choristes NB - Angola.jpg', create: { title: 'Les choristes', blackAndWhite: true } },
+  // Envoyée par Tom le 24/11 (fichier de 1 426 px).
+  { slug: 'le-voisin-du-garagiste', file: "Le voisin du garagiste - Cote d'Ivoire.webp", create: { title: 'Le voisin du garagiste' } },
 ];
 
 // ---------------------------------------------------------------------------
