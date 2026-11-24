@@ -126,6 +126,13 @@ export default async function PhotoPage({ params }: PageProps) {
                 {photo.title}
               </h1>
 
+              {/* Les récits sont écrits à la première personne : on dit qui parle. */}
+              {photo.photographer ? (
+                <p className="mt-4 font-display text-xl font-light text-paper-dim italic">
+                  {t('photographer', { name: photo.photographer })}
+                </p>
+              ) : null}
+
               <FieldNote
                 takenAt={photo.taken_at}
                 countryCode={photo.country_code}

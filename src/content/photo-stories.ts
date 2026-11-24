@@ -68,18 +68,390 @@ Today, some 45,000 people still live to the rhythm of the water. It is everywher
 };
 
 // --- Tirages de l'exposition (novembre 2026) -------------------------------
+// Récits écrits par Charlotte (novembre 2026), à la première personne de
+// l'auteur de la photo (champ photos.photographer) : Charlotte pour les
+// siennes, Tom pour les trois qu'il a prises (les jumelles, le palmier,
+// devant la fenêtre).
+
+PHOTO_STORIES.habi = {
+  fr: `En me baladant dans les petites rues d’Imsouane, je rencontre Habi, un Sénégalais qui se rend à son travail, un petit bar du port de pêche. Mes yeux se posent tout de suite sur sa belle casquette multicolore et sur son sourire communicatif.
+
+Je lui propose de le photographier devant des murs de couleurs différentes. Le moment est rapide mais joyeux : son patron l’attend pour travailler.`,
+  en: `Wandering through the little streets of Imsouane, I meet Habi, a Senegalese man on his way to work at a small bar in the fishing port. My eyes go straight to his beautiful multicoloured cap and his infectious smile.
+
+I suggest photographing him in front of walls of different colours. The moment is quick but joyful: his boss is waiting for him to start work.`,
+};
+
+PHOTO_STORIES.samba = {
+  fr: `C’était un soir d’août 2024, pendant les Jeux olympiques. Je rentrais chez moi à vélo, un peu triste, quand un mur coloré, baigné d’une belle lumière, a attiré mon regard. Un jeune garçon rentrait chez lui. Pendant un instant, j’ai tout oublié : j’avais l’impression d’être très loin.
+
+« Je crois que des choses mystérieuses arrivent dans des endroits familiers. Il n’est pas toujours nécessaire d’aller à l’autre bout du monde. » — Saul Leiter
+
+Si j’ai choisi de montrer cette image, c’est parce que, quelques jours plus tard, j’ai su que j’allais partir avec Tom. Elle résonne avec notre voyage.`,
+  en: `It was an evening in August 2024, during the Olympic Games. I was cycling home, feeling a little sad, when a colourful wall bathed in beautiful light caught my eye. A young boy was on his way home. For a moment I forgot everything: I felt very far away.
+
+“I believe that mysterious things happen in familiar places. We don’t always need to go to the other end of the world.” — Saul Leiter
+
+I chose to show this image because, a few days later, I learned that I would be leaving with Tom. It echoes our journey.`,
+};
+
+PHOTO_STORIES.nene = {
+  fr: `Après de longues heures de route, nous apercevons une magnifique rivière aux rochers ronds, comme dans Le Livre de la jungle. Des femmes y lavent leur linge, les enfants jouent dans l’eau. Ce bel endroit sera notre campement pour la nuit.
+
+Tout l’après-midi, nous jouons avec les enfants. Ils restent jusqu’au soir à nous regarder installer la tente de toit et préparer le dîner : pour eux, c’est un vrai spectacle.
+
+Puis Nènè, la grand-mère du village, vient chercher les enfants. Elle porte une magnifique robe verte et rouge, un turban assorti et de très beaux bijoux. Elle ne parle pas notre langue, mais son regard doux et affectueux nous dit qu’elle est bien avec nous.`,
+  en: `After long hours on the road, we spot a magnificent river with round rocks, like something out of The Jungle Book. Women are doing their washing there and children are playing in the water. This beautiful spot will be our camp for the night.
+
+All afternoon we play with the children. They stay until evening, watching us set up the roof tent and cook dinner: for them, it is quite a show.
+
+Then Nènè, the village grandmother, comes to fetch the children. She is wearing a magnificent green and red dress, a matching turban and beautiful jewellery. She doesn’t speak our language, but her gentle, affectionate gaze tells us she is happy to be with us.`,
+};
+
+PHOTO_STORIES['les-maillots-rouges'] = {
+  fr: `Sur l’île de Gorée, les matins sont magnifiques : les rues deviennent un décor de théâtre. Seuls les poules, les chats et les chiens circulent, et les oiseaux chantent. En marchant, impossible d’oublier ce qui s’est passé ici : Gorée est un lieu de mémoire de la traite atlantique, de l’esclavage et de ses violences.
+
+Chaque matin, je passe devant la grande place de l’ancien hôpital militaire, où les brebis dorment encore. Des maillots de foot sèchent au soleil, mais il en manque un : peut-être qu’un enfant s’est endormi avec…`,
+  en: `On Gorée Island, the mornings are magnificent: the streets become a theatre set. Only the hens, cats and dogs are out, and the birds are singing. As you walk, it is impossible to forget what happened here: Gorée is a place of remembrance of the Atlantic slave trade, of slavery and its violence.
+
+Every morning, I walk past the large square of the old military hospital, where the sheep are still asleep. Football shirts are drying in the sun, but one is missing: perhaps a child fell asleep in it…`,
+};
+
+PHOTO_STORIES.aissata = {
+  fr: `J’adore regarder le linge sécher au soleil. Chaque matin, Aïssata vient étendre le sien. Au début, je n’aperçois que ses jambes.
+
+Je m’approche pour lui dire bonjour et lui demander son prénom. Elle est très timide, ses joues deviennent toutes rouges. J’ai eu envie de fixer ce moment intime.`,
+  en: `I love watching laundry dry in the sun. Every morning, Aïssata comes to hang hers out. At first, all I can see are her legs.
+
+I go over to say hello and ask her name. She is very shy, and her cheeks go bright red. I wanted to capture this intimate moment.`,
+};
+
+PHOTO_STORIES.ruben = {
+  fr: `C’était en avril 2022, à Ivry-sur-Seine, près de Paris, dans un petit square aux murs colorés : si l’on ne regarde pas autour, on se croirait à Dakar ou sur l’île de Gorée. C’était pour un édito, avec une belle équipe : Ruben, le mannequin, Maëlle, mon assistante lumière, et Massi au stylisme et au maquillage.
+
+Si je vous montre cette image, c’est parce qu’en la voyant, Tom m’a dit : « Maman, tu dois venir avec moi faire cette traversée ! »`,
+  en: `It was April 2022, in Ivry-sur-Seine, near Paris, in a small square with colourful walls: if you don’t look around, you could be in Dakar or on Gorée Island. It was for an editorial shoot, with a lovely team: Ruben, the model, Maëlle, my lighting assistant, and Massi on styling and make-up.
+
+I am showing you this image because, when Tom saw it, he said to me: “Mum, you have to come with me on this crossing!”`,
+};
+
+PHOTO_STORIES['l-attente'] = {
+  fr: `On attend, on attend, on attend… Dix-huit heures à attendre le ferry ! Nous traversons la Gambie, un tout petit pays enclavé dans le Sénégal, ouvert sur l’océan.
+
+Pendant tout ce temps, on regarde, on fait des rencontres, on prend des photos. Depuis ma fenêtre, j’ai vu défiler des centaines de personnes. Le décor, lui, ne bouge presque pas : le même taxi jaune, les mêmes sacs ficelés sur le toit, la même enseigne bleue. Ce sont les visages qui changent au fil des heures.`,
+  en: `We wait, and wait, and wait… Eighteen hours waiting for the ferry! We are crossing The Gambia, a tiny country nestled inside Senegal and open to the ocean.
+
+All that time, we watch, we meet people, we take photos. From my window, I watched hundreds of people go by. The scene itself barely moves: the same yellow taxi, the same bags tied to the roof, the same blue sign. It is the faces that change as the hours pass.`,
+};
+
+PHOTO_STORIES['tu-passais-par-la'] = {
+  fr: `En haut d’une colline, au bord du fleuve Sassandra, se trouve une ancienne maison coloniale abandonnée, au-dessus d’un terrain de foot.
+
+Comme très souvent, il y a des enfants aux alentours. Ce garçon était là, il se baladait dans la maison. Je l’ai suivi un peu, sans vraiment savoir ce que je cherchais. Puis il s’est arrêté à cette fenêtre.
+
+En le voyant ainsi, dans cette maison abandonnée, j’ai ressenti beaucoup de tristesse et d’émotion. Il y avait quelque chose de bouleversant dans cette image, dans ce contraste entre l’enfant, la fenêtre et les traces du passé.
+
+J’ai pris cette photo sans vouloir interrompre ce moment.`,
+  en: `At the top of a hill on the banks of the Sassandra river stands an old abandoned colonial house, overlooking a football pitch.
+
+As so often, there are children around. This boy was there, wandering through the house. I followed him for a while, without really knowing what I was looking for. Then he stopped at this window.
+
+Seeing him like that, in this abandoned house, I felt a great deal of sadness and emotion. There was something deeply moving in this image, in the contrast between the child, the window and the traces of the past.
+
+I took this photo without wanting to interrupt the moment.`,
+};
+
+// Photo « Sophie » (adresse /photo/ayawa conservée : QR code imprimé).
+PHOTO_STORIES.ayawa = {
+  fr: `Il est environ 18 h, la température baisse, le soleil décline. Sur la plage d’Agbodrafa, juste avant de rentrer sous la tente, je croise Sophie, l’une des jumelles. Elle promène son chien ; elle a l’air fragile.
+
+Je me souviendrai toujours de son sourire. Le lendemain matin, elle reviendra avec sa sœur, Ayawa.`,
+  en: `It is around 6 p.m., the temperature is dropping and the sun is going down. On Agbodrafa beach, just before turning in for the night, I come across Sophie, one of the twins. She is walking her dog; she seems fragile.
+
+I will always remember her smile. The next morning, she will come back with her sister, Ayawa.`,
+};
+
+PHOTO_STORIES['yellow-cabine'] = {
+  fr: `Un soir de mars, à Brazzaville. Nous campons sur le parking d’un club de tennis ouvert aux voyageurs, où nous faisons la connaissance de Sophie et Fabien, deux vétérinaires belges naturalistes qui sillonnent l’Afrique en 4x4 à la recherche des espèces les plus rares et menacées du continent.
+
+Ce soir-là, ils nous proposent d’aller voir les fameux sapeurs, les rois de la sape. La nuit, Brazzaville est mouvementée, les rues sont pleines de monde et de bruit. Mieux vaut y aller en taxi, mais pas n’importe lequel. Le nôtre est décoré de haut en bas : strass, fourrure sur le volant, petits bonshommes qui bougent devant, sur le côté, derrière… Le chauffeur est si fier de sa déco ! J’ai envie de tout toucher, comme une enfant. Pourquoi ne fait-on pas la même chose en France ?
+
+Ici, la rue devient un podium et le vêtement se pratique comme une religion. Les gens sont assis comme à un défilé de mode et, tout à coup, les sapeurs surgissent de nulle part, démarche nonchalante, looks incroyables.
+
+Juste à côté, il y a cette petite cabane jaune qui vend des cartes Wi-Fi. J’observe ce jeune homme pendant quelques minutes : concentré sur son téléphone, il semble oublier l’euphorie autour des sapeurs. Il ne s’aperçoit même pas que je le photographie.`,
+  en: `One evening in March, in Brazzaville. We are camping in the car park of a tennis club that welcomes travellers, where we meet Sophie and Fabien, two Belgian vets and naturalists who criss-cross Africa by 4x4 in search of the continent’s rarest and most endangered species.
+
+That evening, they suggest we go and see the famous sapeurs, the kings of la sape. At night Brazzaville is lively, the streets full of people and noise. Better to go by taxi, but not just any taxi. Ours is decorated from top to bottom: rhinestones, fur on the steering wheel, little nodding figures in front, on the side, at the back… The driver is so proud of his decor! I want to touch everything, like a child. Why don’t we do the same in France?
+
+Here, the street becomes a catwalk and clothing is practised like a religion. People sit as if at a fashion show and, all of a sudden, the sapeurs appear out of nowhere, with a nonchalant stride and incredible looks.
+
+Right next door stands this little yellow hut selling Wi-Fi cards. I watch this young man for a few minutes: focused on his phone, he seems oblivious to the excitement around the sapeurs. He doesn’t even notice I am taking his picture.`,
+};
+
+// Photo « Le palmier » (prise par Tom).
+PHOTO_STORIES['on-a-joue-ensemble'] = {
+  fr: `La plage de Ménéké est un endroit sublime, l’une des plus belles plages de Côte d’Ivoire, juste à côté d’une réserve naturelle. Il n’y a absolument personne, seulement un petit hôtel et une chambre d’hôte fréquentés par des Européens.
+
+Nous campons dans le jardin de Gus, un Italien, face à la mer. On ne peut pas imaginer mieux pour se reposer : le voyage a été difficile, et la voiture a failli brûler quelques heures plus tôt. Je crois qu’on l’a bien mérité.
+
+Comme d’habitude, une fois le campement installé, nous partons voir ce qu’il y a autour. Tout au bout de la plage, il y a un village, une maison abandonnée entourée de palmiers et plein d’enfants qui jouent dans l’eau.
+
+Je ne résiste pas longtemps à l’envie de taper dans le ballon avec eux. Puis je prends quelques images des enfants dans les arbres, fiers de grimper jusqu’en haut.`,
+  en: `Ménéké beach is a sublime place, one of the most beautiful beaches in Côte d’Ivoire, right next to a nature reserve. There is absolutely no one here, just a small hotel and a guesthouse frequented by Europeans.
+
+We camp in the garden of Gus, an Italian, facing the sea. We couldn’t imagine a better place to rest: the journey has been hard, and the car nearly caught fire a few hours earlier. I think we’ve earned it.
+
+As usual, once camp is set up, we go and see what’s around. At the far end of the beach there is a village, an abandoned house surrounded by palm trees, and lots of children playing in the water.
+
+I can’t resist kicking the ball around with them for long. Then I take a few pictures of the children up in the trees, proud to have climbed all the way to the top.`,
+};
+
+PHOTO_STORIES['amy-sow'] = {
+  fr: `Après une nuit dans le désert, sans aucun bruit, sous un ciel étoilé, nous voici à Nouakchott, la capitale de la Mauritanie. Les routes et les nuages sont remplis de sable. On a l’impression d’être au bout du monde.
+
+Quand je ne conduis pas, je prends le temps de regarder, comme si je prenais des photos avec mes yeux. Nos fenêtres sont toujours ouvertes. Nous croisons parfois des cyclistes, dont tout un groupe d’Allemands qui allaient jusqu’au Ghana ! Pour moi, ce sont eux, les vrais aventuriers.
+
+À l’approche de la ville, il y a du monde partout, dans tous les sens, tout se mélange : les gens, les voitures, les charrettes tirées par des chevaux, les ânes… La poussière entre peu à peu dans la voiture, et nous finissons par ressembler, nous aussi, à des aventuriers. Pour les amoureux des premiers Star Wars, le décor est le même. Cette foule est à la fois stressante et excitante.
+
+Nous restons deux nuits dans un camping au bord de la mer, non loin de l’atelier d’Amy Sow. Le lendemain matin, petit déjeuner copieux : des œufs au plat et le fameux amlou, une pâte à tartiner à base d’huile d’argan, d’amandes torréfiées et de miel, sur du pain trouvé sur la route.
+
+En fin de matinée, nous partons à la rencontre d’Amy. Artiste plasticienne née à Nouakchott, elle a fondé ArtGallé, une résidence d’artistes. Elle utilise la peinture, la photo et les installations pour dénoncer les violences faites aux femmes et aux enfants. Amy est déjà grand-mère : son petit-fils de 3 ans, super mignon, est avec elle.
+
+Elle nous fait visiter les lieux, puis nous installons ensemble le décor, avec un tissu en fond. Tom termine par une interview filmée. Le lendemain, elle nous montre deux fontaines d’eau surveillées : pas simple de faire des images à ces endroits.
+
+Nous n’avions plus envie de la quitter. Deux jours délicieux avec elle.`,
+  en: `After a night in the desert, in total silence under a starry sky, here we are in Nouakchott, the capital of Mauritania. The roads and the clouds are full of sand. It feels like the end of the world.
+
+When I’m not driving, I take the time to look, as if I were taking photos with my eyes. Our windows are always open. Now and then we pass cyclists, including a whole group of Germans riding all the way to Ghana! To me, they are the real adventurers.
+
+As we approach the city, there are people everywhere, going in every direction, everything mixing together: people, cars, horse-drawn carts, donkeys… The dust slowly gets into the car, and we end up looking like adventurers ourselves. For lovers of the first Star Wars films, the setting is the same. The crowd is both stressful and exciting.
+
+We spend two nights at a campsite by the sea, not far from Amy Sow’s studio. The next morning, a hearty breakfast: fried eggs and the famous amlou, a spread made from argan oil, roasted almonds and honey, on bread picked up along the way.
+
+Late in the morning, we go to meet Amy. A visual artist born in Nouakchott, she founded ArtGallé, an artists’ residency. She uses painting, photography and installations to denounce violence against women and children. Amy is already a grandmother: her adorable three-year-old grandson is with her.
+
+She shows us around, then we set up the scene together, with a piece of fabric as a backdrop. Tom finishes with a filmed interview. The next day, she shows us two guarded water fountains: not an easy place to take pictures.
+
+We didn’t want to leave her. Two wonderful days with her.`,
+};
+
+PHOTO_STORIES['la-foret-rose'] = {
+  fr: `Après une nuit passée chez des moines, nous voilà sur les routes du Congo, au cœur d’une immense forêt tropicale. Nous avons franchi l’équateur ! Notre route nous mène sur l’Elephant Road, qui traverse une réserve exceptionnelle où vivent éléphants, gorilles, chimpanzés, et plein d’autres petits singes et d’oiseaux.
+
+Nous avons la chance d’entendre et d’observer un groupe de chimpanzés sauvages au bord de la route. Deux d’entre eux traversent juste devant nous… Un moment absolument magique ! Leurs cris résonnent dans toute la forêt.
+
+Le soir, nous installons notre bivouac au pied d’une antenne 4G, sans savoir qu’un autre groupe de chimpanzés a élu domicile tout près pour la nuit. Pleins d’espoir, nous nous levons aux premières lueurs du jour, mais ils ont déjà disparu. Ils ne sont même pas venus manger les fruits au pied de l’antenne : ils ont dû nous entendre arriver. Nous reprenons la route un peu déçus, mais tellement heureux d’avoir vécu ces moments.
+
+Le soir suivant, nous campons près de la route, dans un renfoncement où l’on coupe des arbres. Au petit matin, Tom dort encore. Je descends l’échelle et je découvre le décor : nous sommes seuls, entourés d’arbres immenses, et une légère brume cache le deuxième rang. C’est si beau…
+
+Je sors mon pied, mon appareil moyen format, et je mets une nouvelle pellicule. Je vérifie encore une fois que personne ne vient, ni homme ni animal. Et je prends le temps de regarder ces arbres gigantesques qui nous entourent.`,
+  en: `After a night spent with monks, here we are on the roads of Congo, in the heart of an immense tropical forest. We have crossed the equator! Our route takes us along the Elephant Road, which runs through an exceptional reserve home to elephants, gorillas, chimpanzees and lots of other small monkeys and birds.
+
+We are lucky enough to hear and watch a group of wild chimpanzees by the roadside. Two of them cross right in front of us… An absolutely magical moment! Their calls echo through the whole forest.
+
+In the evening, we set up camp at the foot of a 4G mast, not knowing that another group of chimpanzees has settled nearby for the night. Full of hope, we get up at first light, but they are already gone. They didn’t even come to eat the fruit at the foot of the mast: they must have heard us arrive. We set off again a little disappointed, but so happy to have lived these moments.
+
+The following evening, we camp near the road, in a clearing used for felling trees. At dawn, Tom is still asleep. I climb down the ladder and discover the scene: we are alone, surrounded by enormous trees, and a light mist hides the row behind. It is so beautiful…
+
+I take out my tripod and my medium-format camera, and load a new roll of film. I check once more that no one is coming, neither man nor animal. And I take the time to look at the giant trees all around us.`,
+};
+
+PHOTO_STORIES.ekoue = {
+  fr: `Nous passons quelques nuits sur le parking d’un petit hôtel tenu par un couple suisse et togolais. C’est ici que nous rencontrons Mégane et François, des Suisses qui traverseront le Nigeria avec nous. Quel bonheur de manger des spaghettis bolognaise et de prendre enfin une vraie douche !
+
+Tôt le matin, réveillée par le coq, je descends l’échelle. Il est au pied de la voiture, fier et très content de m’avoir réveillée. Tom, lui, ne bouge pas d’un pouce… ce qui m’énerve encore plus !
+
+Un petit garçon, Ekoué, balaie le sol avec de grandes branches. Il est sûrement levé depuis bien plus longtemps que moi. Je m’approche : il est adorable, il balaie tous les matins avant d’aller à l’école.
+
+Je lui demande de se cacher derrière cette grande feuille, si immense qu’elle fait presque sa taille, et je le prends en photo.`,
+  en: `We spend a few nights in the car park of a small hotel run by a Swiss and Togolese couple. This is where we meet Mégane and François, a Swiss couple who will cross Nigeria with us. What a joy to eat spaghetti bolognese and finally take a real shower!
+
+Early in the morning, woken by the rooster, I climb down the ladder. There he is at the foot of the car, proud and very pleased to have woken me up. Tom, meanwhile, doesn’t move an inch… which annoys me even more!
+
+A little boy, Ekoué, is sweeping the ground with big branches. He has surely been up much longer than I have. I go over: he is adorable, and he sweeps every morning before going to school.
+
+I ask him to hide behind this huge leaf, so big it is almost his height, and I take his picture.`,
+};
+
+PHOTO_STORIES.blase = {
+  fr: `Nous sommes sur la plage d’Agbodrafa, à côté d’un restaurant local. Tout un groupe de personnes s’y retrouve pour fêter son anniversaire : ce sont les natifs de janvier ! Quelle ambiance, il y a tous les âges. Quelle bonne idée : chaque mois, ceux qui sont nés ce mois-là font la même chose.
+
+Nous décidons de rester dormir là. Il se met à pleuvoir quelques minutes après notre arrivée, et nous nous abritons sous l’auvent du restaurant. La lumière est belle, elle fait ressortir la couleur de l’eau.
+
+Tôt le matin, juste après la visite des jumelles, je rencontre Blase. Il s’occupe du restaurant avec sa mère et, à côté, il coud : il a un petit atelier où il fabrique des vêtements. Il cache ses ongles, qui sont vernis.
+
+J’installe mon fond violet et nous sympathisons pendant que je le photographie. J’ai choisi l’image où l’on ne voit pas son visage ; les autres, je les garde pour moi.`,
+  en: `We are on Agbodrafa beach, next to a local restaurant. A whole group of people gathers there to celebrate their birthdays: they are the natives of January! What an atmosphere, all ages together. What a lovely idea: every month, the people born that month do the same.
+
+We decide to stay the night. It starts to rain a few minutes after we arrive, and we take shelter under the restaurant’s awning. The light is beautiful, bringing out the colour of the water.
+
+Early in the morning, just after the twins’ visit, I meet Blase. He runs the restaurant with his mother and, alongside it, he sews: he has a small workshop where he makes clothes. He hides his nails, which are painted.
+
+I set up my purple backdrop and we get to know each other while I photograph him. I chose the image where you can’t see his face; the others I keep for myself.`,
+};
+
+PHOTO_STORIES.yao = {
+  fr: `Après quelques jours de rêve sur la plage de Ménéké, nous repassons à Grand-Béréby chez notre super mécanicien, celui qui nous a changé le démarreur. Nous lui avions promis de faire la vidange chez lui avant de reprendre un long trajet. Quelle joie il a de nous revoir !
+
+Nous attendons cinq heures, sur un banc à l’ombre. Il fait très chaud. Autour de nous, de vieux moteurs et des voitures qui servent de pièces détachées. Nous voyons les enfants rentrer de l’école, nous mangeons du poisson avec du manioc. De temps en temps, un petit courant d’air. On attend, on attend… et on s’endort, bercés par le bruit d’un homme qui frappe sur de la tôle.
+
+Comme je trouve le temps long, je pars faire un tour avec mon appareil, et je rencontre Yao. Son visage et sa timidité m’ont touchée : j’ai eu envie de le photographier.`,
+  en: `After a few dreamlike days on Ménéké beach, we stop again in Grand-Béréby at our wonderful mechanic’s, the one who replaced our starter motor. We had promised him we would get the oil changed at his garage before setting off on another long drive. He is so happy to see us again!
+
+We wait five hours on a bench in the shade. It is very hot. Around us lie old engines and cars used for spare parts. We watch the children come home from school, we eat fish with cassava. Every now and then, a little breeze. We wait, and wait… and doze off, lulled by the sound of a man hammering on sheet metal.
+
+As time drags on, I go for a walk with my camera, and I meet Yao. His face and his shyness touched me: I wanted to photograph him.`,
+};
+
+PHOTO_STORIES.hacen = {
+  fr: `Nous nous enfonçons de plus en plus dans le désert. La route est bordée de sable, quelques chameaux la longent. Le ciel a une couleur étrange, la lumière est métallique, il y a beaucoup de vent. Ici, chaque déplacement est une expédition, et les points d’eau dictent la vie de ceux qui habitent le désert.
+
+Au loin, nous apercevons des hommes. Tom et moi décidons de nous arrêter : ils sont en train de remplir un réservoir d’eau. Je remarque tout de suite Hacen, avec sa chemise à carreaux blancs et verts qui contraste avec le décor.`,
+  en: `We head deeper and deeper into the desert. The road is lined with sand, a few camels walk alongside it. The sky is a strange colour, the light metallic, and the wind is strong. Here, every journey is an expedition, and water points shape the lives of the people who live in the desert.
+
+In the distance we spot some men. Tom and I decide to stop: they are filling a water tank. I notice Hacen straight away, in his green and white checked shirt that stands out against the landscape.`,
+};
+
+PHOTO_STORIES.sirocco = {
+  fr: `Depuis le Maroc, le sirocco voyage avec nous. Les nuages sont chargés de sable et, dès que le soleil perce, la lumière devient étrange, unique. On a l’impression d’être sur une autre planète.
+
+Au milieu de cette immensité, une maisonnette de béton, un panneau solaire posé dans le sable et quelques bidons. Une question ne nous quitte plus : comment vit-on au cœur d’un désert où l’eau est si rare ?`,
+  en: `Ever since Morocco, the sirocco has been travelling with us. The clouds are heavy with sand and, whenever the sun breaks through, the light turns strange and unique. It feels like being on another planet.
+
+In the middle of this vastness: a small concrete house, a solar panel lying in the sand and a few jerrycans. One question never leaves us: how do people live in the heart of a desert where water is so scarce?`,
+};
+
+PHOTO_STORIES.kemi = {
+  fr: `Drabo est un village situé juste à côté d’un sanctuaire de singes, un refuge qui accueille, soigne et protège les singes, créé en 1988 par un Suisse alémanique. Nous passons trois nuits sur le terrain d’une petite maison en construction, entourée d’une barrière.
+
+Juste à côté se trouve un autre village, orange du sol jusqu’aux murs. Les enfants sortent des maisons pour venir nous voir, et nous jouons avec eux : foot, cache-cache…
+
+J’ai demandé aux enfants de monter sur cette brique rouge, comme sur un socle. Kèmi portait une très belle robe taillée dans un tissu typique du Bénin, et des élastiques de toutes les couleurs, comme des bonbons !
+
+J’aimerais y retourner pour faire une vraie série avec tous les enfants du village, et surtout pouvoir leur montrer les images.`,
+  en: `Drabo is a village right next to a monkey sanctuary, a refuge that takes in, cares for and protects monkeys, founded in 1988 by a Swiss German. We spend three nights on the plot of a small house under construction, surrounded by a fence.
+
+Right next to it is another village, orange from the ground to the walls. The children come out of the houses to see us, and we play with them: football, hide-and-seek…
+
+I asked the children to stand on this red brick, as if on a pedestal. Kèmi was wearing a beautiful dress made from a typical Beninese fabric, and hair ties in every colour, like sweets!
+
+I would love to go back and make a real series with all the children of the village, and above all show them the pictures.`,
+};
+
+PHOTO_STORIES.kodjo = {
+  fr: `Nous arrivons en début d’après-midi, à la recherche d’un endroit pour dormir. Le meilleur se trouve, malheureusement, sur le parking de l’embarcadère de Ganvié.
+
+Ganvié signifie « nous sommes en paix », « nous sommes sauvés ». Ses habitants ont fui la terre ferme pendant l’esclavage pour s’installer sur le lac et échapper à la capture et à la déportation. Plus nous avançons, plus nous mesurons les atrocités du passé. Elles ont marqué ces terres à vie. On ne peut pas oublier.
+
+C’est un lieu de passage : il y a sans cesse du monde qui vient prendre le bateau. Je me précipite pour faire des photos, Tom aussi, mais ce n’est pas si évident : ici, les gens n’aiment pas trop ça. Il faut le faire avec intelligence et bienveillance. Et c’est Kodjo qui est venu vers nous. Il a posé juste à côté de la voiture, les détritus faisant office de fleurs.`,
+  en: `We arrive early in the afternoon, looking for somewhere to sleep. The best spot, unfortunately, is the car park of the Ganvié landing stage.
+
+Ganvié means “we are at peace”, “we are saved”. Its people fled the mainland during the slave trade to settle on the lake and escape capture and deportation. The further we travel, the more we grasp the atrocities of the past. They have marked these lands for ever. We cannot forget.
+
+It is a place of passage: people are constantly coming through to catch the boat. I rush to take photos, and so does Tom, but it isn’t that easy: people here don’t really like it. You have to do it with intelligence and kindness. And it was Kodjo who came over to us. He posed right next to the car, the litter standing in for flowers.`,
+};
+
+PHOTO_STORIES['retour-du-marche'] = {
+  fr: `C’est le début d’après-midi, le soleil est au zénith et tape très fort. Il faut trouver de l’ombre.
+
+Juste à côté de l’arbre où nous nous abritons, plusieurs femmes se reposent. Curieuse, je vais les voir : elles sont épuisées par la chaleur. Elles reviennent du marché, c’est l’heure de la sieste, une scène typique de ces villages. Le bas des maisons est recouvert de terre orange, une terre qui s’infiltre partout.
+
+J’aime les couleurs, les contrastes, et la posture de ces femmes.
+
+Nous restons deux nuits ici, le temps d’aller à Lomé changer les plaquettes de frein et faire les papiers pour le Nigeria. Tom en profite pour se faire couper les cheveux par la propriétaire du bar.`,
+  en: `It is early afternoon, the sun is at its height and beating down hard. We need to find some shade.
+
+Right next to the tree where we are sheltering, several women are resting. Curious, I go over to them: they are exhausted by the heat. They are coming back from the market; it is siesta time, a typical scene in these villages. The bottom of the houses is covered in orange earth, an earth that gets in everywhere.
+
+I love the colours, the contrasts, and the way these women are sitting.
+
+We stay two nights here, long enough to go to Lomé to change the brake pads and sort out the paperwork for Nigeria. Tom makes the most of it to get his hair cut by the owner of the bar.`,
+};
+
+// La chorale de Luanda : un même moment, en deux photos.
+PHOTO_STORIES['les-chanteuses'] = {
+  fr: `L’Angola est l’un des pays qui nous a le plus surpris. Un samedi, nous nous promenons sur les quais de Luanda quand nous voyons un groupe d’enfants sur une passerelle, en train de chanter. Une chorale qui revenait d’un spectacle, peut-être ; nous ne l’avons jamais su.
+
+Je commence à les photographier, Tom filme la scène. Les filles gesticulent, tout excitées de nous voir, trop mignonnes. Mon regard s’arrête sur cette petite fille au chemisier à col Claudine et au turban blanc liseré de bleu. Elles avaient toutes un regard très fort.`,
+  en: `Angola is one of the countries that surprised us most. One Saturday, we are walking along the Luanda waterfront when we see a group of children on a footbridge, singing. A choir on its way back from a performance, perhaps; we never found out.
+
+I start photographing them while Tom films the scene. The girls are waving their arms about, thrilled to see us, absolutely adorable. My eye stops on this little girl in a Peter Pan collar blouse and a white turban edged with blue. They all had such a strong gaze.`,
+};
+
+PHOTO_STORIES['la-chorale'] = {
+  fr: `Les enfants s’approchent et, en quelques minutes, je me retrouve encerclée. Ils sont beaux ! Je leur demande de se remettre à chanter. Je ne parle pas portugais, mais ils finissent par comprendre. C’est beau, des voix d’enfants !
+
+Je suis par terre, l’appareil en contre-plongée. Je ne voulais pas que ce moment s’arrête.`,
+  en: `The children come closer and, within a few minutes, I am surrounded. They are beautiful! I ask them to start singing again. I don’t speak Portuguese, but they end up understanding. Children’s voices are so beautiful!
+
+I am down on the ground, shooting from below. I didn’t want this moment to end.`,
+};
+
+// Photo prise par Tom.
+PHOTO_STORIES['devant-la-fenetre'] = {
+  fr: `Nous sommes en haut d’une colline, dans une ancienne maison coloniale en ruine. De là-haut, la vue s’étend sur l’embouchure du fleuve Sassandra et sur l’océan Atlantique.
+
+Sassandra a longtemps été un carrefour d’échanges et un port colonial actif ; c’est aujourd’hui le chef-lieu de la région du Gbôklé. On regarde la vue, sans oublier le passé.`,
+  en: `We are at the top of a hill, in an old colonial house in ruins. From up here, the view stretches over the mouth of the Sassandra river and the Atlantic Ocean.
+
+Sassandra was long a crossroads of trade and a busy colonial port; today it is the capital of the Gbôklé region. We take in the view, without forgetting the past.`,
+};
 
 PHOTO_STORIES.kandji = {
-  fr: `Cet enfant, Kandji, porte sur la tête un filet qui lui sert à tamiser le sable destiné au béton. Nous avions garé le 4x4 dans la cour d’une petite maison en construction, près du sanctuaire des singes de Drabo, au Bénin. Chaque jour, Kandji préparait le sable des futures fondations.
+  fr: `Nous passons trois nuits sur le terrain d’une petite maison en construction, près du sanctuaire des singes de Drabo. Elle servira à accueillir les visiteurs du sanctuaire. À notre arrivée, un grand monticule de terre trône au milieu du terrain.
 
-Au fil des jours, nous avons commencé à discuter, et je me suis même mis à l’aider : je remplissais la brouette à la pelle, il tamisait le sable avec cette sorte de méduse posée sur sa tête.
+Kandji et ses deux frères aident leur père à finir la maison. Avec un filet en ferraille, ils tamisent la terre pour en retirer les cailloux. Tom se met même à les aider, à la pelle. Moi, je trouve que ce filet ressemble à une méduse, et je le trouve beau.
 
-Là où je voyais un outil de travail, Charlotte, elle, a vu un costume. Elle a demandé au propriétaire une petite pause pour faire quelques portraits devant le mur brut de la maison. Kandji, ravi de souffler un peu, s’est tout de suite pris au jeu.`,
-  en: `This boy, Kandji, wears a net on his head that he uses to sieve the sand for concrete. We had parked the 4x4 in the yard of a small house under construction, near the Drabo monkey sanctuary in Benin. Every day, Kandji prepared the sand for the future foundations.
+Le lendemain, je leur demande s’ils sont d’accord pour faire une séance photo devant le mur brut de la maison. J’étais contente de sortir mon appareil et de prendre le temps !`,
+  en: `We spend three nights on the plot of a small house under construction, near the Drabo monkey sanctuary. It will be used to welcome visitors to the sanctuary. When we arrive, a big mound of earth sits in the middle of the plot.
 
-Over the days we started talking, and I even began to help him: I filled the wheelbarrow with a shovel while he sieved the sand with this jellyfish-like net on his head.
+Kandji and his two brothers are helping their father finish the house. With a wire mesh net, they sieve the earth to remove the stones. Tom even starts helping them with a shovel. As for me, I think the net looks like a jellyfish, and I find it beautiful.
 
-Where I saw a work tool, Charlotte saw a costume. She asked the owner for a short break to take a few portraits against the bare wall of the house. Kandji, happy to catch his breath, played along straight away.`,
+The next day, I ask them whether they would agree to a photo shoot in front of the bare wall of the house. I was happy to take out my camera and take my time!`,
+};
+
+PHOTO_STORIES.sekou = {
+  fr: `C’était juste avant Noël. Tom et moi étions bloqués dans la file pour embarquer la voiture sur le ferry. Nous sommes restés très longtemps au même endroit, alors bien sûr, j’ai sorti mon appareil.
+
+Juste en face, un jeune homme se tenait avec son cheval, et j’ai regardé la scène comme un spectacle. Il est venu me voir, je suis allée le voir, je lui ai montré les photos. Il m’a dit qu’il était étudiant et qu’il faisait un petit boulot pendant les vacances.
+
+Quelques minutes plus tard arrive un très jeune garçon, 12 ou 13 ans environ, en maillot de foot : Sékou. Il est resté avec nous presque tout l’après-midi. Il était curieux de savoir ce que nous faisions là, et nous avons beaucoup parlé. Il disait qu’il était souvent seul. J’ai d’abord pensé qu’il était là pour nous demander de l’argent, mais il ne l’a jamais fait.
+
+Nous lui avons demandé s’il avait un rêve. Il voulait devenir pilote, mais sa famille est pauvre, et il ne pourrait pas aller à l’école. Je crois que si nous lui avions proposé de venir avec nous, il serait venu.
+
+C’était un joli souvenir.`,
+  en: `It was just before Christmas. Tom and I were stuck in the queue to get the car onto the ferry. We stayed in the same spot for a very long time, so of course I took out my camera.
+
+Right opposite, a young man was standing with his horse, and I watched the scene like a show. He came over to me, I went over to him, and I showed him the photos. He told me he was a student with a small holiday job.
+
+A few minutes later, a very young boy arrives, around 12 or 13, in a football shirt: Sékou. He stayed with us almost all afternoon. He was curious to know what we were doing there, and we talked a lot. He said he was often alone. At first I thought he was there to ask us for money, but he never did.
+
+We asked him if he had a dream. He wanted to become a pilot, but his family is poor and he would not be able to go to school. I think that if we had asked him to come with us, he would have come.
+
+It was a lovely memory.`,
+};
+
+PHOTO_STORIES['sur-la-colline'] = {
+  fr: `C’était le 31 décembre. Nous campions sur une colline au-dessus d’un village, avec plusieurs voyageurs, dont Corinne et François, avec qui nous avions passé quelques jours aux chutes de Saala et de la rivière Komba. Nous avons fêté la nouvelle année tous ensemble.
+
+Des enfants sont venus nous voir, dont l’un avec une jolie chemise à rayures. J’ai sorti mon tissu rouge pour faire un fond, et mon appareil. Le soleil commençait à descendre, il faisait bon. Il était super fier d’être photographié.
+
+Ensuite, nous avons regardé ensemble le coucher du soleil.`,
+  en: `It was 31 December. We were camping on a hill above a village with several other travellers, including Corinne and François, with whom we had spent a few days at the Saala falls and the Komba river. We celebrated the New Year all together.
+
+Some children came to see us, one of them in a lovely striped shirt. I took out my red fabric for a backdrop, and my camera. The sun was starting to go down and the air was mild. He was so proud to be photographed.
+
+Afterwards, we watched the sunset together.`,
+};
+
+// Pas encore au catalogue (fichier de la photo à recevoir) : récit prêt.
+PHOTO_STORIES['le-voisin-du-garagiste'] = {
+  fr: `Pendant la révision de la voiture, à Grand-Béréby, j’ai eu le temps de faire connaissance avec tous les voisins : Yao, des femmes qui lavaient leur linge, et ce jeune homme, dont je ne connais pas le nom, qui attendait un ami. Je lui ai demandé de poser devant cette tôle rouge, jaune et bleue.
+
+Le soleil commençait doucement à descendre : c’est le meilleur moment pour avoir une belle lumière.`,
+  en: `While the car was being serviced in Grand-Béréby, I had time to get to know all the neighbours: Yao, some women doing their washing, and this young man, whose name I never learned, who was waiting for a friend. I asked him to pose in front of this red, yellow and blue sheet metal.
+
+The sun was slowly starting to go down: the best time for beautiful light.`,
 };
 
 PHOTO_STORIES['le-foulard-rouge'] = {
@@ -93,151 +465,6 @@ Cette photo est née de cette attente : un taxi jaune chargé jusqu’au toit, e
 For more than fifteen hours we are stuck in an endless line of vehicles. Everyone tries to jump the queue, the horns never stop and the heat becomes overwhelming. At the end of the day, the last ferry leaves without us: we spend the night there, our tent unfolded among the cars.
 
 This photo was born of that wait: a yellow taxi loaded to the roof, and a passer-by in a red headscarf crossing the scene.`,
-};
-
-PHOTO_STORIES['l-attente'] = {
-  fr: `Quinze heures d’attente dans la file du ferry, en Gambie. Lorsque les voitures s’immobilisent, Charlotte sort son appareil photo.
-
-Le décor, lui, ne bouge presque pas : le même taxi jaune, les mêmes sacs ficelés sur le toit, la même enseigne bleue. Ce sont les visages qui changent au fil des heures. Charlotte en fait une série entière, prise depuis le même endroit.
-
-Une façon de transformer une attente interminable en terrain de jeu photographique.`,
-  en: `Fifteen hours waiting in the ferry queue in The Gambia. Whenever the cars come to a standstill, Charlotte takes out her camera.
-
-The scene itself barely moves: the same yellow taxi, the same bags tied to the roof, the same blue sign. It is the faces that change as the hours go by. Charlotte turns it into a whole series, shot from the same spot.
-
-A way of turning an endless wait into a photographic playground.`,
-};
-
-PHOTO_STORIES.sirocco = {
-  fr: `En entrant en Mauritanie, le paysage change d’un coup. Le désert semble ne jamais finir, et le vent soulève le sable en permanence, au point de tendre un voile jaune sur tout l’horizon.
-
-Au milieu de cette immensité, une maisonnette de béton, un panneau solaire posé dans le sable et quelques bidons. Une question nous obsède dès les premiers jours : comment vit-on au cœur d’un désert où l’eau est si rare ?
-
-La Mauritanie a été notre première vraie immersion dans l’un des fils rouges du voyage : l’accès à l’eau potable.`,
-  en: `As we enter Mauritania, the landscape changes all at once. The desert seems endless, and the wind lifts the sand constantly, drawing a yellow veil across the whole horizon.
-
-In the middle of this vastness: a small concrete house, a solar panel lying in the sand and a few jerrycans. One question haunts us from the very first days: how do people live in the heart of a desert where water is so scarce?
-
-Mauritania was our first real immersion in one of the threads of this journey: access to drinking water.`,
-};
-
-PHOTO_STORIES.hacen = {
-  fr: `Mauritanie. Ici, chaque déplacement est une expédition, et les points d’eau dictent la vie de ceux qui habitent le désert.
-
-Pour comprendre leur quotidien, nous partons à la rencontre de ceux qui y vivent. Malgré la barrière de la langue, les échanges nous permettent peu à peu de mieux comprendre leur vie.
-
-Sur le seuil d’une maison de béton, à l’abri du vent et du sable, un homme se tient immobile.`,
-  en: `Mauritania. Here, every journey is an expedition, and water points shape the lives of the people who live in the desert.
-
-To understand their daily life, we set out to meet the people who live there. Despite the language barrier, our conversations slowly help us understand their lives better.
-
-On the threshold of a concrete house, sheltered from the wind and the sand, a man stands still.`,
-};
-
-PHOTO_STORIES.habi = {
-  fr: `Quelques jours après avoir débarqué au Maroc, nous rejoignons Imsouane, un petit village bercé par les vagues, connu des surfeurs du monde entier.
-
-Ici, nous ralentissons le rythme et profitons de nos premiers couchers de soleil africains. C’est là que nous croisons Habi, barman et pêcheur du village, avec sa casquette en patchwork de tissus.
-
-L’aventure ne fait que commencer : devant nous s’étendent encore des milliers de kilomètres.`,
-  en: `A few days after landing in Morocco, we reach Imsouane, a small village rocked by the waves and known to surfers the world over.
-
-Here, we slow down and enjoy our first African sunsets. It is there that we meet Habi, the village’s barman and fisherman, in his patchwork fabric cap.
-
-The adventure is only beginning: thousands of kilometres still lie ahead of us.`,
-};
-
-PHOTO_STORIES.nene = {
-  fr: `Guinée, début janvier. La chaleur devient étouffante et, sans climatisation, nous roulons les fenêtres ouvertes à la recherche d’une rivière.
-
-Au bord de la rivière de Guéckédou, des femmes et des enfants sont déjà là, entre lessive et jeux d’eau. Nous les rejoignons, et ce qui devait être une simple pause se transforme en un moment de partage, puis en une séance photo improvisée.
-
-C’est là que Charlotte photographie Nènè. La Guinée nous aura appris une chose essentielle : parfois, ralentir est la meilleure façon d’aller à la rencontre des autres.`,
-  en: `Guinea, early January. The heat becomes stifling and, with no air conditioning, we drive with the windows down, looking for a river.
-
-On the banks of the Guéckédou river, women and children are already there, doing the washing and playing in the water. We join them, and what was meant to be a short break turns into a moment of sharing, then an impromptu photo shoot.
-
-That is where Charlotte photographs Nènè. Guinea taught us something essential: sometimes, slowing down is the best way to meet others.`,
-};
-
-PHOTO_STORIES.aissata = {
-  fr: `L’île de Gorée, au large de Dakar. Un lieu marqué par l’histoire de l’esclavage, où nous avons pourtant fait l’une des rencontres les plus inspirantes du voyage.
-
-Dans une ruelle de sable, Aïssata s’est assise sur une borne de pierre, le visage caché par un grand tissu patchwork étendu au soleil.
-
-On ne voit d’elle que ses jambes et ses sandales : le reste, c’est le tissu qui le raconte.`,
-  en: `Gorée Island, off Dakar. A place marked by the history of slavery, yet where we had one of the most inspiring encounters of the trip.
-
-In a sandy alley, Aïssata has sat down on a stone post, her face hidden by a large patchwork cloth spread out in the sun.
-
-All we see of her are her legs and her sandals: the cloth tells the rest.`,
-};
-
-PHOTO_STORIES['les-maillots-rouges'] = {
-  fr: `Île de Gorée, Sénégal. Une rangée de maillots rouges sèche sur un fil, devant une maison à la façade usée, avec des moutons couchés au premier plan.
-
-C’est l’image qui résume le mieux l’idée de notre exposition : le linge étendu au milieu du décor. Pendant six mois, nous avons nous aussi fait sécher notre linge sur des fils attachés à ce qui nous entourait.
-
-À l’exposition, dix chasubles rouges étendues sur un fil lui font écho.`,
-  en: `Gorée Island, Senegal. A row of red jerseys dries on a line in front of a house with a weathered façade, with sheep lying in the foreground.
-
-It is the image that best sums up the idea of our exhibition: laundry hung out in the middle of the scenery. For six months, we too dried our clothes on lines tied to whatever was around us.
-
-At the exhibition, ten red bibs hung on a line echo it.`,
-};
-
-// La chorale de Luanda (livre, chapitre « L'Angola nous surprend », 13 mars
-// 2025) : un même moment, raconté sous deux angles.
-PHOTO_STORIES['les-chanteuses'] = {
-  fr: `L’Angola est l’un des pays qui nous a le plus surpris. Peu présent dans les itinéraires de voyage, il nous offre pourtant certains des moments les plus forts de notre traversée.
-
-À Luanda, une chorale d’enfants nous interpelle dans la rue.`,
-  en: `Angola is one of the countries that surprised us most. Rarely on travel itineraries, it gave us some of the strongest moments of our crossing.
-
-In Luanda, a children’s choir calls out to us in the street.`,
-};
-
-PHOTO_STORIES['la-chorale'] = {
-  fr: `En quelques instants, les voix s’élèvent et un concert improvisé prend vie au milieu de Luanda.
-
-Un moment simple, sincère, qui nous rappelle une nouvelle fois la place qu’occupe la musique dans de nombreuses cultures africaines.`,
-  en: `Within moments the voices rise and an impromptu concert comes to life in the middle of Luanda.
-
-A simple, sincere moment that reminds us once again of the place music holds in so many African cultures.`,
-};
-
-// Sékou, le garçon de la file du ferry en Gambie (livre, 20 décembre 2024).
-PHOTO_STORIES.sekou = {
-  fr: `Bloqués plus de quinze heures dans la file du ferry, en Gambie, nous faisons une belle rencontre : Sékou, un jeune garçon du village, qui passe des heures à nos côtés.
-
-À chaque fois que nous nous éloignons, il finit toujours par réapparaître à la fenêtre du 4x4, avec son immense sourire. Il nous raconte qu’il rêve de devenir pilote d’avion pour voyager à travers le monde. Au fil des heures, il me confie même qu’il aimerait partir avec nous sur les routes d’Afrique.`,
-  en: `Stuck for more than fifteen hours in the ferry queue in The Gambia, we make a lovely encounter: Sékou, a young boy from the village, who spends hours by our side.
-
-Whenever we wander off, he always reappears at the window of the 4x4 with his huge smile. He tells us he dreams of becoming an airline pilot to travel the world. As the hours go by, he even confides that he would like to come with us on the roads of Africa.`,
-};
-
-// Amy Sow, artiste plasticienne à Nouakchott (livre, chapitre Mauritanie).
-PHOTO_STORIES['amy-sow'] = {
-  fr: `À Nouakchott, nous retrouvons Amy Sow, une artiste engagée qui nous fait découvrir plusieurs points d’approvisionnement en eau de la capitale.
-
-Née en 1977 à Nouakchott, Amy Sow est une artiste plasticienne autodidacte. À travers ses peintures aux couleurs vives, elle dénonce les discriminations et les violences faites aux femmes. Elle a créé ArtGallé, un espace d’exposition et de partage où chacun peut s’exprimer librement, avec une attention particulière portée aux femmes et aux enfants.
-
-« L’art est la meilleure façon d’exprimer ma liberté. »`,
-  en: `In Nouakchott, we meet Amy Sow, a committed artist who shows us several of the capital’s water supply points.
-
-Born in 1977 in Nouakchott, Amy Sow is a self-taught visual artist. Through her brightly coloured paintings, she speaks out against discrimination and violence against women. She founded ArtGallé, a space for exhibitions and exchange where everyone can express themselves freely, with special attention to women and children.
-
-“Art is the best way to express my freedom.”`,
-};
-
-// Ayawa, l'une des jumelles de la plage d'Agbodrafa (livre, chapitre Togo).
-PHOTO_STORIES.ayawa = {
-  fr: `Ayawa est la sœur jumelle de Sophie, que Charlotte rencontre un soir sur une plage du Togo, où nous avons installé notre campement.
-
-Sophie avait promis de revenir le lendemain matin avec sa sœur. À notre réveil, Sophie et Ayawa étaient déjà là.`,
-  en: `Ayawa is the twin sister of Sophie, whom Charlotte meets one evening on a beach in Togo where we have set up camp.
-
-Sophie had promised to come back the next morning with her sister. When we woke up, Sophie and Ayawa were already there.`,
 };
 
 export function photoStory(slug: string, locale: string): string | null {

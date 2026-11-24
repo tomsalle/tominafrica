@@ -74,6 +74,7 @@ export type Database = {
           bw_image_height: number | null;
           blur_data_url: string | null;
           master_filename: string | null;
+          photographer: string | null;
           is_black_and_white: boolean;
           position: number;
           published: boolean;
@@ -103,6 +104,7 @@ export type Database = {
           bw_image_height?: number | null;
           blur_data_url?: string | null;
           master_filename?: string | null;
+          photographer?: string | null;
           is_black_and_white?: boolean;
           position?: number;
           published?: boolean;

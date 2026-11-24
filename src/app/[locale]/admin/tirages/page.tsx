@@ -47,7 +47,7 @@ export default async function AdminPrintsPage({
   const { data } = await supabase
     .from('photos')
     .select(
-      'id, slug, title, story, location_name, country_code, taken_at, image_path, image_width, image_height, blur_data_url, published, publish_at, print_options (label, price_cents, available, position)',
+      'id, slug, title, story, photographer, location_name, country_code, taken_at, image_path, image_width, image_height, blur_data_url, published, publish_at, print_options (label, price_cents, available, position)',
     )
     .or('publish_at.not.is.null,published.eq.true')
     .order('taken_at', { ascending: true, nullsFirst: false })
@@ -103,6 +103,9 @@ export default async function AdminPrintsPage({
                   {photo.published ? 'En ligne' : 'Masquée jusqu’au 27 novembre'}
                 </p>
                 <h2 className="mt-2 font-display text-3xl font-light">{photo.title}</h2>
+                <p className={`mt-1 text-sm ${photo.photographer ? 'text-paper' : 'text-brand-text'}`}>
+                  {photo.photographer ? `Photo : ${photo.photographer}` : 'Photographe à préciser'}
+                </p>
                 <p className="mt-1 text-sm text-paper-dim">
                   {facts.length > 0 ? facts.join(' · ') : 'Lieu et date inconnus'}
                 </p>
