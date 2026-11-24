@@ -3,7 +3,7 @@
  * 27 novembre 2026) : les photos accrochées à l'expo, en vente sur le site
  * aux prix de l'affiche « Les tirages ».
  *
- *   npx tsx scripts/import-expo-tirages.ts [--dry-run]
+ *   npx tsx scripts/import-expo-tirages.ts [--dry-run] [--seul=slug]
  *
  * - Les photos déjà au catalogue gardent leur fiche ; seul le nom du fichier
  *   haute définition (master_filename) est aligné sur ~/Desktop/SELECTION EXPO.
@@ -77,7 +77,8 @@ const EXPO: Entry[] = [
   { slug: 'sur-la-colline', file: '_DSF9016.jpg' },
   // Le dérivé en ligne ne faisait que 960 px : on le régénère depuis la HD.
   { slug: 'devant-la-fenetre', file: "Ruine - Cote d'Ivoire.png", refresh: true, imagePath: 'ruine' },
-  { slug: 'blase', file: null },
+  // Photo remplacée le 24/11 (fichier de 1 500 px envoyé par Tom).
+  { slug: 'blase', file: 'Blase - Togo.jpg', refresh: true, imagePath: 'blase' },
   { slug: 'sekou', file: '_DSF9605.jpg' }, // Sékou
   { slug: 'yao', file: '_DSF9045.jpg' }, // Yao
   // Version noir et blanc tirée pour l'expo : remplace l'image couleur.
@@ -168,7 +169,11 @@ async function main() {
     .single();
   let nextPosition = (last?.position ?? 0) + 1;
 
-  for (const entry of EXPO) {
+  const only = process.argv.find((arg) => arg.startsWith('--seul='))?.slice('--seul='.length);
+  const entries = only ? EXPO.filter((entry) => entry.slug === only) : EXPO;
+  if (only && entries.length === 0) throw new Error(`Photo inconnue : ${only}`);
+
+  for (const entry of entries) {
     process.stdout.write(`${entry.create ? '[nouvelle]' : '[existante]'} ${entry.slug} … `);
     const buffer = entry.file ? await readFile(join(SOURCE_DIR, entry.file)) : null;
     if (!buffer && (entry.create || entry.refresh)) throw new Error(`Fichier HD requis pour ${entry.slug}`);
@@ -248,7 +253,7 @@ async function main() {
     console.log(`${formats.length} formats${entry.square ? ' (carré)' : ''}`);
   }
 
-  console.log(`\n✓ ${EXPO.length} photos prêtes${dryRun ? ' (simulation)' : ''}.`);
+  console.log(`\n✓ ${entries.length} photo(s) prête(s)${dryRun ? ' (simulation)' : ''}.`);
 }
 
 main().catch((error: unknown) => {
