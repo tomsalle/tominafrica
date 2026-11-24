@@ -290,18 +290,17 @@ Early in the morning, just after the twins’ visit, I meet Blase. He runs the r
 I set up my purple backdrop and we get to know each other while I photograph him. I chose the image where you can’t see his face; the others I keep for myself.`,
 };
 
-// Photo « Le voisin du garagiste » (adresse /photo/yao conservée : QR code imprimé).
 PHOTO_STORIES.yao = {
   fr: `Après quelques jours de rêve sur la plage de Ménéké, nous repassons à Grand-Béréby chez notre super mécanicien, celui qui nous a changé le démarreur. Nous lui avions promis de faire la vidange chez lui avant de reprendre un long trajet. Quelle joie il a de nous revoir !
 
-Nous attendons cinq heures, sur un banc à l’ombre. Il fait très chaud. Autour de nous, de vieux moteurs et des voitures qui servent de pièces détachées. Nous voyons les enfants rentrer de l’école, nous mangeons du poisson avec du manioc. On attend, on attend… et on s’endort, bercés par le bruit d’un homme qui frappe sur de la tôle.
+Nous attendons cinq heures, sur un banc à l’ombre. Il fait très chaud. Autour de nous, de vieux moteurs et des voitures qui servent de pièces détachées. Nous voyons les enfants rentrer de l’école, nous mangeons du poisson avec du manioc. De temps en temps, un petit courant d’air. On attend, on attend… et on s’endort, bercés par le bruit d’un homme qui frappe sur de la tôle.
 
-Comme je trouve le temps long, je pars faire un tour avec mon appareil et je fais connaissance avec tous les voisins : Yao, des femmes qui lavent leur linge, et ce jeune homme, dont je ne connais pas le nom, qui attend un ami. Je lui demande de poser devant cette tôle rouge, jaune et bleue. Le soleil commence doucement à descendre : c’est le meilleur moment pour avoir une belle lumière.`,
+Comme je trouve le temps long, je pars faire un tour avec mon appareil, et je rencontre Yao. Son visage et sa timidité m’ont touchée : j’ai eu envie de le photographier.`,
   en: `After a few dreamlike days on Ménéké beach, we stop again in Grand-Béréby at our wonderful mechanic’s, the one who replaced our starter motor. We had promised him we would get the oil changed at his garage before setting off on another long drive. He is so happy to see us again!
 
-We wait five hours on a bench in the shade. It is very hot. Around us lie old engines and cars used for spare parts. We watch the children come home from school, we eat fish with cassava. We wait, and wait… and doze off, lulled by the sound of a man hammering on sheet metal.
+We wait five hours on a bench in the shade. It is very hot. Around us lie old engines and cars used for spare parts. We watch the children come home from school, we eat fish with cassava. Every now and then, a little breeze. We wait, and wait… and doze off, lulled by the sound of a man hammering on sheet metal.
 
-As time drags on, I go for a walk with my camera and get to know all the neighbours: Yao, some women doing their washing, and this young man, whose name I never learned, who is waiting for a friend. I ask him to pose in front of this red, yellow and blue sheet metal. The sun is slowly starting to go down: the best time for beautiful light.`,
+As time drags on, I go for a walk with my camera, and I meet Yao. His face and his shyness touched me: I wanted to photograph him.`,
 };
 
 PHOTO_STORIES.hacen = {
@@ -443,6 +442,16 @@ Ensuite, nous avons regardé ensemble le coucher du soleil.`,
 Some children came to see us, one of them in a lovely striped shirt. I took out my red fabric for a backdrop, and my camera. The sun was starting to go down and the air was mild. He was so proud to be photographed.
 
 Afterwards, we watched the sunset together.`,
+};
+
+// Pas encore au catalogue (fichier de la photo à recevoir) : récit prêt.
+PHOTO_STORIES['le-voisin-du-garagiste'] = {
+  fr: `Pendant la révision de la voiture, à Grand-Béréby, j’ai eu le temps de faire connaissance avec tous les voisins : Yao, des femmes qui lavaient leur linge, et ce jeune homme, dont je ne connais pas le nom, qui attendait un ami. Je lui ai demandé de poser devant cette tôle rouge, jaune et bleue.
+
+Le soleil commençait doucement à descendre : c’est le meilleur moment pour avoir une belle lumière.`,
+  en: `While the car was being serviced in Grand-Béréby, I had time to get to know all the neighbours: Yao, some women doing their washing, and this young man, whose name I never learned, who was waiting for a friend. I asked him to pose in front of this red, yellow and blue sheet metal.
+
+The sun was slowly starting to go down: the best time for beautiful light.`,
 };
 
 PHOTO_STORIES['le-foulard-rouge'] = {
