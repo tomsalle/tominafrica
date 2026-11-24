@@ -69,16 +69,25 @@ export function formatAvailability(
 
   if (remaining === 0) {
     return {
-      label: en ? `Edition of ${editionSize} — sold out` : `Édition de ${editionSize} — épuisée`,
+      label: en ? `Limited edition of ${editionSize} — sold out` : `Édition limitée à ${editionSize} — épuisée`,
       remaining: 0,
       soldOut: true,
     };
   }
 
+  // Rien de vendu : « 30 restants sur 30 » n'apprend rien, on annonce l'édition.
+  if (editionsSold === 0) {
+    return {
+      label: en ? `Limited edition of ${editionSize}` : `Édition limitée à ${editionSize} exemplaires`,
+      remaining,
+      soldOut: false,
+    };
+  }
+
   return {
     label: en
-      ? `Edition of ${editionSize} — ${remaining} left`
-      : `Édition de ${editionSize} — ${remaining} restant${remaining > 1 ? 's' : ''}`,
+      ? `Limited edition of ${editionSize} — ${remaining} left`
+      : `Édition limitée à ${editionSize} — ${remaining} restant${remaining > 1 ? 's' : ''}`,
     remaining,
     soldOut: false,
   };

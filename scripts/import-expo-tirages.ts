@@ -31,17 +31,18 @@ const DERIVATIVE_WIDTHS = [480, 960, 1600, 2400];
 const PAPER = 'Hahnemühle Bright White 310g';
 
 // Prix de l'affiche « Les tirages » (TTC, en centimes), revus par Tom le
-// 23/11/2026 ; le 30 × 30 est retiré.
+// 23/11/2026 ; le 30 × 30 est retiré. Éditions limitées (24/11/2026) :
+// 30 exemplaires pour le petit format, 15 pour le moyen, 10 pour le grand.
 const FORMATS = {
   normal: [
-    { w: 20, h: 30, price: 6800 },
-    { w: 40, h: 60, price: 23000 },
-    { w: 60, h: 90, price: 42000 },
+    { w: 20, h: 30, price: 6800, edition: 30 },
+    { w: 40, h: 60, price: 23000, edition: 15 },
+    { w: 60, h: 90, price: 42000, edition: 10 },
   ],
   square: [
-    { w: 40, h: 40, price: 19000 },
-    { w: 60, h: 60, price: 38000 },
-    { w: 80, h: 80, price: 48000 },
+    { w: 40, h: 40, price: 19000, edition: 30 },
+    { w: 60, h: 60, price: 38000, edition: 15 },
+    { w: 80, h: 80, price: 48000, edition: 10 },
   ],
 } as const;
 
@@ -246,6 +247,7 @@ async function main() {
         paper: PAPER,
         framed: false,
         price_cents: f.price,
+        edition_size: f.edition,
         position: index + 1,
       })),
     );
