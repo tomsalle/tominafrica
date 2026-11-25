@@ -6,17 +6,18 @@
  */
 export const PHOTO_STORIES: Record<string, { fr: string; en: string }> = {
   'les-jumelles': {
-    fr: `Un soir, nous installons notre campement sur une plage du Togo. Charlotte fait la connaissance de Sophie, avec qui le courant passe immédiatement. Elle lui promet de revenir le lendemain matin, cette fois avec sa sœur jumelle, Ayawa.
+    fr: `Sur la plage d’Agbodrafa, au Togo, où nous campons ce soir-là, ma mère croise une femme qui promène son chien : Sophie. Elle lui demande si elle accepterait de revenir le lendemain pour faire des photos. Sophie dit oui : « J’ai une sœur jumelle. Si tu veux, on peut venir demain matin. »
 
-À notre réveil, Sophie et Ayawa sont déjà là. Je prends notre petit miroir, qui traîne dans la voiture depuis le début de l’aventure, et j’ai l’idée d’aligner leurs deux visages pour n’en former plus qu’un.
+Le lendemain, une petite voix nous réveille. Nous ouvrons la tente : Sophie et sa sœur Ayawa sont là, au pied de notre échelle, vêtues de la même robe, avec un grand sourire. Je vais chercher notre petit miroir, qui traîne dans la voiture depuis le début de l’aventure, et j’ai l’idée d’aligner leurs deux visages pour n’en former plus qu’un.
 
 Pendant quelques instants, les deux sœurs ne font plus qu’une. Une rencontre improvisée, un petit miroir oublié dans notre 4x4 et un peu de créativité auront suffi à créer une image que nous n’oublierons jamais.`,
-    en: `One evening, we set up camp on a beach in Togo. Charlotte meets Sophie, and they hit it off straight away. She promises to come back the next morning — this time with her twin sister, Ayawa.
+    en: `On Agbodrafa beach in Togo, where we are camping that evening, my mother comes across a woman walking her dog: Sophie. She asks whether she would come back the next day for some photos. Sophie says yes: “I have a twin sister. If you like, we can come tomorrow morning.”
 
-When we wake up, Sophie and Ayawa are already there. I grab our little mirror, which has been rattling around the car since the start of the trip, and have the idea of lining up their two faces to make just one.
+The next day, a little voice wakes us up. We open the tent: Sophie and her sister Ayawa are there at the foot of our ladder, wearing the same dress, with big smiles. I grab our little mirror, which has been rattling around the car since the start of the trip, and have the idea of lining up their two faces to make just one.
 
 For a few moments, the two sisters become one. An improvised encounter, a small mirror forgotten in our 4x4 and a little creativity were all it took to make an image we will never forget.`,
   },
+
   sapeur: {
     fr: `Notre séjour à Brazzaville s’achève par une soirée auprès des Sapeurs.
 
@@ -174,16 +175,16 @@ I will always remember her smile. The next morning, she will come back with her 
 PHOTO_STORIES['yellow-cabine'] = {
   fr: `Un soir de mars, à Brazzaville. Nous campons sur le parking d’un club de tennis ouvert aux voyageurs, où nous faisons la connaissance de Sophie et Fabien, deux vétérinaires belges naturalistes qui sillonnent l’Afrique en 4x4 à la recherche des espèces les plus rares et menacées du continent.
 
-Ce soir-là, ils nous proposent d’aller voir les fameux sapeurs, les rois de la sape. La nuit, Brazzaville est mouvementée, les rues sont pleines de monde et de bruit. Mieux vaut y aller en taxi, mais pas n’importe lequel. Le nôtre est décoré de haut en bas : strass, fourrure sur le volant, petits bonshommes qui bougent devant, sur le côté, derrière… Le chauffeur est si fier de sa déco ! J’ai envie de tout toucher, comme une enfant. Pourquoi ne fait-on pas la même chose en France ?
+Ce soir-là, ils nous proposent d’aller voir les fameux sapeurs, les rois de la sape. La nuit, Brazzaville est mouvementée, les rues sont pleines de monde et de bruit. Mieux vaut y aller en taxi, mais pas n’importe lequel. Le nôtre est décoré de haut en bas, mes yeux ne savent plus où donner de la tête : strass, fourrure sur le volant, petits bonshommes qui bougent devant, sur le côté, derrière… Le chauffeur est si fier de sa déco ! J’ai envie de tout toucher, comme une enfant. Pourquoi ne fait-on pas la même chose en France ?
 
-Ici, la rue devient un podium et le vêtement se pratique comme une religion. Les gens sont assis comme à un défilé de mode et, tout à coup, les sapeurs surgissent de nulle part, démarche nonchalante, looks incroyables.
+À Brazzaville, les sapeurs sont des stars : la rue devient un podium permanent et le vêtement se pratique comme une religion. Les gens sont assis comme à un défilé de mode et, tout à coup, les sapeurs surgissent de nulle part, démarche nonchalante, looks incroyables.
 
 Juste à côté, il y a cette petite cabane jaune qui vend des cartes Wi-Fi. J’observe ce jeune homme pendant quelques minutes : concentré sur son téléphone, il semble oublier l’euphorie autour des sapeurs. Il ne s’aperçoit même pas que je le photographie.`,
   en: `One evening in March, in Brazzaville. We are camping in the car park of a tennis club that welcomes travellers, where we meet Sophie and Fabien, two Belgian vets and naturalists who criss-cross Africa by 4x4 in search of the continent’s rarest and most endangered species.
 
-That evening, they suggest we go and see the famous sapeurs, the kings of la sape. At night Brazzaville is lively, the streets full of people and noise. Better to go by taxi, but not just any taxi. Ours is decorated from top to bottom: rhinestones, fur on the steering wheel, little nodding figures in front, on the side, at the back… The driver is so proud of his decor! I want to touch everything, like a child. Why don’t we do the same in France?
+That evening, they suggest we go and see the famous sapeurs, the kings of la sape. At night Brazzaville is lively, the streets full of people and noise. Better to go by taxi, but not just any taxi. Ours is decorated from top to bottom, and I don’t know where to look: rhinestones, fur on the steering wheel, little nodding figures in front, on the side, at the back… The driver is so proud of his decor! I want to touch everything, like a child. Why don’t we do the same in France?
 
-Here, the street becomes a catwalk and clothing is practised like a religion. People sit as if at a fashion show and, all of a sudden, the sapeurs appear out of nowhere, with a nonchalant stride and incredible looks.
+In Brazzaville, the sapeurs are stars: the street becomes a permanent catwalk and clothing is practised like a religion. People sit as if at a fashion show and, all of a sudden, the sapeurs appear out of nowhere, with a nonchalant stride and incredible looks.
 
 Right next door stands this little yellow hut selling Wi-Fi cards. I watch this young man for a few minutes: focused on his phone, he seems oblivious to the excitement around the sapeurs. He doesn’t even notice I am taking his picture.`,
 };
@@ -211,26 +212,26 @@ PHOTO_STORIES['amy-sow'] = {
 
 Quand je ne conduis pas, je prends le temps de regarder, comme si je prenais des photos avec mes yeux. Nos fenêtres sont toujours ouvertes. Nous croisons parfois des cyclistes, dont tout un groupe d’Allemands qui allaient jusqu’au Ghana ! Pour moi, ce sont eux, les vrais aventuriers.
 
-À l’approche de la ville, il y a du monde partout, dans tous les sens, tout se mélange : les gens, les voitures, les charrettes tirées par des chevaux, les ânes… La poussière entre peu à peu dans la voiture, et nous finissons par ressembler, nous aussi, à des aventuriers. Pour les amoureux des premiers Star Wars, le décor est le même. Cette foule est à la fois stressante et excitante.
+À l’approche de la ville, il y a du monde partout, dans tous les sens, tout se mélange : les gens, les voitures, les charrettes tirées par des chevaux, les ânes… La poussière entre peu à peu dans la voiture, et nous finissons par ressembler, nous aussi, à des aventuriers. Pour les amoureux des premiers Star Wars, le décor est le même. Cette foule est à la fois stressante et excitante. Les femmes et les hommes, pour la plupart, sont très grands, avec de très beaux visages.
 
-Nous restons deux nuits dans un camping au bord de la mer, non loin de l’atelier d’Amy Sow. Le lendemain matin, petit déjeuner copieux : des œufs au plat et le fameux amlou, une pâte à tartiner à base d’huile d’argan, d’amandes torréfiées et de miel, sur du pain trouvé sur la route.
+Nous restons deux nuits dans un camping au bord de la mer, non loin de l’atelier d’Amy Sow, que nous devons rencontrer. La première nuit, nous partageons le camping avec tout un groupe de touristes en autocar qui vont jusqu’au Sénégal. Le lendemain matin, petit déjeuner copieux : des œufs au plat et le fameux amlou, une pâte à tartiner à base d’huile d’argan, d’amandes torréfiées et de miel, sur du pain trouvé sur la route.
 
-En fin de matinée, nous partons à la rencontre d’Amy. Artiste plasticienne née à Nouakchott, elle a fondé ArtGallé, une résidence d’artistes. Elle utilise la peinture, la photo et les installations pour dénoncer les violences faites aux femmes et aux enfants. Amy est déjà grand-mère : son petit-fils de 3 ans, super mignon, est avec elle.
+En fin de matinée, nous partons à la rencontre d’Amy. Artiste plasticienne née à Nouakchott, elle a fondé Art Gallé, une résidence d’artistes. Elle utilise la peinture, la photo et les installations pour dénoncer les violences faites aux femmes et aux enfants, et lutter contre elles. Amy est déjà grand-mère : son petit-fils de 3 ans, super mignon, est avec elle.
 
-Elle nous fait visiter les lieux, puis nous installons ensemble le décor, avec un tissu en fond. Tom termine par une interview filmée. Le lendemain, elle nous montre deux fontaines d’eau surveillées : pas simple de faire des images à ces endroits.
+Elle nous fait visiter les lieux, puis nous installons ensemble le décor, avec un tissu en fond. Tom termine par une interview filmée. Nous nous revoyons le lendemain : elle nous montre deux fontaines d’eau surveillées. Pas simple de faire des images à ces endroits.
 
 Nous n’avions plus envie de la quitter. Deux jours délicieux avec elle.`,
   en: `After a night in the desert, in total silence under a starry sky, here we are in Nouakchott, the capital of Mauritania. The roads and the clouds are full of sand. It feels like the end of the world.
 
 When I’m not driving, I take the time to look, as if I were taking photos with my eyes. Our windows are always open. Now and then we pass cyclists, including a whole group of Germans riding all the way to Ghana! To me, they are the real adventurers.
 
-As we approach the city, there are people everywhere, going in every direction, everything mixing together: people, cars, horse-drawn carts, donkeys… The dust slowly gets into the car, and we end up looking like adventurers ourselves. For lovers of the first Star Wars films, the setting is the same. The crowd is both stressful and exciting.
+As we approach the city, there are people everywhere, going in every direction, everything mixing together: people, cars, horse-drawn carts, donkeys… The dust slowly gets into the car, and we end up looking like adventurers ourselves. For lovers of the first Star Wars films, the setting is the same. The crowd is both stressful and exciting. Most of the women and men are very tall, with beautiful faces.
 
-We spend two nights at a campsite by the sea, not far from Amy Sow’s studio. The next morning, a hearty breakfast: fried eggs and the famous amlou, a spread made from argan oil, roasted almonds and honey, on bread picked up along the way.
+We spend two nights at a campsite by the sea, not far from the studio of Amy Sow, whom we are due to meet. On the first night, we share the campsite with a whole coachload of tourists heading to Senegal. The next morning, a hearty breakfast: fried eggs and the famous amlou, a spread made from argan oil, roasted almonds and honey, on bread picked up along the way.
 
-Late in the morning, we go to meet Amy. A visual artist born in Nouakchott, she founded ArtGallé, an artists’ residency. She uses painting, photography and installations to denounce violence against women and children. Amy is already a grandmother: her adorable three-year-old grandson is with her.
+Late in the morning, we go to meet Amy. A visual artist born in Nouakchott, she founded Art Gallé, an artists’ residency. She uses painting, photography and installations to denounce and fight violence against women and children. Amy is already a grandmother: her adorable three-year-old grandson is with her.
 
-She shows us around, then we set up the scene together, with a piece of fabric as a backdrop. Tom finishes with a filmed interview. The next day, she shows us two guarded water fountains: not an easy place to take pictures.
+She shows us around, then we set up the scene together, with a piece of fabric as a backdrop. Tom finishes with a filmed interview. We meet again the next day: she shows us two guarded water fountains. Not an easy place to take pictures.
 
 We didn’t want to leave her. Two wonderful days with her.`,
 };
@@ -293,30 +294,34 @@ I set up my purple backdrop and we get to know each other while I photograph him
 PHOTO_STORIES.yao = {
   fr: `Après quelques jours de rêve sur la plage de Ménéké, nous repassons à Grand-Béréby chez notre super mécanicien, celui qui nous a changé le démarreur. Nous lui avions promis de faire la vidange chez lui avant de reprendre un long trajet. Quelle joie il a de nous revoir !
 
-Nous attendons cinq heures, sur un banc à l’ombre. Il fait très chaud. Autour de nous, de vieux moteurs et des voitures qui servent de pièces détachées. Nous voyons les enfants rentrer de l’école, nous mangeons du poisson avec du manioc. De temps en temps, un petit courant d’air. On attend, on attend… et on s’endort, bercés par le bruit d’un homme qui frappe sur de la tôle.
+Nous attendons cinq heures, sur un banc à l’ombre. Il fait très chaud. Autour de nous, de vieux moteurs et des voitures qui servent de pièces détachées. Nous voyons les enfants rentrer de l’école, nous mangeons du poisson avec du manioc. De temps en temps, un petit courant d’air. On attend, on attend… et on s’endort, bercés par le doux bruit d’un homme qui frappe sur de la tôle.
 
-Comme je trouve le temps long, je pars faire un tour avec mon appareil, et je rencontre Yao. Son visage et sa timidité m’ont touchée : j’ai eu envie de le photographier.`,
+Comme je trouve le temps long, je pars faire un tour avec mon appareil, et je rencontre Yao. Son visage mélancolique m’interpelle : j’ai tout de suite envie de le photographier.`,
   en: `After a few dreamlike days on Ménéké beach, we stop again in Grand-Béréby at our wonderful mechanic’s, the one who replaced our starter motor. We had promised him we would get the oil changed at his garage before setting off on another long drive. He is so happy to see us again!
 
-We wait five hours on a bench in the shade. It is very hot. Around us lie old engines and cars used for spare parts. We watch the children come home from school, we eat fish with cassava. Every now and then, a little breeze. We wait, and wait… and doze off, lulled by the sound of a man hammering on sheet metal.
+We wait five hours on a bench in the shade. It is very hot. Around us lie old engines and cars used for spare parts. We watch the children come home from school, we eat fish with cassava. Every now and then, a little breeze. We wait, and wait… and doze off, lulled by the gentle sound of a man hammering on sheet metal.
 
-As time drags on, I go for a walk with my camera, and I meet Yao. His face and his shyness touched me: I wanted to photograph him.`,
+As time drags on, I go for a walk with my camera, and I meet Yao. His melancholy face catches my attention: I immediately want to photograph him.`,
 };
 
 PHOTO_STORIES.hacen = {
-  fr: `Nous nous enfonçons de plus en plus dans le désert. La route est bordée de sable, quelques chameaux la longent. Le ciel a une couleur étrange, la lumière est métallique, il y a beaucoup de vent. Ici, chaque déplacement est une expédition, et les points d’eau dictent la vie de ceux qui habitent le désert.
+  fr: `Nous nous enfonçons de plus en plus dans le désert. La route est bordée de sable, quelques chameaux la longent. Le ciel a une couleur étrange, la lumière est métallique, il y a beaucoup de vent.
 
-Au loin, nous apercevons des hommes. Tom et moi décidons de nous arrêter : ils sont en train de remplir un réservoir d’eau. Je remarque tout de suite Hacen, avec sa chemise à carreaux blancs et verts qui contraste avec le décor.`,
-  en: `We head deeper and deeper into the desert. The road is lined with sand, a few camels walk alongside it. The sky is a strange colour, the light metallic, and the wind is strong. Here, every journey is an expedition, and water points shape the lives of the people who live in the desert.
+Au loin, nous apercevons des hommes. Tom et moi décidons de nous arrêter : ils sont en train de remplir un réservoir d’eau. Je remarque tout de suite Hacen : sa posture, sa démarche et sa chemise à carreaux blancs et verts attirent mon regard. Le contraste avec le décor me donne envie de le photographier.`,
+  en: `We head deeper and deeper into the desert. The road is lined with sand, a few camels walk alongside it. The sky is a strange colour, the light metallic, and the wind is strong.
 
-In the distance we spot some men. Tom and I decide to stop: they are filling a water tank. I notice Hacen straight away, in his green and white checked shirt that stands out against the landscape.`,
+In the distance we spot some men. Tom and I decide to stop: they are filling a water tank. I notice Hacen straight away: his posture, the way he walks and his green and white checked shirt catch my eye. The contrast with the landscape makes me want to photograph him.`,
 };
 
 PHOTO_STORIES.sirocco = {
-  fr: `Depuis le Maroc, le sirocco voyage avec nous. Les nuages sont chargés de sable et, dès que le soleil perce, la lumière devient étrange, unique. On a l’impression d’être sur une autre planète.
+  fr: `Le sirocco, c’est le nom de ce vent qui nous a accompagnés du Maroc jusqu’au Sénégal. Il a voyagé avec nous tout au long de cette traversée.
+
+Les nuages sont souvent chargés de sable et, dès que le soleil perce, la lumière devient étrange, presque irréelle. On a parfois l’impression d’être sur une autre planète. Tout est jaune, le ciel, le sable, la lumière… et nous avançons au milieu de tout ça.
 
 Au milieu de cette immensité, une maisonnette de béton, un panneau solaire posé dans le sable et quelques bidons. Une question ne nous quitte plus : comment vit-on au cœur d’un désert où l’eau est si rare ?`,
-  en: `Ever since Morocco, the sirocco has been travelling with us. The clouds are heavy with sand and, whenever the sun breaks through, the light turns strange and unique. It feels like being on another planet.
+  en: `Sirocco is the name of the wind that kept us company from Morocco all the way to Senegal. It travelled with us throughout the crossing.
+
+The clouds are often heavy with sand and, whenever the sun breaks through, the light turns strange, almost unreal. At times it feels like being on another planet. Everything is yellow, the sky, the sand, the light… and we drive on through the middle of it all.
 
 In the middle of this vastness: a small concrete house, a solar panel lying in the sand and a few jerrycans. One question never leaves us: how do people live in the heart of a desert where water is so scarce?`,
 };
@@ -341,14 +346,18 @@ I would love to go back and make a real series with all the children of the vill
 PHOTO_STORIES.kodjo = {
   fr: `Nous arrivons en début d’après-midi, à la recherche d’un endroit pour dormir. Le meilleur se trouve, malheureusement, sur le parking de l’embarcadère de Ganvié.
 
-Ganvié signifie « nous sommes en paix », « nous sommes sauvés ». Ses habitants ont fui la terre ferme à l’époque de la traite des esclaves pour s’installer sur le lac et échapper à la capture et à la déportation. Plus nous avançons, plus nous mesurons les atrocités du passé. Elles ont marqué ces terres à vie. On ne peut pas oublier.
+Ganvié signifie « nous sommes en paix », « nous sommes sauvés ». Ses habitants ont fui la terre ferme à l’époque de la traite des esclaves pour s’installer sur le lac, et échapper à la capture et à la déportation aux quatre coins du monde. Plus nous avançons dans l’ouest du continent, plus nous mesurons les atrocités du passé. Elles ont marqué ces terres à vie. On ne peut pas oublier.
 
-C’est un lieu de passage : il y a sans cesse du monde qui vient prendre le bateau. Je me précipite pour faire des photos, Tom aussi, mais ce n’est pas si évident : ici, les gens n’aiment pas trop ça. Il faut le faire avec intelligence et bienveillance. Et c’est Kodjo qui est venu vers nous. Il a posé juste à côté de la voiture, les détritus faisant office de fleurs.`,
+C’est un lieu de passage : il y a sans cesse du monde qui vient prendre le bateau. Je me précipite pour faire des photos, Tom aussi, mais ce n’est pas si évident : ici, les gens n’aiment pas trop être photographiés. Il faut le faire avec intelligence et bienveillance.
+
+Puis c’est Kodjo qui est venu vers nous. Il s’est installé juste à côté de la voiture, au milieu des détritus qui, à mes yeux, faisaient presque office de fleurs. J’ai pris cette photo.`,
   en: `We arrive early in the afternoon, looking for somewhere to sleep. The best spot, unfortunately, is the car park of the Ganvié landing stage.
 
-Ganvié means “we are at peace”, “we are saved”. Its people fled the mainland during the slave trade to settle on the lake and escape capture and deportation. The further we travel, the more we grasp the atrocities of the past. They have marked these lands for ever. We cannot forget.
+Ganvié means “we are at peace”, “we are saved”. Its people fled the mainland at the time of the slave trade to settle on the lake, escaping capture and deportation to the four corners of the world. The further we travel through the west of the continent, the more we grasp the atrocities of the past. They have marked these lands for ever. We cannot forget.
 
-It is a place of passage: people are constantly coming through to catch the boat. I rush to take photos, and so does Tom, but it isn’t that easy: people here don’t really like it. You have to do it with intelligence and kindness. And it was Kodjo who came over to us. He posed right next to the car, the litter standing in for flowers.`,
+It is a place of passage: people are constantly coming through to catch the boat. I rush to take photos, and so does Tom, but it isn’t that easy: people here don’t really like being photographed. You have to do it with intelligence and kindness.
+
+Then it was Kodjo who came over to us. He settled right next to the car, among the litter which, to my eyes, almost stood in for flowers. I took this photo.`,
 };
 
 PHOTO_STORIES['retour-du-marche'] = {
@@ -368,7 +377,8 @@ I love the colours, the contrasts, and the way these women are sitting.
 We stay two nights here, long enough to go to Lomé to change the brake pads and sort out the paperwork for Nigeria. Tom makes the most of it to get his hair cut by the owner of the bar.`,
 };
 
-// La chorale de Luanda : un même moment, en deux photos.
+// La chorale de Luanda : un même moment, en deux photos (« Au-dessus de moi »
+// = les-chanteuses, « Laisse-moi devant ! » = la-chorale ; adresses conservées).
 PHOTO_STORIES['les-chanteuses'] = {
   fr: `L’Angola est l’un des pays qui nous a le plus surpris. Un samedi, nous nous promenons sur les quais de Luanda quand nous voyons un groupe d’enfants sur une passerelle, en train de chanter. Une chorale qui revenait d’un spectacle, peut-être ; nous ne l’avons jamais su.
 
@@ -379,22 +389,34 @@ I start photographing them while Tom films the scene. The girls are waving their
 };
 
 PHOTO_STORIES['la-chorale'] = {
-  fr: `Les enfants s’approchent et, en quelques minutes, je me retrouve encerclée. Ils sont beaux ! Je leur demande de se remettre à chanter. Je ne parle pas portugais, mais ils finissent par comprendre. C’est beau, des voix d’enfants !
+  fr: `Les enfants s’approchent et, en quelques minutes, je me retrouve encerclée. Ils sont beaux ! Je leur demande de chanter. Je ne parle pas portugais, mais ils finissent par comprendre.
 
-Je suis par terre, l’appareil en contre-plongée. Je ne voulais pas que ce moment s’arrête.`,
-  en: `The children come closer and, within a few minutes, I am surrounded. They are beautiful! I ask them to start singing again. I don’t speak Portuguese, but they end up understanding. Children’s voices are so beautiful!
+Ils se disputent : chacun veut être au premier rang ! Tout le monde veut être devant, personne ne veut rater ce moment. C’est beau, des voix d’enfants !
 
-I am down on the ground, shooting from below. I didn’t want this moment to end.`,
+Je suis par terre, l’appareil en contre-plongée, et ils sont tout autour de moi. J’avoue que j’ai un peu peur qu’ils finissent tous par me tomber dessus ! Je ne veux pas que ce moment s’arrête.`,
+  en: `The children come closer and, within a few minutes, I am surrounded. They are beautiful! I ask them to sing. I don’t speak Portuguese, but they end up understanding.
+
+They squabble: everyone wants to be in the front row! They all want to be at the front, no one wants to miss this moment. Children’s voices are so beautiful!
+
+I am down on the ground, shooting from below, and they are all around me. I admit I am a little afraid they will all end up falling on top of me! I don’t want this moment to end.`,
 };
 
 // Photo prise par Tom.
 PHOTO_STORIES['devant-la-fenetre'] = {
-  fr: `Nous sommes en haut d’une colline, dans une ancienne maison coloniale en ruine. De là-haut, la vue s’étend sur l’embouchure du fleuve Sassandra et sur l’océan Atlantique.
+  fr: `Nous sommes en haut d’une colline, dans une ancienne maison coloniale abandonnée, au-dessus du fleuve Sassandra. De là-haut, la vue s’étend sur l’embouchure du fleuve et sur l’océan Atlantique.
 
-Sassandra a longtemps été un carrefour d’échanges et un port colonial actif ; c’est aujourd’hui le chef-lieu de la région du Gbôklé. On regarde la vue, sans oublier le passé.`,
-  en: `We are at the top of a hill, in an old colonial house in ruins. From up here, the view stretches over the mouth of the Sassandra river and the Atlantic Ocean.
+Sassandra a longtemps été un carrefour d’échanges et un port colonial actif ; c’est aujourd’hui le chef-lieu de la région du Gbôklé.
 
-Sassandra was long a crossroads of trade and a busy colonial port; today it is the capital of the Gbôklé region. We take in the view, without forgetting the past.`,
+Ma mère et moi explorons la maison ensemble. Je filme deux enfants de dos qui regardent la mer, pendant qu’elle prend quelques photos. À l’étage, je repère cette fenêtre : j’escalade un peu pour trouver mon point de vue, et je prends cette photo.
+
+En découvrant l’image, ma mère a ressenti beaucoup de tristesse et d’émotion : cette maison abandonnée, cette fenêtre, ce regard vers l’extérieur l’ont profondément touchée. On regarde la vue, sans oublier le passé.`,
+  en: `We are at the top of a hill, in an old abandoned colonial house above the Sassandra river. From up here, the view stretches over the mouth of the river and the Atlantic Ocean.
+
+Sassandra was long a crossroads of trade and a busy colonial port; today it is the capital of the Gbôklé region.
+
+My mother and I explore the house together. I film two children from behind, looking out to sea, while she takes a few photos. Upstairs, I spot this window: I climb up a little to find my angle, and I take this photo.
+
+When she saw the image, my mother felt a great deal of sadness and emotion: this abandoned house, this window, this gaze turned outwards moved her deeply. We take in the view, without forgetting the past.`,
 };
 
 PHOTO_STORIES.kandji = {
@@ -411,22 +433,26 @@ The next day, I ask them whether they would agree to a photo shoot in front of t
 };
 
 PHOTO_STORIES.sekou = {
-  fr: `C’était juste avant Noël. Tom et moi étions bloqués dans la file pour embarquer la voiture sur le ferry. Nous sommes restés très longtemps au même endroit, alors bien sûr, j’ai sorti mon appareil.
+  fr: `Sur cette photo, Sékou est presque une silhouette mystérieuse. Pourtant, derrière cette image, il y a surtout une rencontre.
+
+C’était juste avant Noël. Tom et moi étions bloqués dans la file pour embarquer la voiture sur le ferry. L’attente a duré très longtemps, alors bien sûr, j’ai sorti mon appareil.
 
 Juste en face, un jeune homme se tenait avec son cheval, et j’ai regardé la scène comme un spectacle. Il est venu me voir, je suis allée le voir, je lui ai montré les photos. Il m’a dit qu’il était étudiant et qu’il faisait un petit boulot pendant les vacances.
 
-Quelques minutes plus tard arrive un très jeune garçon, 12 ou 13 ans environ, en maillot de foot : Sékou. Il est resté avec nous presque tout l’après-midi. Il était curieux de savoir ce que nous faisions là, et nous avons beaucoup parlé. Il disait qu’il était souvent seul. J’ai d’abord pensé qu’il était là pour nous demander de l’argent, mais il ne l’a jamais fait.
+Quelques minutes plus tard est arrivé Sékou, 12 ou 13 ans environ, en maillot de foot. Il est resté avec nous presque tout l’après-midi. Il était curieux de savoir ce que nous faisions là, et nous avons beaucoup parlé. Il disait qu’il était souvent seul. J’ai d’abord pensé qu’il était là pour nous demander de l’argent, mais il ne l’a jamais fait.
 
-Nous lui avons demandé s’il avait un rêve. Il voulait devenir pilote, mais sa famille est pauvre, et il ne pourrait pas aller à l’école. Je crois que si nous lui avions proposé de venir avec nous, il serait venu.
+Nous lui avons demandé s’il avait un rêve. Il voulait devenir pilote, mais sa famille était pauvre, et il pensait qu’il ne pourrait pas aller à l’école. Je crois que si nous lui avions proposé de venir avec nous, il serait venu.
 
 C’était un joli souvenir.`,
-  en: `It was just before Christmas. Tom and I were stuck in the queue to get the car onto the ferry. We stayed in the same spot for a very long time, so of course I took out my camera.
+  en: `In this photo, Sékou is almost a mysterious silhouette. Yet behind this image, there is above all an encounter.
+
+It was just before Christmas. Tom and I were stuck in the queue to get the car onto the ferry. The wait went on for a very long time, so of course I took out my camera.
 
 Right opposite, a young man was standing with his horse, and I watched the scene like a show. He came over to me, I went over to him, and I showed him the photos. He told me he was a student with a small holiday job.
 
-A few minutes later, a very young boy arrives, around 12 or 13, in a football shirt: Sékou. He stayed with us almost all afternoon. He was curious to know what we were doing there, and we talked a lot. He said he was often alone. At first I thought he was there to ask us for money, but he never did.
+A few minutes later Sékou arrived, around 12 or 13, in a football shirt. He stayed with us almost all afternoon. He was curious to know what we were doing there, and we talked a lot. He said he was often alone. At first I thought he was there to ask us for money, but he never did.
 
-We asked him if he had a dream. He wanted to become a pilot, but his family is poor and he would not be able to go to school. I think that if we had asked him to come with us, he would have come.
+We asked him if he had a dream. He wanted to become a pilot, but his family was poor and he thought he would not be able to go to school. I think that if we had asked him to come with us, he would have come.
 
 It was a lovely memory.`,
 };
@@ -434,22 +460,30 @@ It was a lovely memory.`,
 PHOTO_STORIES['sur-la-colline'] = {
   fr: `C’était le 31 décembre. Nous campions sur une colline au-dessus d’un village, avec plusieurs voyageurs, dont Corinne et François, avec qui nous avions passé quelques jours aux chutes de Saala et de la rivière Komba. Nous avons fêté la nouvelle année tous ensemble.
 
-Des enfants sont venus nous voir, dont l’un avec une jolie chemise à rayures. J’ai sorti mon tissu rouge pour faire un fond, et mon appareil. Le soleil commençait à descendre, il faisait bon. Il était super fier d’être photographié.
+Des enfants sont venus nous voir, dont un petit garçon avec une jolie chemise à rayures. J’ai tendu mon tissu rouge derrière lui et sorti mon appareil. Le soleil commençait à descendre, il faisait bon. Il était très fier d’être photographié.
+
+J’ai choisi de laisser son visage dans l’ombre : il ne reste que le rouge, la chemise et sa présence.
 
 Ensuite, nous avons regardé ensemble le coucher du soleil.`,
   en: `It was 31 December. We were camping on a hill above a village with several other travellers, including Corinne and François, with whom we had spent a few days at the Saala falls and the Komba river. We celebrated the New Year all together.
 
-Some children came to see us, one of them in a lovely striped shirt. I took out my red fabric for a backdrop, and my camera. The sun was starting to go down and the air was mild. He was so proud to be photographed.
+Some children came to see us, among them a little boy in a lovely striped shirt. I hung my red fabric behind him and took out my camera. The sun was starting to go down and the air was mild. He was very proud to be photographed.
+
+I chose to leave his face in shadow: all that remains is the red, the shirt and his presence.
 
 Afterwards, we watched the sunset together.`,
 };
 
 // Photo reçue le 24/11/2026 (Grand-Béréby).
 PHOTO_STORIES['le-voisin-du-garagiste'] = {
-  fr: `Pendant la révision de la voiture, à Grand-Béréby, j’ai eu le temps de faire connaissance avec tous les voisins : Yao, des femmes qui lavaient leur linge, et ce jeune homme, dont je ne connais pas le nom, qui attendait un ami. Je lui ai demandé de poser devant cette tôle rouge, jaune et bleue.
+  fr: `Pendant la révision de la voiture, à Grand-Béréby, j’ai eu le temps de faire connaissance avec les voisins : Yao, des femmes qui lavaient leur linge, et ce jeune homme, dont je ne connais pas le nom, qui attendait un ami.
+
+Je le trouvais un peu mystérieux. Je lui ai demandé plusieurs fois de poser devant cette tôle rouge, jaune et bleue ; au début, il ne voulait pas. J’ai insisté un peu, et il a fini par accepter.
 
 Le soleil commençait doucement à descendre : c’est le meilleur moment pour avoir une belle lumière.`,
-  en: `While the car was being serviced in Grand-Béréby, I had time to get to know all the neighbours: Yao, some women doing their washing, and this young man, whose name I never learned, who was waiting for a friend. I asked him to pose in front of this red, yellow and blue sheet metal.
+  en: `While the car was being serviced in Grand-Béréby, I had time to get to know the neighbours: Yao, some women doing their washing, and this young man, whose name I never learned, who was waiting for a friend.
+
+I found him a little mysterious. I asked him several times to pose in front of this red, yellow and blue sheet metal; at first he didn’t want to. I insisted a little, and in the end he agreed.
 
 The sun was slowly starting to go down: the best time for beautiful light.`,
 };
@@ -457,14 +491,14 @@ The sun was slowly starting to go down: the best time for beautiful light.`,
 PHOTO_STORIES['le-foulard-rouge'] = {
   fr: `Pour traverser la Gambie et franchir le fleuve, tout le monde nous conseille le ferry : « Vous gagnerez du temps. » Très mauvais choix.
 
-Pendant plus de quinze heures, nous restons prisonniers d’une file de véhicules interminable. Chacun tente de passer devant les autres, les klaxons ne s’arrêtent jamais et la chaleur devient écrasante. En fin de journée, le dernier ferry part sans nous : nous dormons sur place, la tente dépliée au milieu des voitures.
+Pendant dix-huit heures, nous restons prisonniers d’une file de véhicules interminable. Chacun tente de passer devant les autres, les klaxons ne s’arrêtent jamais et la chaleur devient écrasante. En fin de journée, le dernier ferry part sans nous : nous dormons sur place, la tente dépliée au milieu des voitures.
 
-Cette photo est née de cette attente : un taxi jaune chargé jusqu’au toit, et une passante au foulard rouge qui traverse le décor.`,
+Autour de nous, on voit surtout des hommes. Enfin, une femme passe. Son foulard rouge et sa robe bleue vont parfaitement avec le jaune et le vert de la maison derrière elle. Je l’ai vue arriver, je l’ai suivie du regard et j’ai pris cette photo, sans avoir le temps de lui parler.`,
   en: `To cross The Gambia and its river, everyone tells us to take the ferry: “You’ll save time.” A very bad choice.
 
-For more than fifteen hours we are stuck in an endless line of vehicles. Everyone tries to jump the queue, the horns never stop and the heat becomes overwhelming. At the end of the day, the last ferry leaves without us: we spend the night there, our tent unfolded among the cars.
+For eighteen hours we are stuck in an endless line of vehicles. Everyone tries to jump the queue, the horns never stop and the heat becomes overwhelming. At the end of the day, the last ferry leaves without us: we spend the night there, our tent unfolded among the cars.
 
-This photo was born of that wait: a yellow taxi loaded to the roof, and a passer-by in a red headscarf crossing the scene.`,
+Around us, we mostly see men. At last, a woman walks by. Her red headscarf and blue dress go perfectly with the yellow and green of the house behind her. I saw her coming, followed her with my eyes and took this photo, without having time to speak to her.`,
 };
 
 export function photoStory(slug: string, locale: string): string | null {
