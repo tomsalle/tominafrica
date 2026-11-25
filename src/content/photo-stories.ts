@@ -407,7 +407,7 @@ PHOTO_STORIES['devant-la-fenetre'] = {
 
 Sassandra a longtemps été un carrefour d’échanges et un port colonial actif ; c’est aujourd’hui le chef-lieu de la région du Gbôklé.
 
-Ma mère et moi explorons la maison ensemble. Je filme deux enfants de dos qui regardent la mer, pendant qu’elle prend quelques photos. À l’étage, je repère cette fenêtre : j’escalade un peu pour trouver mon point de vue, et je prends cette photo.
+Ma mère et moi explorons la maison ensemble. Je filme deux enfants de dos qui regardent la mer, pendant qu’elle prend quelques images. À l’étage, je repère cette fenêtre : j’escalade un peu pour trouver mon point de vue, et je prends cette photo.
 
 En découvrant l’image, ma mère a ressenti beaucoup de tristesse et d’émotion : cette maison abandonnée, cette fenêtre, ce regard vers l’extérieur l’ont profondément touchée. On regarde la vue, sans oublier le passé.`,
   en: `We are at the top of a hill, in an old abandoned colonial house above the Sassandra river. From up here, the view stretches over the mouth of the river and the Atlantic Ocean.
