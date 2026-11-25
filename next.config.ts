@@ -31,10 +31,21 @@ const nextConfig: NextConfig = {
       ['la-maisonnette-dans-le-desert', 'sirocco'], ['la-fenetre-en-ruine', 'tu-passais-par-la'],
       ['double-exposition', 'amy-sow'], ['les-choristes', 'la-chorale'],
     ];
-    return renamed.flatMap(([from, to]) => [
-      { source: `/photo/${from}`, destination: `/photo/${to}`, permanent: true },
-      { source: `/en/photo/${from}`, destination: `/en/photo/${to}`, permanent: true },
-    ]);
+    return [
+      // L'adresse technique de Vercel mène au vrai domaine : Google ne doit
+      // connaître qu'une seule adresse par page. Sauf /api : les webhooks
+      // (Stripe…) peuvent viser cette adresse et ne suivent pas de redirection.
+      {
+        source: '/:path((?!api/).*)',
+        has: [{ type: 'host' as const, value: 'tominafrica.vercel.app' }],
+        destination: 'https://www.tominafrica.com/:path',
+        permanent: true,
+      },
+      ...renamed.flatMap(([from, to]) => [
+        { source: `/photo/${from}`, destination: `/photo/${to}`, permanent: true },
+        { source: `/en/photo/${from}`, destination: `/en/photo/${to}`, permanent: true },
+      ]),
+    ];
   },
 
   async headers() {

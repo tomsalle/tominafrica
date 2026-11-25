@@ -7,7 +7,7 @@ import { RoadTripScroll } from '@/components/journey/RoadTripScroll';
 import { TravelLog } from '@/components/journey/TravelLog';
 import { Prose } from '@/components/ui/Prose';
 import { Reveal } from '@/components/ui/Reveal';
-import { languageAlternates } from '@/i18n/alternates';
+import { pageAlternates } from '@/i18n/alternates';
 import { Link } from '@/i18n/navigation';
 import { bookPreorderUrl } from '@/lib/env';
 
@@ -21,7 +21,7 @@ export async function generateMetadata({
   return {
     title: t('metaTitle'),
     description: t('metaDescription'),
-    alternates: { languages: languageAlternates('/notre-aventure') },
+    alternates: pageAlternates('/notre-aventure', locale),
   };
 }
 

@@ -9,7 +9,6 @@ import { BookPopIn } from '@/components/layout/BookPopIn';
 import { ExpositionPopIn } from '@/components/layout/ExpositionPopIn';
 import { SiteFooter } from '@/components/layout/SiteFooter';
 import { SiteHeader } from '@/components/layout/SiteHeader';
-import { languageAlternates } from '@/i18n/alternates';
 import { routing, type Locale } from '@/i18n/routing';
 import { publicEnv } from '@/lib/env';
 import '../globals.css';
@@ -49,7 +48,6 @@ export async function generateMetadata({
       template: `%s — ${t('siteName')}`,
     },
     description: t('description'),
-    alternates: { languages: languageAlternates('/') },
     openGraph: {
       type: 'website',
       locale: OG_LOCALE[locale as Locale],

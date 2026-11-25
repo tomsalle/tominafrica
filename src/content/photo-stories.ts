@@ -274,14 +274,14 @@ I ask him to hide behind this huge leaf, so big it is almost his height, and I t
 };
 
 PHOTO_STORIES.blase = {
-  fr: `Nous sommes sur la plage d’Agbodrafa, à côté d’un restaurant local. Tout un groupe de personnes s’y retrouve pour fêter son anniversaire : ce sont les natifs de janvier ! Quelle ambiance, il y a tous les âges. Quelle bonne idée : chaque mois, ceux qui sont nés ce mois-là font la même chose.
+  fr: `Nous sommes sur la plage d’Agbodrafa, à côté d’un restaurant local. Tout un groupe s’y retrouve pour fêter les anniversaires : ce sont les natifs de janvier ! Quelle ambiance, tous les âges sont réunis. Et quelle bonne idée : chaque mois, ceux qui sont nés ce mois-là font la même chose.
 
 Nous décidons de rester dormir là. Il se met à pleuvoir quelques minutes après notre arrivée, et nous nous abritons sous l’auvent du restaurant. La lumière est belle, elle fait ressortir la couleur de l’eau.
 
 Tôt le matin, juste après la visite des jumelles, je rencontre Blase. Il s’occupe du restaurant avec sa mère et, à côté, il coud : il a un petit atelier où il fabrique des vêtements. Il cache ses ongles, qui sont vernis.
 
 J’installe mon fond violet et nous sympathisons pendant que je le photographie. J’ai choisi l’image où l’on ne voit pas son visage ; les autres, je les garde pour moi.`,
-  en: `We are on Agbodrafa beach, next to a local restaurant. A whole group of people gathers there to celebrate their birthdays: they are the natives of January! What an atmosphere, all ages together. What a lovely idea: every month, the people born that month do the same.
+  en: `We are on Agbodrafa beach, next to a local restaurant. A whole group gathers there to celebrate their birthdays: they are the ones born in January! What an atmosphere, with every age together. And what a lovely idea: every month, the people born that month do the same.
 
 We decide to stay the night. It starts to rain a few minutes after we arrive, and we take shelter under the restaurant’s awning. The light is beautiful, bringing out the colour of the water.
 
@@ -341,7 +341,7 @@ I would love to go back and make a real series with all the children of the vill
 PHOTO_STORIES.kodjo = {
   fr: `Nous arrivons en début d’après-midi, à la recherche d’un endroit pour dormir. Le meilleur se trouve, malheureusement, sur le parking de l’embarcadère de Ganvié.
 
-Ganvié signifie « nous sommes en paix », « nous sommes sauvés ». Ses habitants ont fui la terre ferme pendant l’esclavage pour s’installer sur le lac et échapper à la capture et à la déportation. Plus nous avançons, plus nous mesurons les atrocités du passé. Elles ont marqué ces terres à vie. On ne peut pas oublier.
+Ganvié signifie « nous sommes en paix », « nous sommes sauvés ». Ses habitants ont fui la terre ferme à l’époque de la traite des esclaves pour s’installer sur le lac et échapper à la capture et à la déportation. Plus nous avançons, plus nous mesurons les atrocités du passé. Elles ont marqué ces terres à vie. On ne peut pas oublier.
 
 C’est un lieu de passage : il y a sans cesse du monde qui vient prendre le bateau. Je me précipite pour faire des photos, Tom aussi, mais ce n’est pas si évident : ici, les gens n’aiment pas trop ça. Il faut le faire avec intelligence et bienveillance. Et c’est Kodjo qui est venu vers nous. Il a posé juste à côté de la voiture, les détritus faisant office de fleurs.`,
   en: `We arrive early in the afternoon, looking for somewhere to sleep. The best spot, unfortunately, is the car park of the Ganvié landing stage.
@@ -400,12 +400,12 @@ Sassandra was long a crossroads of trade and a busy colonial port; today it is t
 PHOTO_STORIES.kandji = {
   fr: `Nous passons trois nuits sur le terrain d’une petite maison en construction, près du sanctuaire des singes de Drabo. Elle servira à accueillir les visiteurs du sanctuaire. À notre arrivée, un grand monticule de terre trône au milieu du terrain.
 
-Kandji et ses deux frères aident leur père à finir la maison. Avec un filet en ferraille, ils tamisent la terre pour en retirer les cailloux. Tom se met même à les aider, à la pelle. Moi, je trouve que ce filet ressemble à une méduse, et je le trouve beau.
+Kandji et ses deux frères aident leur père à finir la maison. Avec un filet en ferraille, ils tamisent la terre pour en retirer les cailloux. Tom se met même à les aider, à la pelle. Moi, je trouve que ce filet ressemble à une méduse : il est beau.
 
 Le lendemain, je leur demande s’ils sont d’accord pour faire une séance photo devant le mur brut de la maison. J’étais contente de sortir mon appareil et de prendre le temps !`,
   en: `We spend three nights on the plot of a small house under construction, near the Drabo monkey sanctuary. It will be used to welcome visitors to the sanctuary. When we arrive, a big mound of earth sits in the middle of the plot.
 
-Kandji and his two brothers are helping their father finish the house. With a wire mesh net, they sieve the earth to remove the stones. Tom even starts helping them with a shovel. As for me, I think the net looks like a jellyfish, and I find it beautiful.
+Kandji and his two brothers are helping their father finish the house. With a wire mesh net, they sieve the earth to remove the stones. Tom even starts helping them with a shovel. To me, the net looks like a jellyfish: it is beautiful.
 
 The next day, I ask them whether they would agree to a photo shoot in front of the bare wall of the house. I was happy to take out my camera and take my time!`,
 };

@@ -3,7 +3,7 @@ import { getTranslations } from 'next-intl/server';
 import { Container } from '@/components/ui/Container';
 import { Reveal } from '@/components/ui/Reveal';
 import { YouTubeFacade } from '@/components/videos/YouTubeFacade';
-import { languageAlternates } from '@/i18n/alternates';
+import { pageAlternates } from '@/i18n/alternates';
 import { VIDEOS } from '@/lib/videos-data';
 
 export async function generateMetadata({
@@ -16,7 +16,7 @@ export async function generateMetadata({
   return {
     title: t('metaTitle'),
     description: t('metaDescription'),
-    alternates: { languages: languageAlternates('/videos') },
+    alternates: pageAlternates('/videos', locale),
   };
 }
 

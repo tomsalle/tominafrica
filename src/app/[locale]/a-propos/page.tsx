@@ -4,7 +4,7 @@ import { getTranslations } from 'next-intl/server';
 import { notFound } from 'next/navigation';
 import { Container } from '@/components/ui/Container';
 import { Prose } from '@/components/ui/Prose';
-import { languageAlternates } from '@/i18n/alternates';
+import { pageAlternates } from '@/i18n/alternates';
 
 // Page retirée temporairement (demande de Tom, 2026-08-15) : le contenu
 // reste en place, prêt à être remis en ligne en retirant ce garde-fou, le
@@ -21,7 +21,7 @@ export async function generateMetadata({
   return {
     title: t('metaTitle'),
     description: t('metaDescription'),
-    alternates: { languages: languageAlternates('/a-propos') },
+    alternates: pageAlternates('/a-propos', locale),
   };
 }
 

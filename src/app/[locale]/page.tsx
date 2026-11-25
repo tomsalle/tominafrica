@@ -1,3 +1,4 @@
+import type { Metadata } from 'next';
 import { getTranslations } from 'next-intl/server';
 import { ExhibitionFeature } from '@/components/exhibition/ExhibitionFeature';
 import { ContactForm } from '@/components/home/ContactForm';
@@ -6,13 +7,20 @@ import { RoadTripScroll } from '@/components/journey/RoadTripScroll';
 import { SeriesHero } from '@/components/home/SeriesHero';
 import { Container } from '@/components/ui/Container';
 import { Reveal } from '@/components/ui/Reveal';
+import { pageAlternates } from '@/i18n/alternates';
 import { Link } from '@/i18n/navigation';
 import { JOURNEY_COUNTRIES, JOURNEY_KM } from '@/lib/journey';
 import { getJourneyPhotos } from '@/lib/queries/photos';
 import { getSeriesList } from '@/lib/queries/series';
 
-// Le catalogue change rarement : rendu statique, revalidé toutes les heures.
-export const revalidate = 3600;
+// Rendu statique, rafraîchi chaque minute : une photo publiée (ou masquée)
+// par la tâche programmée apparaît (ou disparaît) presque aussitôt.
+export const revalidate = 60;
+
+export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
+  const { locale } = await params;
+  return { alternates: pageAlternates('/', locale) };
+}
 
 export default async function HomePage() {
   const t = await getTranslations('home');

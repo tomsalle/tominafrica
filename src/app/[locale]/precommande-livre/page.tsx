@@ -23,7 +23,7 @@ import { BOOK_PRINT_RUN } from '@/lib/book-preorder/config';
 import { BOOK_PREORDER_PAGE_DISABLED } from '@/lib/book-preorder/flags';
 import { loadPreorderData } from '@/lib/book-preorder/page-data';
 import { formatPrice } from '@/lib/format';
-import { languageAlternates } from '@/i18n/alternates';
+import { pageAlternates } from '@/i18n/alternates';
 
 // La jauge doit rester à jour — pas une page figée une heure comme le catalogue.
 export const revalidate = 60;
@@ -52,7 +52,7 @@ export async function generateMetadata({
   return {
     title: t('metaTitle'),
     description: t('metaDescription'),
-    alternates: { languages: languageAlternates('/precommande-livre') },
+    alternates: pageAlternates('/precommande-livre', locale),
   };
 }
 

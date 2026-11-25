@@ -12,6 +12,7 @@ import { PhotoViewer } from '@/components/photo/PhotoViewer';
 import { PurchasePanel } from '@/components/photo/PurchasePanel';
 import { Container } from '@/components/ui/Container';
 import { Reveal } from '@/components/ui/Reveal';
+import { pageAlternates } from '@/i18n/alternates';
 import { Link } from '@/i18n/navigation';
 import { FramePreferenceProvider } from '@/lib/frame-preference';
 import { photoAbsoluteSrc, photoSrc } from '@/lib/images';
@@ -20,9 +21,20 @@ import { photoStory } from '@/content/photo-stories';
 import { countryName, formatFieldDate, journeyDay } from '@/lib/journey';
 import { getAllPhotoSlugs, getJourneyPhotos, getPhotoBySlug, type JourneyPhoto } from '@/lib/queries/photos';
 
-export const revalidate = 3600;
+// Rafraîchi chaque minute : les photos de l'expo sont publiées (et masquées)
+// à heure fixe par une tâche programmée en base.
+export const revalidate = 60;
 
 type PageProps = { params: Promise<{ slug: string; locale: string }> };
+
+/** Premier paragraphe du récit, coupé proprement autour de 160 caractères (description pour Google). */
+function excerpt(story: string | null | undefined): string | undefined {
+  const first = story?.split(/\n\s*\n/)[0]?.replace(/\s+/g, ' ').trim();
+  if (!first) return undefined;
+  if (first.length <= 160) return first;
+  const cut = first.slice(0, 160);
+  return `${cut.slice(0, cut.lastIndexOf(' '))}…`;
+}
 
 export async function generateStaticParams() {
   const slugs = await getAllPhotoSlugs();
@@ -40,14 +52,14 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 
   const t = await getTranslations({ locale, namespace: 'photo' });
   const where = photo.location_name || countryName(photo.country_code, locale);
+  const story = photo.story?.trim() ? photo.story : photoStory(photo.slug, locale);
   const description =
-    photo.caption ??
-    photo.story?.split(/\n\s*\n/)[0]?.slice(0, 200) ??
-    t('metaDescription', { title: photo.title, where: where ?? '' });
+    photo.caption ?? excerpt(story) ?? t('metaDescription', { title: photo.title, where: where ?? '' });
 
   return {
-    title: photo.title,
+    title: photo.photographer ? `${photo.title} · ${t('photographer', { name: photo.photographer })}` : photo.title,
     description,
+    alternates: pageAlternates(`/photo/${photo.slug}`, locale),
     openGraph: {
       type: 'article',
       title: photo.title,
@@ -81,8 +93,20 @@ export default async function PhotoPage({ params }: PageProps) {
     '@context': 'https://schema.org',
     '@type': 'Product',
     name: photo.title,
-    image: photoAbsoluteSrc(photo.image_path, photo.image_width),
-    description: photo.caption ?? undefined,
+    // Image décrite comme une photographie, avec son auteur : Google Images
+    // affiche alors le crédit (« Charlotte Badelon ») sous la photo.
+    image: {
+      '@type': 'ImageObject',
+      contentUrl: photoAbsoluteSrc(photo.image_path, photo.image_width),
+      ...(photo.photographer
+        ? {
+            creator: { '@type': 'Person', name: photo.photographer },
+            creditText: photo.photographer,
+            copyrightNotice: `© ${photo.photographer}`,
+          }
+        : {}),
+    },
+    description: photo.caption ?? excerpt(story),
     brand: { '@type': 'Brand', name: 'Tom in Africa' },
     ...(prices.length > 0
       ? {

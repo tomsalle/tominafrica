@@ -8,7 +8,7 @@ import { SimulationBanner } from '@/components/book-preorder/SimulationBanner';
 import { TierPledgeForm } from '@/components/book-preorder/TierPledgeForm';
 import { Container } from '@/components/ui/Container';
 import { Link } from '@/i18n/navigation';
-import { languageAlternates } from '@/i18n/alternates';
+import { pageAlternates } from '@/i18n/alternates';
 import { BOOK_PRINT_RUN } from '@/lib/book-preorder/config';
 import { BOOK_PREORDER_PAGE_DISABLED } from '@/lib/book-preorder/flags';
 import { loadPreorderData } from '@/lib/book-preorder/page-data';
@@ -26,7 +26,7 @@ export async function generateMetadata({
   const t = await getTranslations({ locale, namespace: 'bookPreorder.chooser' });
   return {
     title: t('metaTitle'),
-    alternates: { languages: languageAlternates('/precommande-livre/formules') },
+    alternates: pageAlternates('/precommande-livre/formules', locale),
   };
 }
 

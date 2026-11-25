@@ -3,7 +3,7 @@ import Image from 'next/image';
 import { getTranslations } from 'next-intl/server';
 import { ExpositionForm } from '@/components/exhibition/ExpositionForm';
 import { Container } from '@/components/ui/Container';
-import { languageAlternates } from '@/i18n/alternates';
+import { pageAlternates } from '@/i18n/alternates';
 import { Link } from '@/i18n/navigation';
 import { publicEnv } from '@/lib/env';
 import { EXHIBITION, EXHIBITION_PATH } from '@/lib/exhibition/event';
@@ -18,7 +18,7 @@ export async function generateMetadata({
   return {
     title: t('metaTitle'),
     description: t('metaDescription'),
-    alternates: { languages: languageAlternates(EXHIBITION_PATH) },
+    alternates: pageAlternates(EXHIBITION_PATH, locale),
     openGraph: {
       title: t('metaTitle'),
       description: t('metaDescription'),

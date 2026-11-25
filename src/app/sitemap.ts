@@ -5,7 +5,8 @@ import { publicEnv } from '@/lib/env';
 import { getAllPhotoSlugs } from '@/lib/queries/photos';
 import { getAllSeriesSlugs } from '@/lib/queries/series';
 
-export const revalidate = 3600;
+// Rafraîchi toutes les 10 minutes : les photos de l'expo y entrent le soir du vernissage.
+export const revalidate = 600;
 
 /** Entrée bilingue : une URL par langue, avec les alternates hreflang qui vont avec. */
 function bilingualEntry(
@@ -39,19 +40,13 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     ...bilingualEntry(base, '/precommande-livre/formules', 'weekly', 0.8),
     ...bilingualEntry(base, '/videos', 'monthly', 0.5),
 
-    // Pages légales et fiches du catalogue : uniquement en français pour l'instant.
+    // Galerie et fiches photo : traduites aussi (récits en français et en anglais).
+    ...seriesSlugs.flatMap((slug) => bilingualEntry(base, `/series/${slug}`, 'weekly', 0.8)),
+    ...photoSlugs.flatMap((slug) => bilingualEntry(base, `/photo/${slug}`, 'monthly', 0.7)),
+
+    // Pages légales : uniquement en français.
     { url: `${base}/mentions-legales`, changeFrequency: 'yearly', priority: 0.2 },
     { url: `${base}/cgv`, changeFrequency: 'yearly', priority: 0.2 },
     { url: `${base}/confidentialite`, changeFrequency: 'yearly', priority: 0.2 },
-    ...seriesSlugs.map((slug) => ({
-      url: `${base}/series/${slug}`,
-      changeFrequency: 'monthly' as const,
-      priority: 0.8,
-    })),
-    ...photoSlugs.map((slug) => ({
-      url: `${base}/photo/${slug}`,
-      changeFrequency: 'monthly' as const,
-      priority: 0.7,
-    })),
   ];
 }

@@ -6,10 +6,12 @@ import { JourneyTimeline } from '@/components/journey/JourneyTimeline';
 import { RoadTripScroll } from '@/components/journey/RoadTripScroll';
 import { Container } from '@/components/ui/Container';
 import { HANDWRITTEN_SERIES_SLUG, HandwrittenTitle } from '@/components/ui/HandwrittenTitle';
+import { pageAlternates } from '@/i18n/alternates';
 import { photoAbsoluteSrc } from '@/lib/images';
 import { getAllSeriesSlugs, getSeriesBySlug } from '@/lib/queries/series';
 
-export const revalidate = 3600;
+// Rafraîchi chaque minute : voir la page d'accueil.
+export const revalidate = 60;
 
 type PageProps = { params: Promise<{ slug: string; locale: string }> };
 
@@ -33,6 +35,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   return {
     title: series.title,
     description: series.description ?? series.subtitle ?? undefined,
+    alternates: pageAlternates(`/series/${series.slug}`, locale),
     openGraph: {
       title: series.title,
       description: series.description ?? undefined,
