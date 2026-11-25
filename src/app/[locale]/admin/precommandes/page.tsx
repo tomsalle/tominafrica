@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import { AdminLoginForm, AdminNav } from '@/components/admin/AdminLoginForm';
 import { isAdmin, isAdminConfigured } from '@/lib/admin/auth';
 import { BOOK_PREORDER_STEPS } from '@/lib/book-preorder/config';
+import { estimateGuests, extraNamedPeople } from '@/lib/exhibition/guests';
 import { formatPrice } from '@/lib/format';
 import { createAdminClient } from '@/lib/supabase/admin';
 
@@ -70,7 +71,7 @@ export default async function AdminPreordersPage({
   }
 
   const supabase = createAdminClient();
-  const [{ data: pledgesData }, { data: tiersData }] = await Promise.all([
+  const [{ data: pledgesData }, { data: tiersData }, { data: registrationsData }] = await Promise.all([
     supabase
       .from('book_preorder_pledges')
       .select(
@@ -78,6 +79,7 @@ export default async function AdminPreordersPage({
       )
       .order('created_at', { ascending: false }),
     supabase.from('book_preorder_tiers').select('slug,book_units,stock_limit,claimed_count,published'),
+    supabase.from('exhibition_registrations').select('first_name,email,message,visit_days'),
   ]);
 
   const pledges = (pledgesData ?? []) as Pledge[];
@@ -94,6 +96,30 @@ export default async function AdminPreordersPage({
   const pickups = online.filter((p) => delivery(p) === 'Retrait à l’expo').length;
   const vinted = online.filter((p) => delivery(p) === 'Envoi Vinted').length;
   const earlyBird = tiers.find((t) => t.slug === 'early-bird');
+
+  // Exposition : une inscription en double (même e-mail, même prénom) ne compte qu'une fois.
+  const registrations = [
+    ...new Map(
+      (registrationsData ?? []).map((r) => [`${r.email.trim().toLowerCase()}|${r.first_name.trim().toLowerCase()}`, r]),
+    ).values(),
+  ];
+  const registered = registrations.reduce((sum, r) => sum + 1 + extraNamedPeople(r.first_name), 0);
+  const guests = registrations.reduce((sum, r) => sum + estimateGuests(r.message), 0);
+  const byDay = (day: string) => registrations.filter((r) => r.visit_days?.includes(day)).length;
+  const withoutDay = registrations.filter((r) => !r.visit_days?.length).length;
+
+  // Sur téléphone, « Total attendu » et « Jours choisis » prennent toute la largeur.
+  const expoStats = [
+    { label: 'Total attendu', value: String(registered + guests), detail: 'inscrits et invités', wide: true },
+    { label: 'Inscrits à l’expo', value: String(registered), detail: `${registrations.length} formulaires` },
+    { label: 'Invités en plus', value: `+${guests}`, detail: 'annoncés dans les messages (estimation basse)' },
+    {
+      label: 'Jours choisis',
+      value: `${byDay('2026-11-27')} · ${byDay('2026-11-28')} · ${byDay('2026-11-29')}`,
+      detail: `ven. · sam. · dim. — ${withoutDay} inscrits sans jour (avant le 10/10)`,
+      wide: true,
+    },
+  ];
 
   const stats = [
     { label: 'Livres précommandés', value: String(books), detail: `objectif en cours : ${step}` },
@@ -132,6 +158,19 @@ export default async function AdminPreordersPage({
             </div>
           ))}
         </dl>
+
+        <section className="mt-16">
+          <h2 className="font-display text-2xl font-light sm:text-3xl">Exposition</h2>
+          <dl className="mt-6 grid grid-cols-2 gap-px overflow-hidden border border-ink-line bg-ink-line lg:grid-cols-4">
+            {expoStats.map((s) => (
+              <div key={s.label} className={`bg-ink-soft p-5 ${s.wide ? 'col-span-2 lg:col-span-1' : ''}`}>
+                <dt className="text-[0.6875rem] tracking-[0.14em] text-paper-faint uppercase">{s.label}</dt>
+                <dd className="mt-2 font-display text-3xl font-light tabular-nums sm:text-4xl">{s.value}</dd>
+                <dd className="mt-1 text-xs text-paper-dim">{s.detail}</dd>
+              </div>
+            ))}
+          </dl>
+        </section>
 
         <section className="mt-16">
           <h2 className="font-display text-2xl font-light sm:text-3xl">Commandes ({orders.length})</h2>
