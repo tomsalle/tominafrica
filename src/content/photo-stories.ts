@@ -409,14 +409,14 @@ Sassandra a longtemps été un carrefour d’échanges et un port colonial actif
 
 Ma mère et moi explorons la maison ensemble. Je filme deux enfants de dos qui regardent la mer, pendant qu’elle prend quelques images. À l’étage, je repère cette fenêtre : j’escalade un peu pour trouver mon point de vue, et je prends cette photo.
 
-En découvrant l’image, ma mère a ressenti beaucoup de tristesse et d’émotion : cette maison abandonnée, cette fenêtre, ce regard vers l’extérieur l’ont profondément touchée. On regarde la vue, sans oublier le passé.`,
+Cette maison abandonnée, cette fenêtre, ce regard vers l’extérieur m’ont profondément touché. On regarde la vue, sans oublier le passé.`,
   en: `We are at the top of a hill, in an old abandoned colonial house above the Sassandra river. From up here, the view stretches over the mouth of the river and the Atlantic Ocean.
 
 Sassandra was long a crossroads of trade and a busy colonial port; today it is the capital of the Gbôklé region.
 
 My mother and I explore the house together. I film two children from behind, looking out to sea, while she takes a few photos. Upstairs, I spot this window: I climb up a little to find my angle, and I take this photo.
 
-When she saw the image, my mother felt a great deal of sadness and emotion: this abandoned house, this window, this gaze turned outwards moved her deeply. We take in the view, without forgetting the past.`,
+This abandoned house, this window, this gaze turned outwards moved me deeply. We take in the view, without forgetting the past.`,
 };
 
 PHOTO_STORIES.kandji = {
