@@ -104,9 +104,10 @@ export type JourneyPhoto = Pick<
 >;
 
 /**
- * Photos visibles dans l'ordre chronologique du voyage (les photos sans date
- * en dernier). Sert à la séquence de l'accueil et à la navigation
- * « jour précédent / jour suivant » de la page photo.
+ * Photos visibles dans l'ordre du voyage, pays après pays : l'ordre est fixé
+ * par `position` en base (Paris, puis Maroc… Angola), la date ne sert qu'à
+ * départager. Sert à la séquence de l'accueil et à la navigation
+ * « précédente / suivante » de la page photo — même ordre que la galerie.
  */
 export async function getJourneyPhotos(): Promise<JourneyPhoto[]> {
   const supabase = await catalogClient();
@@ -116,8 +117,8 @@ export async function getJourneyPhotos(): Promise<JourneyPhoto[]> {
     .select(
       'id, slug, title, image_path, image_width, image_height, blur_data_url, taken_at, country_code, location_name, published, position, print_options (available)',
     )
-    .order('taken_at', { ascending: true, nullsFirst: false })
-    .order('position', { ascending: true });
+    .order('position', { ascending: true })
+    .order('taken_at', { ascending: true, nullsFirst: false });
 
   if (error) throw new Error(`Lecture du parcours impossible : ${error.message}`);
 
