@@ -1,6 +1,7 @@
 import { getTranslations } from 'next-intl/server';
 import { NextResponse } from 'next/server';
 import { exhibitionInfoEmail } from '@/lib/exhibition/confirmation-email';
+import { isExhibitionDayFull } from '@/lib/exhibition/event';
 import { exhibitionRegistrationRequestSchema } from '@/lib/exhibition/types';
 import { isContactFormEnabled, serverEnv } from '@/lib/env';
 import { CONTACT_FROM_ADDRESS, getResend } from '@/lib/resend/server';
@@ -47,6 +48,12 @@ export async function POST(request: Request) {
 
   const { firstName, lastName, email, phone, message, visitDays, honeypot } = parsed.data;
   const days = visitDays?.length ? [...new Set(visitDays)].sort() : null;
+
+  // Jour complet (vernissage) : refusé même si une page ouverte avant la
+  // fermeture le propose encore.
+  if (days?.some(isExhibitionDayFull)) {
+    return NextResponse.json({ error: t('dayFullError') }, { status: 409 });
+  }
 
   // Robot détecté : on répond succès sans rien enregistrer, sans le lui dire.
   if (honeypot) {

@@ -38,8 +38,8 @@
     "dates": "27 – 29 novembre 2026 · Paris",
     "eyebrow": "Exposition",
     "title": "Notre exposition arrive à Paris",
-    "body": "Vernissage le vendredi 27 novembre, chez Mecanicus (70 avenue Jean Moulin, 75014 Paris). Exposition ouverte du 27 au 29 novembre — photographies de notre traversée de l’Afrique, voitures, vidéos du voyage, sortie du livre et anecdotes en direct.",
-    "cta": "S’inscrire au vernissage",
+    "body": "Vernissage le vendredi 27 novembre (complet), chez Mecanicus (70 avenue Jean Moulin, 75014 Paris). Exposition ouverte du 27 au 29 novembre — photographies de notre traversée de l’Afrique, voitures, vidéos du voyage, sortie du livre et anecdotes en direct.",
+    "cta": "S’inscrire pour le week-end",
     "later": "Plus tard"
   },
   "cartDrawer": {
@@ -108,7 +108,10 @@
     "genericError": "Une erreur est survenue. Réessayez dans un instant.",
     "invalidRequest": "Requête invalide.",
     "invalidForm": "Formulaire invalide.",
-    "registrationFailed": "L’inscription a échoué. Réessayez dans un instant."
+    "registrationFailed": "L’inscription a échoué. Réessayez dans un instant.",
+    "dayFull": "complet",
+    "daysHelpFull": "Le vernissage du vendredi est complet. Venez nous voir samedi ou dimanche, de 10 h à 17 h.",
+    "dayFullError": "Le vernissage du vendredi est complet. Choisissez samedi ou dimanche."
   },
   "contactForm": {
     "successTitle": "Message envoyé.",
@@ -199,7 +202,7 @@
     "datesLabel": "Dates",
     "datesValue": "Du vendredi 27 au dimanche 29 novembre 2026",
     "openingLabel": "Vernissage",
-    "openingValue": "Vendredi 27 novembre 2026",
+    "openingValue": "Vendredi 27 novembre 2026 · complet",
     "venueLabel": "Lieu",
     "programmeLabel": "Au programme",
     "programmeValue": "Les photographies du voyage, des voitures — en collaboration avec le lieu qui nous accueille —, les vidéos, la sortie du livre, et nos anecdotes en direct.",
@@ -619,10 +622,10 @@
     "title": "Notre exposition arrive à Paris",
     "dates": "27 — 29.11.2026",
     "openingLabel": "Vernissage",
-    "opening": "Vendredi 27 novembre 2026",
+    "opening": "Vendredi 27 novembre 2026 · complet",
     "venueLabel": "Lieu",
     "programme": "Les photographies du voyage, des voitures, les vidéos, la sortie du livre — et nos anecdotes, en direct.",
-    "cta": "S’inscrire au vernissage",
+    "cta": "S’inscrire pour le week-end",
     "map": "Voir le lieu",
     "posterAria": "Affiche de l’exposition — s’inscrire"
   },

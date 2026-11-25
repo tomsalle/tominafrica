@@ -23,6 +23,16 @@ export const EXHIBITION = {
 export const EXHIBITION_DAYS = ['2026-11-27', '2026-11-28', '2026-11-29'] as const;
 export type ExhibitionDay = (typeof EXHIBITION_DAYS)[number];
 
+/**
+ * Jours complets : plus d'inscription possible (case grisée dans le
+ * formulaire, refus côté serveur). Vernissage complet le 25/11/2026.
+ */
+export const EXHIBITION_FULL_DAYS: readonly ExhibitionDay[] = ['2026-11-27'];
+
+export function isExhibitionDayFull(day: string): boolean {
+  return (EXHIBITION_FULL_DAYS as readonly string[]).includes(day);
+}
+
 export const EXHIBITION_PATH = '/notre-aventure/exposition';
 
 /** Posé quand une inscription réussit : la pop-in ne revient plus jamais. */

@@ -3,7 +3,12 @@
 import { useLocale, useTranslations } from 'next-intl';
 import { useState, type FormEvent } from 'react';
 import { Button } from '@/components/ui/Button';
-import { EXHIBITION_DAYS, EXHIBITION_REGISTERED_KEY, type ExhibitionDay } from '@/lib/exhibition/event';
+import {
+  EXHIBITION_DAYS,
+  EXHIBITION_REGISTERED_KEY,
+  isExhibitionDayFull,
+  type ExhibitionDay,
+} from '@/lib/exhibition/event';
 
 type Status = 'idle' | 'submitting' | 'success' | 'already' | 'error';
 
@@ -172,19 +177,22 @@ export function ExpositionForm() {
         <fieldset className="sm:col-span-2" aria-describedby={daysError ? 'visit-days-error' : 'visit-days-help'}>
           <legend className="eyebrow">{t('daysLabel')}</legend>
           <p id="visit-days-help" className="mt-2 text-xs text-paper-faint">
-            {t('daysHelp')}
+            {EXHIBITION_DAYS.some(isExhibitionDayFull) ? t('daysHelpFull') : t('daysHelp')}
           </p>
           <div className="mt-3 flex flex-wrap gap-3">
-            {EXHIBITION_DAYS.map((day) => (
-              <label key={day} className="cursor-pointer">
+            {EXHIBITION_DAYS.map((day) => {
+              const full = isExhibitionDayFull(day);
+              return (
+              <label key={day} className={full ? 'cursor-not-allowed' : 'cursor-pointer'}>
                 <input
                   type="checkbox"
                   name="visitDays"
                   value={day}
+                  disabled={full}
                   className="peer sr-only"
                   onChange={() => setDaysError(null)}
                 />
-                <span className="flex min-h-11 items-center gap-2.5 border border-ink-line px-4 text-sm text-paper-dim transition-colors duration-200 select-none peer-checked:border-brand peer-checked:bg-brand/20 peer-checked:text-paper peer-focus-visible:outline-2 peer-focus-visible:outline-offset-2 peer-focus-visible:outline-paper hover:border-paper-dim peer-checked:[&_.day-box]:border-brand peer-checked:[&_.day-box]:bg-brand peer-checked:[&_svg]:opacity-100">
+                <span className="flex min-h-11 items-center gap-2.5 border border-ink-line px-4 text-sm text-paper-dim transition-colors duration-200 select-none peer-checked:border-brand peer-checked:bg-brand/20 peer-checked:text-paper peer-focus-visible:outline-2 peer-focus-visible:outline-offset-2 peer-focus-visible:outline-paper peer-enabled:hover:border-paper-dim peer-disabled:opacity-45 peer-checked:[&_.day-box]:border-brand peer-checked:[&_.day-box]:bg-brand peer-checked:[&_svg]:opacity-100">
                   <span
                     aria-hidden
                     className="day-box flex size-4 shrink-0 items-center justify-center border border-paper-faint transition-colors duration-200"
@@ -201,10 +209,14 @@ export function ExpositionForm() {
                       <path d="m5 12.5 4.5 4.5L19 7.5" />
                     </svg>
                   </span>
-                  {t(`days.${DAY_KEYS[day]}`)}
+                  <span className={full ? 'line-through decoration-paper-faint' : undefined}>
+                    {t(`days.${DAY_KEYS[day]}`)}
+                  </span>
+                  {full ? <span className="text-xs tracking-[0.12em] uppercase">{t('dayFull')}</span> : null}
                 </span>
               </label>
-            ))}
+              );
+            })}
           </div>
           {daysError ? (
             <p id="visit-days-error" role="alert" className="mt-3 text-sm text-accent">

@@ -38,8 +38,8 @@
     "dates": "November 27 – 29, 2026 · Paris",
     "eyebrow": "Exhibition",
     "title": "Our exhibition is coming to Paris",
-    "body": "Opening night on Friday, November 27, at Mecanicus (70 avenue Jean Moulin, 75014 Paris). Open to the public November 27–29 — photographs from our crossing of Africa, cars, videos from the trip, our book launch, and live stories.",
-    "cta": "Register for the opening",
+    "body": "Opening night on Friday, November 27 (now full), at Mecanicus (70 avenue Jean Moulin, 75014 Paris). Open to the public November 27–29 — photographs from our crossing of Africa, cars, videos from the trip, our book launch, and live stories.",
+    "cta": "Register for the weekend",
     "later": "Later"
   },
   "cartDrawer": {
@@ -108,7 +108,10 @@
     "genericError": "Something went wrong. Please try again in a moment.",
     "invalidRequest": "Invalid request.",
     "invalidForm": "Invalid form.",
-    "registrationFailed": "Registration failed. Please try again in a moment."
+    "registrationFailed": "Registration failed. Please try again in a moment.",
+    "dayFull": "full",
+    "daysHelpFull": "Friday’s opening night is full. Come and see us on Saturday or Sunday, 10 am to 5 pm.",
+    "dayFullError": "Friday’s opening night is full. Please choose Saturday or Sunday."
   },
   "contactForm": {
     "successTitle": "Message sent.",
@@ -199,7 +202,7 @@
     "datesLabel": "Dates",
     "datesValue": "Friday 27 to Sunday 29 November 2026",
     "openingLabel": "Opening",
-    "openingValue": "Friday 27 November 2026",
+    "openingValue": "Friday 27 November 2026 · full",
     "venueLabel": "Venue",
     "programmeLabel": "Programme",
     "programmeValue": "Photographs from the journey, cars — in partnership with the venue hosting us —, the videos, the book launch, and our stories told live.",
@@ -619,10 +622,10 @@
     "title": "Our exhibition is coming to Paris",
     "dates": "27 — 29.11.2026",
     "openingLabel": "Opening",
-    "opening": "Friday 27 November 2026",
+    "opening": "Friday 27 November 2026 · full",
     "venueLabel": "Venue",
     "programme": "Photographs from the journey, cars, the videos, the book launch — and our stories, told live.",
-    "cta": "Register for the opening",
+    "cta": "Register for the weekend",
     "map": "See the venue",
     "posterAria": "Exhibition poster — register"
   },
