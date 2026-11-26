@@ -119,12 +119,16 @@ Every morning, I walk past the large square of the old military hospital, where 
 };
 
 PHOTO_STORIES.aissata = {
-  fr: `J’adore regarder le linge sécher au soleil. Chaque matin, Aïssata vient étendre le sien. Au début, je n’aperçois que ses jambes.
+  fr: `Je dois l’avouer, j’adore regarder le linge sécher au soleil, c’est bête mais c’est pour moi un moment de beauté et de calme très particulier.
 
-Je m’approche pour lui dire bonjour et lui demander son prénom. Elle est très timide, ses joues deviennent toutes rouges. J’ai eu envie de fixer ce moment intime.`,
-  en: `I love watching laundry dry in the sun. Every morning, Aïssata comes to hang hers out. At first, all I can see are her legs.
+Aïssata vient chaque matin étendre le sien. Au début, je n’aperçois que ses jambes. Je m’approche pour lui dire bonjour et lui demander son prénom.
 
-I go over to say hello and ask her name. She is very shy, and her cheeks go bright red. I wanted to capture this intimate moment.`,
+Elle est très timide. Ses joues deviennent toutes rouges. J’ai eu envie de fixer ce moment intime.`,
+  en: `I have to admit, I love watching laundry dry in the sun. It may sound silly, but to me it is a very special moment of beauty and calm.
+
+Every morning, Aïssata comes to hang hers out. At first, all I can see are her legs. I go over to say hello and ask her name.
+
+She is very shy. Her cheeks go bright red. I wanted to capture this intimate moment.`,
 };
 
 PHOTO_STORIES.ruben = {
