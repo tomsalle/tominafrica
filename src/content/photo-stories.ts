@@ -447,7 +447,7 @@ Juste avant les fêtes de Noël, Tom et moi nous sommes retrouvés bloqués dans
 
 En face de nous, il y avait un jeune homme avec son cheval. Je regardais la scène, j’étais au spectacle. Il est venu me voir un moment, puis il est reparti. À mon tour, je suis allée vers lui et je lui ai montré les photos que j’avais prises. Il m’a raconté qu’il était étudiant et qu’il faisait un petit boulot pendant les vacances.
 
-Quelques minutes plus tard, Sékou est arrivé. Il devait avoir 12 ou 13 ans, il portait un maillot de foot. Il est resté avec nous tout l’après-midi.
+Quelques minutes plus tard, Sékou est arrivé. Il doit avoir 12 ou 13 ans, il portait un maillot de foot. Il est resté avec nous tout l’après-midi.
 
 Il était curieux de savoir ce que nous faisions ici. On a beaucoup parlé. Il nous a dit qu’il se retrouvait souvent seul. J’ai pensé qu’il était peut-être là pour nous réclamer de l’argent, mais finalement, il ne l’a pas fait.
 
@@ -460,7 +460,7 @@ Just before Christmas, Tom and I found ourselves stuck in the queue of cars wait
 
 Opposite us stood a young man with his horse. I watched the scene as if at a show. He came over to me for a while, then left again. In turn, I went over to him and showed him the photos I had taken. He told me he was a student with a small holiday job.
 
-A few minutes later, Sékou arrived. He must have been 12 or 13, and he was wearing a football shirt. He stayed with us all afternoon.
+A few minutes later, Sékou arrived. He must be 12 or 13, and he was wearing a football shirt. He stayed with us all afternoon.
 
 He was curious to know what we were doing there. We talked a lot. He told us he was often on his own. I thought he might be there to ask us for money, but in the end he never did.
 
