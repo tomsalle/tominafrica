@@ -61,8 +61,11 @@ type Entry = {
 
 const EXPO: Entry[] = [
   // --- déjà au catalogue ---------------------------------------------------
-  { slug: 'habi', file: 'MAROC2O25370.jpg', square: true },
-  { slug: 'kandji', file: 'Bénin2O25285.jpg', square: true },
+  // Habi, Kandji, Les maillots rouges, La forêt rose : versions retouchées
+  // envoyées par Tom le 26/11 (2000 px). Nouveaux dossiers d'images : le CDN
+  // garde les anciens fichiers en cache pendant un an.
+  { slug: 'habi', file: 'Habi - Maroc (retouche).jpg', square: true, refresh: true, imagePath: 'habi-retouche' },
+  { slug: 'kandji', file: 'Kandji - Benin (retouche NB).jpg', square: true, refresh: true, imagePath: 'kandji-retouche' },
   { slug: 'yellow-cabine', file: '_DSF9727.jpeg' },
   { slug: 'kodjo', file: '_DSF9647.jpeg' },
   { slug: 'nene', file: '_DSF9254.jpeg' },
@@ -72,8 +75,7 @@ const EXPO: Entry[] = [
   { slug: 'on-a-joue-ensemble', file: "Le palmier - Cote D'ivoire.JPG" },
   { slug: 'kemi', file: '_DSF9956.jpeg' },
   { slug: 'retour-du-marche', file: '_DSF9151.jpeg' },
-  // Pas de fichier HD dans SELECTION EXPO : seuls ses formats sont gérés ici.
-  { slug: 'les-maillots-rouges', file: null, square: true },
+  { slug: 'les-maillots-rouges', file: 'Les maillots rouges - Senegal (retouche).jpg', square: true, refresh: true, imagePath: 'maillots-rouges-retouche' },
   { slug: 'hacen', file: '_DSF9479.jpg' },
   { slug: 'sur-la-colline', file: '_DSF9016.jpg' },
   // Le dérivé en ligne ne faisait que 960 px : on le régénère depuis la HD.
@@ -86,7 +88,7 @@ const EXPO: Entry[] = [
   { slug: 'les-chanteuses', file: 'La chorale NB - Angola.jpg', refresh: true, imagePath: 'la-chorale-nb' },
 
   // --- nouvelles -------------------------------------------------------------
-  { slug: 'la-foret-rose', file: '2093-04-1.jpeg', square: true, create: { title: 'La forêt rose' } },
+  { slug: 'la-foret-rose', file: 'La foret rose - Congo (retouche).jpg', square: true, refresh: true, imagePath: 'la-foret-rose-retouche', create: { title: 'La forêt rose' } },
   { slug: 'l-attente', file: '_DSF9489.jpeg', create: { title: 'Le passant au bonnet bleu' } },
   { slug: 'sirocco', file: '_DSF9466.jpeg', create: { title: 'La maisonnette dans le désert' } },
   { slug: 'aissata', file: '_DSF9225.jpeg', create: { title: 'Aïssata' } },
