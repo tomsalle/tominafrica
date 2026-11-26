@@ -16,7 +16,16 @@ export const exhibitionRegistrationRequestSchema = z.object({
   // Exigé par le formulaire ; facultatif ici pour qu'une page ouverte avant
   // l'ajout de ce choix puisse encore envoyer son inscription.
   visitDays: z.array(z.enum(EXHIBITION_DAYS)).max(EXHIBITION_DAYS.length).optional(),
+  // Créneaux du week-end (« 2026-11-28T14:00 ») ; validés contre la liste
+  // des créneaux et les jours choisis dans la route.
+  visitSlots: z.array(z.string().max(20)).max(EXHIBITION_DAYS.length).optional(),
   honeypot: z.string().max(2000).optional(),
+});
+
+/** Choix d'un créneau depuis le lien envoyé par e-mail. */
+export const exhibitionSlotRequestSchema = z.object({
+  id: z.uuid(),
+  visitSlots: z.array(z.string().max(20)).min(1).max(EXHIBITION_DAYS.length),
 });
 
 export type ExhibitionRegistrationRequest = z.infer<typeof exhibitionRegistrationRequestSchema>;

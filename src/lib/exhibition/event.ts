@@ -33,6 +33,71 @@ export function isExhibitionDayFull(day: string): boolean {
   return (EXHIBITION_FULL_DAYS as readonly string[]).includes(day);
 }
 
+/**
+ * Créneaux de visite du week-end (deux heures, le dernier s'arrête à la
+ * fermeture) : chaque visiteur en choisit un par jour, pour répartir le monde.
+ * Identifiant : « 2026-11-28T10:00 ».
+ */
+export type ExhibitionSlot = { id: string; day: ExhibitionDay; start: string; end: string };
+
+const SLOT_HOURS = 2;
+
+export const EXHIBITION_SLOTS: readonly ExhibitionSlot[] = EXHIBITION.hours
+  .filter((hours) => !hours.opening)
+  .flatMap((hours) => {
+    const toMinutes = (value: string) => Number(value.slice(0, 2)) * 60 + Number(value.slice(3, 5));
+    const toClock = (minutes: number) =>
+      `${String(Math.floor(minutes / 60)).padStart(2, '0')}:${String(minutes % 60).padStart(2, '0')}`;
+    const close = toMinutes(hours.close);
+    const slots: ExhibitionSlot[] = [];
+    for (let start = toMinutes(hours.open); start < close; start += SLOT_HOURS * 60) {
+      const begin = toClock(start);
+      slots.push({ id: `${hours.day}T${begin}`, day: hours.day, start: begin, end: toClock(Math.min(start + SLOT_HOURS * 60, close)) });
+    }
+    return slots;
+  });
+
+export function slotsForDay(day: string): ExhibitionSlot[] {
+  return EXHIBITION_SLOTS.filter((slot) => slot.day === day);
+}
+
+export function findSlot(id: string): ExhibitionSlot | undefined {
+  return EXHIBITION_SLOTS.find((slot) => slot.id === id);
+}
+
+/** Jours qui demandent un créneau (le week-end ; pas le vernissage). */
+export function dayHasSlots(day: string): boolean {
+  return EXHIBITION_SLOTS.some((slot) => slot.day === day);
+}
+
+/**
+ * Garde un seul créneau valide par jour, et seulement pour les jours choisis.
+ * Renvoie null s'il n'en reste aucun.
+ */
+export function cleanSlots(slotIds: readonly string[] | null | undefined, days: readonly string[] | null): string[] | null {
+  const byDay = new Map<string, string>();
+  for (const id of slotIds ?? []) {
+    const slot = findSlot(id);
+    if (slot && (days ?? []).includes(slot.day)) byDay.set(slot.day, slot.id);
+  }
+  return byDay.size ? [...byDay.values()].sort() : null;
+}
+
+/** « 14:00 » → « 14 h » (fr) ou « 2 pm » (en). */
+export function formatHour(value: string, locale: string): string {
+  const [h = 0, m = 0] = value.split(':').map(Number);
+  if (locale === 'en') {
+    const suffix = h >= 12 ? 'pm' : 'am';
+    const h12 = h % 12 || 12;
+    return m ? `${h12}:${String(m).padStart(2, '0')} ${suffix}` : `${h12} ${suffix}`;
+  }
+  return m ? `${h} h ${String(m).padStart(2, '0')}` : `${h} h`;
+}
+
+export function formatSlot(slot: ExhibitionSlot, locale: string): string {
+  return `${formatHour(slot.start, locale)} – ${formatHour(slot.end, locale)}`;
+}
+
 export const EXHIBITION_PATH = '/notre-aventure/exposition';
 
 /** Posé quand une inscription réussit : la pop-in ne revient plus jamais. */

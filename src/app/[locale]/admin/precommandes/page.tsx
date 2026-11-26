@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import { AdminLoginForm, AdminNav } from '@/components/admin/AdminLoginForm';
 import { isAdmin, isAdminConfigured } from '@/lib/admin/auth';
 import { BOOK_PREORDER_STEPS } from '@/lib/book-preorder/config';
+import { EXHIBITION_SLOTS, formatSlot, slotsForDay } from '@/lib/exhibition/event';
 import { estimateGuests, extraNamedPeople } from '@/lib/exhibition/guests';
 import { formatPrice } from '@/lib/format';
 import { createAdminClient } from '@/lib/supabase/admin';
@@ -79,7 +80,7 @@ export default async function AdminPreordersPage({
       )
       .order('created_at', { ascending: false }),
     supabase.from('book_preorder_tiers').select('slug,book_units,stock_limit,claimed_count,published'),
-    supabase.from('exhibition_registrations').select('first_name,email,message,visit_days'),
+    supabase.from('exhibition_registrations').select('first_name,email,message,visit_days,visit_slots'),
   ]);
 
   const pledges = (pledgesData ?? []) as Pledge[];
@@ -120,6 +121,24 @@ export default async function AdminPreordersPage({
       wide: true,
     },
   ];
+
+  // Créneaux du week-end : inscriptions et personnes (accompagnants compris).
+  const people = (r: (typeof registrations)[number]) => 1 + extraNamedPeople(r.first_name) + estimateGuests(r.message);
+  const slotDays = [...new Set(EXHIBITION_SLOTS.map((slot) => slot.day))];
+  const slotTable = slotDays.map((day) => {
+    const onDay = registrations.filter((r) => r.visit_days?.includes(day));
+    const rows = slotsForDay(day).map((slot) => {
+      const inSlot = onDay.filter((r) => r.visit_slots?.includes(slot.id));
+      return { label: formatSlot(slot, 'fr'), forms: inSlot.length, people: inSlot.reduce((sum, r) => sum + people(r), 0) };
+    });
+    const without = onDay.filter((r) => !r.visit_slots?.some((id) => id.startsWith(day)));
+    return {
+      day,
+      title: day === '2026-11-28' ? 'Samedi 28' : 'Dimanche 29',
+      rows,
+      without: { forms: without.length, people: without.reduce((sum, r) => sum + people(r), 0) },
+    };
+  });
 
   const stats = [
     { label: 'Livres précommandés', value: String(books), detail: `objectif en cours : ${step}` },
@@ -170,6 +189,39 @@ export default async function AdminPreordersPage({
               </div>
             ))}
           </dl>
+        </section>
+
+        <section className="mt-16">
+          <h2 className="font-display text-2xl font-light sm:text-3xl">Créneaux du week-end</h2>
+          <p className="mt-2 text-xs text-paper-dim">Personnes = inscrits + accompagnants annoncés (estimation basse).</p>
+          <div className="mt-6 grid grid-cols-1 gap-8 md:grid-cols-2">
+            {slotTable.map((day) => (
+              <table key={day.day} className="w-full text-sm">
+                <caption className="pb-3 text-left font-display text-xl font-light">{day.title}</caption>
+                <thead>
+                  <tr className="border-b border-ink-line text-[0.6875rem] tracking-[0.12em] text-paper-faint uppercase">
+                    <th scope="col" className="py-2 text-left font-normal">Créneau</th>
+                    <th scope="col" className="py-2 text-right font-normal">Inscriptions</th>
+                    <th scope="col" className="py-2 text-right font-normal">Personnes</th>
+                  </tr>
+                </thead>
+                <tbody className="divide-y divide-ink-line tabular-nums">
+                  {day.rows.map((row) => (
+                    <tr key={row.label}>
+                      <th scope="row" className="py-2.5 text-left font-normal text-paper">{row.label}</th>
+                      <td className="py-2.5 text-right text-paper-dim">{row.forms}</td>
+                      <td className="py-2.5 text-right text-paper">{row.people}</td>
+                    </tr>
+                  ))}
+                  <tr>
+                    <th scope="row" className="py-2.5 text-left font-normal text-paper-dim italic">Pas encore de créneau</th>
+                    <td className="py-2.5 text-right text-paper-dim">{day.without.forms}</td>
+                    <td className="py-2.5 text-right text-paper-dim">{day.without.people}</td>
+                  </tr>
+                </tbody>
+              </table>
+            ))}
+          </div>
         </section>
 
         <section className="mt-16">

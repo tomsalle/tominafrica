@@ -1,4 +1,4 @@
-import { EXHIBITION } from '@/lib/exhibition/event';
+import { EXHIBITION, findSlot, formatSlot } from '@/lib/exhibition/event';
 
 type Locale = 'fr' | 'en';
 
@@ -6,6 +6,7 @@ type Input = {
   locale: Locale;
   firstName: string | null;
   visitDays: string[] | null;
+  visitSlots?: string[] | null;
   /** « confirmation » juste après l'inscription, « rappel » pour les inscrits déjà enregistrés. */
   kind: 'confirmation' | 'rappel';
 };
@@ -41,9 +42,15 @@ function displayName(firstName: string | null): string | null {
  * programme et tirages en vente. Texte brut, comme la confirmation de
  * précommande : lisible partout.
  */
-export function exhibitionInfoEmail({ locale, firstName, visitDays, kind }: Input): { subject: string; text: string } {
+export function exhibitionInfoEmail({ locale, firstName, visitDays, visitSlots, kind }: Input): { subject: string; text: string } {
   const name = displayName(firstName);
   const days = (visitDays ?? []).filter((day) => day in DAY_NAMES.fr);
+  // « samedi 28 novembre, 14 h – 16 h » : le créneau remplace le jour seul.
+  const dayWithSlot = (day: string, lang: Locale) => {
+    const slot = (visitSlots ?? []).map(findSlot).find((s) => s?.day === day);
+    const name = lang === 'fr' ? DAY_NAMES.fr[day]?.toLowerCase() : DAY_NAMES.en[day];
+    return slot ? `${name}, ${formatSlot(slot, lang)}` : name;
+  };
 
   if (locale === 'en') {
     const schedule = EXHIBITION.hours.map(
@@ -68,7 +75,7 @@ export function exhibitionInfoEmail({ locale, firstName, visitDays, kind }: Inpu
         '',
         'OPENING HOURS',
         ...schedule,
-        ...(days.length ? ['', `You told us you would come: ${days.map((day) => DAY_NAMES.en[day]).join(', ')}.`] : []),
+        ...(days.length ? ['', `You told us you would come: ${days.map((day) => dayWithSlot(day, 'en')).join('; ')}.`] : []),
         '',
         'ON SHOW',
         'The photographs from our journey across Africa, cars, our travel videos, the launch of our book, and our stories told live.',
@@ -109,7 +116,7 @@ export function exhibitionInfoEmail({ locale, firstName, visitDays, kind }: Inpu
       '',
       'HORAIRES',
       ...schedule,
-      ...(days.length ? ['', `Vous nous avez dit venir : ${days.map((day) => DAY_NAMES.fr[day]?.toLowerCase()).join(', ')}.`] : []),
+      ...(days.length ? ['', `Vous nous avez dit venir : ${days.map((day) => dayWithSlot(day, 'fr')).join(' ; ')}.`] : []),
       '',
       'AU PROGRAMME',
       'Les photographies de notre traversée de l’Afrique, des voitures, les vidéos du voyage, la sortie de notre livre et nos anecdotes en direct.',

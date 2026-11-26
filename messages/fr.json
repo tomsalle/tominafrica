@@ -111,7 +111,10 @@
     "registrationFailed": "L’inscription a échoué. Réessayez dans un instant.",
     "dayFull": "complet",
     "daysHelpFull": "Le vernissage du vendredi est complet. Venez nous voir samedi ou dimanche, de 10 h à 17 h.",
-    "dayFullError": "Le vernissage du vendredi est complet. Choisissez samedi ou dimanche."
+    "dayFullError": "Le vernissage du vendredi est complet. Choisissez samedi ou dimanche.",
+    "slotLabel": "{day} : votre créneau",
+    "slotsHelp": "Face au grand nombre d’inscriptions, nous répartissons les visites du week-end en créneaux de deux heures. Si vous venez à plusieurs, choisissez le même créneau pour tout le groupe.",
+    "slotRequired": "Choisissez un créneau pour chaque jour du week-end."
   },
   "contactForm": {
     "successTitle": "Message envoyé.",
@@ -642,5 +645,18 @@
     "titleBefore": "La précommande ouvre vendredi à 12 h",
     "bodyBefore": "1 Mère, 1 Fils, 1 Rêve : notre voyage de Paris à Cape Town en 112 pages. Édition limitée à 300 exemplaires, et des early birds à prix réduit pour les plus rapides.",
     "ctaBefore": "Découvrir le livre"
+  },
+  "expositionSlot": {
+    "metaTitle": "Choisir mon créneau",
+    "eyebrow": "Exposition · Mecanicus, Paris 14e",
+    "title": "Choisissez votre créneau",
+    "intro": "Bonjour {name}, face au grand nombre d’inscriptions, nous répartissons les visites du week-end en créneaux de deux heures. Choisissez le vôtre : si vous venez à plusieurs, gardez le même créneau pour tout le groupe.",
+    "introNoName": "Face au grand nombre d’inscriptions, nous répartissons les visites du week-end en créneaux de deux heures. Choisissez le vôtre : si vous venez à plusieurs, gardez le même créneau pour tout le groupe.",
+    "noWeekend": "Votre inscription ne concerne pas le week-end : vous n’avez pas de créneau à choisir.",
+    "submit": "Valider mon créneau",
+    "submitting": "Envoi…",
+    "saved": "C’est noté, merci !",
+    "savedBody": "Votre créneau est enregistré. Vous pouvez revenir sur cette page pour le changer. À très vite !",
+    "error": "L’enregistrement a échoué. Réessayez dans un instant."
   }
 }

@@ -1,7 +1,7 @@
 import { getTranslations } from 'next-intl/server';
 import { NextResponse } from 'next/server';
 import { exhibitionInfoEmail } from '@/lib/exhibition/confirmation-email';
-import { isExhibitionDayFull } from '@/lib/exhibition/event';
+import { cleanSlots, findSlot, formatSlot, isExhibitionDayFull } from '@/lib/exhibition/event';
 import { exhibitionRegistrationRequestSchema } from '@/lib/exhibition/types';
 import { isContactFormEnabled, serverEnv } from '@/lib/env';
 import { CONTACT_FROM_ADDRESS, getResend } from '@/lib/resend/server';
@@ -46,8 +46,9 @@ export async function POST(request: Request) {
     return NextResponse.json({ error: t('invalidForm') }, { status: 400 });
   }
 
-  const { firstName, lastName, email, phone, message, visitDays, honeypot } = parsed.data;
+  const { firstName, lastName, email, phone, message, visitDays, visitSlots, honeypot } = parsed.data;
   const days = visitDays?.length ? [...new Set(visitDays)].sort() : null;
+  const slots = cleanSlots(visitSlots, days);
 
   // Jour complet (vernissage) : refusé même si une page ouverte avant la
   // fermeture le propose encore.
@@ -85,6 +86,7 @@ export async function POST(request: Request) {
     phone,
     message: message || null,
     visit_days: days,
+    visit_slots: slots,
   });
 
   if (error) {
@@ -109,6 +111,7 @@ export async function POST(request: Request) {
           email,
           phone,
           days ? `Jour(s) : ${days.map(formatDayFr).join(', ')}` : 'Jour(s) : non précisé',
+          slots ? `Créneau(x) : ${slots.map((id) => `${formatDayFr(id.slice(0, 10))} ${formatSlot(findSlot(id)!, 'fr')}`).join(', ')}` : '',
           message ? `\n${message}` : '',
         ].join('\n'),
       });
@@ -119,7 +122,7 @@ export async function POST(request: Request) {
     // Confirmation à la personne inscrite : lieu, horaires, programme.
     try {
       const { CONTACT_EMAIL } = serverEnv();
-      const confirmation = exhibitionInfoEmail({ locale, firstName, visitDays: days, kind: 'confirmation' });
+      const confirmation = exhibitionInfoEmail({ locale, firstName, visitDays: days, visitSlots: slots, kind: 'confirmation' });
       const { error: sendError } = await getResend().emails.send({
         from: CONTACT_FROM_ADDRESS,
         to: email,

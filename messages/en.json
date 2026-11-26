@@ -111,7 +111,10 @@
     "registrationFailed": "Registration failed. Please try again in a moment.",
     "dayFull": "full",
     "daysHelpFull": "Friday’s opening night is full. Come and see us on Saturday or Sunday, 10 am to 5 pm.",
-    "dayFullError": "Friday’s opening night is full. Please choose Saturday or Sunday."
+    "dayFullError": "Friday’s opening night is full. Please choose Saturday or Sunday.",
+    "slotLabel": "{day}: your time slot",
+    "slotsHelp": "Because so many people have registered, weekend visits are split into two-hour time slots. If you are coming as a group, choose the same slot for everyone.",
+    "slotRequired": "Please choose a time slot for each weekend day."
   },
   "contactForm": {
     "successTitle": "Message sent.",
@@ -642,5 +645,18 @@
     "titleBefore": "Pre-order opens Friday at 12 pm",
     "bodyBefore": "1 Mother, 1 Son, 1 Dream: our journey from Paris to Cape Town in 112 pages. Limited edition of 300 copies, with early birds at a reduced price for the quickest.",
     "ctaBefore": "Discover the book"
+  },
+  "expositionSlot": {
+    "metaTitle": "Choose my time slot",
+    "eyebrow": "Exhibition · Mecanicus, Paris 14th",
+    "title": "Choose your time slot",
+    "intro": "Hello {name}, because so many people have registered, weekend visits are split into two-hour time slots. Choose yours: if you are coming as a group, keep the same slot for everyone.",
+    "introNoName": "Because so many people have registered, weekend visits are split into two-hour time slots. Choose yours: if you are coming as a group, keep the same slot for everyone.",
+    "noWeekend": "Your registration is not for the weekend: there is no time slot to choose.",
+    "submit": "Confirm my time slot",
+    "submitting": "Sending…",
+    "saved": "Thank you, it’s noted!",
+    "savedBody": "Your time slot is saved. You can come back to this page to change it. See you soon!",
+    "error": "Saving failed. Please try again in a moment."
   }
 }

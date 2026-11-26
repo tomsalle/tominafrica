@@ -2,10 +2,12 @@
 
 import { useLocale, useTranslations } from 'next-intl';
 import { useState, type FormEvent } from 'react';
+import { SlotPicker } from '@/components/exhibition/SlotPicker';
 import { Button } from '@/components/ui/Button';
 import {
   EXHIBITION_DAYS,
   EXHIBITION_REGISTERED_KEY,
+  dayHasSlots,
   isExhibitionDayFull,
   type ExhibitionDay,
 } from '@/lib/exhibition/event';
@@ -36,6 +38,17 @@ export function ExpositionForm() {
   const [status, setStatus] = useState<Status>('idle');
   const [error, setError] = useState<string | null>(null);
   const [daysError, setDaysError] = useState<string | null>(null);
+  const [selectedDays, setSelectedDays] = useState<ExhibitionDay[]>([]);
+  const [slots, setSlots] = useState<Partial<Record<ExhibitionDay, string>>>({});
+  const [slotsError, setSlotsError] = useState<string | null>(null);
+
+  function toggleDay(day: ExhibitionDay, checked: boolean) {
+    setDaysError(null);
+    setSlotsError(null);
+    setSelectedDays((current) =>
+      checked ? EXHIBITION_DAYS.filter((d) => d === day || current.includes(d)) : current.filter((d) => d !== day),
+    );
+  }
 
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -48,6 +61,15 @@ export function ExpositionForm() {
       form.querySelector<HTMLInputElement>('input[name="visitDays"]')?.focus();
       return;
     }
+
+    // Un créneau par jour du week-end coché.
+    const missingSlot = selectedDays.find((day) => dayHasSlots(day) && !slots[day]);
+    if (missingSlot) {
+      setSlotsError(t('slotRequired'));
+      form.querySelector<HTMLInputElement>(`input[name="slot-${missingSlot}"]`)?.focus();
+      return;
+    }
+    const visitSlots = selectedDays.map((day) => slots[day]).filter(Boolean);
 
     setStatus('submitting');
     setError(null);
@@ -63,6 +85,7 @@ export function ExpositionForm() {
           phone: data.get('phone'),
           message: data.get('message'),
           visitDays,
+          visitSlots,
           honeypot: data.get('entreprise'),
           locale,
         }),
@@ -87,6 +110,8 @@ export function ExpositionForm() {
 
       setStatus('success');
       form.reset();
+      setSelectedDays([]);
+      setSlots({});
       rememberRegistration();
     } catch {
       setStatus('error');
@@ -190,7 +215,7 @@ export function ExpositionForm() {
                   value={day}
                   disabled={full}
                   className="peer sr-only"
-                  onChange={() => setDaysError(null)}
+                  onChange={(event) => toggleDay(day, event.currentTarget.checked)}
                 />
                 <span className="flex min-h-11 items-center gap-2.5 border border-ink-line px-4 text-sm text-paper-dim transition-colors duration-200 select-none peer-checked:border-brand peer-checked:bg-brand/20 peer-checked:text-paper peer-focus-visible:outline-2 peer-focus-visible:outline-offset-2 peer-focus-visible:outline-paper peer-enabled:hover:border-paper-dim peer-disabled:opacity-45 peer-checked:[&_.day-box]:border-brand peer-checked:[&_.day-box]:bg-brand peer-checked:[&_svg]:opacity-100">
                   <span
@@ -224,6 +249,23 @@ export function ExpositionForm() {
             </p>
           ) : null}
         </fieldset>
+
+        {selectedDays.some(dayHasSlots) ? (
+          <div className="sm:col-span-2">
+            <p className="text-xs text-paper-faint">{t('slotsHelp')}</p>
+            <div className="mt-4">
+              <SlotPicker
+                days={selectedDays}
+                value={slots}
+                error={slotsError}
+                onChange={(day, slotId) => {
+                  setSlotsError(null);
+                  setSlots((current) => ({ ...current, [day]: slotId }));
+                }}
+              />
+            </div>
+          </div>
+        ) : null}
 
         <div className="sm:col-span-2">
           <label htmlFor="message" className="eyebrow">
