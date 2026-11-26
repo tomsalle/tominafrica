@@ -123,7 +123,13 @@ async function main() {
   });
 
   if (!send) {
-    if (messages[0]) console.log(`--- Exemple ---\nObjet : ${messages[0].subject}\n\n${messages[0].text.replace(/creneau\/[0-9a-f-]+/g, 'creneau/<lien personnel>')}`);
+    // Deux exemples : une personne qui vient un seul jour, une qui vient les deux.
+    const single = recipients.findIndex((r) => WEEKEND.filter((day) => r.visit_days?.includes(day)).length === 1);
+    const both = recipients.findIndex((r) => WEEKEND.every((day) => r.visit_days?.includes(day)));
+    for (const index of [single, both].filter((i) => i >= 0)) {
+      const m = messages[index]!;
+      console.log(`--- Exemple ---\nÀ : ${m.to}\nObjet : ${m.subject}\n\n${m.text.replace(/creneau\/[0-9a-f-]+/g, 'creneau/<lien personnel>')}\n`);
+    }
     return;
   }
 
